@@ -1,18 +1,17 @@
-# ✒️ Título
-Projeto de xxx -> IPL 22/23
+# ✒️ Happy Guest - Mobile
+Projeto Informático -> IPL 22/23
 
-Descrição
+Desenvolvimento de uma aplicação para smartphone (android) permita 
+melhorar os serviços e a comunicação entre o cliente e a unidade hoteleira.
 
 ## 📖 Notas:
-1. xxx
-
-2. xxx
+1. xxx: xxx
 
 ## 🧑 Participantes:
-* Diogo Mendes nº2191181 -> diiogomendes21@hotmail.com
-* Nome Apelido
+* Diogo Mendes nº2191181 -> 2191181@ipleiria.pt
+* Tomás Neves nº221747 -> 221747@ipleiria.pt
 
 ## 🔧 Info:
-Engenharia Informática -> xºAno xºSemestre
+Engenharia Informática
 
-Linguagem
+Java
