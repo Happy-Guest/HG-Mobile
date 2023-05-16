@@ -2,4 +2,9 @@
     <string name="app_name">HappyGuest</string>
     <string name="background_image">Background Image</string>
     <string name="logo_image">Logo Image</string>
+    <string name="remember">Lembrar</string>
+    <string name="login">Login</string>
+    <string name="register">Registar</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
