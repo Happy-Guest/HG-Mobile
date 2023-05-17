@@ -12,12 +12,12 @@
         android:layout_height="170dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="40dp"
+        android:contentDescription="@string/logo_image"
         app:layout_constraintBottom_toTopOf="@+id/inputEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logotipo"
-        android:contentDescription="@string/logo_image" />
+        app:srcCompat="@drawable/logotipo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputEmail"
@@ -47,9 +47,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputPassword"
         android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:errorTextColor="#B84141"
-        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputEmail"
@@ -81,35 +83,37 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="295dp"
+        android:layout_width="255dp"
         android:layout_height="48dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/rounded_corner"
         android:text="@string/login"
+        android:textAllCaps="false"
         app:icon="@android:drawable/ic_lock_idle_lock"
         app:iconPadding="-25dp"
+        app:iconTint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        app:iconTint="@color/black" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="295dp"
+        android:layout_width="255dp"
         android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="55dp"
         android:background="@drawable/button_border"
         android:text="@string/register"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
         app:icon="@android:drawable/ic_input_add"
         app:iconPadding="-25dp"
+        app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        app:layout_constraintVertical_bias="0.0"
-        app:iconTint="@color/black"/>
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

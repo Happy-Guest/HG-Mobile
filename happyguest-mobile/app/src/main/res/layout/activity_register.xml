@@ -48,7 +48,7 @@
         app:layout_constraintBottom_toBottomOf="@id/btnImagem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnRegistar">
+        app:layout_constraintTop_toTopOf="@id/btnRegister">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -172,8 +172,8 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btnRegistar"
-        android:layout_width="295dp"
+        android:id="@+id/btnRegister"
+        android:layout_width="255dp"
         android:layout_height="48dp"
         android:layout_marginTop="34dp"
         android:layout_marginBottom="48dp"
@@ -181,10 +181,10 @@
         android:text="@string/register"
         app:icon="@android:drawable/ic_input_add"
         app:iconPadding="-25dp"
+        app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollView"
-        app:iconTint="@color/black"/>
+        app:layout_constraintTop_toBottomOf="@id/scrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
