@@ -1,14 +1,16 @@
-package ipl.estg.happyguest;
+package ipl.estg.happyguest.app.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LoginActivity extends AppCompatActivity {
+import ipl.estg.happyguest.R;
+
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
     }
 }

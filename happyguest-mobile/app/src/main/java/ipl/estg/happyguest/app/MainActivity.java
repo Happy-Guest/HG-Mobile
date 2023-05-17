@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import java.util.Objects;
-
-import ipl.estg.happyguest.LoginActivity;
+import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.R;
 
 public class MainActivity extends AppCompatActivity {

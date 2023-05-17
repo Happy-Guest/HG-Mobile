@@ -7,4 +7,8 @@
     <string name="register">Registar</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="addImage">Adicionar Imagem</string>
+    <string name="name">Nome</string>
+    <string name="phoneNr">Nº Telefone</string>
+    <string name="confirmPassword">Confirmar Password\n</string>
 </resources>
