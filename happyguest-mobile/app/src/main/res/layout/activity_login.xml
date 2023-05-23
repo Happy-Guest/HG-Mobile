@@ -51,7 +51,7 @@
         android:layout_marginBottom="8dp"
         app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:errorTextColor="#B84141"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintBottom_toTopOf="@+id/rememberCkeck"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputEmail"
@@ -71,7 +71,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/rememberCkeck"
         android:layout_width="295dp"
         android:layout_height="48dp"
         android:buttonTint="#000000"
@@ -89,13 +89,14 @@
         android:background="@drawable/rounded_corner"
         android:text="@string/login"
         android:textAllCaps="false"
+        android:textSize="16sp"
         app:icon="@android:drawable/ic_lock_idle_lock"
         app:iconPadding="-25dp"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/rememberCkeck" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -107,6 +108,7 @@
         android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:icon="@android:drawable/ic_input_add"
         app:iconPadding="-25dp"
         app:iconTint="@color/black"

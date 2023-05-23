@@ -13,7 +13,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="32dp"
         android:contentDescription="@string/logo_image"
-        app:layout_constraintBottom_toTopOf="@id/btnImagem"
+        app:layout_constraintBottom_toTopOf="@id/btnImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,31 +21,32 @@
         app:srcCompat="@drawable/logotipo" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnImagem"
+        android:id="@+id/btnImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/addImage"
         android:focusable="true"
+        app:backgroundTint="@color/dark_gold"
         app:layout_constraintBottom_toTopOf="@id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogo"
-        app:srcCompat="@android:drawable/ic_menu_upload"
-        app:backgroundTint="@color/dark_gold"
-        app:tint="@color/white"/>
+        app:rippleColor="@color/white"
+        app:srcCompat="@drawable/upload_icon"
+        app:tint="@color/white" />
 
     <ScrollView
         android:id="@+id/scrollView"
         style="@android:style/Widget.ScrollView"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="295dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:isScrollContainer="true"
         android:scrollbarStyle="outsideOverlay"
-        app:layout_constraintBottom_toBottomOf="@id/btnImagem"
+        app:layout_constraintBottom_toBottomOf="@id/btnImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnRegister">
@@ -147,7 +148,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputPasswordConfirmed"
+                android:id="@+id/inputPasswordConfirm"
                 android:layout_width="295dp"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
@@ -158,7 +159,7 @@
                 app:startIconTint="@color/gold">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textPasswordConfirmed"
+                    android:id="@+id/textPasswordConfirm"
                     android:layout_width="295dp"
                     android:layout_height="match_parent"
                     android:background="#FFFFFF"
@@ -175,10 +176,12 @@
         android:id="@+id/btnRegister"
         android:layout_width="255dp"
         android:layout_height="48dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="48dp"
         android:background="@drawable/rounded_corner"
         android:text="@string/register"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         app:icon="@android:drawable/ic_input_add"
         app:iconPadding="-25dp"
         app:iconTint="@color/black"
