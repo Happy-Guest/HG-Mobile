@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/leiria"
+        app:srcCompat="@drawable/bg_leiria"
         app:tint="@color/background_gray" />
 
     <ImageView
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logotipo" />
+        app:srcCompat="@drawable/logo" />
 
     <ProgressBar
         android:id="@+id/progressBar"

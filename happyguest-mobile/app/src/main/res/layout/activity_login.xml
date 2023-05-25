@@ -34,7 +34,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logotipo" />
+                    app:srcCompat="@drawable/logo" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>
@@ -126,11 +126,11 @@
 
                 <Button
                     android:id="@+id/btnLogin"
-                    android:layout_width="255dp"
+                    android:layout_width="250dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/btn_primary"
                     android:text="@string/login"
                     android:textAllCaps="false"
                     android:textSize="16sp"
@@ -144,11 +144,11 @@
 
                 <Button
                     android:id="@+id/btnGoToRegister"
-                    android:layout_width="255dp"
+                    android:layout_width="250dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="64dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/btn_secondary"
                     android:text="@string/register"
                     android:textAllCaps="false"
                     android:textColor="@android:color/black"

@@ -17,9 +17,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button login = findViewById(R.id.btnLogin);
-        Button btnRegister = findViewById(R.id.btnGoToRegister);
+        Button btnGoToRegister = findViewById(R.id.btnGoToRegister);
 
-        btnRegister.setOnClickListener(view -> {
+        btnGoToRegister.setOnClickListener(view -> {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
