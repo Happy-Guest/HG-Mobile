@@ -14,10 +14,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.test);
 
-        Button login = findViewById(R.id.btnLogin);
-        Button btnRegister = findViewById(R.id.btnRegister);
+        Button login = findViewById(R.id.btnLogin3);
+        Button btnRegister = findViewById(R.id.btnRegister3);
 
         btnRegister.setOnClickListener(view -> {
             Intent intent = new Intent(this, RegisterActivity.class);
