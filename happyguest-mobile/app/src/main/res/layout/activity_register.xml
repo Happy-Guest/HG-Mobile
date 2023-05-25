@@ -216,7 +216,7 @@
                     android:background="@drawable/btn_primary"
                     android:text="@string/register"
                     android:textAllCaps="false"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     app:icon="@android:drawable/ic_input_add"
                     app:iconPadding="-25dp"
                     app:iconTint="@color/black"
