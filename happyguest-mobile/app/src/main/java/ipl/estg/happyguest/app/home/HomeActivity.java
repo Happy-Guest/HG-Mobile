@@ -64,4 +64,12 @@ public class HomeActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = binding.drawerLayout;
+        if (drawer.isOpen()) {
+            drawer.close();
+        }
+    }
 }
