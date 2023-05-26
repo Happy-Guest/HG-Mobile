@@ -2,6 +2,7 @@ package ipl.estg.happyguest.app.home;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -10,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
@@ -29,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
-        setSupportActionBar(binding.appBarHome.toolbar);
+        setSupportActionBar(binding.appBarHome.toolbar.getRoot());
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setOpenableLayout(drawer)
@@ -38,6 +41,21 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+        // Open drawer
+        binding.appBarHome.toolbar.btnBarOpen.setOnClickListener(v -> {
+            drawer.open();
+        });
+
+        // Go to home fragment
+        binding.appBarHome.toolbar.btnBarLogo.setOnClickListener(v -> {
+            navController.navigate(R.id.nav_home);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        });
     }
 
     @Override

@@ -24,7 +24,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageViewLogo3"
+                    android:id="@+id/imgLogoRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="170dp"
                     android:layout_marginTop="32dp"
@@ -93,7 +93,7 @@
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorTextColor="#B84141"
-                            app:startIconDrawable="@drawable/user_icon"
+                            app:startIconDrawable="?attr/actionModePasteDrawable"
                             app:startIconTint="@color/gold">
 
                             <com.google.android.material.textfield.TextInputEditText

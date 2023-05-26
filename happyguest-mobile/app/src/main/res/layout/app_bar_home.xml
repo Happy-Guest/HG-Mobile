@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.HappyGuest.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
+        <include
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            layout="@layout/toolbar"
             app:popupTheme="@style/Theme.HappyGuest.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <include
+        android:id="@+id/body"
+        layout="@layout/content_home" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
