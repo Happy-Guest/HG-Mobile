@@ -11,4 +11,7 @@
     <string name="name">Nome</string>
     <string name="phoneNr">Nº Telefone</string>
     <string name="confirmPassword">Confirmar Password</string>
+
+    <string name="menu_home">Página Inicial</string>
+    <string name="menu_logout">Sair</string>
 </resources>

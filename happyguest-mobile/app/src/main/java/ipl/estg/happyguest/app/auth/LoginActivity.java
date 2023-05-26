@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -16,11 +17,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button login = findViewById(R.id.btnLogin);
+        Button btnLogin = findViewById(R.id.btnLogin);
         Button btnGoToRegister = findViewById(R.id.btnGoToRegister);
 
         btnGoToRegister.setOnClickListener(view -> {
             Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        });
+
+        btnLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
     }

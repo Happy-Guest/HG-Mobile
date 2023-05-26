@@ -13,6 +13,10 @@
         android:theme="@style/Theme.HappyGuest"
         tools:targetApi="31">
         <activity
+            android:name=".app.home.HomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HappyGuest.NoActionBar" />
+        <activity
             android:name=".app.auth.RegisterActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
@@ -25,7 +29,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
