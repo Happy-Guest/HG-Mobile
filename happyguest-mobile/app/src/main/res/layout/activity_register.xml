@@ -89,7 +89,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/inputName"
-                            android:layout_width="295dp"
+                            android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -99,7 +99,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textNome"
-                                android:layout_width="295dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#FFFFFF"
                                 android:hint="@string/name"
@@ -110,7 +110,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/inputEmail"
-                            android:layout_width="295dp"
+                            android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -120,7 +120,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textEmail"
-                                android:layout_width="295dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#FFFFFF"
                                 android:hint="@string/email"
@@ -131,7 +131,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/inputPhoneNr"
-                            android:layout_width="295dp"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             app:counterEnabled="false"
                             app:counterTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -143,7 +143,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textPhoneNr"
-                                android:layout_width="295dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#FFFFFF"
                                 android:hint="@string/phoneNr"
@@ -155,7 +155,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/inputPassword"
-                            android:layout_width="295dp"
+                            android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -166,7 +166,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textPassword"
-                                android:layout_width="295dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#FFFFFF"
                                 android:hint="@string/password"
@@ -177,7 +177,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/inputPasswordConfirm"
-                            android:layout_width="295dp"
+                            android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -188,7 +188,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textPasswordConfirm"
-                                android:layout_width="295dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#FFFFFF"
                                 android:hint="@string/confirmPassword"

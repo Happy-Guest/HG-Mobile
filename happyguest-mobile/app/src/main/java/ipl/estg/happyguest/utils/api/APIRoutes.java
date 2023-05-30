@@ -1,7 +1,7 @@
 package ipl.estg.happyguest.utils.api;
 
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
-import okhttp3.ResponseBody;
+import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -11,5 +11,5 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
 
     @POST("login")
-    Call<ResponseBody> login(@Body LoginRequest loginRequest);
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 }

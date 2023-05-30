@@ -29,7 +29,6 @@ import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,16 +55,15 @@ public class LoginActivity extends AppCompatActivity {
         // Remember checkbox
         remember = findViewById(R.id.rememberCkeck);
 
-        // TextInputLayouts
+        // TextInputLayouts and EditTexts
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
-
-        // EditTexts
         txtEmail = findViewById(R.id.textEmail);
         txtPassword = findViewById(R.id.textPassword);
 
-        // API Routes
+        // API Routes and Token
         api = APIClient.getClient().create(APIRoutes.class);
+        token = new Token(LoginActivity.this);
 
         // Go to RegisterActivity
         btnGoToRegister.setOnClickListener(view -> {
@@ -87,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
         // Clear errors
         inputEmail.setError(null);
         inputPassword.setError(null);
-
         // Get values
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
@@ -105,23 +102,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginAttempt() {
-        Call<ResponseBody> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()));
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()));
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 // Check if response is successful
                 if (response.isSuccessful()) {
-                    // Get response body
-                    LoginResponse loginResponse = new LoginResponse(Objects.requireNonNull(response.body()));
                     // Save token
-                    token = new Token(LoginActivity.this);
-                    token.setToken(loginResponse.accessToken);
+                    token.setToken(Objects.requireNonNull(response.body()).getAccessToken());
                     token.setRemember(remember.isChecked());
-                    // Display success message
-                    Toast.makeText(LoginActivity.this, loginResponse.message, Toast.LENGTH_LONG).show();
-                    // Go to HomeActivity
+                    // Display success message and go to HomeActivity
+                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    finish();
                 } else {
                     try {
                         // Get response errors
@@ -142,11 +136,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
-            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                call.cancel();
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                call.cancel();
             }
         });
     }
