@@ -8,11 +8,11 @@
     <string name="login">Login</string>
     <string name="register">Registar</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Palavra-passe</string>
     <string name="addImage">Adicionar Imagem</string>
     <string name="name">Nome</string>
     <string name="phoneNr">Nº Telefone</string>
-    <string name="confirmPassword">Confirmar Password</string>
+    <string name="confirmPassword">Confirmar Palavra-passe</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -26,6 +26,6 @@
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
-    <string name="password_required">Introduza a sua password.</string>
+    <string name="password_required">Introduza a sua palavra-passe.</string>
     <string name="invalid_email">O email inserido não é válido!</string>
 </resources>
