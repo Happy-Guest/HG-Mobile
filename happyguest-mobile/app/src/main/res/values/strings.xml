@@ -1,30 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <!-- App -->
     <string name="app_name">HappyGuest</string>
-    <string name="background_image">Imagem de Fundo</string>
+    <string name="background_image">Background Image</string>
     <string name="logo_image">Logo Image</string>
-    <string name="remember">Lembrar</string>
+    <string name="remember">Remember</string>
     <string name="login">Login</string>
-    <string name="register">Registar</string>
+    <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="addImage">Adicionar Imagem</string>
-    <string name="name">Nome</string>
-    <string name="phoneNr">Nº Telefone</string>
-    <string name="confirmPassword">Confirmar Password</string>
+    <string name="addImage">Add Image</string>
+    <string name="name">Name</string>
+    <string name="phoneNr">Phone Number</string>
+    <string name="confirmPassword">Confirm Password</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
-    <string name="profile_icon">Perfil</string>
-    <string name="barTitle">Hotel de Leiria</string>
-    <string name="menu_home">Página Inicial</string>
-    <string name="menu_logout">Sair</string>
+    <string name="profile_icon">Profile</string>
+    <string name="barTitle">Leiria Hotel</string>
+    <string name="menu_home">Home Page</string>
+    <string name="menu_logout">Logout</string>
 
     <!-- App Errors -->
-    <string name="no_internet_connection">Sem ligação à internet</string>
+    <string name="no_internet_connection">No internet connection</string>
 
     <!-- Input Errors -->
-    <string name="email_required">Introduza o seu email.</string>
-    <string name="password_required">Introduza a sua password.</string>
-    <string name="invalid_email">O email inserido não é válido!</string>
+    <string name="email_required">Enter your email.</string>
+    <string name="password_required">Enter your password.</string>
+    <string name="invalid_email">The email entered is not valid!</string>
 </resources>
