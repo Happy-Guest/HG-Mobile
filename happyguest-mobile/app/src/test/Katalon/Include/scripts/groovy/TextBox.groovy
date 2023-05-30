@@ -46,11 +46,13 @@ import cucumber.api.java.en.When
 class TextBox {
 	@When("utilizador insere {string} no campo de email")
 	public void utilizador_insere_NotValid_no_campo_de_email(String email) {
+		//Insert email 
 		Mobile.setText(findTestObject('Object Repository/Login/android.widget.EditText - Email'), email, 0)
 	}
 
 	@When("utilizador insere {string} no campo de palavra-passe")
 	public void utilizador_insere_XPTO_no_campo_de_palavra_passe(String password) {
+		//Insert password
 		Mobile.setText(findTestObject('Object Repository/Login/android.widget.EditText - Password'), password, 0)
 	}
 }

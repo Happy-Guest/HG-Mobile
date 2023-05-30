@@ -48,18 +48,23 @@ class Messages {
 	public void escreve_no_ecrã(String message, Integer number) {
 		switch(number) {
 			case 1:
+				//Introduza o seu email
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0);
 				break;
 			case 2:
+				//Introduza a sua palavra-passe
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua password'), 0)
 				break;
 			case 3:
+				//O email inserido não é válido 
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no  vlido'), 0);
 				break;
 			case 4:
+				//O email inserido não está registado
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0);
 				break;
 			case 5:
+				//A palavra-passe inserida está incorreta
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 0);
 				break;
 		}
