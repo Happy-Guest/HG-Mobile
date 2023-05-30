@@ -67,6 +67,6 @@ Feature: Login
   Scenario: AT7- Utilizador efetua o Login com sucesso
     Given a aplicação está pronta
     When utilizador insere "XPTO@mail.pt" no campo de email
-    And utilizador insere "XPTO" no campo de palavra-passe
+    And utilizador insere "XPTO1" no campo de palavra-passe
     And clica no botão "Login"
     Then é apresentada a página "Home"
