@@ -1,7 +1,11 @@
 package ipl.estg.happyguest.app.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,22 +19,30 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
+import ipl.estg.happyguest.utils.Token;
+import ipl.estg.happyguest.utils.api.APIClient;
+import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    private APIRoutes api;
+    private Token token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-
         setSupportActionBar(binding.appBarHome.toolbar.getRoot());
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
@@ -48,15 +60,23 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         // Open drawer
-        binding.appBarHome.toolbar.btnBarOpen.setOnClickListener(v -> {
-            drawer.open();
-        });
+        binding.appBarHome.toolbar.btnBarOpen.setOnClickListener(v -> drawer.open());
 
         // Go to home fragment
         binding.appBarHome.toolbar.btnBarLogo.setOnClickListener(v -> {
             navController.navigate(R.id.nav_home);
             actionBar.setDisplayHomeAsUpEnabled(false);
         });
+
+        // API Routes and Token
+        api = APIClient.getClient().create(APIRoutes.class);
+        token = new Token(HomeActivity.this);
+
+        // Buttons
+        Button btnLogout = findViewById(R.id.btnLogout);
+
+        // Attempt Logout
+        btnLogout.setOnClickListener(v -> logoutAttempt());
     }
 
     @Override
@@ -72,5 +92,33 @@ public class HomeActivity extends AppCompatActivity {
         if (drawer.isOpen()) {
             drawer.close();
         }
+    }
+
+    private void logoutAttempt() {
+        Call<MessageResponse> call = api.logout();
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                if (response.isSuccessful()) {
+                    // Delete token
+                    token.clearToken();
+                    APIClient.setToken(null);
+
+                    // Display success message and go to HomeActivity
+                    Toast.makeText(HomeActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(HomeActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                Toast.makeText(HomeActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                call.cancel();
+            }
+        });
     }
 }

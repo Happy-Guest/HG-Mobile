@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -35,13 +36,13 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    CheckBox remember;
-    TextInputLayout inputEmail;
-    TextInputLayout inputPassword;
-    EditText txtEmail;
-    EditText txtPassword;
-    APIRoutes api;
-    Token token;
+    private CheckBox remember;
+    private TextInputLayout inputEmail;
+    private TextInputLayout inputPassword;
+    private EditText txtEmail;
+    private EditText txtPassword;
+    private APIRoutes api;
+    private Token token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         // Go to RegisterActivity
         btnGoToRegister.setOnClickListener(view -> {
             Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(intent);
         });
 
         // Attempt Login and go to HomeActivity
@@ -106,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                // Check if response is successful
                 if (response.isSuccessful()) {
                     // Save token
                     token.setToken(Objects.requireNonNull(response.body()).getAccessToken());
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Display success message and go to HomeActivity
                     Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    startActivity(intent);
                     finish();
                 } else {
                     try {
@@ -138,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
