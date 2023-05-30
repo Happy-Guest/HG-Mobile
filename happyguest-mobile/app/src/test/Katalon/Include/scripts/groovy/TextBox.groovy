@@ -53,6 +53,6 @@ class TextBox {
 	@When("utilizador insere {string} no campo de palavra-passe")
 	public void utilizador_insere_XPTO_no_campo_de_palavra_passe(String password) {
 		//Insert password
-		Mobile.setText(findTestObject('Object Repository/Login/android.widget.EditText - Password'), password, 0)
+		Mobile.setText(findTestObject('Object Repository/Login/android.widget.EditText - Palavra-passe'), password, 0)
 	}
 }

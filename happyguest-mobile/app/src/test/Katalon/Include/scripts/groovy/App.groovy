@@ -48,14 +48,33 @@ class App {
 	public void a_aplicação_está_pronta() {
 		//Run app
 		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
-	
+
 		//TODO
+
+		//on wifi
+		Mobile.toggleWifi('true');
+
+		//Delay 5 seg
+		Mobile.delay(5);
+	}
+
+	@Given("a aplicação está pronta sem internet")
+	public void a_aplicação_está_pronta_sem_internet() {
+		//Run app
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
+
+		//TODO
+
+		//off wifi
+		Mobile.toggleWifi('false');
+
 	}
 
 
 
 	@Then("é apresentada a página {string}")
 	public void é_apresentada_a_página(String title) {
-		Mobile.delay(5);
+		//identificate home
+		Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Hotel de Leiria'), 0);
 	}
 }
