@@ -22,7 +22,7 @@
     <string name="menu_logout">Sair</string>
 
     <!-- App Errors -->
-    <string name="no_internet_connection">Sem ligação à internet</string>
+    <string name="no_internet_connection">Sem ligação à internet!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
