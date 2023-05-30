@@ -1,4 +1,5 @@
 <resources>
+    <!-- App -->
     <string name="app_name">HappyGuest</string>
     <string name="background_image">Imagem de Fundo</string>
     <string name="logo_image">Logo Image</string>
@@ -12,10 +13,18 @@
     <string name="phoneNr">Nº Telefone</string>
     <string name="confirmPassword">Confirmar Password</string>
 
+    <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
     <string name="barTitle">Hotel de Leiria</string>
-
     <string name="menu_home">Página Inicial</string>
     <string name="menu_logout">Sair</string>
+
+    <!-- App Errors -->
+    <string name="no_internet_connection">Sem ligação à internet</string>
+
+    <!-- Input Errors -->
+    <string name="email_required">Introduza o seu email.</string>
+    <string name="password_required">Introduza a sua password.</string>
+    <string name="invalid_email">O email inserido não é válido!</string>
 </resources>
