@@ -111,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Save token
                     token.setToken(Objects.requireNonNull(response.body()).getAccessToken());
                     token.setRemember(remember.isChecked());
+                    APIClient.setToken(token.getToken());
                     // Display success message and go to HomeActivity
                     Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
