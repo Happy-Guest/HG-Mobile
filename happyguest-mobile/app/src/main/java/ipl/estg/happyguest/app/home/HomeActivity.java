@@ -28,7 +28,6 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -38,10 +37,12 @@ public class HomeActivity extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
 
+        // Set up navigation
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Hide title and back button
         ActionBar actionBar = getSupportActionBar();
         Objects.requireNonNull(actionBar).setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);

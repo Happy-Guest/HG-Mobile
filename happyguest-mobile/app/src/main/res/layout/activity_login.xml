@@ -44,7 +44,7 @@
             android:id="@+id/layoutBody"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".45">
+            android:layout_weight=".40">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputEmail"
-                    android:layout_width="295dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="64dp"
                     app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -66,7 +66,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textEmail"
-                        android:layout_width="295dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#FFFFFF"
                         android:hint="@string/email"
@@ -77,7 +77,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputPassword"
-                    android:layout_width="295dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                     app:errorTextColor="#B84141"
@@ -91,7 +91,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textPassword"
-                        android:layout_width="295dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#FFFFFF"
                         android:hint="@string/password"
@@ -120,7 +120,7 @@
             android:id="@+id/layoutFooter"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".25">
+            android:layout_weight=".30">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                     android:id="@+id/btnLogin"
                     android:layout_width="250dp"
                     android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="48dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/btn_primary"
                     android:clickable="true"

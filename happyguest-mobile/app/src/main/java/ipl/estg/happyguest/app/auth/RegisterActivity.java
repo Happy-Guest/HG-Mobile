@@ -1,12 +1,14 @@
 package ipl.estg.happyguest.app.auth;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import ipl.estg.happyguest.R;
 
 public class RegisterActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

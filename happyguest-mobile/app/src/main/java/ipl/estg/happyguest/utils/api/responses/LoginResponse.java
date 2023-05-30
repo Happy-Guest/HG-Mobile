@@ -6,13 +6,19 @@ public class LoginResponse {
 
     @SerializedName("access_token")
     public String accessToken;
-
-    @SerializedName("token_type")
-    public String tokenType;
-
-    @SerializedName("expires_at")
-    public int expiresAt;
-
     @SerializedName("message")
     public String message;
+
+    public LoginResponse(String accessToken, String message) {
+        this.accessToken = accessToken;
+        this.message = message;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
