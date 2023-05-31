@@ -1,6 +1,5 @@
 package ipl.estg.happyguest.app.auth;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -41,9 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout inputPhone;
     private EditText txtName;
     private EditText txtEmail;
+    private EditText txtPhone;
     private EditText txtPassword;
     private EditText txtPasswordConfirm;
-    private EditText txtPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
         inputPhone = findViewById(R.id.inputPhoneNr);
         txtName = findViewById(R.id.textName);
         txtEmail = findViewById(R.id.textEmail);
+        txtPhone = findViewById(R.id.textPhoneNr);
         txtPassword = findViewById(R.id.textPassword);
         txtPasswordConfirm = findViewById(R.id.textPasswordConfirm);
-        txtPhone = findViewById(R.id.textPhoneNr);
 
         // API Routes
         api = APIClient.getClient().create(APIRoutes.class);
@@ -91,15 +90,15 @@ public class RegisterActivity extends AppCompatActivity {
         //Clear errors
         inputName.setError(null);
         inputEmail.setError(null);
+        inputPhone.setError(null);
         inputPassword.setError(null);
         inputPasswordConfirm.setError(null);
-        inputPhone.setError(null);
         //Get values
         String name = txtName.getText().toString();
         String email = txtEmail.getText().toString();
+        String phone = txtPhone.getText().toString();
         String password = txtPassword.getText().toString();
         String passwordConfirmation = txtPasswordConfirm.getText().toString();
-        String phone = txtPhone.getText().toString();
 
         //Validate values
         if (name.isEmpty()) {
@@ -112,14 +111,14 @@ public class RegisterActivity extends AppCompatActivity {
             inputEmail.setError(getString(R.string.invalid_email));
         } else if (password.isEmpty()) {
             inputPassword.setError(getString(R.string.password_required));
+        } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
+            inputPhone.setError(getString(R.string.invalid_phone));
         } else if (password.length() < 4) {
             inputPassword.setError(getString(R.string.password_too_short));
         } else if (passwordConfirmation.isEmpty()) {
             inputPasswordConfirm.setError(getString(R.string.password_confirmation_required));
         } else if (!passwordConfirmation.equals(password)) {
             inputPasswordConfirm.setError(getString(R.string.password_confirmation_not_match));
-        } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
-            inputPhone.setError(getString(R.string.invalid_phone));
         } else {
             registerAttempt();
         }
@@ -129,9 +128,9 @@ public class RegisterActivity extends AppCompatActivity {
         Call<MessageResponse> call = api.register(new RegisterRequest(
                 txtName.getText().toString(),
                 txtEmail.getText().toString(),
+                txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
                 txtPassword.getText().toString(),
-                txtPasswordConfirm.getText().toString(),
-                txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString())));
+                txtPasswordConfirm.getText().toString()));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -139,7 +138,8 @@ public class RegisterActivity extends AppCompatActivity {
                     // Display success message and go to LoginActivity
                     Toast.makeText(RegisterActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this).toBundle());
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();
                 } else {
                     try {

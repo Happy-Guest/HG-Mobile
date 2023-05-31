@@ -33,6 +33,6 @@
     <string name="password_too_short">A palavra-passe inserida é demasiado curta!</string>
     <string name="password_confirmation_required">Introduza a confirmação da palavra-passe.</string>
     <string name="password_confirmation_not_match">A confirmação da palavra-passe não corresponde!</string>
-    <string name="invalid_phone">O número de telefone inserido não é válido!</string>
+    <string name="invalid_phone">O nº telefone inserido não é válido!</string>
 
 </resources>

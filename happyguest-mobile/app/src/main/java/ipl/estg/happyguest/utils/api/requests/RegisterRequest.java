@@ -11,15 +11,15 @@ public class RegisterRequest {
     @SerializedName("password")
     public String password;
     @SerializedName("password_confirmation")
-    public String passwordConfirmation;
+    public String passwordConfirm;
     @SerializedName("phone")
     public Long phone;
 
-    public RegisterRequest(String name, String email, String password, String passwordConfirmation, Long phone) {
+    public RegisterRequest(String name, String email, Long phone, String password, String passwordConfirm) {
         this.name = name;
         this.email = email;
-        this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
         this.phone = phone;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
     }
 }
