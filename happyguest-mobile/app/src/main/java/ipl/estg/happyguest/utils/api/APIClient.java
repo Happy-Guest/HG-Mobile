@@ -32,8 +32,4 @@ public class APIClient {
     public static void setToken(String token) {
         APIClient.token = token;
     }
-
-    public static String getToken() {
-        return token;
-    }
 }
