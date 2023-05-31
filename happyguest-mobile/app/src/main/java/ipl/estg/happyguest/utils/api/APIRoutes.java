@@ -12,9 +12,11 @@ import retrofit2.http.POST;
 public interface APIRoutes {
     @Headers("Accept: application/json")
 
+    // Auth
     @POST("login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
-
     @POST("register")
     Call<MessageResponse> register(@Body RegisterRequest registerRequest);
+    @POST("logout")
+    Call<MessageResponse> logout();
 }

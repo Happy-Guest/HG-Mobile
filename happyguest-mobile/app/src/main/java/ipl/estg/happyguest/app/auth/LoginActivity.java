@@ -1,6 +1,5 @@
 package ipl.estg.happyguest.app.auth;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -35,13 +34,13 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    CheckBox remember;
-    TextInputLayout inputEmail;
-    TextInputLayout inputPassword;
-    EditText txtEmail;
-    EditText txtPassword;
-    APIRoutes api;
-    Token token;
+    private CheckBox remember;
+    private TextInputLayout inputEmail;
+    private TextInputLayout inputPassword;
+    private EditText txtEmail;
+    private EditText txtPassword;
+    private APIRoutes api;
+    private Token token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         // Go to RegisterActivity
         btnGoToRegister.setOnClickListener(view -> {
             Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
 
         // Attempt Login and go to HomeActivity
@@ -106,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                // Check if response is successful
                 if (response.isSuccessful()) {
                     // Save token
                     token.setToken(Objects.requireNonNull(response.body()).getAccessToken());
@@ -114,9 +113,10 @@ public class LoginActivity extends AppCompatActivity {
                     APIClient.setToken(token.getToken());
 
                     // Display success message and go to HomeActivity
-                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     finish();
                 } else {
                     try {
@@ -138,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();

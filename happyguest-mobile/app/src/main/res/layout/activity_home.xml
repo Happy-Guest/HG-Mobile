@@ -32,7 +32,7 @@
             android:padding="16dp">
 
             <Button
-                android:id="@+id/buttonLogOut"
+                android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"

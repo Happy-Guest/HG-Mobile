@@ -5,21 +5,15 @@ import android.content.SharedPreferences;
 
 public class Token {
 
-    String token;
-    Boolean remember;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    Context context;
+    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences.Editor editor;
 
     public Token(Context context){
-        this.context = context;
-        sharedPreferences = context.getSharedPreferences("happyguest", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("token", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        this.remember = false;
     }
 
     public void setToken(String token){
-        this.token = token;
         editor.putString("token", token);
         editor.commit();
     }
@@ -29,7 +23,6 @@ public class Token {
     }
 
     public void setRemember(Boolean remember){
-        this.remember = remember;
         editor.putBoolean("remember", remember);
         editor.commit();
     }
