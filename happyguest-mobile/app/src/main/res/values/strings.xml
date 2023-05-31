@@ -27,12 +27,12 @@
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
     <string name="password_required">Enter your password.</string>
-    <string name="invalid_email">The email entered is not valid!</string>
+    <string name="invalid_email">The email is not valid!</string>
     <string name="name_required">Enter your name.</string>
-    <string name="name_too_short">The name entered is too short!</string>
-    <string name="password_too_short">The password entered is too short!</string>
-    <string name="password_confirmation_required">Enter your password confirmation.</string>
-    <string name="password_confirmation_not_match">The password confirmation does not match!</string>
-    <string name="invalid_phone">The phone number entered is not valid!</string>
+    <string name="name_too_short">The name is too short!</string>
+    <string name="password_too_short">The password is too short!</string>
+    <string name="password_confirmation_required">Confirm your password.</string>
+    <string name="password_confirmation_not_match">The confirmation does not match!</string>
+    <string name="invalid_phone">The phone number is not valid!</string>
 
 </resources>
