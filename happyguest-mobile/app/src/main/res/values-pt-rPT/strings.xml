@@ -28,4 +28,11 @@
     <string name="email_required">Introduza o seu email.</string>
     <string name="password_required">Introduza a sua palavra-passe.</string>
     <string name="invalid_email">O email inserido não é válido!</string>
+    <string name="name_required">Introduza o seu nome.</string>
+    <string name="name_too_short">O nome inserido é demasiado curto!</string>
+    <string name="password_too_short">A palavra-passe inserida é demasiado curta!</string>
+    <string name="password_confirmation_required">Introduza a confirmação da palavra-passe.</string>
+    <string name="password_confirmation_not_match">A confirmação da palavra-passe não corresponde!</string>
+    <string name="invalid_phone">O número de telefone inserido não é válido!</string>
+
 </resources>

@@ -50,7 +50,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btnImage2"
+                    android:id="@+id/btnImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -82,7 +82,7 @@
                     app:layout_constraintHeight_max="300dp"
                     app:layout_constraintHeight_min="150dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnImage2">
+                    app:layout_constraintTop_toBottomOf="@+id/btnImage">
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -103,12 +103,13 @@
                             app:startIconTint="@color/gold">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/textNome"
+                                android:id="@+id/textName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#FFFFFF"
                                 android:hint="@string/name"
                                 android:inputType="text"
+                                android:maxLength="255"
                                 android:textColorHint="#757575"
                                 android:textSize="18sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -130,6 +131,7 @@
                                 android:background="#FFFFFF"
                                 android:hint="@string/email"
                                 android:inputType="textEmailAddress"
+                                android:maxLength="255"
                                 android:textColorHint="#757575"
                                 android:textSize="18sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -153,7 +155,7 @@
                                 android:background="#FFFFFF"
                                 android:hint="@string/phoneNr"
                                 android:inputType="phone"
-                                android:maxLength="9"
+                                android:maxLength="12"
                                 android:textColorHint="#757575"
                                 android:textSize="18sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -176,6 +178,7 @@
                                 android:background="#FFFFFF"
                                 android:hint="@string/password"
                                 android:inputType="textPassword"
+                                android:maxLength="255"
                                 android:textColorHint="#757575"
                                 android:textSize="18sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -198,6 +201,7 @@
                                 android:background="#FFFFFF"
                                 android:hint="@string/confirmPassword"
                                 android:inputType="textPassword"
+                                android:maxLength="255"
                                 android:textColorHint="#757575"
                                 android:textSize="18sp" />
                         </com.google.android.material.textfield.TextInputLayout>
