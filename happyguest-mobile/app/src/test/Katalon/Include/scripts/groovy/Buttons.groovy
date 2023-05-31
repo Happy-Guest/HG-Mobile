@@ -46,8 +46,14 @@ import cucumber.api.java.en.When
 class Buttons {
 
 	@When("clica no botão {string}")
-	public void utilizador_clica_no_botão_Login(String btn) {
+	public void utilizador_clica_no_botão(String btn) {
 		//Click on the button
-		Mobile.tap(findTestObject('Object Repository/Login/android.widget.Button - ' + btn), 0);
+		Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - ' + btn), 0);
+	}
+
+	@When("clica na sidebar")
+	public void utilizador_clica_na_sidebar() {
+		//Click on icon sidebar
+		Mobile.tap(findTestObject('Object Repository/Button/android.widget.ImageButton'), 0);
 	}
 }

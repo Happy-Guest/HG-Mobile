@@ -20,37 +20,9 @@ import org.openqa.selenium.Keys as Keys
 Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk', 
     true)
 
+Mobile.tap(findTestObject('Object Repository/Button/android.widget.ImageButton'), 0)
 
-Mobile.setText(findTestObject('Object Repository/Login/android.widget.EditText - Email'), 'NotValid', 0)
-
-Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0)
-
-Mobile.setText(findTestObject('Object Repository/Login/android.widget.EditText - Palavra-passe'), 'XPTO1', 0)
-
-Mobile.switchToNative()
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua palavra-passe'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no  vlido'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 
-    0)
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Hotel de Leiria'), 0)
+Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - Sair'), 0)
 
 Mobile.closeApplication()
 

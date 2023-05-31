@@ -49,37 +49,37 @@ class Messages {
 	public void escreve_no_ecrã(String message, Integer number) {
 		switch(number) {
 			case 1:
-				//Sem ligação à internet
+			//Sem ligação à internet
 				AppiumDriver<?> driver = MobileDriverFactory.getDriver()
 				driver.findElementByXPath("//android.widget.Toast[@text='Sem ligação à internet!']")
 				break;
 			case 2:
-				//Introduza o seu email
+			//Introduza o seu email
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0);
 				break;
 			case 3:
-				//Introduza a sua palavra-passe
+			//Introduza a sua palavra-passe
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua palavra-passe'), 0);
 				break;
 			case 4:
-				//O email inserido não é válido 
+			//O email inserido não é válido
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no  vlido'), 0);
 				break;
 			case 5:
-				//O email inserido não está registado
+			//O email inserido não está registado
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0);
 				break;
 			case 6:
-				//A palavra-passe inserida está incorreta
+			//A palavra-passe inserida está incorreta
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 0);
 				break;
 			case 7:
-				//A sua conta foi bloqueada, por favor contacte o administrador!
+			//A sua conta foi bloqueada, por favor contacte o administrador!
 				AppiumDriver<?> driver = MobileDriverFactory.getDriver()
 				driver.findElementByXPath("//android.widget.Toast[@text='A sua conta foi bloqueada, por favor contacte o administrador!']")
 				break;
 			case 8:
-				//Não tem permissões para aceder a esta aplicação.
+			//Não tem permissões para aceder a esta aplicação.
 				AppiumDriver<?> driver = MobileDriverFactory.getDriver()
 				driver.findElementByXPath("//android.widget.Toast[@text='Não tem permissões para aceder a esta aplicação.']")
 				break;
