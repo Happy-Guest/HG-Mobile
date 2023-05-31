@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
             inputPassword.setError(getString(R.string.password_required));
         } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
             inputPhone.setError(getString(R.string.invalid_phone));
-        } else if (password.length() < 4) {
+        } else if (password.length() < 5) {
             inputPassword.setError(getString(R.string.password_too_short));
         } else if (passwordConfirmation.isEmpty()) {
             inputPasswordConfirm.setError(getString(R.string.password_confirmation_required));
