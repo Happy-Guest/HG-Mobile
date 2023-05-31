@@ -21,6 +21,7 @@ import java.util.Objects;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
+import ipl.estg.happyguest.utils.CloseService;
 import ipl.estg.happyguest.utils.Token;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -41,15 +42,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setSupportActionBar(binding.appBarHome.toolbar.getRoot());
+
+        // Set up navigation
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        setSupportActionBar(binding.appBarHome.toolbar.getRoot());
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setOpenableLayout(drawer)
                 .build();
-
-        // Set up navigation
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -71,6 +72,10 @@ public class HomeActivity extends AppCompatActivity {
         // API Routes and Token
         api = APIClient.getClient().create(APIRoutes.class);
         token = new Token(HomeActivity.this);
+
+        // Start CloseService
+        Intent stickyService = new Intent(this, CloseService.class);
+        startService(stickyService);
 
         // Buttons
         Button btnLogout = findViewById(R.id.btnLogout);
@@ -94,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void logoutAttempt() {
+    public void logoutAttempt() {
         Call<MessageResponse> call = api.logout();
         call.enqueue(new Callback<MessageResponse>() {
             @Override
@@ -105,7 +110,7 @@ public class HomeActivity extends AppCompatActivity {
                     APIClient.setToken(null);
 
                     // Display success message and go to HomeActivity
-                    Toast.makeText(HomeActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);

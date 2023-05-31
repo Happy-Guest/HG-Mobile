@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                     APIClient.setToken(token.getToken());
 
                     // Display success message and go to HomeActivity
-                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
