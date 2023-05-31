@@ -23,7 +23,6 @@
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
-    <string name="session_terminated">Sessão terminada com sucesso.</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
