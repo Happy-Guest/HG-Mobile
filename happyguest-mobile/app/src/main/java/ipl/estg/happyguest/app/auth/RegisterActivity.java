@@ -53,6 +53,26 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText txtPassword;
     private EditText txtPasswordConfirm;
     private byte[] photo;
+    // Select Image from Gallery and convert to byte array
+    private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
+                        Uri selectedImage = result.getData().getData();
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            photo = stream.toByteArray();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +139,10 @@ public class RegisterActivity extends AppCompatActivity {
             inputEmail.setError(getString(R.string.email_required));
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             inputEmail.setError(getString(R.string.invalid_email));
-        } else if (password.isEmpty()) {
-            inputPassword.setError(getString(R.string.password_required));
         } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
             inputPhone.setError(getString(R.string.invalid_phone));
+        } else if (password.isEmpty()) {
+            inputPassword.setError(getString(R.string.password_required));
         } else if (password.length() < 5) {
             inputPassword.setError(getString(R.string.password_too_short));
         } else if (passwordConfirmation.isEmpty()) {
@@ -198,27 +218,6 @@ public class RegisterActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
-
-    // Select Image from Gallery and convert to byte array
-    private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    if (result.getData() != null) {
-                        Uri selectedImage = result.getData().getData();
-                        try {
-                            InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                            photo = stream.toByteArray();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-    );
 
     // Check if device has internet connection
     private boolean isNetworkAvailable() {
