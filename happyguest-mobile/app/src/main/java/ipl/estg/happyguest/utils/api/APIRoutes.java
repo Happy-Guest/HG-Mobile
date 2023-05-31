@@ -13,11 +13,13 @@ public interface APIRoutes {
 
     // Auth
     @POST("register")
-    @Headers({"Accept: application/json", "Content-Type: multipart/form-data;"})
+    @Headers("Accept: application/json")
     Call<MessageResponse> register(@Body RegisterRequest registerRequest);
+
     @POST("login")
     @Headers("Accept: application/json")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
     @POST("logout")
     Call<MessageResponse> logout();
 }

@@ -6,13 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,9 +35,6 @@ import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText txtPhone;
     private EditText txtPassword;
     private EditText txtPasswordConfirm;
-    private byte[] imageBytes;
+    private byte[] photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
             Intent photoPicker = new Intent();
             photoPicker.setType("image/*");
             photoPicker.setAction(Intent.ACTION_GET_CONTENT);
-            startActivity(Intent.createChooser(photoPicker, getString(R.string.select_image)));
+            startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_image)));
         });
 
         // Attempt Register and go to LoginActivity
@@ -140,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
                 txtEmail.getText().toString(),
                 txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
                 txtPassword.getText().toString(),
-                txtPasswordConfirm.getText().toString(), imageBytes == null ? null : prepareFilePart(imageBytes)));
+                txtPasswordConfirm.getText().toString(), photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -172,6 +172,9 @@ public class RegisterActivity extends AppCompatActivity {
                             if (errors.has("phone")) {
                                 inputPhone.setError(errors.getJSONArray("phone").get(0).toString());
                             }
+                            if (errors.has("photo")) {
+                                Toast.makeText(RegisterActivity.this, errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
+                            }
                         } else {
                             Toast.makeText(RegisterActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
                         }
@@ -196,30 +199,26 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK && resultCode == RESULT_OK) {
-            if (data != null) {
-                try {
-                    // Get image from gallery and convert to byte array
-                    InputStream inputStream = getContentResolver().openInputStream(data.getData());
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    imageBytes = stream.toByteArray();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+    // Select Image from Gallery and convert to byte array
+    private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
+                        Uri selectedImage = result.getData().getData();
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            photo = stream.toByteArray();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    // Convert byte array to MultipartBody.Part
-    private MultipartBody.Part prepareFilePart(byte[] file) {
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-        return MultipartBody.Part.createFormData("photo", "image.jpg", requestFile);
-    }
+    );
 
     // Check if device has internet connection
     private boolean isNetworkAvailable() {
