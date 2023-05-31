@@ -10,12 +10,13 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface APIRoutes {
-    @Headers("Accept: application/json")
 
     // Auth
     @POST("register")
+    @Headers({"Accept: application/json", "Content-Type: multipart/form-data;"})
     Call<MessageResponse> register(@Body RegisterRequest registerRequest);
     @POST("login")
+    @Headers("Accept: application/json")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
     @POST("logout")
     Call<MessageResponse> logout();
