@@ -44,6 +44,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarHome.toolbar.getRoot());
 
+        // Start CloseService
+        Intent stickyService = new Intent(this, CloseService.class);
+        startService(stickyService);
+
         // Set up navigation
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -72,10 +76,6 @@ public class HomeActivity extends AppCompatActivity {
         // API Routes and Token
         api = APIClient.getClient().create(APIRoutes.class);
         token = new Token(HomeActivity.this);
-
-        // Start CloseService
-        Intent stickyService = new Intent(this, CloseService.class);
-        startService(stickyService);
 
         // Buttons
         Button btnLogout = findViewById(R.id.btnLogout);

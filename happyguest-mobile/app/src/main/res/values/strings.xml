@@ -23,6 +23,7 @@
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection</string>
+    <string name="session_terminated">Successfully logged out.</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>

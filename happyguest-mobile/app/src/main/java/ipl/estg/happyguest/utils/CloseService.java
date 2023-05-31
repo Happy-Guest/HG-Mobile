@@ -3,10 +3,12 @@ package ipl.estg.happyguest.utils;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
@@ -21,7 +23,7 @@ public class CloseService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Nullable
@@ -31,16 +33,12 @@ public class CloseService extends Service {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public void onTaskRemoved(Intent rootIntent) {
         token = new Token(this);
         api = APIClient.getClient().create(APIRoutes.class);
-    }
-
-    @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        super.onTaskRemoved(rootIntent);
+        APIClient.setToken(token.getToken());
         if (!token.getRemember()) {
+            Toast.makeText(this, getString(R.string.session_terminated), Toast.LENGTH_SHORT).show();
             logout();
         }
     }
@@ -57,6 +55,7 @@ public class CloseService extends Service {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                Toast.makeText(CloseService.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
