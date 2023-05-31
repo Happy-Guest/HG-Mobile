@@ -28,7 +28,7 @@ Feature: Criar Conta
     And utilizador insere "XPTO" no campo de palavra-passe
     And utilizador insere "XPTO" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "O nome tem de ser maior que 3 caracteres" 
+    Then escreve no ecrã "O nome é demasiado curto" - 10
 
   @tag4
   Scenario: AT4 - Email inserido não é válido
@@ -40,19 +40,19 @@ Feature: Criar Conta
     And utilizador insere "XPTO" no campo de palavra-passe
     And utilizador insere "XPTO" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "O email inserido não é válido" - 4
+    Then escreve no ecrã "O email não é válido" - 4
 
   @tag5
   Scenario: AT5 - Email inserido já se encontra registado
     Given a aplicação está pronta
     When clica no botão "Registar" no ecrã login
     And utilizador insere "XPTO" no campo do nome
-    And utilizador insere "XPTO@mail.pt" no campo de email
+    And utilizador insere "anar@mail.com" no campo de email
     And utilizador insere "923456789" no campo de nº telefone
-    And utilizador insere "XPTO" no campo de palavra-passe
-    And utilizador insere "XPTO" no campo de confirmar palavra-passe
+    And utilizador insere "XPTO1" no campo de palavra-passe
+    And utilizador insere "XPTO1" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "O email já esta a ser utilizado" 
+    Then escreve no ecrã "O email já se encontra registado" - 11
 
   @tag6
   Scenario: AT6 - Número de telefone inserido não é válido
@@ -64,22 +64,11 @@ Feature: Criar Conta
     And utilizador insere "XPTO" no campo de palavra-passe
     And utilizador insere "XPTO" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "O número de telefone inserido não é válido" - 12
+    Then escreve no ecrã "O número de telefone não é válido" - 12
+
 
   @tag7
-  Scenario: AT7 - Número de telefone inserido já se encontra registado
-    Given a aplicação está pronta
-    When clica no botão "Registar" no ecrã login
-    And utilizador insere "XPTO" no campo do nome
-    And utilizador insere "XPTO@mail.pt" no campo de email
-    And utilizador insere "999999999" no campo de nº telefone
-    And utilizador insere "XPTO" no campo de palavra-passe
-    And utilizador insere "XPTO" no campo de confirmar palavra-passe
-    And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "O número de telefone já está a ser utilizado" 
-
-  @tag8
-  Scenario: AT8 - palavra-passe inserida é muito pequena
+  Scenario: AT7 - palavra-passe inserida é muito pequena
     Given a aplicação está pronta
     When clica no botão "Registar" no ecrã login
     And utilizador insere "XPTO" no campo do nome
@@ -88,28 +77,28 @@ Feature: Criar Conta
     And utilizador insere "XPT" no campo de palavra-passe
     And utilizador insere "XPT" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "A palavra-passe inserida é demasiado curta" - 14
+    Then escreve no ecrã "A palavra-passe demasiado curta" - 13
 
-  @tag9
-  Scenario: AT9 - palavra-passe inserida não corresponde à confirmação
+  @tag8
+  Scenario: AT8 - palavra-passe inserida não corresponde à confirmação
     Given a aplicação está pronta
     When clica no botão "Registar" no ecrã login
     And utilizador insere "XPTO" no campo do nome
     And utilizador insere "XPTO@mail.pt" no campo de email
     And utilizador insere "999999999" no campo de nº telefone
-    And utilizador insere "XPTO" no campo de palavra-passe
+    And utilizador insere "XPTO1" no campo de palavra-passe
     And utilizador insere "XPT" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then escreve no ecrã "As confirmação da palavra-passe não corresponde" - 15
+    Then escreve no ecrã "A confirmação  não corresponde" - 14
 
-  @tag10
-  Scenario: AT10 - Utilizador cria a Conta com sucesso
+  @tag9
+  Scenario: AT9 - Utilizador cria a Conta com sucesso
     Given a aplicação está pronta
     When clica no botão "Registar" no ecrã login
     And utilizador insere "XPTO" no campo do nome
     And utilizador insere "XPTO@mail.pt" no campo de email
     And utilizador insere "999999999" no campo de nº telefone
-    And utilizador insere "XPTO" no campo de palavra-passe
-    And utilizador insere "XPTO" no campo de confirmar palavra-passe
+    And utilizador insere "XPTO1" no campo de palavra-passe
+    And utilizador insere "XPTO1" no campo de confirmar palavra-passe
     And clica no botão "Registar" no ecrã registar
-    Then é apresentado a página "Login"
+    Then é apresentada a página "Login"

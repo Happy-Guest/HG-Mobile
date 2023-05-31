@@ -88,5 +88,5 @@ class App {
 			Mobile.getText(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0);
 		}
 	}
-	
+
 }

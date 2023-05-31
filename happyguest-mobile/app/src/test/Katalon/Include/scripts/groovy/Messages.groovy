@@ -55,22 +55,27 @@ class Messages {
 				break;
 			case 2:
 			//Introduza o seu email
+				Mobile.scrollToText('Email');
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0);
 				break;
 			case 3:
 			//Introduza a sua palavra-passe
+				Mobile.scrollToText('Palavra-passe');
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua palavra-passe'), 0);
 				break;
 			case 4:
-			//O email inserido não é válido
-				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no  vlido'), 0);
+			//O email não é válido
+				Mobile.scrollToText('Email');
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O email no  vlido'), 0);
 				break;
 			case 5:
 			//O email inserido não está registado
+				Mobile.scrollToText('Email');
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0);
 				break;
 			case 6:
 			//A palavra-passe inserida está incorreta
+				Mobile.scrollToText('Palavra-passe');
 				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 0);
 				break;
 			case 7:
@@ -84,20 +89,33 @@ class Messages {
 				driver.findElementByXPath("//android.widget.Toast[@text='Não tem permissões para aceder a esta aplicação.']")
 				break;
 			case 9:
-				//Introduza o seu nome.
+			//Introduza o seu nome.
+				Mobile.scrollToText('Nome');
 				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - Introduza o seu nome'), 0);
 				break;
+			case 10:
+				//O nome é demasiado curto
+				Mobile.scrollToText('Nome');
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O nome  demasiado curto'), 0);
+				break;
+			case 11:
+				//O email já se encontra registado
+				Mobile.scrollToText('Email');
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O email j se encontra registado'), 0);
+				break;
 			case 12:
-				//O número de telefone inserido não é válido
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O nmero de telefone inserido no  vlido'),0);
+				//O número de telefone não é válido
+				Mobile.scrollToText('Nº Telefone');
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O N telefone no  vlido'), 0);
+				break;
+			case 13:
+				//A palavra-passe demasiado curta
+				Mobile.scrollToText('Palavra-passe');
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A palavra-passe  demasiado curta'), 0);
 				break;
 			case 14:
-				//A palavra-passe inserida é demasiado curta
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A palavra-passe inserida  demasiado curta'),0);
-				break;
-			case 15:
-				//As confirmação da palavra-passe não corresponde
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao da palavra-passe no corresponde'),0);
+				//A confirmação  não corresponde
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao no corresponde'), 0);
 				break;
 		}
 	}

@@ -57,19 +57,19 @@ class TextBox {
 		Mobile.scrollToText('Palavra-passe')
 		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Palavra-passe'), password, 0)
 	}
-	
+
 	@When("utilizador insere {string} no campo do nome")
 	public void utilizador_insere_no_campo_do_nome(String name) {
 		Mobile.scrollToText('Nome')
 		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Nome'), name, 0);
 	}
-		
+
 	@When("utilizador insere {string} no campo de confirmar palavra-passe")
 	public void utilizador_insere_no_campo_de_confirmar_palavra_passe(String pass_conf) {
 		Mobile.scrollToText('Confirmar Palavra-passe')
 		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Confirmar Palavra-passe'), pass_conf, 0);
 	}
-	
+
 	@When("utilizador insere {string} no campo de nº telefone")
 	public void utilizador_insere_no_campo_de_n_telefone(String phone) {
 		Mobile.scrollToText('Nº Telefone')

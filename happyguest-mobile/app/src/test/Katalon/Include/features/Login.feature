@@ -29,7 +29,7 @@ Feature: Login
     When utilizador insere "NotValid" no campo de email
     And utilizador insere "XPTO1" no campo de palavra-passe
     And clica no botão "Login" no ecrã login
-    Then escreve no ecrã "O email inserido não é válido!" - 4
+    Then escreve no ecrã "O email não é válido!" - 4
 
   @tag5
   Scenario: AT5- Email inserido não está registado

@@ -20,42 +20,30 @@ import org.openqa.selenium.Keys as Keys
 Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk', 
     true)
 
-
-Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - Registar'), 0)
-
-Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Nome'), 'Nome', 0)
-
-Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Email'), 'Email', 0)
-
-Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - N Telefone'), 'NºTelefone', 0)
-
-Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Palavra-passe'), 'pass', 0)
-
-Mobile.scrollToText('Palavra-passe')
-
-Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Confirmar Palavra-passe'), 'pass_conf', 
-    0)
-
-Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - Introduza o seu nome'), 0)
-
+Mobile.switchToNative()
 
 Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O nome  demasiado curto'), 0)
 
+Mobile.switchToNative()
 
 Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O email no  vlido'), 0)
 
+Mobile.switchToNative()
 
 Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O email j se encontra registado'), 0)
 
+Mobile.switchToNative()
 
 Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O N telefone no  vlido'), 0)
 
+Mobile.switchToNative()
 
 Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A palavra-passe  demasiado curta'), 
     0)
 
-Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao no corresponde'), 0)
+Mobile.switchToNative()
 
+Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao no corresponde'), 0)
 
 Mobile.closeApplication()
 

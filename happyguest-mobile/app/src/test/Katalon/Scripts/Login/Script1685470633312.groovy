@@ -43,7 +43,7 @@ Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView -
 
 Mobile.switchToNative()
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0)
+Mobile.getText(findTestObject('null'), 0)
 
 Mobile.switchToNative()
 
