@@ -33,34 +33,32 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private APIRoutes api;
     private TextInputLayout inputName;
     private TextInputLayout inputEmail;
     private TextInputLayout inputPassword;
-    private TextInputLayout inputPasswordConfirmation;
+    private TextInputLayout inputPasswordConfirm;
     private TextInputLayout inputPhone;
-
     private EditText txtName;
     private EditText txtEmail;
     private EditText txtPassword;
     private EditText txtPasswordConfirm;
     private EditText txtPhone;
 
-    APIRoutes api;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Buttons
+        // Buttons
         Button btnRegister = findViewById(R.id.btnRegister);
         FloatingActionButton btnImage = findViewById(R.id.btnImage);
 
-        //TextInputLayouts and EditTexts
+        // TextInputLayouts and EditTexts
         inputName = findViewById(R.id.inputName);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
-        inputPasswordConfirmation = findViewById(R.id.inputPasswordConfirm);
+        inputPasswordConfirm = findViewById(R.id.inputPasswordConfirm);
         inputPhone = findViewById(R.id.inputPhoneNr);
         txtName = findViewById(R.id.textName);
         txtEmail = findViewById(R.id.textEmail);
@@ -68,10 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
         txtPasswordConfirm = findViewById(R.id.textPasswordConfirm);
         txtPhone = findViewById(R.id.textPhoneNr);
 
-        //API Routes
+        // API Routes
         api = APIClient.getClient().create(APIRoutes.class);
 
-        //Select image
+        // Select Image
         btnImage.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -79,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(intent, "Selecione uma imagem."));
         });
 
-        //Attempt Register and go to LoginActivity
+        // Attempt Register and go to LoginActivity
         btnRegister.setOnClickListener(view -> {
             if (isNetworkAvailable()) {
                 registerClick();
@@ -94,9 +92,8 @@ public class RegisterActivity extends AppCompatActivity {
         inputName.setError(null);
         inputEmail.setError(null);
         inputPassword.setError(null);
-        inputPasswordConfirmation.setError(null);
+        inputPasswordConfirm.setError(null);
         inputPhone.setError(null);
-
         //Get values
         String name = txtName.getText().toString();
         String email = txtEmail.getText().toString();
@@ -105,7 +102,6 @@ public class RegisterActivity extends AppCompatActivity {
         String phone = txtPhone.getText().toString();
 
         //Validate values
-
         if (name.isEmpty()) {
             inputName.setError(getString(R.string.name_required));
         } else if (name.length() < 3) {
@@ -119,13 +115,11 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (password.length() < 4) {
             inputPassword.setError(getString(R.string.password_too_short));
         } else if (passwordConfirmation.isEmpty()) {
-            inputPasswordConfirmation.setError(getString(R.string.password_confirmation_required));
+            inputPasswordConfirm.setError(getString(R.string.password_confirmation_required));
         } else if (!passwordConfirmation.equals(password)) {
-            inputPasswordConfirmation.setError(getString(R.string.password_confirmation_not_match));
-        } else if (!phone.isEmpty()) {
-            if (phone.length() < 9 || phone.length() > 12) {
-                inputPhone.setError(getString(R.string.invalid_phone));
-            }
+            inputPasswordConfirm.setError(getString(R.string.password_confirmation_not_match));
+        } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
+            inputPhone.setError(getString(R.string.invalid_phone));
         } else {
             registerAttempt();
         }
@@ -141,10 +135,9 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
-                // Check if response is successful
                 if (response.isSuccessful()) {
-                    // Display success message and go to login
-                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    // Display success message and go to LoginActivity
+                    Toast.makeText(RegisterActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this).toBundle());
                     finish();
@@ -164,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 inputPassword.setError(errors.getJSONArray("password").get(0).toString());
                             }
                             if (errors.has("password_confirmation")) {
-                                inputPasswordConfirmation.setError(errors.getJSONArray("password_confirmation").get(0).toString());
+                                inputPasswordConfirm.setError(errors.getJSONArray("password_confirmation").get(0).toString());
                             }
                             if (errors.has("phone")) {
                                 inputPhone.setError(errors.getJSONArray("phone").get(0).toString());
