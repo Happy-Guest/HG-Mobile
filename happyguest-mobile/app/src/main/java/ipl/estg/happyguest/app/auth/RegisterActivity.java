@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivity(Intent.createChooser(intent, "Selecione uma imagem."));
+            startActivity(Intent.createChooser(intent, getString(R.string.select_image)));
         });
 
         // Attempt Register and go to LoginActivity
