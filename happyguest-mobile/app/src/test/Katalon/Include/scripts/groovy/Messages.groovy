@@ -83,6 +83,22 @@ class Messages {
 				AppiumDriver<?> driver = MobileDriverFactory.getDriver()
 				driver.findElementByXPath("//android.widget.Toast[@text='Não tem permissões para aceder a esta aplicação.']")
 				break;
+			case 9:
+				//Introduza o seu nome.
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - Introduza o seu nome'), 0);
+				break;
+			case 12:
+				//O número de telefone inserido não é válido
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O nmero de telefone inserido no  vlido'),0);
+				break;
+			case 14:
+				//A palavra-passe inserida é demasiado curta
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A palavra-passe inserida  demasiado curta'),0);
+				break;
+			case 15:
+				//As confirmação da palavra-passe não corresponde
+				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao da palavra-passe no corresponde'),0);
+				break;
 		}
 	}
 }

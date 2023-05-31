@@ -20,37 +20,41 @@ import org.openqa.selenium.Keys as Keys
 Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk', 
     true)
 
-
-Mobile.setText(findTestObject('null'), 'NotValid', 0)
-
-Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0)
-
-Mobile.setText(findTestObject('null'), 'XPTO1', 0)
-
 Mobile.switchToNative()
 
-Mobile.switchToNative()
+Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - Registar'), 0)
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0)
+Mobile.tap(findTestObject('null'), 0)
 
-Mobile.switchToNative()
+Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Nome'), 'Nome', 0)
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua palavra-passe'), 0)
+Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Email'), 'Email', 0)
 
-Mobile.switchToNative()
+Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - N Telefone'), 'NºTelefone', 0)
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no  vlido'), 0)
+Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Palavra-passe'), 'pass', 0)
 
-Mobile.switchToNative()
+Mobile.scrollToText('Palavra-passe')
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 
+Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Confirmar Palavra-passe'), 'pass_conf', 
     0)
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Hotel de Leiria'), 0)
+Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - Introduza o seu nome'), 0)
+
+Mobile.switchToNative()
+
+Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A palavra-passe inserida  demasiado curta'),
+	0)
+
+Mobile.switchToNative()
+
+Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao da palavra-passe no corresponde'),
+	0)
+
+Mobile.switchToNative()
+
+Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O nmero de telefone inserido no  vlido'),
+	0)
 
 Mobile.closeApplication()
 
