@@ -45,48 +45,48 @@ import cucumber.api.java.en.When
 
 class App {
 	@Given("a aplicação está pronta")
-	public void a_aplicação_está_pronta() {
+    void a_aplicação_está_pronta() {
 		//Run app (true -> uninstalling the application automatically after run)
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
 
-		//TODO
+        //TODO
 
 		//on wifi
-		Mobile.toggleWifi('true');
+		Mobile.toggleWifi('true')
 
-		//Delay 5 seg
-		Mobile.delay(5);
-	}
+        //Delay 5 seg
+		Mobile.delay(5)
+    }
 
 	@Given("a aplicação está pronta sem internet")
-	public void a_aplicação_está_pronta_sem_internet() {
+    void a_aplicação_está_pronta_sem_internet() {
 		//Run app
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
 
-		//TODO
+        //TODO
 
 		//off wifi
-		Mobile.toggleWifi('false');
+		Mobile.toggleWifi('false')
 
-	}
+    }
 
 	@Given("a aplicação está pronta e tem sessão iniciada")
-	public void a_aplicação_está_pronta_e_tem_sessão_iniciada() {
+    void a_aplicação_está_pronta_e_tem_sessão_iniciada() {
 		//Run app
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
-	}
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
+    }
 
 
 	@Then("é apresentada a página {string}")
-	public void é_apresentada_a_página(String title) {
+    void é_apresentada_a_página(String title) {
 		//identificate home
 		if(title == "Home") {
-			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0);
-		}
+			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
+        }
 		else if (title == "Login")
 		{
-			Mobile.getText(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0);
-		}
+			Mobile.getText(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0)
+        }
 	}
 
 }

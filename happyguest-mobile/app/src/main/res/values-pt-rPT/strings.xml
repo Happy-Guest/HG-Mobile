@@ -23,6 +23,8 @@
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
+    <string name="restore_error">Erro ao restaurar sessão.</string>
+    <string name="restore_success">Sessão restaurada com sucesso.</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>

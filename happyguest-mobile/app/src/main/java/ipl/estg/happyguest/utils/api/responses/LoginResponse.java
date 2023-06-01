@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class LoginResponse {
 
     @SerializedName("access_token")
-    public String accessToken;
+    private final String accessToken;
     @SerializedName("message")
-    public String message;
+    private final String message;
 
     public LoginResponse(String accessToken, String message) {
         this.accessToken = accessToken;

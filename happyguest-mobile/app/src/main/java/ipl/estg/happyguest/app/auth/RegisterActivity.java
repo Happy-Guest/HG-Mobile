@@ -28,7 +28,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.api.APIClient;
@@ -164,39 +163,41 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     // Display success message and go to LoginActivity
-                    Toast.makeText(RegisterActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();
                 } else {
                     try {
-                        // Get response errors
-                        JSONObject jObjError = new JSONObject(Objects.requireNonNull(response.errorBody()).string());
-                        if (jObjError.has("errors")) {
-                            JSONObject errors = jObjError.getJSONObject("errors");
-                            if (errors.has("name")) {
-                                inputName.setError(errors.getJSONArray("name").get(0).toString());
+                        if (response.errorBody() != null) {
+                            // Get response errors
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
+                                if (errors.has("name")) {
+                                    inputName.setError(errors.getJSONArray("name").get(0).toString());
+                                }
+                                if (errors.has("email")) {
+                                    inputEmail.setError(errors.getJSONArray("email").get(0).toString());
+                                }
+                                if (errors.has("password")) {
+                                    inputPassword.setError(errors.getJSONArray("password").get(0).toString());
+                                }
+                                if (errors.has("password_confirmation")) {
+                                    inputPasswordConfirm.setError(errors.getJSONArray("password_confirmation").get(0).toString());
+                                }
+                                if (errors.has("phone")) {
+                                    inputPhone.setError(errors.getJSONArray("phone").get(0).toString());
+                                }
+                                if (errors.has("photo")) {
+                                    Toast.makeText(RegisterActivity.this, errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
+                                }
+                            } else {
+                                Toast.makeText(RegisterActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
                             }
-                            if (errors.has("email")) {
-                                inputEmail.setError(errors.getJSONArray("email").get(0).toString());
-                            }
-                            if (errors.has("password")) {
-                                inputPassword.setError(errors.getJSONArray("password").get(0).toString());
-                            }
-                            if (errors.has("password_confirmation")) {
-                                inputPasswordConfirm.setError(errors.getJSONArray("password_confirmation").get(0).toString());
-                            }
-                            if (errors.has("phone")) {
-                                inputPhone.setError(errors.getJSONArray("phone").get(0).toString());
-                            }
-                            if (errors.has("photo")) {
-                                Toast.makeText(RegisterActivity.this, errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            Toast.makeText(RegisterActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException | IOException e) {
                         throw new RuntimeException(e);
