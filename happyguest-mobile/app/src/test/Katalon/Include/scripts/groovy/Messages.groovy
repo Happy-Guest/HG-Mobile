@@ -56,27 +56,27 @@ class Messages {
 			case 2:
 			//Introduza o seu email
 				Mobile.scrollToText('Email');
-				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0);
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Introduza o seu email'), 0);
 				break;
 			case 3:
 			//Introduza a sua palavra-passe
-				Mobile.scrollToText('Palavra-passe');
-				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua palavra-passe'), 0);
+				Mobile.scrollToText('Introduza a sua palavra-passe');
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Introduza a sua palavra-passe'), 0);
 				break;
 			case 4:
 			//O email não é válido
 				Mobile.scrollToText('Email');
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O email no  vlido'), 0);
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O email no  vlido'), 0);
 				break;
 			case 5:
 			//O email inserido não está registado
 				Mobile.scrollToText('Email');
-				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no est registado'), 0);
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O email inserido no est registado'), 0);
 				break;
 			case 6:
 			//A palavra-passe inserida está incorreta
 				Mobile.scrollToText('Palavra-passe');
-				Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 0);
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - A palavra-passe inserida est incorreta'), 0);
 				break;
 			case 7:
 			//A sua conta foi bloqueada, por favor contacte o administrador!
@@ -91,31 +91,36 @@ class Messages {
 			case 9:
 			//Introduza o seu nome.
 				Mobile.scrollToText('Nome');
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - Introduza o seu nome'), 0);
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Introduza o seu nome'), 0);
 				break;
 			case 10:
-				//O nome é demasiado curto
+			//O nome é demasiado curto
 				Mobile.scrollToText('Nome');
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O nome  demasiado curto'), 0);
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O nome  demasiado curto'), 0);
 				break;
 			case 11:
-				//O email já se encontra registado
-				Mobile.scrollToText('Email');
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O email j se encontra registado'), 0);
+			//O Nº telefone não é válido!
+				Mobile.scrollToText('Nº Telefone');
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O N telefone no  vlido'), 0)
 				break;
 			case 12:
-				//O número de telefone não é válido
-				Mobile.scrollToText('Nº Telefone');
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - O N telefone no  vlido'), 0);
+			//A palavra-passe demasiado curta
+				Mobile.scrollToText('Palavra-passe');
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - A palavra-passe  demasiado curta'), 0);
 				break;
 			case 13:
-				//A palavra-passe demasiado curta
-				Mobile.scrollToText('Palavra-passe');
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A palavra-passe  demasiado curta'), 0);
+			//Confirme a sua palavra-passe.
+				Mobile.scrollToText('Confirmar Palavra-passe');
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Confirme a sua palavra-passe'), 0);
 				break;
 			case 14:
-				//A confirmação  não corresponde
-				Mobile.getText(findTestObject('Object Repository/Register/android.widget.TextView - A confirmao no corresponde'), 0);
+			//A confirmação  não corresponde
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - A confirmao no corresponde'), 0);
+				break;
+			case 15:
+			//O email já se encontra registado
+				Mobile.scrollToText('Email');
+				Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O email j se encontra registado'), 0);
 				break;
 		}
 	}

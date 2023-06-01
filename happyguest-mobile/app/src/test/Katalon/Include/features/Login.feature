@@ -11,13 +11,13 @@ Feature: Login
     Then escreve no ecrã "Sem ligação à internet!" - 1
 
   @tag2
-  Scenario: AT2- Não insere nada no email
+  Scenario: AT2- Utilizador não insere nada no email
     Given a aplicação está pronta
     When clica no botão "Login" no ecrã login
     Then escreve no ecrã "Introduza o seu email." - 2
 
   @tag3
-  Scenario: AT3- Não insere nada na palavra-passe
+  Scenario: AT3- Utilizador não insere nada na palavra-passe
     Given a aplicação está pronta
     When utilizador insere "XPTO@mail.pt" no campo de email
     And clica no botão "Login" no ecrã login

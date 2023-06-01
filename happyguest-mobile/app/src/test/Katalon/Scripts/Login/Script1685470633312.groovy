@@ -21,36 +21,25 @@ Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app
     true)
 
 
-Mobile.setText(findTestObject('null'), 'NotValid', 0)
-
 Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0)
 
 Mobile.setText(findTestObject('null'), 'XPTO1', 0)
 
-Mobile.switchToNative()
+Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Introduza o seu email'), 0)
 
-Mobile.switchToNative()
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza o seu email'), 0)
+Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Introduza a sua palavra-passe'), 0)
 
-Mobile.switchToNative()
+Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O email inserido no  vlido'), 0)
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Introduza a sua palavra-passe'), 0)
 
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - O email inserido no  vlido'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('null'), 0)
-
-Mobile.switchToNative()
-
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - A palavra-passe inserida est incorreta'), 
+Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - A palavra-passe inserida est incorreta'), 
     0)
 
-Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Hotel de Leiria'), 0)
+Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
+
+Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - O email inserido no est registado'),
+	0)
 
 Mobile.closeApplication()
 

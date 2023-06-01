@@ -47,7 +47,7 @@ class App {
 	@Given("a aplicação está pronta")
 	public void a_aplicação_está_pronta() {
 		//Run app (true -> uninstalling the application automatically after run)
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  true);
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
 
 		//TODO
 
@@ -61,7 +61,7 @@ class App {
 	@Given("a aplicação está pronta sem internet")
 	public void a_aplicação_está_pronta_sem_internet() {
 		//Run app
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  true);
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
 
 		//TODO
 
@@ -81,7 +81,7 @@ class App {
 	public void é_apresentada_a_página(String title) {
 		//identificate home
 		if(title == "Home") {
-			Mobile.getText(findTestObject('Object Repository/Login/android.widget.TextView - Hotel de Leiria'), 0);
+			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0);
 		}
 		else if (title == "Login")
 		{
