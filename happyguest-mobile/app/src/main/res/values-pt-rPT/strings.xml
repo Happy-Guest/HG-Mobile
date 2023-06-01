@@ -18,6 +18,7 @@
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
     <string name="barTitle">Hotel de Leiria</string>
+    <string name="batTitle_profile">Perfil</string>
     <string name="menu_home">Página Inicial</string>
     <string name="menu_logout">Sair</string>
 
