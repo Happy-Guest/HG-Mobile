@@ -14,6 +14,7 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 

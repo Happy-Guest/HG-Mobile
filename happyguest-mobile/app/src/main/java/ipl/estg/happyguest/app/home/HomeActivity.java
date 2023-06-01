@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Go to profile fragment
         binding.appBarHome.toolbar.btnBarProfile.setOnClickListener(v -> {
-            navController.navigate(R.id.nav_home);
+            navController.navigate(R.id.nav_profile);
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
