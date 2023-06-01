@@ -4,6 +4,7 @@
     <string name="app_name">HappyGuest</string>
     <string name="background_image">Background Image</string>
     <string name="logo_image">Logo Image</string>
+    <string name="profile_image">Profile Image</string>
     <string name="remember">Remember</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -18,8 +19,9 @@
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Profile</string>
     <string name="barTitle">Leiria Hotel</string>
-    <string name="batTitle_profile">Profile</string>
+    <string name="barTitle_profile">Profile</string>
     <string name="menu_home">Home Page</string>
+    <string name="menu_profile">Profile</string>
     <string name="menu_logout">Logout</string>
 
     <!-- App Errors -->

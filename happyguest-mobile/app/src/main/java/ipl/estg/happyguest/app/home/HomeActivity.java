@@ -61,8 +61,10 @@ public class HomeActivity extends AppCompatActivity {
 
         // Hide title and back button
         ActionBar actionBar = getSupportActionBar();
-        Objects.requireNonNull(actionBar).setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
         // Open drawer
         binding.appBarHome.toolbar.btnBarOpen.setOnClickListener(v -> drawer.open());
@@ -70,7 +72,21 @@ public class HomeActivity extends AppCompatActivity {
         // Go to home fragment
         binding.appBarHome.toolbar.btnBarLogo.setOnClickListener(v -> {
             navController.navigate(R.id.nav_home);
-            actionBar.setDisplayHomeAsUpEnabled(false);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                actionBar.setDisplayShowTitleEnabled(false);
+                binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle);
+            }
+        });
+
+        // Go to profile fragment
+        binding.appBarHome.toolbar.btnBarProfile.setOnClickListener(v -> {
+            navController.navigate(R.id.nav_home);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                actionBar.setDisplayShowTitleEnabled(false);
+                binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle_profile);
+            }
         });
 
         // API Routes and Token
