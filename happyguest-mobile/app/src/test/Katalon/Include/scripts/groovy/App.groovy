@@ -45,48 +45,57 @@ import cucumber.api.java.en.When
 
 class App {
 	@Given("a aplicação está pronta")
-    void a_aplicação_está_pronta() {
+	void a_aplicação_está_pronta() {
 		//Run app (true -> uninstalling the application automatically after run)
 		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
 
-        //TODO
+		//TODO
 
 		//on wifi
 		Mobile.toggleWifi('true')
 
-        //Delay 5 seg
+		//Delay 5 seg
 		Mobile.delay(5)
-    }
+	}
 
 	@Given("a aplicação está pronta sem internet")
-    void a_aplicação_está_pronta_sem_internet() {
+	void a_aplicação_está_pronta_sem_internet() {
 		//Run app
 		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
 
-        //TODO
+		//TODO
 
 		//off wifi
 		Mobile.toggleWifi('false')
 
-    }
+	}
 
 	@Given("a aplicação está pronta e tem sessão iniciada")
-    void a_aplicação_está_pronta_e_tem_sessão_iniciada() {
+	void a_aplicação_está_pronta_e_tem_sessão_iniciada() {
 		//Run app
 		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
-    }
+	}
 
 
 	@Then("é apresentada a página {string}")
-    void é_apresentada_a_página(String title) {
+	void é_apresentada_a_página(String title) {
 		//identificate home
 		if(title == "Home") {
 			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
-        }
+		}
 		else if (title == "Login")
 		{
 			Mobile.getText(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0)
-        }
+		}
+	}
+	
+	@Then("é apresentado a página {string} com sessão guardada")
+	public void é_apresentado_a_página_com_sessão_guardada(String string) {
+		Mobile.delay(2);;
+	}
+	@Then("é apresentado a página {string} sem sessão guardada")
+	public void é_apresentado_a_página_com_sessão_iniciada(String string) {
+		Mobile.delay(2);
 	}
 
 }

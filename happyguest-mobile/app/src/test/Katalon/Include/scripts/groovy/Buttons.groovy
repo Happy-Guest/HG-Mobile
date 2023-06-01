@@ -46,20 +46,25 @@ import cucumber.api.java.en.When
 class Buttons {
 
 	@When("clica na sidebar")
-    void utilizador_clica_na_sidebar() {
+	void utilizador_clica_na_sidebar() {
 		//Click on icon sidebar
 		Mobile.tap(findTestObject('Object Repository/Button/android.widget.ImageButton'), 0)
-    }
+	}
 	@When("clica no botão {string} no ecrã login")
-    void utilizador_clica_no_botão_no_ecra_login(String btn) {
+	void utilizador_clica_no_botão_no_ecra_login(String btn) {
 		//Click on the button
 		Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - ' + btn), 0)
 
-    }
+	}
 
 	@When("clica no botão {string} no ecrã registar")
-    void utilizador_clica_no_botão_no_ecra_registar(String btn) {
+	void utilizador_clica_no_botão_no_ecra_registar(String btn) {
 		//Click on the button
 		Mobile.tap(findTestObject('Object Repository/Button/android.widget.Button - ' + btn + ' (Register)'), 0)
-    }
+	}
+	
+	@When("clica no botão “Lembrar“ na secção de Login")
+	public void clica_no_botão_Lembrar_na_secção_de_Login() {
+		Mobile.tap(findTestObject('Object Repository/Button/android.widget.CheckBox - Lembrar'), 0);
+	}
 }
