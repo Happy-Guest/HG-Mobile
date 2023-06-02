@@ -4,8 +4,10 @@ import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -22,4 +24,7 @@ public interface APIRoutes {
 
     @POST("logout")
     Call<MessageResponse> logout();
+
+    @GET("me")
+    Call<UserResponse> me();
 }

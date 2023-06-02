@@ -31,7 +31,7 @@ public class CloseService extends Service {
     public void onTaskRemoved(Intent rootIntent) {
         Token token = new Token(this);
         APIRoutes api = APIClient.getClient().create(APIRoutes.class);
-        if (!token.getRemember()) {
+        if (!token.getRemember() && token.getToken() != null) {
             token.clearToken();
             try {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

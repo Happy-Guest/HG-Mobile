@@ -19,7 +19,7 @@ public class Token {
     }
 
     public String getToken(){
-        return sharedPreferences.getString("token", "");
+        return sharedPreferences.getString("token", null);
     }
 
     public void setRemember(Boolean remember){

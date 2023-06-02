@@ -45,34 +45,34 @@ import cucumber.api.java.en.When
 
 class TextBox {
 	@When("utilizador insere {string} no campo de email")
-	public void utilizador_insere_NotValid_no_campo_de_email(String email) {
+	void utilizador_insere_NotValid_no_campo_de_email(String email) {
 		//Insert email
 		Mobile.scrollToText('Email')
 		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Email'), email, 0)
 	}
 
 	@When("utilizador insere {string} no campo de palavra-passe")
-	public void utilizador_insere_XPTO_no_campo_de_palavra_passe(String password) {
+	void utilizador_insere_XPTO_no_campo_de_palavra_passe(String password) {
 		//Insert password
 		Mobile.scrollToText('Palavra-passe')
 		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Palavra-passe'), password, 0)
 	}
 
 	@When("utilizador insere {string} no campo do nome")
-	public void utilizador_insere_no_campo_do_nome(String name) {
+	void utilizador_insere_no_campo_do_nome(String name) {
 		Mobile.scrollToText('Nome')
-		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Nome'), name, 0);
+		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Nome'), name, 0)
 	}
 
 	@When("utilizador insere {string} no campo de confirmar palavra-passe")
-	public void utilizador_insere_no_campo_de_confirmar_palavra_passe(String pass_conf) {
+	void utilizador_insere_no_campo_de_confirmar_palavra_passe(String pass_conf) {
 		Mobile.scrollToText('Confirmar Palavra-passe')
-		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Confirmar Palavra-passe'), pass_conf, 0);
+		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - Confirmar Palavra-passe'), pass_conf, 0)
 	}
 
 	@When("utilizador insere {string} no campo de nº telefone")
-	public void utilizador_insere_no_campo_de_n_telefone(String phone) {
+	void utilizador_insere_no_campo_de_n_telefone(String phone) {
 		Mobile.scrollToText('Nº Telefone')
-		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - N Telefone'), phone, 0);
+		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - N Telefone'), phone, 0)
 	}
 }
