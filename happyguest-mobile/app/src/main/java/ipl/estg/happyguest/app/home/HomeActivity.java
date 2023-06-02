@@ -71,7 +71,11 @@ public class HomeActivity extends AppCompatActivity {
 
         // Go to home fragment
         binding.appBarHome.toolbar.btnBarLogo.setOnClickListener(v -> {
-            navController.navigate(R.id.nav_home);
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_profile) {
+                navController.navigate(R.id.action_profile_home);
+            } else {
+                navController.navigate(R.id.nav_home);
+            }
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
@@ -81,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Go to profile fragment
         binding.appBarHome.toolbar.btnBarProfile.setOnClickListener(v -> {
-            navController.navigate(R.id.nav_profile);
+            navController.navigate(R.id.action_home_profile);
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
