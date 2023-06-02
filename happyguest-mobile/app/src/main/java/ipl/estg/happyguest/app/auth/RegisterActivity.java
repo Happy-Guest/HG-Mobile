@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -200,14 +201,16 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     } catch (JSONException | IOException e) {
-                        throw new RuntimeException(e);
+                        Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Log.i("Register Error: ", e.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Log.e("Register Error: ", t.getMessage());
                 call.cancel();
             }
         });

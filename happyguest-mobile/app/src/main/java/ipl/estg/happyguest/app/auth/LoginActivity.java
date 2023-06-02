@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -136,14 +137,16 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     } catch (JSONException | IOException e) {
-                        throw new RuntimeException(e);
+                        Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Log.i("Login Error: ", e.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-                Toast.makeText(LoginActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Log.i("Login Error: ", t.getMessage());
                 call.cancel();
             }
         });
