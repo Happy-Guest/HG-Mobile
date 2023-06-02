@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -106,9 +106,9 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     // Save token
-                    token.setToken(Objects.requireNonNull(response.body()).getAccessToken());
+                    token.setToken(response.body().getAccessToken());
                     token.setRemember(remember.isChecked());
                     APIClient.setToken(token.getToken());
 
@@ -118,30 +118,35 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     finish();
+
                 } else {
                     try {
-                        // Get response errors
-                        JSONObject jObjError = new JSONObject(Objects.requireNonNull(response.errorBody()).string());
-                        if (jObjError.has("errors")) {
-                            JSONObject errors = jObjError.getJSONObject("errors");
-                            if (errors.has("email")) {
-                                inputEmail.setError(errors.getJSONArray("email").get(0).toString());
+                        if (response.errorBody() != null) {
+                            // Get response errors
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
+                                if (errors.has("email")) {
+                                    inputEmail.setError(errors.getJSONArray("email").get(0).toString());
+                                }
+                                if (errors.has("password")) {
+                                    inputPassword.setError(errors.getJSONArray("password").get(0).toString());
+                                }
+                            } else {
+                                Toast.makeText(LoginActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
                             }
-                            if (errors.has("password")) {
-                                inputPassword.setError(errors.getJSONArray("password").get(0).toString());
-                            }
-                        } else {
-                            Toast.makeText(LoginActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException | IOException e) {
-                        throw new RuntimeException(e);
+                        Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Log.i("Login Error: ", e.getMessage());
                     }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-                Toast.makeText(LoginActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Log.i("Login Error: ", t.getMessage());
                 call.cancel();
             }
         });

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class MessageResponse {
 
     @SerializedName("message")
-    public String message;
+    private final String message;
 
     public MessageResponse(String message) {
         this.message = message;
