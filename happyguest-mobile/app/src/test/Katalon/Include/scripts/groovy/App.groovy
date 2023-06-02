@@ -47,7 +47,7 @@ class App {
 	@Given("a aplicação está pronta")
 	void a_aplicação_está_pronta() {
 		//Run app (true -> uninstalling the application automatically after run)
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  true)
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
 
 		//TODO
 
@@ -55,7 +55,7 @@ class App {
 		Mobile.toggleWifi('true')
 
 		//Delay 5 seg
-		Mobile.delay(5)
+		Mobile.delay(2)
 	}
 
 	@Given("a aplicação está pronta sem internet")
