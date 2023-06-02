@@ -8,7 +8,7 @@ Feature: Lembrar sessão
   Scenario: AT1- Utilizador não lembrou a sessão
     Given a aplicação está pronta
     When utilizador insere "XPTO@mail.pt" no campo de email
-    And utilizador insere "XPTO" no campo de palavra-passe
+    And utilizador insere "XPTO1" no campo de palavra-passe
     And clica no botão "Login" no ecrã login
     Then é apresentado a página "Home" sem sessão guardada
 
@@ -16,7 +16,7 @@ Feature: Lembrar sessão
   Scenario: AT2- Utilizador lembrou a sessão
     Given a aplicação está pronta
     When utilizador insere "XPTO@mail.pt" no campo de email
-    And utilizador insere "XPTO" no campo de palavra-passe
+    And utilizador insere "XPTO1" no campo de palavra-passe
     And clica no botão “Lembrar“ na secção de Login
     And clica no botão "Login" no ecrã login
     Then é apresentado a página "Home" com sessão guardada
