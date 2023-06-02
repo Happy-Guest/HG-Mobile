@@ -2,6 +2,7 @@ package ipl.estg.happyguest.app.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -69,6 +72,22 @@ public class HomeActivity extends AppCompatActivity {
         // Open drawer
         binding.appBarHome.toolbar.btnBarOpen.setOnClickListener(v -> drawer.open());
 
+        // Navigation listener
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            // Hide title and back button
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                actionBar.setDisplayShowTitleEnabled(false);
+            }
+            // Hide profile button
+            ArrayList<Integer> navFragments = new ArrayList<>(Arrays.asList(R.id.nav_home));
+            if (!navFragments.contains(destination.getId())) {
+                binding.appBarHome.toolbar.btnBarProfile.setVisibility(View.INVISIBLE);
+            } else {
+                binding.appBarHome.toolbar.btnBarProfile.setVisibility(View.VISIBLE);
+            }
+        });
+
         // Go to home fragment
         binding.appBarHome.toolbar.btnBarLogo.setOnClickListener(v -> {
             if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_profile) {
@@ -76,21 +95,13 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 navController.navigate(R.id.nav_home);
             }
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                actionBar.setDisplayShowTitleEnabled(false);
-                binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle);
-            }
+            binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle);
         });
 
         // Go to profile fragment
         binding.appBarHome.toolbar.btnBarProfile.setOnClickListener(v -> {
-            navController.navigate(R.id.action_home_profile);
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                actionBar.setDisplayShowTitleEnabled(false);
-                binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle_profile);
-            }
+            navController.navigate(R.id.action_global_profile);
+            binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle_profile);
         });
 
         // API Routes and Token

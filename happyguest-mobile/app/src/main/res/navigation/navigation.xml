@@ -9,13 +9,7 @@
         android:id="@+id/nav_home"
         android:name="ipl.estg.happyguest.app.home.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_home_profile"
-            app:destination="@id/nav_profile"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_left" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_profile"
         android:name="ipl.estg.happyguest.app.home.profile.ProfileFragment"
@@ -27,5 +21,10 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_right" />
     </fragment>
+    <action
+        android:id="@+id/action_global_profile"
+        app:destination="@id/nav_profile"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_left" />
 
 </navigation>
