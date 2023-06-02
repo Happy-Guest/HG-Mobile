@@ -47,7 +47,7 @@ class App {
 	@Given("a aplicação está pronta")
 	void a_aplicação_está_pronta() {
 		//Run app (true -> uninstalling the application automatically after run)
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  true)
 
 		//TODO
 
@@ -91,11 +91,13 @@ class App {
 	
 	@Then("é apresentado a página {string} com sessão guardada")
 	public void é_apresentado_a_página_com_sessão_guardada(String string) {
-		Mobile.delay(2);;
+		Mobile.delay(2);
+		Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
 	}
 	@Then("é apresentado a página {string} sem sessão guardada")
 	public void é_apresentado_a_página_com_sessão_iniciada(String string) {
 		Mobile.delay(2);
+		Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
 	}
 
 }

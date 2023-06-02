@@ -10,7 +10,7 @@ Feature: Lembrar sessão
     When utilizador insere "XPTO@mail.pt" no campo de email
     And utilizador insere "XPTO" no campo de palavra-passe
     And clica no botão "Login" no ecrã login
-    Then é apresentado a página "Dashboard" sem sessão guardada
+    Then é apresentado a página "Home" sem sessão guardada
 
   @tag2
   Scenario: AT2- Utilizador lembrou a sessão
@@ -19,10 +19,10 @@ Feature: Lembrar sessão
     And utilizador insere "XPTO" no campo de palavra-passe
     And clica no botão “Lembrar“ na secção de Login
     And clica no botão "Login" no ecrã login
-    Then é apresentado a página "Dashboard" com sessão guardada
+    Then é apresentado a página "Home" com sessão guardada
 
   @tag3
   Scenario: AT3- Utilizador entrou na app com Sessão iniciada
     Given a aplicação está pronta
-    When utilizador entra na aplicaçãos
-    Then é apresentado a página "Dashboard" com sessão guardada
+    When é apresentada a página "Home"
+    Then escreve no ecrã "Sessão restaurada com sucesso." - 16
