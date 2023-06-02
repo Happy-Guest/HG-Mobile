@@ -2,6 +2,7 @@ package ipl.estg.happyguest.app.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -147,13 +148,15 @@ public class HomeActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     finish();
                 } else {
-                    Toast.makeText(HomeActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
+                    Log.i("Logout Error: ", response.message());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
-                Toast.makeText(HomeActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
+                Log.i("Logout Error: ", t.getMessage());
                 call.cancel();
             }
         });

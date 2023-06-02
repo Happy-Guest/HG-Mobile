@@ -27,6 +27,7 @@
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
     <string name="restore_error">Erro ao restaurar sessão.</string>
+    <string name="logout_error">Erro ao terminar sessão.</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="api_error">Erro ao ligar ao servidor!</string>
 
