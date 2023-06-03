@@ -87,6 +87,12 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 binding.appBarHome.toolbar.btnBarProfile.setVisibility(View.VISIBLE);
             }
+            // Hide profile image
+            if (destination.getId() == R.id.nav_profile) {
+                binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
+            } else {
+                binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
+            }
         });
 
         // Go to home fragment
