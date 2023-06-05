@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".app.home.profile.ProfileFragment">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Donec sapien mi, semper sit amet erat eu, lacinia ultricies erat. Donec et lectus ac libero aliquam commodo. In quis enim erat. Donec at convallis dolor, fringilla pharetra magna. Sed non eros magna. Vivamus vitae tempor eros, at vehicula enim. In hac habitasse platea dictumst. Donec et accumsan tortor. Praesent augue ante, blandit eu commodo non, vulputate at est. Etiam eget neque ut ante porta placerat nec eu ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque feugiat tortor sit amet sem dictum sollicitudin. Etiam ac tortor ullamcorper, maximus augue non, maximus velit. Duis at dui auctor, tempor libero vel, sodales quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;  Etiam rutrum aliquet urna, non eleifend eros blandit eu. In vulputate et velit et lobortis. Integer porta rhoncus ligula, accumsan facilisis ex finibus nec. Mauris pellentesque, orci eget feugiat suscipit, lacus lectus aliquet nunc, sit amet laoreet libero est eu nisl. Pellentesque bibendum dolor sapien, ac porta leo rhoncus in. Donec sapien elit, tempus et dictum eget, eleifend et purus. Maecenas ut efficitur leo. Morbi vel porttitor nisi. Curabitur in felis in tortor congue fermentum.  Pellentesque magna dui, cursus vitae urna eu, egestas iaculis orci. Morbi non velit laoreet, cursus elit in, ultricies metus. Nulla facilisi. In tristique vulputate tellus sit amet gravida. Suspendisse posuere ligula eu nulla consectetur porttitor. Suspendisse massa ex, rhoncus suscipit ipsum ac, bibendum consequat sem. Integer id lectus augue. Fusce nec accumsan libero. Donec arcu risus, placerat in diam quis, faucibus bibendum enim. Morbi elementum enim id risus varius hendrerit."
-        android:textSize="25sp" />
-</androidx.core.widget.NestedScrollView>
+    tools:context=".app.home.profile.ProfileFragment" />
