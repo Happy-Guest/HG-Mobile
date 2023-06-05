@@ -15,12 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:fitsSystemWindows="true"
             android:theme="@style/Theme.HappyGuest.AppBarOverlay">
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar"
-                app:popupTheme="@style/Theme.HappyGuest.PopupOverlay" />
+                layout="@layout/toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarHome.toolbar.getRoot());
+        setSupportActionBar(binding.appBarHome.toolbar.toolbarMain);
 
         // Start CloseService
         Intent stickyService = new Intent(this, CloseService.class);
