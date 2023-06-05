@@ -1,99 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.appbar.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar"
+    android:id="@+id/collapsingToolbar"
     android:layout_width="match_parent"
-    android:layout_height="220dp"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_leiria2"
-    android:paddingTop="5dp"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:translationX="-9dp">
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="top"
+        android:paddingTop="5dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/Theme.HappyGuest.PopupOverlay">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:translationX="-9dp">
 
-            <ImageButton
-                android:id="@+id/btnBarOpen"
-                android:layout_width="60dp"
-                android:layout_height="70dp"
-                android:layout_gravity="top|start"
-                android:layout_marginStart="5dp"
-                android:background="@drawable/menu_icon"
-                android:clickable="true"
-                android:contentDescription="@string/menu_icon"
-                android:scaleX=".50"
-                android:scaleY=".40"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <ImageButton
-                android:id="@+id/btnBarLogo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="top|start"
-                android:background="@drawable/logo"
-                android:contentDescription="@string/logo_image"
-                android:scaleY=".8"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnBarOpen"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/btnBarProfile"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="top|end"
-                android:background="@drawable/user_icon"
-                android:contentDescription="@string/profile_icon"
-                android:scaleX=".45"
-                android:scaleY=".45"
-                android:translationY="-1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:id="@+id/txBarTitle"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:breakStrategy="high_quality"
-                android:gravity="center"
-                android:justificationMode="none"
-                android:shadowColor="#000000"
-                android:shadowDx="3"
-                android:shadowDy="5"
-                android:shadowRadius="10"
-                android:text="@string/barTitle"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".5" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_gravity="center">
 
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btnBarOpen"
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/menu_icon"
+                    android:clickable="true"
+                    android:contentDescription="@string/menu_icon"
+                    android:scaleX=".50"
+                    android:scaleY=".40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
 
-</androidx.appcompat.widget.Toolbar>
+                <ImageButton
+                    android:id="@+id/btnBarLogo"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|start"
+                    android:background="@drawable/logo"
+                    android:contentDescription="@string/logo_image"
+                    android:scaleY=".8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnBarOpen"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnBarProfile"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/user_icon"
+                    android:contentDescription="@string/profile_icon"
+                    android:scaleX=".45"
+                    android:scaleY=".45"
+                    android:translationY="-1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        app:layout_collapseMode="parallax">
+
+        <TextView
+            android:id="@+id/txBarTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:breakStrategy="high_quality"
+            android:gravity="center"
+            android:justificationMode="none"
+            android:shadowColor="#000000"
+            android:shadowDx="3"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text="@string/barTitle"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.appbar.CollapsingToolbarLayout>
