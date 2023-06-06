@@ -2,6 +2,8 @@ package ipl.estg.happyguest.utils.api.responses;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class UserResponse {
 
     @SerializedName("id")
@@ -12,14 +14,20 @@ public class UserResponse {
     private final String email;
     @SerializedName("phone")
     private final Long phone;
+    @SerializedName("address")
+    private final String address;
+    @SerializedName("birth_date")
+    private final Date birthDate;
     @SerializedName("photo_url")
     private final String photoUrl;
 
-    public UserResponse(int id, String name, String email, Long phone, String photoUrl) {
+    public UserResponse(int id, String name, String email, Long phone, String address, Date birthDate, String photoUrl) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.address = address;
+        this.birthDate = birthDate;
         this.photoUrl = photoUrl;
     }
 
@@ -37,6 +45,14 @@ public class UserResponse {
 
     public Long getPhone() {
         return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
     }
 
     public String getPhotoUrl() {
