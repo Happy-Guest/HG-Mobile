@@ -47,26 +47,26 @@ class App {
 	@Given("a aplicação está pronta")
 	void a_aplicação_está_pronta() {
 		//Run app (true -> uninstalling the application automatically after run)
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
 
 		//TODO
 
 		//on wifi
-		Mobile.toggleWifi('true')
+		Mobile.toggleWifi('true');
 
 		//Delay 5 seg
-		Mobile.delay(2)
+		Mobile.delay(2);
 	}
 
 	@Given("a aplicação está pronta sem internet")
 	void a_aplicação_está_pronta_sem_internet() {
 		//Run app
-		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
+		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false);
 
 		//TODO
 
 		//off wifi
-		Mobile.toggleWifi('false')
+		Mobile.toggleWifi('false');
 
 	}
 
@@ -81,23 +81,27 @@ class App {
 	void é_apresentada_a_página(String title) {
 		//identificate home
 		if(title == "Home") {
-			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
+			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0);
 		}
 		else if (title == "Login")
 		{
-			Mobile.getText(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0)
+			Mobile.getText(findTestObject('Object Repository/Button/android.widget.Button - Login'), 0);
+		}
+		else if(title == "Perfil") {
+			Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Perfil'), 0);
 		}
 	}
-	
+
 	@Then("é apresentado a página {string} com sessão guardada")
 	public void é_apresentado_a_página_com_sessão_guardada(String string) {
 		Mobile.delay(2);
-		Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
+		Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0);
 	}
+	
 	@Then("é apresentado a página {string} sem sessão guardada")
 	public void é_apresentado_a_página_com_sessão_iniciada(String string) {
 		Mobile.delay(2);
-		Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0)
+		Mobile.getText(findTestObject('Object Repository/Messages/android.widget.TextView - Hotel de Leiria'), 0);
 	}
 
 }

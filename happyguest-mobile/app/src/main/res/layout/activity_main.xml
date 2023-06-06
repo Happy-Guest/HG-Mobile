@@ -18,10 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_leiria"
-        app:tint="@color/background_gray" />
+        app:tint="@color/background_gray"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
-        android:id="@+id/imgLogoMain"
         android:layout_width="wrap_content"
         android:layout_height="170dp"
         android:layout_marginTop="90dp"
@@ -32,7 +32,6 @@
         app:srcCompat="@drawable/logo" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

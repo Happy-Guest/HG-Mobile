@@ -12,14 +12,20 @@ public class UserResponse {
     private final String email;
     @SerializedName("phone")
     private final Long phone;
+    @SerializedName("address")
+    private final String address;
+    @SerializedName("birth_date")
+    private final String birthDate;
     @SerializedName("photo_url")
     private final String photoUrl;
 
-    public UserResponse(int id, String name, String email, Long phone, String photoUrl) {
+    public UserResponse(int id, String name, String email, Long phone, String address, String birthDate, String photoUrl) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.address = address;
+        this.birthDate = birthDate;
         this.photoUrl = photoUrl;
     }
 
@@ -37,6 +43,14 @@ public class UserResponse {
 
     public Long getPhone() {
         return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
     }
 
     public String getPhotoUrl() {

@@ -1,10 +1,10 @@
 {
-  "keywordFileContentHash": "49400E410C24083491F095F8983A251C",
+  "keywordFileContentHash": "5043D8B395057EBF46E9CDEDA4A11FCE",
   "keywordClasses": [
     {
       "name": "TextBox",
       "keywordMethods": []
     }
   ],
-  "javadocParsed": false
+  "javadocParsed": true
 }
