@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,8 +19,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -38,95 +37,74 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
-    private APIRoutes api;
-    private Token token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarHome.toolbar.toolbarMain);
+        setSupportActionBar(binding.appBarHome.toolbarMain);
 
         // Start CloseService
         Intent stickyService = new Intent(this, CloseService.class);
         startService(stickyService);
 
-        // Set up navigation
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        setupNavigation();
 
-        // Hide title and back button
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+        // Resize title, logo and set profile image invisible
+        binding.appBarHome.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            int maxScroll = appBarLayout.getTotalScrollRange();
+            float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
+            updateTitleAndLogoScale(percentage);
+            updateProfileImageVisibility(percentage);
+        });
 
         // Open drawer
-        binding.appBarHome.toolbar.btnBarOpen.setOnClickListener(v -> drawer.open());
+        binding.appBarHome.btnBarOpen.setOnClickListener(v -> binding.drawerLayout.open());
 
-        // Navigation listener
+        // Hide old icon and check profile image
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            // Hide title and back button
+            ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
             }
-            // Hide profile button
-            ArrayList<Integer> navFragments = new ArrayList<>(Arrays.asList(R.id.nav_home));
-            if (!navFragments.contains(destination.getId())) {
-                binding.appBarHome.toolbar.btnBarProfile.setVisibility(View.INVISIBLE);
-            } else {
-                binding.appBarHome.toolbar.btnBarProfile.setVisibility(View.VISIBLE);
-            }
-            // Hide profile image
             if (destination.getId() == R.id.nav_profile) {
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
+                binding.appBarHome.btnBarProfile.setVisibility(View.INVISIBLE);
             } else {
                 binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
+                binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
             }
         });
 
         // Go to home fragment
-        binding.appBarHome.toolbar.btnBarLogo.setOnClickListener(v -> {
-            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_profile) {
+        binding.appBarHome.btnBarLogo.setOnClickListener(v -> {
+            int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+            if (currentDestinationId == R.id.nav_profile) {
                 navController.navigate(R.id.action_profile_home);
             } else {
                 navController.navigate(R.id.nav_home);
             }
-            binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle);
+            binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
         });
 
         // Go to profile fragment
-        binding.appBarHome.toolbar.btnBarProfile.setOnClickListener(v -> {
+        binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
             navController.navigate(R.id.action_global_profile);
-            binding.appBarHome.toolbar.txBarTitle.setText(R.string.barTitle_profile);
+            binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
         });
 
-        // API Routes and Token
-        api = APIClient.getClient().create(APIRoutes.class);
-        token = new Token(HomeActivity.this);
-
-        // Buttons
+        // Button logout
         Button btnLogout = findViewById(R.id.btnLogout);
-
-        // Attempt Logout
         btnLogout.setOnClickListener(v -> logoutAttempt());
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 
     @Override
@@ -137,7 +115,50 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private void setupNavigation() {
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    private void updateTitleAndLogoScale(float percentage) {
+        float titleScale = 1.0f - (percentage * 0.5f);
+        binding.appBarHome.txtBarTitle.setScaleX(titleScale);
+        binding.appBarHome.txtBarTitle.setScaleY(titleScale);
+
+        float logoScale = 0.8f - (percentage * 0.1f);
+        binding.appBarHome.btnBarLogo.setScaleX(logoScale);
+        binding.appBarHome.btnBarLogo.setScaleY(logoScale - 0.1f);
+    }
+
+    private void updateProfileImageVisibility(float percentage) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+        if (currentDestinationId == R.id.nav_profile) {
+            if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE && percentage > 0.1f) {
+                binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
+                binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
+            } else if (binding.appBarHome.imageProfile.getVisibility() == View.INVISIBLE && percentage < 0.1f) {
+                binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+                binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     public void logoutAttempt() {
+        APIRoutes api = APIClient.getClient().create(APIRoutes.class);
+        Token token = new Token(HomeActivity.this);
         Call<MessageResponse> call = api.logout();
         call.enqueue(new Callback<MessageResponse>() {
             @Override
