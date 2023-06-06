@@ -14,6 +14,9 @@
     <string name="name">Name</string>
     <string name="phoneNr">Phone Number</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="address">Address</string>
+    <string name="birthDate">Birth Date</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

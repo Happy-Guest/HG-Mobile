@@ -62,7 +62,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:startIconDrawable="@android:drawable/sym_action_email"
+                    app:startIconDrawable="@drawable/email_icon"
                     app:startIconTint="@color/gold">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -88,7 +88,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/inputEmail"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                    app:startIconDrawable="@drawable/password_icon"
                     app:startIconTint="@color/gold">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -140,7 +140,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    app:icon="@android:drawable/ic_lock_idle_lock"
+                    app:icon="@drawable/password_icon"
                     app:iconPadding="-25dp"
                     app:iconTint="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/btnGoToRegister"

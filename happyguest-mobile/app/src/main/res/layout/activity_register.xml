@@ -99,7 +99,7 @@
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorTextColor="#B84141"
-                            app:startIconDrawable="?attr/actionModePasteDrawable"
+                            app:startIconDrawable="@drawable/name_icon"
                             app:startIconTint="@color/gold">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -121,7 +121,7 @@
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorTextColor="#B84141"
-                            app:startIconDrawable="@android:drawable/sym_action_email"
+                            app:startIconDrawable="@drawable/email_icon"
                             app:startIconTint="@color/gold">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -139,7 +139,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/inputPhoneNr"
                             android:layout_width="300dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             app:counterEnabled="false"
                             app:counterTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorEnabled="true"
@@ -168,7 +168,7 @@
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorTextColor="#B84141"
                             app:passwordToggleEnabled="true"
-                            app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                            app:startIconDrawable="@drawable/password_icon"
                             app:startIconTint="@color/gold">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -191,7 +191,7 @@
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorTextColor="#B84141"
                             app:passwordToggleEnabled="false"
-                            app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                            app:startIconDrawable="@drawable/password_icon"
                             app:startIconTint="@color/gold">
 
                             <com.google.android.material.textfield.TextInputEditText

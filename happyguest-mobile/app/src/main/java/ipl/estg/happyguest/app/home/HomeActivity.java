@@ -136,6 +136,11 @@ public class HomeActivity extends AppCompatActivity {
         float titleScale = 1.0f - (percentage * 0.5f);
         binding.appBarHome.txtBarTitle.setScaleX(titleScale);
         binding.appBarHome.txtBarTitle.setScaleY(titleScale);
+        if (percentage > 0.95f) {
+            binding.appBarHome.txtBarTitle.setMinLines(1);
+        } else {
+            binding.appBarHome.txtBarTitle.setMinLines(2);
+        }
 
         float logoScale = 0.8f - (percentage * 0.1f);
         binding.appBarHome.btnBarLogo.setScaleX(logoScale);
@@ -146,10 +151,10 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
         if (currentDestinationId == R.id.nav_profile) {
-            if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE && percentage > 0.1f) {
+            if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE && percentage > 0.05f) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
-            } else if (binding.appBarHome.imageProfile.getVisibility() == View.INVISIBLE && percentage < 0.1f) {
+            } else if (binding.appBarHome.imageProfile.getVisibility() == View.INVISIBLE && percentage < 0.05f) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
             }

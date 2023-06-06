@@ -1,19 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".app.home.profile.ProfileFragment">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/edit_profile"
+        android:scaleX=".7"
+        android:scaleY=".7"
+        android:src="@drawable/pencil_icon"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputName"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada sodales massa ac molestie. Nullam in lacus et arcu scelerisque tincidunt nec eu augue. Cras auctor urna dui, a scelerisque nibh bibendum id. In hac habitasse platea dictumst. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam suscipit, erat ac tincidunt molestie, velit lorem placerat eros, a pretium risus orci ac eros. Sed id pellentesque tortor, vitae egestas elit. Vestibulum eget sem et enim interdum laoreet. Vivamus mollis porttitor ex id convallis. Nam et posuere turpis. Sed sagittis facilisis nisl in pharetra. Morbi volutpat et augue id dignissim. Quisque viverra felis a maximus fermentum. Donec vulputate ultrices efficitur. Nam at libero facilisis, placerat leo et, facilisis mauris.  Duis lobortis venenatis consequat. Duis quis tortor eleifend, porttitor dui eu, porta nulla. Aliquam libero dui, placerat et commodo in, imperdiet vitae leo. Suspendisse bibendum bibendum tortor in sollicitudin. Vestibulum non mi nisi. Duis quis tortor leo. Aenean id nunc mi. Nam tristique congue mauris, eu efficitur tellus laoreet eget.  Quisque id urna metus. Nulla vel venenatis lorem. Integer non posuere risus. Mauris eu nunc non metus aliquam aliquam. Sed pellentesque consequat est, eget dapibus purus scelerisque eget. Phasellus sodales suscipit massa at suscipit. Fusce hendrerit ultrices quam laoreet ultricies. Praesent felis nunc, ullamcorper in vulputate viverra, aliquam at sapien. Cras id dolor risus. Duis pretium tempus dictum. Morbi facilisis in dolor in mollis. Nulla facilisi. Suspendisse efficitur odio eu neque ornare, non porta turpis semper. Nam ante est, consequat sed sollicitudin sed, pellentesque eu sem. Proin vulputate molestie mi, vel vestibulum libero lacinia non. In tempor odio nec lorem dignissim, at mattis lectus convallis."
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center_horizontal"
+        android:enabled="false"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/name_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/name"
+            android:inputType="text"
+            android:maxLength="255"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:enabled="false"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/email_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLength="255"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputPhoneNr"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:enabled="false"
+        app:counterEnabled="false"
+        app:counterTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@android:drawable/stat_sys_phone_call"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textPhoneNr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/phoneNr"
+            android:inputType="phone"
+            android:maxLength="12"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputAddress"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:enabled="false"
+        app:counterEnabled="false"
+        app:counterTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/address_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/address"
+            android:inputType="text|textPostalAddress"
+            android:maxLength="255"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputBirthDate"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:enabled="false"
+        app:counterEnabled="false"
+        app:counterTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/calendar_icon"
+        app:startIconScaleType="centerInside"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/birthDate"
+            android:inputType="datetime|date"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>
