@@ -162,8 +162,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void logoutAttempt() {
-        APIRoutes api = APIClient.getClient().create(APIRoutes.class);
         Token token = new Token(HomeActivity.this);
+        APIRoutes api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
         Call<MessageResponse> call = api.logout();
         call.enqueue(new Callback<MessageResponse>() {
             @Override
@@ -171,7 +171,6 @@ public class HomeActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Delete token
                     token.clearToken();
-                    APIClient.setToken(null);
 
                     // Display success message and go to HomeActivity
                     Toast.makeText(HomeActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();

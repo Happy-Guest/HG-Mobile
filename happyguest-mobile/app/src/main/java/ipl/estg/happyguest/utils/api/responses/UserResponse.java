@@ -17,11 +17,11 @@ public class UserResponse {
     @SerializedName("address")
     private final String address;
     @SerializedName("birth_date")
-    private final Date birthDate;
+    private final String birthDate;
     @SerializedName("photo_url")
     private final String photoUrl;
 
-    public UserResponse(int id, String name, String email, Long phone, String address, Date birthDate, String photoUrl) {
+    public UserResponse(int id, String name, String email, Long phone, String address, String birthDate, String photoUrl) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -51,7 +51,7 @@ public class UserResponse {
         return address;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 

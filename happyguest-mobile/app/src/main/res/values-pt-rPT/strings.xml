@@ -33,6 +33,7 @@
     <string name="logout_error">Erro ao terminar sessão.</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="api_error">Erro ao ligar ao servidor!</string>
+    <string name="data_error">Erro ao carregar dados!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>

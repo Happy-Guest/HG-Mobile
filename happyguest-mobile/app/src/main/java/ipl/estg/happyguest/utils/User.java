@@ -36,14 +36,14 @@ public class User {
     }
 
     public String getBirthDate() {
-        return new String(sharedPreferences.getString("birth_date", null));
+        return sharedPreferences.getString("birth_date", null);
     }
 
     public String getPhotoUrl() {
         return sharedPreferences.getString("photo_url", null);
     }
 
-    public void setUser(int id, String name, String email, Long phone, String address, Date birthDate, String photoUrl) {
+    public void setUser(int id, String name, String email, Long phone, String address, String birthDate, String photoUrl) {
         editor.putInt("id", id);
         editor.putString("name", name);
         editor.putString("email", email);

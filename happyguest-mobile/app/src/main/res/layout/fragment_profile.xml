@@ -12,12 +12,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="end"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:background="#FFFFFF"
         android:contentDescription="@string/edit_profile"
-        android:scaleX=".7"
-        android:scaleY=".7"
+        android:scaleX=".6"
+        android:scaleY=".6"
         android:src="@drawable/pencil_icon"
         tools:ignore="TouchTargetSizeCheck" />
 

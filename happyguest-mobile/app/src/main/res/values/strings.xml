@@ -33,6 +33,7 @@
     <string name="logout_error">Error logging out.</string>
     <string name="restore_success">Session restored successfully.</string>
     <string name="api_error">Error connecting to the server!</string>
+    <string name="data_error">Error loading data!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
