@@ -165,8 +165,8 @@ public class HomeActivity extends AppCompatActivity {
         if (currentDestinationId == R.id.nav_profile) {
             if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE && percentage > 0.05f) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
-                binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
-            } else if (binding.appBarHome.imageProfile.getVisibility() == View.INVISIBLE && percentage < 0.05f) {
+                binding.appBarHome.imageProfile.setVisibility(View.GONE);
+            } else if (binding.appBarHome.imageProfile.getVisibility() == View.GONE && percentage < 0.05f) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
             }

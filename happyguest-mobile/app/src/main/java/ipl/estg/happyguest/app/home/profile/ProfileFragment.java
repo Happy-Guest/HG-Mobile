@@ -69,6 +69,31 @@ public class ProfileFragment extends Fragment {
             populateFields();
         }
 
+        // Edit button
+        binding.btnEdit.setOnClickListener(v -> {
+            txtName.setEnabled(true);
+            txtEmail.setEnabled(true);
+            txtPhone.setEnabled(true);
+            txtAddress.setEnabled(true);
+            txtBirthDate.setEnabled(true);
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnCancel.setVisibility(View.VISIBLE);
+            binding.btnEdit.setVisibility(View.INVISIBLE);
+        });
+
+        // Cancel button
+        binding.btnCancel.setOnClickListener(v -> {
+            txtName.setEnabled(false);
+            txtEmail.setEnabled(false);
+            txtPhone.setEnabled(false);
+            txtAddress.setEnabled(false);
+            txtBirthDate.setEnabled(false);
+            binding.btnSave.setVisibility(View.INVISIBLE);
+            binding.btnCancel.setVisibility(View.INVISIBLE);
+            binding.btnEdit.setVisibility(View.VISIBLE);
+            populateFields();
+        });
+
         return binding.getRoot();
     }
 

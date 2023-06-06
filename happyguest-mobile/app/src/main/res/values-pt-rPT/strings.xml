@@ -18,6 +18,8 @@
     <string name="phoneNr">Nº Telefone</string>
     <string name="confirmPassword">Confirmar Palavra-passe</string>
     <string name="edit_profile">Editar Perfil</string>
+    <string name="update_profile">Atualizar Perfil</string>
+    <string name="cancel">Cancelar</string>
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
 

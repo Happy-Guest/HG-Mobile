@@ -18,6 +18,8 @@
     <string name="phoneNr">Phone Number</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="cancel">Cancel</string>
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
 
