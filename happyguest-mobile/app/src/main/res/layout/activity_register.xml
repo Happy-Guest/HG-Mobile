@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
-            android:id="@+id/layoutHead"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".30">
@@ -26,7 +25,6 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imgLogoRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="170dp"
                     android:layout_marginTop="32dp"
@@ -41,7 +39,6 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/layoutBody"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".50">
@@ -85,7 +82,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/btnImage">
 
                     <LinearLayout
-                        android:id="@+id/linearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fadeScrollbars="true"
@@ -212,7 +208,6 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/layoutFooter"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".20">

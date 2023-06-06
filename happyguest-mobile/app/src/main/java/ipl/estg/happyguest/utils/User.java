@@ -3,8 +3,6 @@ package ipl.estg.happyguest.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.Date;
-
 public class User {
 
     private final SharedPreferences sharedPreferences;
@@ -49,7 +47,7 @@ public class User {
         editor.putString("email", email);
         if (phone != null) editor.putLong("phone", phone);
         if (address != null) editor.putString("address", address);
-        if (birthDate != null) editor.putString("birth_date", birthDate.toString());
+        if (birthDate != null) editor.putString("birth_date", birthDate);
         if (photoUrl != null) editor.putString("photo_url", photoUrl);
         editor.commit();
     }

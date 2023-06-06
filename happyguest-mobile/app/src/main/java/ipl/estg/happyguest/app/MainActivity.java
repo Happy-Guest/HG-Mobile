@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message, save user data and redirect to home page
                     me.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone(), response.body().getAddress(),
-                            response.body().getBirthDate() == null ? "" : response.body().getBirthDate().toString(), response.body().getPhotoUrl());
+                            response.body().getBirthDate() == null ? "" : response.body().getBirthDate(), response.body().getPhotoUrl());
                     new Handler().postDelayed(() -> {
                         Toast.makeText(MainActivity.this, getString(R.string.restore_success), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
