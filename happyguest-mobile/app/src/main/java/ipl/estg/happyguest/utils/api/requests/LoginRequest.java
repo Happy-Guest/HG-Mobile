@@ -9,9 +9,9 @@ public class LoginRequest {
     @SerializedName("password")
     private final String password;
     @SerializedName("remember")
-    public boolean remember;
+    public final boolean remember;
     @SerializedName("device")
-    public String device;
+    public final String device;
 
     public LoginRequest(String email, String password, boolean remember) {
         this.email = email;

@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
         txtPasswordConfirm = findViewById(R.id.textPasswordConfirm);
 
         // API Routes
-        api = APIClient.getClient().create(APIRoutes.class);
+        api = APIClient.getClient(null).create(APIRoutes.class);
 
         // Select Image
         btnImage.setOnClickListener(view -> {

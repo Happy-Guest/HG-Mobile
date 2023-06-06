@@ -10,9 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
 
-    private static String token;
-
-    public static Retrofit getClient() {
+    public static Retrofit getClient(String token) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(chain -> {
@@ -27,9 +25,5 @@ public class APIClient {
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .client(client)
                 .build();
-    }
-
-    public static void setToken(String token) {
-        APIClient.token = token;
     }
 }

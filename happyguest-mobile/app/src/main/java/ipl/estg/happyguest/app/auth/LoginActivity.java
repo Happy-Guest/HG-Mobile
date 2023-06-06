@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPassword = findViewById(R.id.textPassword);
 
         // API Routes and Token
-        api = APIClient.getClient().create(APIRoutes.class);
+        api = APIClient.getClient(null).create(APIRoutes.class);
         token = new Token(LoginActivity.this);
 
         // Go to RegisterActivity
@@ -110,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                     // Save token
                     token.setToken(response.body().getAccessToken());
                     token.setRemember(remember.isChecked());
-                    APIClient.setToken(token.getToken());
 
                     // Display success message and go to HomeActivity
                     Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -118,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     finish();
-
                 } else {
                     try {
                         if (response.errorBody() != null) {
