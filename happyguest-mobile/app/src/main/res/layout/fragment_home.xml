@@ -4,4 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.home.ui.home.HomeFragment"/>
+    tools:context=".app.home.ui.home.HomeFragment">
+
+    <fragment
+        android:id="@+id/insert_code_fragment"
+        android:name="ipl.estg.happyguest.InsertCodeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        app:layout_constraintTop_toBottomOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

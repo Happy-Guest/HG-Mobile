@@ -13,6 +13,8 @@
     <string name="name">Name</string>
     <string name="phoneNr">Phone Number</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="code">Code</string>
+    <string name="associate">Associate</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -40,4 +42,7 @@
 
     <!-- Others -->
     <string name="select_image">Select Image</string>
+    <string name="message_associate_no_register">Associate a code to access services and activities..</string>
+    <string name="code_reserve">Código de Reserva</string>
+
 </resources>
