@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
 import ipl.estg.happyguest.utils.Token;
 import ipl.estg.happyguest.utils.User;
@@ -84,6 +85,12 @@ public class ProfileFragment extends Fragment {
             txtPhone.setText(user.getPhone() == -1 ? "" : user.getPhone().toString());
             txtAddress.setText(user.getAddress() == null ? "" : user.getAddress());
             txtBirthDate.setText(user.getBirthDate() == null ? "" : user.getBirthDate());
+            if (user.getPhotoUrl() != null) {
+                if (getActivity() instanceof HomeActivity) {
+                    HomeActivity homeActivity = (HomeActivity) getActivity();
+                    homeActivity.populateImageProfile();
+                }
+            }
         } catch (Exception e) {
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_LONG).show();
         }

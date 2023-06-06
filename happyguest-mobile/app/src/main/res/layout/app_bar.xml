@@ -131,7 +131,8 @@
         android:background="@drawable/bg_profile_photo"
         android:contentDescription="@string/profile_image"
         android:elevation="8dp"
-        android:visibility="invisible"
+        android:padding="10dp"
+        android:visibility="visible"
         app:srcCompat="@drawable/profile_icon" />
 
     <androidx.core.widget.NestedScrollView
@@ -146,7 +147,6 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/body"
                 layout="@layout/content_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

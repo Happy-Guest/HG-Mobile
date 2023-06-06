@@ -18,14 +18,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
+import ipl.estg.happyguest.utils.CircleImage;
 import ipl.estg.happyguest.utils.CloseService;
 import ipl.estg.happyguest.utils.Token;
+import ipl.estg.happyguest.utils.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
@@ -37,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,9 @@ public class HomeActivity extends AppCompatActivity {
         // Start CloseService
         Intent stickyService = new Intent(this, CloseService.class);
         startService(stickyService);
+
+        // User
+        user = new User(getApplicationContext());
 
         setupNavigation();
 
@@ -71,12 +78,12 @@ public class HomeActivity extends AppCompatActivity {
                 actionBar.setDisplayShowTitleEnabled(false);
             }
             if (destination.getId() == R.id.nav_profile) {
-                binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+                binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setVisibility(View.INVISIBLE);
             } else {
-                binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
+                binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
             }
         });
@@ -101,6 +108,7 @@ public class HomeActivity extends AppCompatActivity {
         // Button logout
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> logoutAttempt());
+
     }
 
     @Override
@@ -136,13 +144,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private void updateTitleAndLogoScale(float percentage) {
         float titleScale = 1.0f - (percentage * 0.5f);
-        binding.appBarHome.txtBarTitle.setScaleX(titleScale);
-        binding.appBarHome.txtBarTitle.setScaleY(titleScale);
-        if (percentage > 0.95f) {
-            binding.appBarHome.txtBarTitle.setMinLines(1);
-        } else {
-            binding.appBarHome.txtBarTitle.setMinLines(2);
-        }
+        binding.appBarHome.txtBarTitle.post(() -> {
+            binding.appBarHome.txtBarTitle.setScaleX(titleScale);
+            binding.appBarHome.txtBarTitle.setScaleY(titleScale);
+            if (percentage > 0.95f) {
+                binding.appBarHome.txtBarTitle.setMinLines(1);
+            } else {
+                binding.appBarHome.txtBarTitle.setMinLines(2);
+            }
+        });
 
         float logoScale = 0.8f - (percentage * 0.1f);
         binding.appBarHome.btnBarLogo.setScaleX(logoScale);
@@ -163,6 +173,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void populateImageProfile() {
+        Picasso.get().load(getString(R.string.api_photos) + "storage/user_photos/" + user.getPhotoUrl()).transform(new CircleImage()).into(binding.appBarHome.imageProfile);
+    }
+
     public void logoutAttempt() {
         Token token = new Token(HomeActivity.this);
         APIRoutes api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
@@ -173,6 +187,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Delete token
                     token.clearToken();
+                    user.clearUser();
 
                     // Display success message and go to HomeActivity
                     Toast.makeText(HomeActivity.this, Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
