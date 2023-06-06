@@ -22,6 +22,8 @@
     <string name="edit_profile">Editar Perfil</string>
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
+    <string name="select_image">Selecionar Imagem</string>
+    <string name="code_reserve">Código de Reserva</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -51,8 +53,6 @@
     <string name="password_confirmation_not_match">A confirmação não corresponde!</string>
     <string name="invalid_phone">O Nº telefone não é válido!</string>
 
-    <!-- Others -->
-    <string name="select_image">Selecionar Imagem</string>
+    <!-- Messages -->
     <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>
-    <string name="code_reserve">Código de Reserva</string>
 </resources>

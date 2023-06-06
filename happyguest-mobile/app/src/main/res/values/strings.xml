@@ -22,6 +22,8 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
+    <string name="select_image">Select Image</string>
+    <string name="code_reserve">Reserve Code</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -51,9 +53,6 @@
     <string name="password_confirmation_not_match">The confirmation does not match!</string>
     <string name="invalid_phone">The phone number is not valid!</string>
 
-    <!-- Others -->
-    <string name="select_image">Select Image</string>
-    <string name="message_associate_no_register">Associate a code to access services and activities..</string>
-    <string name="code_reserve">Código de Reserva</string>
-
+    <!-- Messages -->
+    <string name="message_associate_no_register">Associate a code to access services and activities.</string>
 </resources>
