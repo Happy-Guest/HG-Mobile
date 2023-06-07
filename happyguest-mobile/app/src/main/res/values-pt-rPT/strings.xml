@@ -52,7 +52,9 @@
     <string name="password_confirmation_required">Confirme a sua palavra-passe.</string>
     <string name="password_confirmation_not_match">A confirmação não corresponde!</string>
     <string name="invalid_phone">O Nº telefone não é válido!</string>
+    <string name="code_required">Introduza o código.</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>
+    <string name="message_associate_register">Não tem nenhum código válido, adicione um para ter acesso aos serviços e atividades.</string>
 </resources>
