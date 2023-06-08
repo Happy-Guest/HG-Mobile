@@ -32,6 +32,7 @@ import ipl.estg.happyguest.utils.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +42,8 @@ public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     private User user;
+    private APIRoutes api;
+    private Token token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,10 @@ public class HomeActivity extends AppCompatActivity {
         Intent stickyService = new Intent(this, CloseService.class);
         startService(stickyService);
 
-        // User
-        user = new User(getApplicationContext());
+        // User, API and Token
+        user = new User(binding.getRoot().getContext());
+        token = new Token(binding.getRoot().getContext());
+        api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         setupNavigation();
 
@@ -109,6 +114,10 @@ public class HomeActivity extends AppCompatActivity {
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> logoutAttempt());
 
+        // Get user data if it's not already loaded
+        if (user.getName() == null) {
+            getMeAttempt();
+        }
     }
 
     @Override
@@ -177,9 +186,33 @@ public class HomeActivity extends AppCompatActivity {
         Picasso.get().load(getString(R.string.api_photos) + "storage/user_photos/" + user.getPhotoUrl()).transform(new CircleImage()).into(binding.appBarHome.imageProfile);
     }
 
+    private void getMeAttempt() {
+        Call<UserResponse> call = api.me();
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
+                            response.body().getBirthDate(), response.body().getPhotoUrl());
+                    if (user.getPhotoUrl() != null) {
+                        populateImageProfile();
+                    }
+                } else {
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
+                    Log.i("GetMe Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
+                Log.i("GetMe Error: ", t.getMessage());
+                call.cancel();
+            }
+        });
+    }
+
     public void logoutAttempt() {
-        Token token = new Token(HomeActivity.this);
-        APIRoutes api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
         Call<MessageResponse> call = api.logout();
         call.enqueue(new Callback<MessageResponse>() {
             @Override

@@ -1,7 +1,6 @@
 package ipl.estg.happyguest.app.home.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
 import ipl.estg.happyguest.utils.Token;
 import ipl.estg.happyguest.utils.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.UserResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class ProfileFragment extends Fragment {
 
@@ -60,14 +55,9 @@ public class ProfileFragment extends Fragment {
         // User, API and Token
         user = new User(binding.getRoot().getContext());
         token = new Token(binding.getRoot().getContext());
-        api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
+        api = APIClient.getClient().create(APIRoutes.class);
 
-        // Get user data if it's not already loaded
-        if (user.getName() == null) {
-            getMeAttempt();
-        } else {
-            populateFields();
-        }
+        populateFields();
 
         // Edit button
         binding.btnEdit.setOnClickListener(v -> {
@@ -110,38 +100,8 @@ public class ProfileFragment extends Fragment {
             txtPhone.setText(user.getPhone() == -1 ? "" : user.getPhone().toString());
             txtAddress.setText(user.getAddress() == null ? "" : user.getAddress());
             txtBirthDate.setText(user.getBirthDate() == null ? "" : user.getBirthDate());
-            if (user.getPhotoUrl() != null) {
-                if (getActivity() instanceof HomeActivity) {
-                    HomeActivity homeActivity = (HomeActivity) getActivity();
-                    homeActivity.populateImageProfile();
-                }
-            }
         } catch (Exception e) {
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void getMeAttempt() {
-        Call<UserResponse> call = api.me();
-        call.enqueue(new Callback<UserResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
-                            response.body().getBirthDate(), response.body().getPhotoUrl());
-                    populateFields();
-                } else {
-                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
-                    Log.i("GetMe Error: ", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetMe Error: ", t.getMessage());
-                call.cancel();
-            }
-        });
     }
 }
