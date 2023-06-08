@@ -50,7 +50,9 @@
     <string name="password_confirmation_required">Confirme a sua palavra-passe.</string>
     <string name="password_confirmation_not_match">A confirmação não corresponde!</string>
     <string name="invalid_phone">O Nº telefone não é válido!</string>
+    <string name="invalid_birth_date">A data de nascimento não é válida!</string>
 
     <!-- Others -->
     <string name="select_image">Selecionar Imagem</string>
+    <string name="slash_placeholder">/%1$s</string>
 </resources>

@@ -2,6 +2,7 @@ package ipl.estg.happyguest.utils.api;
 
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
+import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
@@ -27,4 +28,7 @@ public interface APIRoutes {
 
     @GET("me")
     Call<UserResponse> me();
+
+    @POST("users/{id}")
+    Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest);
 }

@@ -85,10 +85,12 @@ public class HomeActivity extends AppCompatActivity {
             if (destination.getId() == R.id.nav_profile) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
+                binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.INVISIBLE);
             } else {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
+                binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
             }
         });
