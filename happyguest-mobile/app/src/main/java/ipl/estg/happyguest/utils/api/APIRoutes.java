@@ -1,5 +1,6 @@
 package ipl.estg.happyguest.utils.api;
 
+import ipl.estg.happyguest.utils.api.requests.CodeRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
@@ -10,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIRoutes {
 
@@ -27,4 +29,7 @@ public interface APIRoutes {
 
     @GET("me")
     Call<UserResponse> me();
+
+    @POST("users/{user_id}/codes/{code}/associate")
+    Call<MessageResponse> codes(@Path("user_id") int user_id, @Path("code") String code);
 }

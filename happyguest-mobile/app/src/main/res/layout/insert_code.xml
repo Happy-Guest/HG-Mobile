@@ -38,9 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/border"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
+
             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:errorTextColor="#B84141"
             app:startIconDrawable="@drawable/key_icon"
@@ -52,7 +50,6 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:hint="@string/code"
-                android:inputType="text"
                 android:textColorHint="#D9D9D9" />
         </com.google.android.material.textfield.TextInputLayout>
 
