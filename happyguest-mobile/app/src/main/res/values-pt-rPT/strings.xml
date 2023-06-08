@@ -36,7 +36,6 @@
     <string name="no_internet_connection">Sem ligação à internet!</string>
     <string name="restore_error">Erro ao restaurar sessão.</string>
     <string name="logout_error">Erro ao terminar sessão.</string>
-    <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="api_error">Erro ao ligar ao servidor!</string>
     <string name="data_error">Erro ao carregar dados!</string>
 
@@ -54,5 +53,6 @@
 
     <!-- Others -->
     <string name="select_image">Selecionar Imagem</string>
-    <string name="slash_placeholder">/%1$s</string>
+    <string name="slash_placeholder">%1$s/</string>
+    <string name="restore_success">Sessão restaurada com sucesso.</string>
 </resources>

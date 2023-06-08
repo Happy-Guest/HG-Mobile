@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIRoutes {
 
@@ -26,9 +27,10 @@ public interface APIRoutes {
     @POST("logout")
     Call<MessageResponse> logout();
 
+    // User
     @GET("me")
     Call<UserResponse> me();
 
     @POST("users/{id}")
-    Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest);
+    Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
 }
