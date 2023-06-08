@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Token, User and APIRoutes
         token = new Token(this);
         me = new User(this);
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);

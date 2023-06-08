@@ -123,14 +123,13 @@ public class RegisterActivity extends AppCompatActivity {
         inputPhone.setError(null);
         inputPassword.setError(null);
         inputPasswordConfirm.setError(null);
-        //Get values
+
+        //Get values and validate
         String name = txtName.getText().toString();
         String email = txtEmail.getText().toString();
         String phone = txtPhone.getText().toString();
         String password = txtPassword.getText().toString();
         String passwordConfirmation = txtPasswordConfirm.getText().toString();
-
-        //Validate values
         if (name.isEmpty()) {
             inputName.setError(getString(R.string.name_required));
         } else if (name.length() < 3) {

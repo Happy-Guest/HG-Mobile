@@ -192,6 +192,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    // Save user data
                     user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
                             response.body().getBirthDate(), response.body().getPhotoUrl());
                     if (user.getPhotoUrl() != null) {

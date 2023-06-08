@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
         // User, API and Token
         user = new User(binding.getRoot().getContext());
         token = new Token(binding.getRoot().getContext());
-        api = APIClient.getClient().create(APIRoutes.class);
+        api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         populateFields();
 
