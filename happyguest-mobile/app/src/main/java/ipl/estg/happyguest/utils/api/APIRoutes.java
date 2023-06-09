@@ -32,5 +32,6 @@ public interface APIRoutes {
     Call<UserResponse> me();
 
     @POST("users/{id}")
+    @Headers("Accept: application/json")
     Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
 }

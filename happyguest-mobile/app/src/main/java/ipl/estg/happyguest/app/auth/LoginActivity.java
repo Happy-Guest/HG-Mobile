@@ -144,7 +144,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.i("Login Error: ", t.getMessage());
-                call.cancel();
             }
         });
     }

@@ -1,6 +1,7 @@
 package ipl.estg.happyguest.app.home.profile;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +103,10 @@ public class ProfileFragment extends Fragment {
     }
 
     private void changeFieldsState(boolean state) {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.setEditMode(state);
+        }
         txtName.setEnabled(state);
         txtEmail.setEnabled(state);
         txtPhone.setEnabled(state);
@@ -174,22 +179,33 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private String formatDate(String date) {
+        String[] dateArray = date.split("/");
+        return dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+    }
+
     private void updateAttempt() {
+        // Get photo
+        byte[] photo = null;
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            photo = homeActivity.getPhoto();
+        }
         Call<UserResponse> call = api.updateUser(new UpdateUserRequest(
                 txtName.getText().toString(),
                 txtEmail.getText().toString(),
                 txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
                 txtAddress.getText().toString(),
-                txtBirthDate.getText().toString().isEmpty() ? null : txtBirthDate.getText().toString(),
-                null), user.getId());
+                txtBirthDate.getText().toString().isEmpty() ? null : formatDate(txtBirthDate.getText().toString()),
+                photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)), user.getId());
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and update user
-                    user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
-                            response.body().getBirthDate(), response.body().getPhotoUrl());
-                    Toast.makeText(binding.getRoot().getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    user.setUser(response.body().getUser().getId(), response.body().getUser().getName(), response.body().getUser().getEmail(), response.body().getUser().getPhone() == null ? -1 : response.body().getUser().getPhone(), response.body().getUser().getAddress(),
+                            response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl());
                     changeFieldsState(false);
                     populateFields();
                 } else {
@@ -232,7 +248,6 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
-                call.cancel();
             }
         });
     }

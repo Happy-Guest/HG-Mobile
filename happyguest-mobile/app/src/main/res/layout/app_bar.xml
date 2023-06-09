@@ -135,6 +135,20 @@
         android:visibility="gone"
         app:srcCompat="@drawable/profile_icon" />
 
+    <ImageView
+        android:id="@+id/imageUpload"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/bg_upload_photo"
+        android:contentDescription="@string/profile_image"
+        android:elevation="10dp"
+        android:padding="40dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/upload_icon"
+        tools:ignore="ImageContrastCheck" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

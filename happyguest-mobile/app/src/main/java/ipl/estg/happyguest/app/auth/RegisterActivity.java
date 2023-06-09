@@ -210,7 +210,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.e("Register Error: ", t.getMessage());
-                call.cancel();
             }
         });
     }

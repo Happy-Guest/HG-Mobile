@@ -1,13 +1,19 @@
 package ipl.estg.happyguest.app.home;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +26,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -44,6 +53,28 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private APIRoutes api;
     private Token token;
+    private byte[] photo;
+    // Select Image from Gallery and convert to byte array
+    private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
+                        Uri selectedImage = result.getData().getData();
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            photo = stream.toByteArray();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+    );
+    private Boolean editMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +117,10 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
-                binding.appBarHome.btnBarProfile.setVisibility(View.INVISIBLE);
-            } else {
+                binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
+            } else if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
-                binding.appBarHome.imageProfile.setVisibility(View.INVISIBLE);
+                binding.appBarHome.imageProfile.setVisibility(View.GONE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
             }
@@ -120,6 +151,22 @@ public class HomeActivity extends AppCompatActivity {
         if (user.getName() == null) {
             getMeAttempt();
         }
+
+        // Select Image
+        binding.appBarHome.imageProfile.setOnClickListener(v -> {
+            if (editMode) {
+                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_fast));
+                binding.appBarHome.imageUpload.setVisibility(View.VISIBLE);
+                Intent photoPicker = new Intent();
+                photoPicker.setType("image/*");
+                photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_image)));
+                new Handler().postDelayed(() -> {
+                    binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
+                    binding.appBarHome.imageUpload.setVisibility(View.GONE);
+                }, 1000);
+            }
+        });
     }
 
     @Override
@@ -134,6 +181,14 @@ public class HomeActivity extends AppCompatActivity {
         if (drawer.isOpen()) {
             drawer.close();
         }
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setEditMode(Boolean editMode) {
+        this.editMode = editMode;
     }
 
     private void setupNavigation() {
@@ -185,7 +240,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void populateImageProfile() {
-        Picasso.get().load(getString(R.string.api_photos) + "storage/user_photos/" + user.getPhotoUrl()).transform(new CircleImage()).into(binding.appBarHome.imageProfile);
+        if (user.getPhotoUrl() != null) {
+            Picasso.get().load(getString(R.string.api_photos) + "storage/user_photos/" + user.getPhotoUrl()).transform(new CircleImage()).into(binding.appBarHome.imageProfile);
+        } else {
+            binding.appBarHome.imageProfile.setImageResource(R.drawable.profile_icon);
+        }
     }
 
     private void getMeAttempt() {

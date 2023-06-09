@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(MainActivity.this, getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetMe Error: ", t.getMessage());
-                call.cancel();
                 redirectToLogin();
             }
         });
