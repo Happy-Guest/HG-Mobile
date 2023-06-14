@@ -1,6 +1,7 @@
 package ipl.estg.happyguest.app.home.home;
 
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class InsertCode {
 
     private TextInputLayout inputCode;
     private EditText txtCode;
+    private Button btnInsertCode;
 
     private User user;
     private APIRoutes api;
@@ -35,6 +37,9 @@ public class InsertCode {
         // TextInputLayouts and EditTexts
         inputCode = fragmentHomeBinding.getRoot().findViewById(R.id.inputCode);
         txtCode = fragmentHomeBinding.getRoot().findViewById(R.id.textCode);
+
+        // Buttons
+        btnInsertCode = fragmentHomeBinding.getRoot().findViewById(R.id.btnAssociate);
 
         // Reset errors
         inputCode.setError(null);
@@ -48,7 +53,10 @@ public class InsertCode {
         if (code.isEmpty()) {
             inputCode.setError(fragmentHomeBinding.getRoot().getContext().getString(R.string.code_required));
         } else {
-            insertCodeAttempt(fragmentHomeBinding);
+            if (btnInsertCode.isEnabled()) {
+                btnInsertCode.setEnabled(false);
+                insertCodeAttempt(fragmentHomeBinding);
+            }
         }
     }
 
@@ -57,9 +65,14 @@ public class InsertCode {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(fragmentHomeBinding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
                 } else {
+                    if (response.code() == 404) {
+                        inputCode.setError(fragmentHomeBinding.getRoot().getContext().getString(R.string.invalid_code));
+                        return;
+                    }
                     try {
                         if (response.errorBody() != null) {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -80,6 +93,7 @@ public class InsertCode {
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(fragmentHomeBinding.getRoot().getContext(), "Error connecting to the server!", Toast.LENGTH_LONG).show();
                 Log.e("Code Error: ", t.getMessage());
+                btnInsertCode.setEnabled(true);
             }
         });
     }

@@ -54,6 +54,7 @@
     <string name="password_confirmation_not_match">A confirmação não corresponde!</string>
     <string name="invalid_phone">O Nº telefone não é válido!</string>
     <string name="code_required">Introduza o código.</string>
+    <string name="invalid_code">O código não é válido!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>

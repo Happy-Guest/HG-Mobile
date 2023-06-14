@@ -54,6 +54,7 @@
     <string name="password_confirmation_not_match">The confirmation does not match!</string>
     <string name="invalid_phone">The phone number is not valid!</string>
     <string name="code_required">Enter your code.</string>
+    <string name="invalid_code">The code is not valid!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>
@@ -63,6 +64,4 @@
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
