@@ -212,6 +212,7 @@ public class ProfileFragment extends Fragment {
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                btnSave.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and update user
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
@@ -220,7 +221,6 @@ public class ProfileFragment extends Fragment {
                     changeFieldsState(false);
                     populateFields();
                 } else {
-                    btnSave.setEnabled(true);
                     try {
                         if (response.errorBody() != null) {
                             // Get response errors
