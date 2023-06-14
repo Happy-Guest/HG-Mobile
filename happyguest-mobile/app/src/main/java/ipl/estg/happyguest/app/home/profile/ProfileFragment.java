@@ -1,6 +1,8 @@
 package ipl.estg.happyguest.app.home.profile;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +50,7 @@ public class ProfileFragment extends Fragment {
     private EditText txtAddress;
     private EditText txtBirthDate;
     private Button btnSave;
+    private Button btnCancel;
     private User user;
     private APIRoutes api;
 
@@ -78,7 +81,8 @@ public class ProfileFragment extends Fragment {
         binding.btnEdit.setOnClickListener(v -> changeFieldsState(true));
 
         // Cancel button
-        binding.btnCancel.setOnClickListener(v -> {
+        btnCancel = binding.btnCancel;
+        btnCancel.setOnClickListener(v -> {
             changeFieldsState(false);
             populateFields();
         });
@@ -90,13 +94,32 @@ public class ProfileFragment extends Fragment {
         });
 
         // Add "/" to birth date
-        txtBirthDate.setOnEditorActionListener((v, keyCode, event) -> {
-            String birthDate = txtBirthDate.getText().toString();
-            Toast.makeText(binding.getRoot().getContext(), birthDate + "", Toast.LENGTH_SHORT).show();
-            if ((birthDate.length() == 2 || birthDate.length() == 5) && keyCode != 67) {
-                txtBirthDate.append("/");
+        final int[] birthDateLength = {txtBirthDate.getText().toString().length()};
+        txtBirthDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                birthDateLength[0] = txtBirthDate.getText().toString().length();
             }
-            return false;
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String birthDate = txtBirthDate.getText().toString();
+                if ((birthDate.length() == 2 || birthDate.length() == 5) && !birthDate.endsWith("/") && birthDateLength[0] < birthDate.length()) {
+                    txtBirthDate.append("/");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String birthDate = txtBirthDate.getText().toString();
+                if (birthDate.length() == 2 && !birthDate.endsWith("/")) {
+                    txtBirthDate.setText(birthDate.substring(0, 1));
+                    txtBirthDate.setSelection(txtBirthDate.getText().length());
+                } else if (birthDate.length() == 5 && !birthDate.endsWith("/")) {
+                    txtBirthDate.setText(birthDate.substring(0, 4));
+                    txtBirthDate.setSelection(txtBirthDate.getText().length());
+                }
+            }
         });
 
         return binding.getRoot();
@@ -189,6 +212,7 @@ public class ProfileFragment extends Fragment {
             inputBirthDate.setError(getString(R.string.invalid_birth_date));
         } else {
             btnSave.setEnabled(false);
+            btnCancel.setEnabled(false);
             updateAttempt();
         }
     }
@@ -216,6 +240,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 btnSave.setEnabled(true);
+                btnCancel.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and update user
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
@@ -264,6 +289,7 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
                 btnSave.setEnabled(true);
+                btnCancel.setEnabled(true);
             }
         });
     }
