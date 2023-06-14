@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class ProfileFragment extends Fragment {
     private EditText txtPhone;
     private EditText txtAddress;
     private EditText txtBirthDate;
+    private Button btnSave;
     private User user;
     private APIRoutes api;
 
@@ -82,7 +84,10 @@ public class ProfileFragment extends Fragment {
         });
 
         // Save button
-        binding.btnSave.setOnClickListener(v -> validateFields());
+        btnSave = binding.btnSave;
+        btnSave.setOnClickListener(v -> {
+            if (btnSave.isEnabled()) validateFields();
+        });
 
         // Add "/" to birth date
         txtBirthDate.setOnKeyListener((v, keyCode, event) -> {
@@ -126,6 +131,11 @@ public class ProfileFragment extends Fragment {
             binding.btnCancel.setVisibility(View.INVISIBLE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnEdit.setVisibility(View.VISIBLE);
+            inputName.setError(null);
+            inputEmail.setError(null);
+            inputPhone.setError(null);
+            inputAddress.setError(null);
+            inputBirthDate.setError(null);
         }
     }
 
@@ -175,6 +185,7 @@ public class ProfileFragment extends Fragment {
         } else if (!birthDate.isEmpty() && birthDate.length() != 10) {
             inputBirthDate.setError(getString(R.string.invalid_birth_date));
         } else {
+            btnSave.setEnabled(false);
             updateAttempt();
         }
     }
@@ -195,7 +206,7 @@ public class ProfileFragment extends Fragment {
                 txtName.getText().toString(),
                 txtEmail.getText().toString(),
                 txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
-                txtAddress.getText().toString(),
+                txtAddress.getText().toString().isEmpty() ? null : txtAddress.getText().toString(),
                 txtBirthDate.getText().toString().isEmpty() ? null : formatDate(txtBirthDate.getText().toString()),
                 photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)), user.getId());
         call.enqueue(new Callback<UserResponse>() {
@@ -209,6 +220,7 @@ public class ProfileFragment extends Fragment {
                     changeFieldsState(false);
                     populateFields();
                 } else {
+                    btnSave.setEnabled(true);
                     try {
                         if (response.errorBody() != null) {
                             // Get response errors
@@ -248,6 +260,7 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
+                btnSave.setEnabled(true);
             }
         });
     }

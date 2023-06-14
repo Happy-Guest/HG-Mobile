@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText txtPhone;
     private EditText txtPassword;
     private EditText txtPasswordConfirm;
+    private Button btnRegister;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -80,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // Buttons
-        Button btnRegister = findViewById(R.id.btnRegister);
+        btnRegister = findViewById(R.id.btnRegister);
         FloatingActionButton btnImage = findViewById(R.id.btnImage);
 
         // TextInputLayouts and EditTexts
@@ -109,7 +110,9 @@ public class RegisterActivity extends AppCompatActivity {
         // Attempt Register and go to LoginActivity
         btnRegister.setOnClickListener(view -> {
             if (isNetworkAvailable()) {
-                registerClick();
+                if (btnRegister.isEnabled()) {
+                    registerClick();
+                }
             } else {
                 Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
             }
@@ -149,6 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (!passwordConfirmation.equals(password)) {
             inputPasswordConfirm.setError(getString(R.string.password_confirmation_not_match));
         } else {
+            btnRegister.setEnabled(false);
             registerAttempt();
         }
     }
@@ -171,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();
                 } else {
+                    btnRegister.setEnabled(true);
                     try {
                         if (response.errorBody() != null) {
                             // Get response errors
@@ -210,6 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.e("Register Error: ", t.getMessage());
+                btnRegister.setEnabled(true);
             }
         });
     }

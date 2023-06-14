@@ -22,7 +22,7 @@ public class APIClient {
 
         return new Retrofit.Builder()
                 .baseUrl("https://happyguest.joaopinto.pt/api/")
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().setLenient().create()))
                 .client(client)
                 .build();
     }

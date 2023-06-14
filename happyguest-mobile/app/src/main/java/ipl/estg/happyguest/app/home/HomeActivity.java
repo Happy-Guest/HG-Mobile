@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private APIRoutes api;
     private Token token;
+    private Button btnLogout;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -118,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
-            } else if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE) {
+            } else if (binding.appBarHome.btnBarProfile.getVisibility() == View.GONE) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
@@ -144,8 +145,10 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // Button logout
-        Button btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(v -> logoutAttempt());
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> {
+            if (btnLogout.isEnabled()) logoutAttempt();
+        });
 
         // Get user data if it's not already loaded
         if (user.getName() == null) {
@@ -275,6 +278,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void logoutAttempt() {
+        btnLogout.setEnabled(false);
         Call<MessageResponse> call = api.logout();
         call.enqueue(new Callback<MessageResponse>() {
             @Override
@@ -293,6 +297,7 @@ public class HomeActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
                     Log.i("Logout Error: ", response.message());
+                    btnLogout.setEnabled(true);
                 }
             }
 
@@ -300,7 +305,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
                 Log.i("Logout Error: ", t.getMessage());
-                call.cancel();
+                btnLogout.setEnabled(true);
             }
         });
     }
