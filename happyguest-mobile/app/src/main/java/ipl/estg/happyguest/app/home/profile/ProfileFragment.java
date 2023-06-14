@@ -90,8 +90,9 @@ public class ProfileFragment extends Fragment {
         });
 
         // Add "/" to birth date
-        txtBirthDate.setOnKeyListener((v, keyCode, event) -> {
+        txtBirthDate.setOnEditorActionListener((v, keyCode, event) -> {
             String birthDate = txtBirthDate.getText().toString();
+            Toast.makeText(binding.getRoot().getContext(), birthDate + "", Toast.LENGTH_SHORT).show();
             if ((birthDate.length() == 2 || birthDate.length() == 5) && keyCode != 67) {
                 txtBirthDate.append("/");
             }
@@ -147,6 +148,8 @@ public class ProfileFragment extends Fragment {
             txtAddress.setText(user.getAddress() == null ? "" : user.getAddress());
             if (user.getBirthDate() != null) {
                 txtBirthDate.setText(String.format(getString(R.string.slash_placeholder), user.getBirthDate()));
+            } else {
+                txtBirthDate.setText("");
             }
             if (user.getPhotoUrl() != null) {
                 if (getActivity() instanceof HomeActivity) {
