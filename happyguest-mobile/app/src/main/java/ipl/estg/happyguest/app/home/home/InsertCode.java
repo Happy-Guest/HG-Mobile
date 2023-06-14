@@ -1,6 +1,5 @@
 package ipl.estg.happyguest.app.home.home;
 
-import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,17 +14,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.auth.LoginActivity;
-import ipl.estg.happyguest.app.auth.RegisterActivity;
 import ipl.estg.happyguest.databinding.FragmentHomeBinding;
-import ipl.estg.happyguest.databinding.InsertCodeBinding;
-import ipl.estg.happyguest.utils.Token;
 import ipl.estg.happyguest.utils.User;
-import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.requests.CodeRequest;
-import ipl.estg.happyguest.utils.api.requests.LoginRequest;
-import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,31 +29,30 @@ public class InsertCode {
 
     private User user;
     private APIRoutes api;
-    private Token token;
 
-    public void insertCode(FragmentHomeBinding fragmentHomeBinding) {
+    public void insertCode(FragmentHomeBinding fragmentHomeBinding, APIRoutes api, User user) {
 
         // TextInputLayouts and EditTexts
         inputCode = fragmentHomeBinding.getRoot().findViewById(R.id.inputCode);
         txtCode = fragmentHomeBinding.getRoot().findViewById(R.id.textCode);
 
+        // Reset errors
         inputCode.setError(null);
         String code = txtCode.getText().toString();
 
+        // User and API
+        this.user = user;
+        this.api = api;
 
-        user = new User(fragmentHomeBinding.getRoot().getContext());
-        token = new Token(fragmentHomeBinding.getRoot().getContext());
-        api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-
+        // Validate code
         if (code.isEmpty()) {
-            inputCode.setError("O código não pode estar vazio");
-        }
-        else {
+            inputCode.setError(fragmentHomeBinding.getRoot().getContext().getString(R.string.code_required));
+        } else {
             insertCodeAttempt(fragmentHomeBinding);
         }
     }
 
-    private void insertCodeAttempt( FragmentHomeBinding fragmentHomeBinding) {
+    private void insertCodeAttempt(FragmentHomeBinding fragmentHomeBinding) {
         Call<MessageResponse> call = api.codes(user.getId(), txtCode.getText().toString());
         call.enqueue(new Callback<MessageResponse>() {
             @Override
@@ -74,7 +64,7 @@ public class InsertCode {
                         if (response.errorBody() != null) {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
                             if (jObjError.has("message")) {
-                                    inputCode.setError(jObjError.getString("message"));
+                                inputCode.setError(jObjError.getString("message"));
                             } else {
                                 Toast.makeText(fragmentHomeBinding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show();
                             }
@@ -90,7 +80,6 @@ public class InsertCode {
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(fragmentHomeBinding.getRoot().getContext(), "Error connecting to the server!", Toast.LENGTH_LONG).show();
                 Log.e("Code Error: ", t.getMessage());
-                call.cancel();
             }
         });
     }

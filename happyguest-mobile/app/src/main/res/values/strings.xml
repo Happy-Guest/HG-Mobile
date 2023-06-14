@@ -59,9 +59,8 @@
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>
     <string name="message_associate_register">It has no valid code, add one to access services and activities.</string>
     <string name="invalid_birth_date">The birth date is not valid!</string>
+    <string name="restore_success">Session restored successfully.</string>
 
     <!-- Others -->
-    <string name="select_image">Select Image</string>
     <string name="slash_placeholder">%1$s/</string>
-    <string name="restore_success">Session restored successfully.</string>
 </resources>

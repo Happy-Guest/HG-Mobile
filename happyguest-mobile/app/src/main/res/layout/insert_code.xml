@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="220dp"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical"
     tools:context=".app.home.home.HomeFragment">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/txtCodeTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:shadowColor="@color/gray"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"
+        android:text="@string/code_reserve"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="349dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/code_reserve"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txtCodeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:justificationMode="inter_word"
+        android:text="@string/message_associate_register"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView3"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputCode"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/key_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textCode"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/message_associate_register"
-            android:textColor="#000000"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/code"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+    <Button
+        android:id="@+id/btnAssociate"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/btn_primary"
+        android:clickable="true"
+        android:paddingStart="13dp"
+        android:paddingEnd="20dp"
+        android:text="@string/associate"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconPadding="-25dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        tools:ignore="TextContrastCheck" />
 
-            app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:errorTextColor="#B84141"
-            app:startIconDrawable="@drawable/key_icon"
-            app:startIconTint="#D9D9D9">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textCode"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="@string/code"
-                android:textColorHint="#D9D9D9" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnAssociate"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="64dp"
-            android:background="@drawable/btn_primary"
-            android:clickable="true"
-            android:paddingStart="13dp"
-            android:paddingEnd="20dp"
-            android:text="@string/associate"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            app:icon="@android:drawable/ic_input_add"
-            app:iconPadding="-25dp"
-            app:iconTint="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -32,9 +32,10 @@ public interface APIRoutes {
     @GET("me")
     Call<UserResponse> me();
 
-    @POST("users/{user_id}/codes/{code}/associate")
-    Call<MessageResponse> codes(@Path("user_id") int user_id, @Path("code") String code);
     @POST("users/{id}")
     @Headers("Accept: application/json")
     Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
+
+    @POST("users/{user_id}/codes/{code}/associate")
+    Call<MessageResponse> codes(@Path("user_id") int user_id, @Path("code") String code);
 }
