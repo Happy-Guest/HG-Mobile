@@ -26,8 +26,8 @@ import java.io.IOException;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
-import ipl.estg.happyguest.utils.Token;
-import ipl.estg.happyguest.utils.User;
+import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.others.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
@@ -147,12 +147,12 @@ public class ProfileFragment extends Fragment {
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnCancel.setVisibility(View.VISIBLE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnEdit.setVisibility(View.INVISIBLE);
+            binding.btnEdit.setVisibility(View.GONE);
         } else {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnSave.setVisibility(View.INVISIBLE);
+            binding.btnSave.setVisibility(View.GONE);
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnCancel.setVisibility(View.INVISIBLE);
+            binding.btnCancel.setVisibility(View.GONE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnEdit.setVisibility(View.VISIBLE);
             inputName.setError(null);

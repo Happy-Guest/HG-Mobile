@@ -7,11 +7,17 @@
     android:layout_marginTop="10dp"
     tools:context=".app.home.home.HomeFragment">
 
-    <include
-        android:id="@+id/add_code"
-        layout="@layout/insert_code"
+    <FrameLayout
+        android:id="@+id/codeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/add_code"
+            layout="@layout/insert_code" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

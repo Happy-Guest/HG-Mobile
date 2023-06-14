@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils;
+package ipl.estg.happyguest.utils.others;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ public class User {
     private final SharedPreferences.Editor editor;
 
     public User(Context context) {
-        sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("hg-user", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 

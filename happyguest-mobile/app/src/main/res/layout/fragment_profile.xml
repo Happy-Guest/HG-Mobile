@@ -160,7 +160,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="17sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:icon="@drawable/pencil_icon"
         app:iconPadding="-15dp"
         app:iconTint="@color/black"
@@ -178,7 +178,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/black"
         android:textSize="17sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:icon="@drawable/close_icon"
         app:iconPadding="-25dp"
         app:iconTint="@color/black" />

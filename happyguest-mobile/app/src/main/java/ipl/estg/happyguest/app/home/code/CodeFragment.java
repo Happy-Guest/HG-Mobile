@@ -18,7 +18,8 @@ public class CodeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCodeBinding.inflate(inflater, container, false);
 
-        // Code here
+        // Hide textCode
+        binding.addCode.textCode.setVisibility(View.GONE);
 
         return binding.getRoot();
     }

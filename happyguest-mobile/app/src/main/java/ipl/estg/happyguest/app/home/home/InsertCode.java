@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentHomeBinding;
-import ipl.estg.happyguest.utils.User;
+import ipl.estg.happyguest.utils.others.User;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import retrofit2.Call;
@@ -28,12 +28,10 @@ public class InsertCode {
     private TextInputLayout inputCode;
     private EditText txtCode;
     private Button btnInsertCode;
-
     private User user;
     private APIRoutes api;
 
     public void insertCode(FragmentHomeBinding fragmentHomeBinding, APIRoutes api, User user) {
-
         // TextInputLayouts and EditTexts
         inputCode = fragmentHomeBinding.getRoot().findViewById(R.id.inputCode);
         txtCode = fragmentHomeBinding.getRoot().findViewById(R.id.textCode);
@@ -61,7 +59,7 @@ public class InsertCode {
     }
 
     private void insertCodeAttempt(FragmentHomeBinding fragmentHomeBinding) {
-        Call<MessageResponse> call = api.codes(user.getId(), txtCode.getText().toString());
+        Call<MessageResponse> call = api.associateCode(user.getId(), txtCode.getText().toString());
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils;
+package ipl.estg.happyguest.utils.others;
 
 import android.app.Service;
 import android.content.Intent;

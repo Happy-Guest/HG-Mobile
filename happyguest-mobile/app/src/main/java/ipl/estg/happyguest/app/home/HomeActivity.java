@@ -34,10 +34,10 @@ import java.util.Objects;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
-import ipl.estg.happyguest.utils.CircleImage;
-import ipl.estg.happyguest.utils.CloseService;
-import ipl.estg.happyguest.utils.Token;
-import ipl.estg.happyguest.utils.User;
+import ipl.estg.happyguest.utils.others.CircleImage;
+import ipl.estg.happyguest.utils.others.CloseService;
+import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.others.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
@@ -254,7 +254,7 @@ public class HomeActivity extends AppCompatActivity {
         Call<UserResponse> call = api.me();
         call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Save user data
                     user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
@@ -272,7 +272,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetMe Error: ", t.getMessage());
-                call.cancel();
             }
         });
     }

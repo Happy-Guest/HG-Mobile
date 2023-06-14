@@ -49,7 +49,7 @@
         </activity>
 
         <service
-            android:name=".utils.CloseService"
+            android:name=".utils.others.CloseService"
             android:stopWithTask="false" />
     </application>
 

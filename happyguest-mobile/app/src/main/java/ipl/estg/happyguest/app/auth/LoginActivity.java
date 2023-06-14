@@ -23,7 +23,7 @@ import java.io.IOException;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.utils.Token;
+import ipl.estg.happyguest.utils.others.Token;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private APIRoutes api;
     private Token token;
     private Button btnLogin;
+    private Button btnGoToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Buttons
         btnLogin = findViewById(R.id.btnLogin);
-        Button btnGoToRegister = findViewById(R.id.btnGoToRegister);
+        btnGoToRegister = findViewById(R.id.btnGoToRegister);
 
         // Remember checkbox
         remember = findViewById(R.id.rememberCkeck);
@@ -100,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             inputPassword.setError(getString(R.string.password_required));
         } else {
             btnLogin.setEnabled(false);
+            btnGoToRegister.setEnabled(false);
             loginAttempt();
         }
     }
@@ -122,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 } else {
                     btnLogin.setEnabled(true);
+                    btnGoToRegister.setEnabled(true);
                     try {
                         if (response.errorBody() != null) {
                             // Get response errors
@@ -150,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.i("Login Error: ", t.getMessage());
                 btnLogin.setEnabled(true);
+                btnGoToRegister.setEnabled(true);
             }
         });
     }
