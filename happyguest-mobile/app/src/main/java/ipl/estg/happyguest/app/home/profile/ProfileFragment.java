@@ -1,10 +1,12 @@
 package ipl.estg.happyguest.app.home.profile;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,6 +15,11 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
@@ -20,9 +27,11 @@ import ipl.estg.happyguest.utils.Token;
 import ipl.estg.happyguest.utils.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
@@ -39,7 +48,6 @@ public class ProfileFragment extends Fragment {
     private EditText txtBirthDate;
     private User user;
     private APIRoutes api;
-    private Token token;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,15 +67,31 @@ public class ProfileFragment extends Fragment {
 
         // User, API and Token
         user = new User(binding.getRoot().getContext());
-        token = new Token(binding.getRoot().getContext());
+        Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
-        // Get user data if it's not already loaded
-        if (user.getName() == null) {
-            getMeAttempt();
-        } else {
+        populateFields();
+
+        // Edit button
+        binding.btnEdit.setOnClickListener(v -> changeFieldsState(true));
+
+        // Cancel button
+        binding.btnCancel.setOnClickListener(v -> {
+            changeFieldsState(false);
             populateFields();
-        }
+        });
+
+        // Save button
+        binding.btnSave.setOnClickListener(v -> validateFields());
+
+        // Add "/" to birth date
+        txtBirthDate.setOnKeyListener((v, keyCode, event) -> {
+            String birthDate = txtBirthDate.getText().toString();
+            if ((birthDate.length() == 2 || birthDate.length() == 5) && keyCode != 67) {
+                txtBirthDate.append("/");
+            }
+            return false;
+        });
 
         return binding.getRoot();
     }
@@ -78,13 +102,42 @@ public class ProfileFragment extends Fragment {
         binding = null;
     }
 
+    private void changeFieldsState(boolean state) {
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.setEditMode(state);
+        }
+        txtName.setEnabled(state);
+        txtEmail.setEnabled(state);
+        txtPhone.setEnabled(state);
+        txtAddress.setEnabled(state);
+        txtBirthDate.setEnabled(state);
+        if (state) {
+            binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnCancel.setVisibility(View.VISIBLE);
+            binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.btnEdit.setVisibility(View.INVISIBLE);
+        } else {
+            binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.btnSave.setVisibility(View.INVISIBLE);
+            binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.btnCancel.setVisibility(View.INVISIBLE);
+            binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnEdit.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void populateFields() {
         try {
             txtName.setText(user.getName());
             txtEmail.setText(user.getEmail());
             txtPhone.setText(user.getPhone() == -1 ? "" : user.getPhone().toString());
             txtAddress.setText(user.getAddress() == null ? "" : user.getAddress());
-            txtBirthDate.setText(user.getBirthDate() == null ? "" : user.getBirthDate());
+            if (user.getBirthDate() != null) {
+                txtBirthDate.setText(String.format(getString(R.string.slash_placeholder), user.getBirthDate()));
+            }
             if (user.getPhotoUrl() != null) {
                 if (getActivity() instanceof HomeActivity) {
                     HomeActivity homeActivity = (HomeActivity) getActivity();
@@ -96,26 +149,105 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void getMeAttempt() {
-        Call<UserResponse> call = api.me();
+    private void validateFields() {
+        // Clear errors
+        inputName.setError(null);
+        inputEmail.setError(null);
+        inputPhone.setError(null);
+        inputAddress.setError(null);
+        inputBirthDate.setError(null);
+
+        // Get values and validate
+        String name = txtName.getText().toString();
+        String email = txtEmail.getText().toString();
+        String phone = txtPhone.getText().toString();
+        String birthDate = txtBirthDate.getText().toString();
+        if (name.isEmpty()) {
+            inputName.setError(getString(R.string.name_required));
+        } else if (name.length() < 3) {
+            inputName.setError(getString(R.string.name_too_short));
+        } else if (email.isEmpty()) {
+            inputEmail.setError(getString(R.string.email_required));
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            inputEmail.setError(getString(R.string.invalid_email));
+        } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
+            inputPhone.setError(getString(R.string.invalid_phone));
+        } else if (!birthDate.isEmpty() && birthDate.length() != 10) {
+            inputBirthDate.setError(getString(R.string.invalid_birth_date));
+        } else {
+            updateAttempt();
+        }
+    }
+
+    private String formatDate(String date) {
+        String[] dateArray = date.split("/");
+        return dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+    }
+
+    private void updateAttempt() {
+        // Get photo
+        byte[] photo = null;
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            photo = homeActivity.getPhoto();
+        }
+        Call<UserResponse> call = api.updateUser(new UpdateUserRequest(
+                txtName.getText().toString(),
+                txtEmail.getText().toString(),
+                txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
+                txtAddress.getText().toString(),
+                txtBirthDate.getText().toString().isEmpty() ? null : formatDate(txtBirthDate.getText().toString()),
+                photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)), user.getId());
         call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
-                            response.body().getBirthDate(), response.body().getPhotoUrl());
+                    // Display success message and update user
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    user.setUser(response.body().getUser().getId(), response.body().getUser().getName(), response.body().getUser().getEmail(), response.body().getUser().getPhone() == null ? -1 : response.body().getUser().getPhone(), response.body().getUser().getAddress(),
+                            response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl());
+                    changeFieldsState(false);
                     populateFields();
                 } else {
-                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
-                    Log.i("GetMe Error: ", response.message());
+                    try {
+                        if (response.errorBody() != null) {
+                            // Get response errors
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
+                                if (errors.has("name")) {
+                                    inputName.setError(errors.getJSONArray("name").get(0).toString());
+                                }
+                                if (errors.has("email")) {
+                                    inputEmail.setError(errors.getJSONArray("email").get(0).toString());
+                                }
+                                if (errors.has("phone")) {
+                                    inputPhone.setError(errors.getJSONArray("phone").get(0).toString());
+                                }
+                                if (errors.has("address")) {
+                                    inputAddress.setError(errors.getJSONArray("address").get(0).toString());
+                                }
+                                if (errors.has("birth_date")) {
+                                    inputBirthDate.setError(errors.getJSONArray("birth_date").get(0).toString());
+                                }
+                                if (errors.has("photo")) {
+                                    Toast.makeText(binding.getRoot().getContext(), errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
+                                }
+                            } else {
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Log.i("UpdateUser Error: ", e.getMessage());
+                    }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetMe Error: ", t.getMessage());
-                call.cancel();
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Log.i("UpdateUser Error: ", t.getMessage());
             }
         });
     }

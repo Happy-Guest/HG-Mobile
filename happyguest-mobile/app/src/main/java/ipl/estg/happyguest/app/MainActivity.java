@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Token, User and APIRoutes
         token = new Token(this);
         me = new User(this);
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(MainActivity.this, getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetMe Error: ", t.getMessage());
-                call.cancel();
                 redirectToLogin();
             }
         });

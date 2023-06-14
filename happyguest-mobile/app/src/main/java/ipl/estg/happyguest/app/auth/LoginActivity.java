@@ -85,11 +85,10 @@ public class LoginActivity extends AppCompatActivity {
         // Clear errors
         inputEmail.setError(null);
         inputPassword.setError(null);
-        // Get values
+
+        // Get values and validate
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
-
-        // Validate values
         if (email.isEmpty()) {
             inputEmail.setError(getString(R.string.email_required));
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -145,7 +144,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
                 Log.i("Login Error: ", t.getMessage());
-                call.cancel();
             }
         });
     }

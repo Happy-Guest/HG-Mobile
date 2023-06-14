@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".app.home.profile.ProfileFragment">
 
     <ImageButton
+        android:id="@+id/btnEdit"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="end"
         android:layout_marginEnd="20dp"
         android:background="#FFFFFF"
         android:contentDescription="@string/edit_profile"
-        android:scaleX=".6"
-        android:scaleY=".6"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         android:src="@drawable/pencil_icon"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -141,7 +142,46 @@
             android:background="#FFFFFF"
             android:hint="@string/birthDate"
             android:inputType="datetime|date"
+            android:maxLength="10"
             android:textColorHint="#757575"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_primary"
+        android:clickable="true"
+        android:text="@string/update_profile"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:visibility="invisible"
+        app:icon="@drawable/pencil_icon"
+        app:iconPadding="-15dp"
+        app:iconTint="@color/black"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_secondary"
+        android:clickable="true"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:visibility="invisible"
+        app:icon="@drawable/close_icon"
+        app:iconPadding="-25dp"
+        app:iconTint="@color/black" />
+
 </LinearLayout>

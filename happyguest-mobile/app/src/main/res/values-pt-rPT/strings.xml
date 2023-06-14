@@ -18,6 +18,8 @@
     <string name="phoneNr">Nº Telefone</string>
     <string name="confirmPassword">Confirmar Palavra-passe</string>
     <string name="edit_profile">Editar Perfil</string>
+    <string name="update_profile">Atualizar Perfil</string>
+    <string name="cancel">Cancelar</string>
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
 
@@ -34,7 +36,6 @@
     <string name="no_internet_connection">Sem ligação à internet!</string>
     <string name="restore_error">Erro ao restaurar sessão.</string>
     <string name="logout_error">Erro ao terminar sessão.</string>
-    <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="api_error">Erro ao ligar ao servidor!</string>
     <string name="data_error">Erro ao carregar dados!</string>
 
@@ -48,7 +49,10 @@
     <string name="password_confirmation_required">Confirme a sua palavra-passe.</string>
     <string name="password_confirmation_not_match">A confirmação não corresponde!</string>
     <string name="invalid_phone">O Nº telefone não é válido!</string>
+    <string name="invalid_birth_date">A data de nascimento não é válida!</string>
 
     <!-- Others -->
     <string name="select_image">Selecionar Imagem</string>
+    <string name="slash_placeholder">%1$s/</string>
+    <string name="restore_success">Sessão restaurada com sucesso.</string>
 </resources>
