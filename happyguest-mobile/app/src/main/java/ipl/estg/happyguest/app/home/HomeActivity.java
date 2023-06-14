@@ -155,7 +155,7 @@ public class HomeActivity extends AppCompatActivity {
         // Select Image
         binding.appBarHome.imageProfile.setOnClickListener(v -> {
             if (editMode) {
-                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_fast));
+                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageUpload.setVisibility(View.VISIBLE);
                 Intent photoPicker = new Intent();
                 photoPicker.setType("image/*");
