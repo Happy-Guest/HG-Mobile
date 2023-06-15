@@ -5,16 +5,26 @@ import java.util.List;
 
 public class Code {
 
+    private Long id;
     private String code;
     private Date entryDate;
     private Date exitDate;
     private List<String> rooms;
 
-    public Code(String code, Date entryDate, Date exitDate, List<String> rooms) {
+    public Code(Long id, String code, Date entryDate, Date exitDate, List<String> rooms) {
+        this.id = id;
         this.code = code;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
         this.rooms = rooms;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCode() {

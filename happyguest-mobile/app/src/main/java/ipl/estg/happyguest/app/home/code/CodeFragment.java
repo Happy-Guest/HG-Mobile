@@ -29,8 +29,11 @@ import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentCodeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.models.Code;
+import ipl.estg.happyguest.utils.models.Meta;
+import ipl.estg.happyguest.utils.models.UserCode;
 import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
@@ -48,6 +51,7 @@ public class CodeFragment extends Fragment {
     private CodesAdapter codesAdapter;
     private RecyclerView codesRV;
     private ArrayList<Code> codesList;
+    private Meta meta;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class CodeFragment extends Fragment {
         codesAdapter = new CodesAdapter(codesList, binding.getRoot().getContext());
         codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         codesRV.setAdapter(codesAdapter);
-        // getCodesAttempt();
+        getCodesAttempt(1);
 
         return binding.getRoot();
     }
@@ -134,6 +138,34 @@ public class CodeFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.e("AssociateCode Error: ", t.getMessage());
                 btnInsertCode.setEnabled(true);
+            }
+        });
+    }
+
+    private void getCodesAttempt(int page) {
+        Call<CodesResponse> call = api.getUserCodes(user.getId(), page);
+        call.enqueue(new Callback<CodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Save codes in list and update adapter
+                    int lastPos = codesList.size();
+                    ArrayList<UserCode> userCodes = response.body().getData();
+                    for (UserCode userCode : userCodes) {
+                        codesList.add(userCode.getCode());
+                    }
+                    meta = response.body().getMeta();
+                    codesAdapter.notifyItemRangeInserted(lastPos, userCodes.size());
+                } else {
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                    Log.i("GetCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CodesResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                Log.i("GetCodes Error: ", t.getMessage());
             }
         });
     }
