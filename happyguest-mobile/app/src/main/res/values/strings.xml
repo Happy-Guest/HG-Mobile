@@ -17,18 +17,24 @@
     <string name="name">Name</string>
     <string name="phoneNr">Phone Number</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="code">Code</string>
+    <string name="associate">Associate</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="update_profile">Update Profile</string>
     <string name="cancel">Cancel</string>
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
+    <string name="select_image">Select Image</string>
+    <string name="code_associate">Code Associate</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Profile</string>
     <string name="barTitle">Leiria Hotel</string>
     <string name="barTitle_profile">Profile</string>
+    <string name="barTitle_codes">Reserve Codes</string>
     <string name="menu_home">Home Page</string>
+    <string name="menu_code">Codes</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_logout">Logout</string>
 
@@ -49,10 +55,15 @@
     <string name="password_confirmation_required">Confirm your password.</string>
     <string name="password_confirmation_not_match">The confirmation does not match!</string>
     <string name="invalid_phone">The phone number is not valid!</string>
+    <string name="code_required">Enter your code.</string>
+    <string name="invalid_code">The code is not valid!</string>
+
+    <!-- Messages -->
+    <string name="message_associate_no_register">Associate a code to access services and activities.</string>
+    <string name="message_associate_register">You don\'t have a valid code, register one to access services and activities.</string>
     <string name="invalid_birth_date">The birth date is not valid!</string>
+    <string name="restore_success">Session restored successfully.</string>
 
     <!-- Others -->
-    <string name="select_image">Select Image</string>
     <string name="slash_placeholder">%1$s/</string>
-    <string name="restore_success">Session restored successfully.</string>
 </resources>

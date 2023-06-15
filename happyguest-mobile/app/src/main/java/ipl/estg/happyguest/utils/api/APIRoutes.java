@@ -3,6 +3,7 @@ package ipl.estg.happyguest.utils.api;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
+import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
@@ -34,4 +35,10 @@ public interface APIRoutes {
     @POST("users/{id}")
     @Headers("Accept: application/json")
     Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
+
+    @GET("users/{user_id}/codes/valid")
+    Call<HasCodesResponse> hasCodes(@Path("user_id") int user_id);
+
+    @POST("users/{user_id}/codes/{code}/associate")
+    Call<MessageResponse> associateCode(@Path("user_id") int user_id, @Path("code") String code);
 }

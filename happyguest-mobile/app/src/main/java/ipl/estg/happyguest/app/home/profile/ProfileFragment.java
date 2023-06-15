@@ -1,12 +1,15 @@
 package ipl.estg.happyguest.app.home.profile;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,12 +26,12 @@ import java.io.IOException;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
-import ipl.estg.happyguest.utils.Token;
-import ipl.estg.happyguest.utils.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.others.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +49,8 @@ public class ProfileFragment extends Fragment {
     private EditText txtPhone;
     private EditText txtAddress;
     private EditText txtBirthDate;
+    private Button btnSave;
+    private Button btnCancel;
     private User user;
     private APIRoutes api;
 
@@ -76,21 +81,45 @@ public class ProfileFragment extends Fragment {
         binding.btnEdit.setOnClickListener(v -> changeFieldsState(true));
 
         // Cancel button
-        binding.btnCancel.setOnClickListener(v -> {
+        btnCancel = binding.btnCancel;
+        btnCancel.setOnClickListener(v -> {
             changeFieldsState(false);
             populateFields();
         });
 
         // Save button
-        binding.btnSave.setOnClickListener(v -> validateFields());
+        btnSave = binding.btnSave;
+        btnSave.setOnClickListener(v -> {
+            if (btnSave.isEnabled()) validateFields();
+        });
 
         // Add "/" to birth date
-        txtBirthDate.setOnKeyListener((v, keyCode, event) -> {
-            String birthDate = txtBirthDate.getText().toString();
-            if ((birthDate.length() == 2 || birthDate.length() == 5) && keyCode != 67) {
-                txtBirthDate.append("/");
+        final int[] birthDateLength = {txtBirthDate.getText().toString().length()};
+        txtBirthDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                birthDateLength[0] = txtBirthDate.getText().toString().length();
             }
-            return false;
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String birthDate = txtBirthDate.getText().toString();
+                if ((birthDate.length() == 2 || birthDate.length() == 5) && !birthDate.endsWith("/") && birthDateLength[0] < birthDate.length()) {
+                    txtBirthDate.append("/");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String birthDate = txtBirthDate.getText().toString();
+                if (birthDate.length() == 2 && !birthDate.endsWith("/")) {
+                    txtBirthDate.setText(birthDate.substring(0, 1));
+                    txtBirthDate.setSelection(txtBirthDate.getText().length());
+                } else if (birthDate.length() == 5 && !birthDate.endsWith("/")) {
+                    txtBirthDate.setText(birthDate.substring(0, 4));
+                    txtBirthDate.setSelection(txtBirthDate.getText().length());
+                }
+            }
         });
 
         return binding.getRoot();
@@ -114,18 +143,23 @@ public class ProfileFragment extends Fragment {
         txtBirthDate.setEnabled(state);
         if (state) {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
-            binding.btnSave.setVisibility(View.VISIBLE);
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
-            binding.btnCancel.setVisibility(View.VISIBLE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnEdit.setVisibility(View.INVISIBLE);
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnCancel.setVisibility(View.VISIBLE);
+            binding.btnEdit.setVisibility(View.GONE);
         } else {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnSave.setVisibility(View.INVISIBLE);
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnCancel.setVisibility(View.INVISIBLE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnSave.setVisibility(View.GONE);
+            binding.btnCancel.setVisibility(View.GONE);
             binding.btnEdit.setVisibility(View.VISIBLE);
+            inputName.setError(null);
+            inputEmail.setError(null);
+            inputPhone.setError(null);
+            inputAddress.setError(null);
+            inputBirthDate.setError(null);
         }
     }
 
@@ -137,6 +171,8 @@ public class ProfileFragment extends Fragment {
             txtAddress.setText(user.getAddress() == null ? "" : user.getAddress());
             if (user.getBirthDate() != null) {
                 txtBirthDate.setText(String.format(getString(R.string.slash_placeholder), user.getBirthDate()));
+            } else {
+                txtBirthDate.setText("");
             }
             if (user.getPhotoUrl() != null) {
                 if (getActivity() instanceof HomeActivity) {
@@ -145,7 +181,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_LONG).show();
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -175,6 +211,8 @@ public class ProfileFragment extends Fragment {
         } else if (!birthDate.isEmpty() && birthDate.length() != 10) {
             inputBirthDate.setError(getString(R.string.invalid_birth_date));
         } else {
+            btnSave.setEnabled(false);
+            btnCancel.setEnabled(false);
             updateAttempt();
         }
     }
@@ -195,15 +233,17 @@ public class ProfileFragment extends Fragment {
                 txtName.getText().toString(),
                 txtEmail.getText().toString(),
                 txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
-                txtAddress.getText().toString(),
+                txtAddress.getText().toString().isEmpty() ? null : txtAddress.getText().toString(),
                 txtBirthDate.getText().toString().isEmpty() ? null : formatDate(txtBirthDate.getText().toString()),
                 photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)), user.getId());
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                btnSave.setEnabled(true);
+                btnCancel.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and update user
-                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     user.setUser(response.body().getUser().getId(), response.body().getUser().getName(), response.body().getUser().getEmail(), response.body().getUser().getPhone() == null ? -1 : response.body().getUser().getPhone(), response.body().getUser().getAddress(),
                             response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl());
                     changeFieldsState(false);
@@ -231,14 +271,14 @@ public class ProfileFragment extends Fragment {
                                     inputBirthDate.setError(errors.getJSONArray("birth_date").get(0).toString());
                                 }
                                 if (errors.has("photo")) {
-                                    Toast.makeText(binding.getRoot().getContext(), errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(binding.getRoot().getContext(), errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException | IOException e) {
-                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                         Log.i("UpdateUser Error: ", e.getMessage());
                     }
                 }
@@ -246,8 +286,10 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
+                btnSave.setEnabled(true);
+                btnCancel.setEnabled(true);
             }
         });
     }

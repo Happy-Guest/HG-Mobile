@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils;
+package ipl.estg.happyguest.utils.others;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ public class Token {
     private final SharedPreferences.Editor editor;
 
     public Token(Context context){
-        sharedPreferences = context.getSharedPreferences("token", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("hg-token", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 

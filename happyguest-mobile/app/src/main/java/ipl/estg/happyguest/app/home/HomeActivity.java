@@ -29,19 +29,24 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
-import ipl.estg.happyguest.utils.CircleImage;
-import ipl.estg.happyguest.utils.CloseService;
-import ipl.estg.happyguest.utils.Token;
-import ipl.estg.happyguest.utils.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import ipl.estg.happyguest.utils.others.CircleImage;
+import ipl.estg.happyguest.utils.others.CloseService;
+import ipl.estg.happyguest.utils.others.Code;
+import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.others.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private APIRoutes api;
     private Token token;
+    private Button btnLogout;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -118,38 +124,41 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
-            } else if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE) {
-                binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
-                binding.appBarHome.imageProfile.setVisibility(View.GONE);
-                binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
-                binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
+            } else if (destination.getId() == R.id.nav_code) {
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle_codes);
+                hidePhoto();
+            } else {
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+                hidePhoto();
             }
         });
 
         // Go to home fragment
         binding.appBarHome.btnBarLogo.setOnClickListener(v -> {
-            int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
-            if (currentDestinationId == R.id.nav_profile) {
-                navController.navigate(R.id.action_profile_home);
-            } else {
-                navController.navigate(R.id.nav_home);
-            }
+            navController.popBackStack();
             binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+            navController.navigate(R.id.nav_home);
         });
 
         // Go to profile fragment
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
-            navController.navigate(R.id.action_global_profile);
+            navController.popBackStack();
             binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
+            navController.navigate(R.id.action_global_profile);
         });
 
         // Button logout
-        Button btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(v -> logoutAttempt());
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> {
+            if (btnLogout.isEnabled()) logoutAttempt();
+        });
 
         // Get user data if it's not already loaded
         if (user.getName() == null) {
             getMeAttempt();
+        } else {
+            hasCodesAttempt();
         }
 
         // Select Image
@@ -183,6 +192,16 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    // Hide user profile image
+    private void hidePhoto() {
+        if (binding.appBarHome.btnBarProfile.getVisibility() == View.GONE) {
+            binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
+            binding.appBarHome.imageProfile.setVisibility(View.GONE);
+            binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+            binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
+        }
+    }
+
     public byte[] getPhoto() {
         return photo;
     }
@@ -194,7 +213,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_code)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -251,7 +270,7 @@ public class HomeActivity extends AppCompatActivity {
         Call<UserResponse> call = api.me();
         call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Save user data
                     user.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
@@ -259,6 +278,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (user.getPhotoUrl() != null) {
                         populateImageProfile();
                     }
+                    hasCodesAttempt();
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetMe Error: ", response.message());
@@ -269,12 +289,33 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetMe Error: ", t.getMessage());
-                call.cancel();
+            }
+        });
+    }
+
+    private void hasCodesAttempt() {
+        Call<HasCodesResponse> call = api.hasCodes(user.getId());
+        call.enqueue(new Callback<HasCodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Hide addCode if user has codes
+                    Code code = new Code(getApplicationContext());
+                    code.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                } else {
+                    Log.i("HasCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
+                Log.i("HasCodes Error: ", t.getMessage());
             }
         });
     }
 
     public void logoutAttempt() {
+        btnLogout.setEnabled(false);
         Call<MessageResponse> call = api.logout();
         call.enqueue(new Callback<MessageResponse>() {
             @Override
@@ -291,16 +332,17 @@ public class HomeActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     finish();
                 } else {
-                    Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_SHORT).show();
                     Log.i("Logout Error: ", response.message());
+                    btnLogout.setEnabled(true);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
-                Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_SHORT).show();
                 Log.i("Logout Error: ", t.getMessage());
-                call.cancel();
+                btnLogout.setEnabled(true);
             }
         });
     }

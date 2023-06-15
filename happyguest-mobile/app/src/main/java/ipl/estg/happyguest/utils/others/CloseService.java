@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils;
+package ipl.estg.happyguest.utils.others;
 
 import android.app.Service;
 import android.content.Intent;
@@ -30,6 +30,8 @@ public class CloseService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Token token = new Token(this);
+        Code code = new Code(this);
+        code.clearCode();
         APIRoutes api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
         if (!token.getRemember() && token.getToken() != null) {
             token.clearToken();

@@ -1,5 +1,7 @@
 package ipl.estg.happyguest.utils.api.requests;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 public class RegisterRequest {
@@ -12,12 +14,13 @@ public class RegisterRequest {
     private final String password;
     @SerializedName("password_confirmation")
     private final String passwordConfirm;
+    @Nullable
     @SerializedName("phone")
     private final Long phone;
     @SerializedName("photoBase64")
     private final String photoBase64;
 
-    public RegisterRequest(String name, String email, Long phone, String password, String passwordConfirm, String photoBase64) {
+    public RegisterRequest(String name, String email, @Nullable Long phone, String password, String passwordConfirm, String photoBase64) {
         this.name = name;
         this.email = email;
         this.phone = phone;

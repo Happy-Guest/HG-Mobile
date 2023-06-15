@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils;
+package ipl.estg.happyguest.utils.others;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ public class User {
     private final SharedPreferences.Editor editor;
 
     public User(Context context) {
-        sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("hg-user", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
@@ -45,10 +45,10 @@ public class User {
         editor.putInt("id", id);
         editor.putString("name", name);
         editor.putString("email", email);
-        if (phone != -1) editor.putLong("phone", phone);
-        if (address != null) editor.putString("address", address);
-        if (birthDate != null) editor.putString("birth_date", birthDate);
-        if (photoUrl != null) editor.putString("photo_url", photoUrl);
+        editor.putLong("phone", phone);
+        editor.putString("address", address);
+        editor.putString("birth_date", birthDate);
+        editor.putString("photo_url", photoUrl);
         editor.commit();
     }
 
