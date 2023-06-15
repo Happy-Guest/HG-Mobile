@@ -136,19 +136,16 @@ public class HomeActivity extends AppCompatActivity {
 
         // Go to home fragment
         binding.appBarHome.btnBarLogo.setOnClickListener(v -> {
-            int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
-            if (currentDestinationId == R.id.nav_profile) {
-                navController.navigate(R.id.action_profile_home);
-            } else {
-                navController.navigate(R.id.nav_home);
-            }
+            navController.popBackStack();
             binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+            navController.navigate(R.id.nav_home);
         });
 
         // Go to profile fragment
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
-            navController.navigate(R.id.action_global_profile);
+            navController.popBackStack();
             binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
+            navController.navigate(R.id.nav_profile);
         });
 
         // Button logout
@@ -216,7 +213,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_code)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_code)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

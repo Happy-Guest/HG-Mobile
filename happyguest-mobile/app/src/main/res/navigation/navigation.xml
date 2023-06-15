@@ -13,18 +13,7 @@
         android:id="@+id/nav_profile"
         android:name="ipl.estg.happyguest.app.home.profile.ProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profile_home"
-            app:destination="@id/nav_home"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_right" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_profile"
-        app:destination="@id/nav_profile"
-        app:enterAnim="@anim/slide_in_left"
-        app:exitAnim="@anim/slide_out_left" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_code"
         android:name="ipl.estg.happyguest.app.home.code.CodeFragment"
