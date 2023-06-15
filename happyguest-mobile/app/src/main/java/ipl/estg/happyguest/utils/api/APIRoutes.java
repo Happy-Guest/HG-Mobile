@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIRoutes {
 
@@ -36,9 +37,13 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
 
-    @GET("users/{user_id}/codes/valid")
-    Call<HasCodesResponse> hasCodes(@Path("user_id") int user_id);
+    // Codes
+    @GET("users/{id}/codes/valid")
+    Call<HasCodesResponse> hasCodes(@Path("id") int id);
 
     @POST("users/{user_id}/codes/{code}/associate")
     Call<MessageResponse> associateCode(@Path("user_id") int user_id, @Path("code") String code);
+
+    @GET("users/{id}/codes")
+    Call<HasCodesResponse> getUserCodes(@Path("id") int id, @Query("page") int page);
 }

@@ -12,6 +12,8 @@ import java.io.IOException;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.storage.Code;
+import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 
 public class CloseService extends Service {

@@ -27,7 +27,7 @@ import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
-import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

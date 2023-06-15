@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -27,9 +28,9 @@ import ipl.estg.happyguest.databinding.FragmentCodeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import ipl.estg.happyguest.utils.others.Code;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
+import ipl.estg.happyguest.utils.storage.Code;
+import ipl.estg.happyguest.utils.storage.Token;
+import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +42,8 @@ public class CodeFragment extends Fragment {
     private TextInputLayout inputCode;
     private User user;
     private APIRoutes api;
+    private CodesAdapter codesAdapter;
+    private ArrayList<Code> codesList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class CodeFragment extends Fragment {
         if (code.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
         }
+
+        // Get Codes
+        // getCodesAttempt();
 
         return binding.getRoot();
     }
