@@ -55,6 +55,7 @@ public class CodeFragment extends Fragment {
         btnInsertCode.setOnClickListener(v -> associateCode());
 
         // Hide textCode
+        binding.addCode.txtCodeTitle.setText(R.string.code_associate);
         if (code.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
         }
@@ -87,6 +88,7 @@ public class CodeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Code code = new Code(binding.getRoot().getContext());
                     code.setHasCode(true);
+                    binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     if (response.code() == 404) {

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class HasCodesResponse extends MessageResponse {
 
-    @SerializedName("has_codes")
+    @SerializedName("validCode")
     private final boolean hasCodes;
 
     public HasCodesResponse(String message, boolean hasCodes) {

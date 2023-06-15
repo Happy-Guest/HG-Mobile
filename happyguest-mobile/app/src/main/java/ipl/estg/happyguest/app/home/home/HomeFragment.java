@@ -51,8 +51,13 @@ public class HomeFragment extends Fragment {
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
         code = new Code(binding.getRoot().getContext());
 
-        // See if user has codes
-        hasCodesAttempt();
+        // Check if user has codes
+        new android.os.Handler().postDelayed(this::hasCodesAttempt, 1000);
+        if (code.getHasCode()) {
+            binding.codeLayout.setVisibility(View.GONE);
+        } else {
+            binding.codeLayout.setVisibility(View.VISIBLE);
+        }
 
         // Associate code button
         inputCode = binding.addCode.inputCode;
@@ -62,41 +67,57 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (code.getHasCode()) {
-            binding.codeLayout.setVisibility(View.GONE);
-        } else {
-            binding.codeLayout.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void associateCode() {
         // Reset errors
         inputCode.setError(null);
-        String code = Objects.requireNonNull(binding.addCode.textCode.getText()).toString();
+        String codeTxt = Objects.requireNonNull(binding.addCode.textCode.getText()).toString();
 
         // Validate code
-        if (code.isEmpty()) {
+        if (codeTxt.isEmpty()) {
             inputCode.setError(getString(R.string.code_required));
         } else {
             if (btnInsertCode.isEnabled()) {
                 btnInsertCode.setEnabled(false);
-                associateCodeAttempt(code);
+                associateCodeAttempt(codeTxt);
             }
         }
     }
 
-    private void associateCodeAttempt(String code) {
-        Call<MessageResponse> call = api.associateCode(user.getId(), code);
+    private void hasCodesAttempt() {
+        Call<HasCodesResponse> call = api.hasCodes(user.getId());
+        call.enqueue(new Callback<HasCodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    code.setHasCode(response.body().hasCodes());
+                    if (code.getHasCode()) {
+                        binding.codeLayout.setVisibility(View.GONE);
+                    } else {
+                        binding.codeLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.i("HasCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
+                Log.i("HasCodes Error: ", t.getMessage());
+            }
+        });
+    }
+
+    private void associateCodeAttempt(String codeTxt) {
+        Call<MessageResponse> call = api.associateCode(user.getId(), codeTxt);
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
+                    // Set hasCode to true and hide code layout
                     Code code = new Code(binding.getRoot().getContext());
                     code.setHasCode(true);
+                    binding.codeLayout.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     if (response.code() == 404) {
@@ -124,32 +145,6 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.e("AssociateCode Error: ", t.getMessage());
                 btnInsertCode.setEnabled(true);
-            }
-        });
-    }
-
-    private void hasCodesAttempt() {
-        Call<HasCodesResponse> call = api.hasCodes(user.getId());
-        call.enqueue(new Callback<HasCodesResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    // Hide addCode if user has codes
-                    if (response.body().hasCodes()) {
-                        binding.codeLayout.setVisibility(View.GONE);
-                        code.setHasCode(true);
-                    } else {
-                        binding.codeLayout.setVisibility(View.VISIBLE);
-                        code.setHasCode(false);
-                    }
-                } else {
-                    Log.i("HasCodes Error: ", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
-                Log.i("HasCodes Error: ", t.getMessage());
             }
         });
     }

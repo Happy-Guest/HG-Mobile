@@ -36,10 +36,12 @@ import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import ipl.estg.happyguest.utils.others.CircleImage;
 import ipl.estg.happyguest.utils.others.CloseService;
+import ipl.estg.happyguest.utils.others.Code;
 import ipl.estg.happyguest.utils.others.Token;
 import ipl.estg.happyguest.utils.others.User;
 import retrofit2.Call;
@@ -157,6 +159,8 @@ public class HomeActivity extends AppCompatActivity {
         // Get user data if it's not already loaded
         if (user.getName() == null) {
             getMeAttempt();
+        } else {
+            hasCodesAttempt();
         }
 
         // Select Image
@@ -266,6 +270,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (user.getPhotoUrl() != null) {
                         populateImageProfile();
                     }
+                    hasCodesAttempt();
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetMe Error: ", response.message());
@@ -276,6 +281,27 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetMe Error: ", t.getMessage());
+            }
+        });
+    }
+
+    private void hasCodesAttempt() {
+        Call<HasCodesResponse> call = api.hasCodes(user.getId());
+        call.enqueue(new Callback<HasCodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Hide addCode if user has codes
+                    Code code = new Code(getApplicationContext());
+                    code.setHasCode(response.body().hasCodes());
+                } else {
+                    Log.i("HasCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
+                Log.i("HasCodes Error: ", t.getMessage());
             }
         });
     }
