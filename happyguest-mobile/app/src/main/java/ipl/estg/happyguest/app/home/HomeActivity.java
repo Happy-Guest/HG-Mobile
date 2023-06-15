@@ -247,7 +247,7 @@ public class HomeActivity extends AppCompatActivity {
     private void updateProfileImageVisibility(float percentage) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
-        if (currentDestinationId == R.id.nav_profile) {
+        if (currentDestinationId == R.id.nav_profile || currentDestinationId == R.id.nav_password) {
             if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE && percentage > 0.05f) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);
