@@ -26,13 +26,13 @@
     <string name="birthDate">Birth Date</string>
     <string name="select_image">Select Image</string>
     <string name="code_associate">Code Associate</string>
-    <string name="codes_reserve">Reserve Codes</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Profile</string>
     <string name="barTitle">Leiria Hotel</string>
     <string name="barTitle_profile">Profile</string>
+    <string name="barTitle_codes">Reserve Codes</string>
     <string name="menu_home">Home Page</string>
     <string name="menu_code">Codes</string>
     <string name="menu_profile">Profile</string>

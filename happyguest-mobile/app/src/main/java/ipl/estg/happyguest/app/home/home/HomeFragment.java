@@ -17,6 +17,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -52,9 +55,10 @@ public class HomeFragment extends Fragment {
         code = new Code(binding.getRoot().getContext());
 
         // Check if user has codes
-        new android.os.Handler().postDelayed(this::hasCodesAttempt, 1000);
-        if (code.getHasCode()) {
+        if (code.getHasCode() && Objects.equals(code.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
             binding.codeLayout.setVisibility(View.GONE);
+        } else if (code.getHasCode() && !Objects.equals(code.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+            hasCodesAttempt();
         } else {
             binding.codeLayout.setVisibility(View.VISIBLE);
         }
@@ -89,7 +93,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    code.setHasCode(response.body().hasCodes());
+                    code.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     if (code.getHasCode()) {
                         binding.codeLayout.setVisibility(View.GONE);
                     } else {
@@ -116,7 +120,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Set hasCode to true and hide code layout
                     Code code = new Code(binding.getRoot().getContext());
-                    code.setHasCode(true);
+                    code.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     binding.codeLayout.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {

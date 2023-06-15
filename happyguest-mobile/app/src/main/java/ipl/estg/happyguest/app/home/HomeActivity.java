@@ -29,6 +29,9 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -121,15 +124,13 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
-            } else if (binding.appBarHome.btnBarProfile.getVisibility() == View.GONE) {
-                binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
-                binding.appBarHome.imageProfile.setVisibility(View.GONE);
-                binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
-                binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
             } else if (destination.getId() == R.id.nav_code) {
-                binding.appBarHome.txtBarTitle.setText(R.string.codes_reserve);
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle_codes);
+                hidePhoto();
             } else {
                 binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+                hidePhoto();
             }
         });
 
@@ -191,6 +192,16 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         if (drawer.isOpen()) {
             drawer.close();
+        }
+    }
+
+    // Hide user profile image
+    private void hidePhoto() {
+        if (binding.appBarHome.btnBarProfile.getVisibility() == View.GONE) {
+            binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
+            binding.appBarHome.imageProfile.setVisibility(View.GONE);
+            binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+            binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
         }
     }
 
@@ -293,7 +304,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Hide addCode if user has codes
                     Code code = new Code(getApplicationContext());
-                    code.setHasCode(response.body().hasCodes());
+                    code.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                 } else {
                     Log.i("HasCodes Error: ", response.message());
                 }
