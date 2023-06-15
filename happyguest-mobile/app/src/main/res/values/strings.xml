@@ -26,6 +26,10 @@
     <string name="birthDate">Birth Date</string>
     <string name="select_image">Select Image</string>
     <string name="code_associate">Code Associate</string>
+    <string name="code_entry_date">Entry - </string>
+    <string name="code_exit_date">Exit - </string>
+    <string name="code_rooms">Rooms: </string>
+    <string name="remove_code">Remove Code</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

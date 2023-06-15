@@ -26,11 +26,15 @@
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
     <string name="code_associate">Associar Código</string>
+    <string name="code_entry_date">Entrada - </string>
+    <string name="code_exit_date">Saída - </string>
+    <string name="code_rooms">Quartos: </string>
+    <string name="remove_code">Remover Código</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
-    <string name="barTitle">Hotel de Leiria</string>
+    <string name="barTitle">Hotel Leiria</string>
     <string name="barTitle_profile">Perfil</string>
     <string name="barTitle_codes">Códigos Reserva</string>
     <string name="menu_home">Página Inicial</string>
