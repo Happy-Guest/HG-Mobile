@@ -1,5 +1,6 @@
 package ipl.estg.happyguest.utils.api;
 
+import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
@@ -28,6 +29,10 @@ public interface APIRoutes {
     @POST("logout")
     Call<MessageResponse> logout();
 
+    @POST("change-password")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> changePassword(@Body ChangePasswordRequest changePasswordRequest);
+
     // User
     @GET("me")
     Call<UserResponse> me();
@@ -41,4 +46,5 @@ public interface APIRoutes {
 
     @POST("users/{user_id}/codes/{code}/associate")
     Call<MessageResponse> associateCode(@Path("user_id") int user_id, @Path("code") String code);
+
 }
