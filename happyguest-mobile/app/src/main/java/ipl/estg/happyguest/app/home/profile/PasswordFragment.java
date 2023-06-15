@@ -1,5 +1,10 @@
 package ipl.estg.happyguest.app.home.profile;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,10 +12,15 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -19,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.RegisterActivity;
@@ -106,9 +117,7 @@ public class PasswordFragment extends Fragment {
         } else if (!confirmPassword.equals(newPassword)) {
             inputConfirmPassword.setError(getString(R.string.password_confirmation_not_match));
         } else {
-            binding.btnChange.setEnabled(false);
-            binding.btnCancel.setEnabled(false);
-            changePasswordAttempt();
+            showPopup();
         }
 
     }
@@ -169,7 +178,40 @@ public class PasswordFragment extends Fragment {
         });
     }
 
-    @Override
+
+    private void showPopup() {
+
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        // close popup
+        Button btnPopClose = popupView.findViewById(R.id.btnClose);
+        btnPopClose.setOnClickListener(view1 ->
+            popupWindow.dismiss());
+
+        // accept popup
+        Button btnPopAccept = popupView.findViewById(R.id.btnChangePassword);
+        btnPopAccept.setOnClickListener(view1 -> {
+            changePasswordAttempt();
+            binding.btnChange.setEnabled(false);
+            binding.btnCancel.setEnabled(false);
+            popupWindow.dismiss();
+
+        });
+    }
+
+
+        @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
