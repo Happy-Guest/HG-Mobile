@@ -28,7 +28,7 @@ import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import ipl.estg.happyguest.utils.storage.Code;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     private TextInputLayout inputCode;
     private User user;
     private APIRoutes api;
-    private Code code;
+    private HasCodes hasCodes;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -52,12 +52,12 @@ public class HomeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        code = new Code(binding.getRoot().getContext());
+        hasCodes = new HasCodes(binding.getRoot().getContext());
 
         // Check if user has codes
-        if (code.getHasCode() && Objects.equals(code.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+        if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
             binding.codeLayout.setVisibility(View.GONE);
-        } else if (code.getHasCode() && !Objects.equals(code.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+        } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
             hasCodesAttempt();
         } else {
             binding.codeLayout.setVisibility(View.VISIBLE);
@@ -93,8 +93,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    code.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    if (code.getHasCode()) {
+                    hasCodes.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    if (hasCodes.getHasCode()) {
                         binding.codeLayout.setVisibility(View.GONE);
                     } else {
                         binding.codeLayout.setVisibility(View.VISIBLE);
@@ -119,8 +119,8 @@ public class HomeFragment extends Fragment {
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Set hasCode to true and hide code layout
-                    Code code = new Code(binding.getRoot().getContext());
-                    code.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+                    hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     binding.codeLayout.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {

@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/nav_code"
         android:name="ipl.estg.happyguest.app.home.code.CodeFragment"
-        android:label="fragment_code"
+        android:label="@string/menu_code"
         tools:layout="@layout/fragment_code" />
 
 </navigation>

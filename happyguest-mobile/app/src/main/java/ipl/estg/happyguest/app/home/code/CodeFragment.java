@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -28,7 +30,8 @@ import ipl.estg.happyguest.databinding.FragmentCodeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import ipl.estg.happyguest.utils.storage.Code;
+import ipl.estg.happyguest.utils.models.Code;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -43,6 +46,7 @@ public class CodeFragment extends Fragment {
     private User user;
     private APIRoutes api;
     private CodesAdapter codesAdapter;
+    private RecyclerView codesRV;
     private ArrayList<Code> codesList;
 
     @Override
@@ -53,7 +57,7 @@ public class CodeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        Code code = new Code(binding.getRoot().getContext());
+        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
 
         // Associate code button
         inputCode = binding.addCode.inputCode;
@@ -62,11 +66,16 @@ public class CodeFragment extends Fragment {
 
         // Hide textCode
         binding.addCode.txtCodeTitle.setText(R.string.code_associate);
-        if (code.getHasCode()) {
+        if (hasCodes.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
         }
 
-        // Get Codes
+        // Codes
+        codesRV = binding.codesRV;
+        codesList = new ArrayList<>();
+        codesAdapter = new CodesAdapter(codesList, binding.getRoot().getContext());
+        codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+        codesRV.setAdapter(codesAdapter);
         // getCodesAttempt();
 
         return binding.getRoot();
@@ -95,8 +104,8 @@ public class CodeFragment extends Fragment {
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    Code code = new Code(binding.getRoot().getContext());
-                    code.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+                    hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {

@@ -3,12 +3,12 @@ package ipl.estg.happyguest.utils.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Code {
+public class HasCodes {
 
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
 
-    public Code(Context context) {
+    public HasCodes(Context context) {
         sharedPreferences = context.getSharedPreferences("hg-code", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import ipl.estg.happyguest.utils.api.models.Meta;
+import ipl.estg.happyguest.utils.models.Meta;
 import ipl.estg.happyguest.utils.models.Code;
 
 public class CodesResponse extends PaginationResponse<Code> {

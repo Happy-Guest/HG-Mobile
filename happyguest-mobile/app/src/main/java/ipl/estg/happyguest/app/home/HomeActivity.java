@@ -44,7 +44,7 @@ import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import ipl.estg.happyguest.utils.others.CircleImage;
 import ipl.estg.happyguest.utils.others.CloseService;
-import ipl.estg.happyguest.utils.storage.Code;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -300,8 +300,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Hide addCode if user has codes
-                    Code code = new Code(getApplicationContext());
-                    code.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    HasCodes hasCodes = new HasCodes(getApplicationContext());
+                    hasCodes.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                 } else {
                     Log.i("HasCodes Error: ", response.message());
                 }

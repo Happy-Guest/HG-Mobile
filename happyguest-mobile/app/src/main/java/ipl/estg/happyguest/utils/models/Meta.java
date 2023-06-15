@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils.api.models;
+package ipl.estg.happyguest.utils.models;
 
 public class Meta {
 
