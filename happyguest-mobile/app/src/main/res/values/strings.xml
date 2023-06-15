@@ -21,6 +21,7 @@
     <string name="associate">Associate</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="update_profile">Update Profile</string>
+    <string name="change_password">Password</string>
     <string name="cancel">Cancel</string>
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
@@ -31,11 +32,10 @@
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Profile</string>
     <string name="barTitle">Leiria Hotel</string>
-    <string name="barTitle_profile">Profile</string>
-    <string name="barTitle_codes">Reserve Codes</string>
     <string name="menu_home">Home Page</string>
-    <string name="menu_code">Codes</string>
+    <string name="menu_code">Rserve Codes</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_password">Password</string>
     <string name="menu_logout">Logout</string>
 
     <!-- App Errors -->

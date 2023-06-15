@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -49,8 +48,6 @@ public class ProfileFragment extends Fragment {
     private EditText txtPhone;
     private EditText txtAddress;
     private EditText txtBirthDate;
-    private Button btnSave;
-    private Button btnCancel;
     private User user;
     private APIRoutes api;
 
@@ -81,16 +78,22 @@ public class ProfileFragment extends Fragment {
         binding.btnEdit.setOnClickListener(v -> changeFieldsState(true));
 
         // Cancel button
-        btnCancel = binding.btnCancel;
-        btnCancel.setOnClickListener(v -> {
+        binding.btnCancel.setOnClickListener(v -> {
             changeFieldsState(false);
             populateFields();
         });
 
         // Save button
-        btnSave = binding.btnSave;
-        btnSave.setOnClickListener(v -> {
-            if (btnSave.isEnabled()) validateFields();
+        binding.btnSave.setOnClickListener(v -> {
+            if (binding.btnSave.isEnabled()) validateFields();
+        });
+
+        // Password button
+        binding.btnPassword.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_password);
+            }
         });
 
         // Add "/" to birth date
@@ -145,16 +148,20 @@ public class ProfileFragment extends Fragment {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.btnPassword.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnSave.setVisibility(View.VISIBLE);
             binding.btnCancel.setVisibility(View.VISIBLE);
-            binding.btnEdit.setVisibility(View.GONE);
+            binding.btnEdit.setVisibility(View.INVISIBLE);
+            binding.btnPassword.setVisibility(View.GONE);
         } else {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnPassword.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnSave.setVisibility(View.GONE);
             binding.btnCancel.setVisibility(View.GONE);
             binding.btnEdit.setVisibility(View.VISIBLE);
+            binding.btnPassword.setVisibility(View.VISIBLE);
             inputName.setError(null);
             inputEmail.setError(null);
             inputPhone.setError(null);
@@ -211,8 +218,8 @@ public class ProfileFragment extends Fragment {
         } else if (!birthDate.isEmpty() && birthDate.length() != 10) {
             inputBirthDate.setError(getString(R.string.invalid_birth_date));
         } else {
-            btnSave.setEnabled(false);
-            btnCancel.setEnabled(false);
+            binding.btnSave.setEnabled(false);
+            binding.btnCancel.setEnabled(false);
             updateAttempt();
         }
     }
@@ -239,8 +246,8 @@ public class ProfileFragment extends Fragment {
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-                btnSave.setEnabled(true);
-                btnCancel.setEnabled(true);
+                binding.btnSave.setEnabled(true);
+                binding.btnCancel.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and update user
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -288,8 +295,8 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
-                btnSave.setEnabled(true);
-                btnCancel.setEnabled(true);
+                binding.btnSave.setEnabled(true);
+                binding.btnCancel.setEnabled(true);
             }
         });
     }

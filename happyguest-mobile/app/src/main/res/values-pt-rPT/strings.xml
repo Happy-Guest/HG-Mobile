@@ -12,15 +12,16 @@
     <string name="login">Login</string>
     <string name="register">Registar</string>
     <string name="email">Email</string>
-    <string name="password">Palavra-passe</string>
+    <string name="password">Palavra-Passe</string>
     <string name="addImage">Adicionar Imagem</string>
     <string name="name">Nome</string>
     <string name="phoneNr">Nº Telefone</string>
-    <string name="confirmPassword">Confirmar Palavra-passe</string>
+    <string name="confirmPassword">Confirmar Palavra-Passe</string>
     <string name="code">Código</string>
     <string name="associate">Associar</string>
     <string name="edit_profile">Editar Perfil</string>
     <string name="update_profile">Atualizar Perfil</string>
+    <string name="change_password">Palavra-Passe</string>
     <string name="cancel">Cancelar</string>
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
@@ -31,11 +32,10 @@
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
     <string name="barTitle">Hotel de Leiria</string>
-    <string name="barTitle_profile">Perfil</string>
-    <string name="barTitle_codes">Códigos Reserva</string>
     <string name="menu_home">Página Inicial</string>
-    <string name="menu_code">Códigos</string>
+    <string name="menu_code">Códigos Reserva</string>
     <string name="menu_profile">Perfil</string>
+    <string name="menu_password">Palavra-Passe</string>
     <string name="menu_logout">Sair</string>
 
     <!-- App Errors -->

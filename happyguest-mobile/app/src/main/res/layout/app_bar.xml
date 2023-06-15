@@ -101,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:breakStrategy="high_quality"
                     android:justificationMode="none"
+                    android:maxWidth="200dp"
                     android:minLines="2"
                     android:shadowColor="#000000"
                     android:shadowDx="3"
@@ -111,11 +112,12 @@
                     android:textColor="@color/white"
                     android:textSize="35sp"
                     android:textStyle="bold"
+                    app:layout_constrainedWidth="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent=".5" />
+                    app:layout_constraintWidth_max="wrap" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
