@@ -143,17 +143,17 @@ public class ProfileFragment extends Fragment {
         txtBirthDate.setEnabled(state);
         if (state) {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
-            binding.btnSave.setVisibility(View.VISIBLE);
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
-            binding.btnCancel.setVisibility(View.VISIBLE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.btnSave.setVisibility(View.VISIBLE);
+            binding.btnCancel.setVisibility(View.VISIBLE);
             binding.btnEdit.setVisibility(View.GONE);
         } else {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnSave.setVisibility(View.GONE);
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-            binding.btnCancel.setVisibility(View.GONE);
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnSave.setVisibility(View.GONE);
+            binding.btnCancel.setVisibility(View.GONE);
             binding.btnEdit.setVisibility(View.VISIBLE);
             inputName.setError(null);
             inputEmail.setError(null);
