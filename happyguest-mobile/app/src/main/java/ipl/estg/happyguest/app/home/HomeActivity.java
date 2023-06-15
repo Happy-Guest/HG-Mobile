@@ -34,14 +34,14 @@ import java.util.Objects;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
-import ipl.estg.happyguest.utils.others.CircleImage;
-import ipl.estg.happyguest.utils.others.CloseService;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import ipl.estg.happyguest.utils.others.CircleImage;
+import ipl.estg.happyguest.utils.others.CloseService;
+import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.others.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -124,6 +124,10 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
+            } else if (destination.getId() == R.id.nav_code) {
+                binding.appBarHome.txtBarTitle.setText(R.string.codes_reserve);
+            } else {
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
             }
         });
 
@@ -197,7 +201,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_code)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -294,7 +298,7 @@ public class HomeActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                     finish();
                 } else {
-                    Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_SHORT).show();
                     Log.i("Logout Error: ", response.message());
                     btnLogout.setEnabled(true);
                 }
@@ -302,7 +306,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
-                Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_SHORT).show();
                 Log.i("Logout Error: ", t.getMessage());
                 btnLogout.setEnabled(true);
             }

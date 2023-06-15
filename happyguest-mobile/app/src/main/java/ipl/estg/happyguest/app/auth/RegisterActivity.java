@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                     registerClick();
                 }
             } else {
-                Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -169,7 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and go to LoginActivity
-                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -198,14 +198,14 @@ public class RegisterActivity extends AppCompatActivity {
                                     inputPhone.setError(errors.getJSONArray("phone").get(0).toString());
                                 }
                                 if (errors.has("photo")) {
-                                    Toast.makeText(RegisterActivity.this, errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterActivity.this, errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(RegisterActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterActivity.this, jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException | IOException e) {
-                        Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                         Log.i("Register Error: ", e.getMessage());
                     }
                 }
@@ -213,7 +213,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
-                Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.e("Register Error: ", t.getMessage());
                 btnRegister.setEnabled(true);
             }

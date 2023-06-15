@@ -26,12 +26,12 @@ import java.io.IOException;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import ipl.estg.happyguest.utils.others.Token;
+import ipl.estg.happyguest.utils.others.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -181,7 +181,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_LONG).show();
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -243,7 +243,7 @@ public class ProfileFragment extends Fragment {
                 btnCancel.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and update user
-                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     user.setUser(response.body().getUser().getId(), response.body().getUser().getName(), response.body().getUser().getEmail(), response.body().getUser().getPhone() == null ? -1 : response.body().getUser().getPhone(), response.body().getUser().getAddress(),
                             response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl());
                     changeFieldsState(false);
@@ -271,14 +271,14 @@ public class ProfileFragment extends Fragment {
                                     inputBirthDate.setError(errors.getJSONArray("birth_date").get(0).toString());
                                 }
                                 if (errors.has("photo")) {
-                                    Toast.makeText(binding.getRoot().getContext(), errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(binding.getRoot().getContext(), errors.getJSONArray("photo").get(0).toString(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException | IOException e) {
-                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                         Log.i("UpdateUser Error: ", e.getMessage());
                     }
                 }
@@ -286,7 +286,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
                 btnSave.setEnabled(true);
                 btnCancel.setEnabled(true);

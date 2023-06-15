@@ -26,6 +26,7 @@
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
     <string name="code_reserve">Código de Reserva</string>
+    <string name="codes_reserve">Códigos de Reserva</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -33,6 +34,7 @@
     <string name="barTitle">Hotel de Leiria</string>
     <string name="barTitle_profile">Perfil</string>
     <string name="menu_home">Página Inicial</string>
+    <string name="menu_code">Códigos</string>
     <string name="menu_profile">Perfil</string>
     <string name="menu_logout">Sair</string>
 

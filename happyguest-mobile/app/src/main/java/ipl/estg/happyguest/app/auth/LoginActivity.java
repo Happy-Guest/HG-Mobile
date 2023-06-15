@@ -23,11 +23,11 @@ import java.io.IOException;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.utils.others.Token;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
+import ipl.estg.happyguest.utils.others.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginClick();
                 }
             } else {
-                Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,11 +138,11 @@ public class LoginActivity extends AppCompatActivity {
                                     inputPassword.setError(errors.getJSONArray("password").get(0).toString());
                                 }
                             } else {
-                                Toast.makeText(LoginActivity.this, jObjError.getString("message"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException | IOException e) {
-                        Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                         Log.i("Login Error: ", e.getMessage());
                     }
                 }
@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-                Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("Login Error: ", t.getMessage());
                 btnLogin.setEnabled(true);
                 btnGoToRegister.setEnabled(true);
