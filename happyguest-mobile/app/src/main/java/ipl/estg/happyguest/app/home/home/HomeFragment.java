@@ -57,7 +57,6 @@ public class HomeFragment extends Fragment {
             binding.codeLayout.setVisibility(View.GONE);
         } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
             if (hasCodes.hasCodesAttempt(api)) {
-
                 binding.codeLayout.setVisibility(View.GONE);
             } else {
                 binding.codeLayout.setVisibility(View.VISIBLE);

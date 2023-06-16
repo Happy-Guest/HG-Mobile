@@ -51,6 +51,7 @@ public class CodeFragment extends Fragment {
     private APIRoutes api;
     private CodesAdapter codesAdapter;
     private ArrayList<Code> codesList;
+    private HasCodes hasCodes;
     private Meta meta;
 
     @Override
@@ -61,7 +62,7 @@ public class CodeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+        hasCodes = new HasCodes(binding.getRoot().getContext());
 
         // Associate code button
         inputCode = binding.addCode.inputCode;
@@ -122,10 +123,11 @@ public class CodeFragment extends Fragment {
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    binding.addCode.txtCodeText.setVisibility(View.GONE);
+                    binding.addCode.textCode.setText("");
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    codesList.clear();
+                    getCodesAttempt(1);
                 } else {
                     if (response.code() == 404) {
                         inputCode.setError(binding.getRoot().getContext().getString(R.string.invalid_code));
@@ -170,6 +172,12 @@ public class CodeFragment extends Fragment {
                     }
                     meta = response.body().getMeta();
                     codesAdapter.notifyItemRangeInserted(lastPos, userCodes.size());
+                    if (codesList.size() == 0) {
+                        binding.addCode.txtCodeText.setVisibility(View.VISIBLE);
+                        hasCodes.setHasCode(false, "");
+                    } else {
+                        binding.addCode.txtCodeText.setVisibility(View.GONE);
+                    }
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetCodes Error: ", response.message());
