@@ -114,33 +114,37 @@ public class HomeActivity extends AppCompatActivity {
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
             }
-            if (destination.getId() == R.id.nav_profile) {
+            if (destination.getId() == R.id.nav_home) {
+                binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+            } else {
+                binding.appBarHome.txtBarTitle.setText(destination.getLabel());
+            }
+            if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
-                binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
-            } else if (destination.getId() == R.id.nav_code) {
-                binding.appBarHome.txtBarTitle.setText(R.string.barTitle_codes);
-                hidePhoto();
-            } else {
-                binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
-                hidePhoto();
+            }
+            if (destination.getId() != R.id.nav_profile && destination.getId() != R.id.nav_password && binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE) {
+                binding.appBarHome.txtBarTitle.setMaxWidth(600);
+                binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
+                binding.appBarHome.imageProfile.setVisibility(View.GONE);
+                binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+                binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
             }
         });
 
         // Go to home fragment
         binding.appBarHome.btnBarLogo.setOnClickListener(v -> {
             navController.popBackStack();
-            binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
             navController.navigate(R.id.nav_home);
         });
 
         // Go to profile fragment
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
+            binding.appBarHome.txtBarTitle.setMaxWidth(0);
             navController.popBackStack();
-            binding.appBarHome.txtBarTitle.setText(R.string.barTitle_profile);
-            navController.navigate(R.id.action_global_profile);
+            navController.navigate(R.id.action_nav_profile);
         });
 
         // Button logout
@@ -152,6 +156,8 @@ public class HomeActivity extends AppCompatActivity {
         // Get user data if it's not already loaded
         if (user.getName() == null) {
             getMeAttempt();
+        }else if (user.getPhotoUrl() != null) {
+            populateImageProfile();
         }
 
         // Select Image
@@ -185,14 +191,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    // Hide user profile image
-    private void hidePhoto() {
-        if (binding.appBarHome.btnBarProfile.getVisibility() == View.GONE) {
-            binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
-            binding.appBarHome.imageProfile.setVisibility(View.GONE);
-            binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
-            binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
-        }
+    public void changeFragment(int id) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        navController.popBackStack();
+        navController.navigate(id);
     }
 
     public byte[] getPhoto() {
@@ -206,7 +208,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_code)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_code)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -240,7 +242,7 @@ public class HomeActivity extends AppCompatActivity {
     private void updateProfileImageVisibility(float percentage) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
-        if (currentDestinationId == R.id.nav_profile) {
+        if (currentDestinationId == R.id.nav_profile || currentDestinationId == R.id.nav_password) {
             if (binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE && percentage > 0.05f) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);

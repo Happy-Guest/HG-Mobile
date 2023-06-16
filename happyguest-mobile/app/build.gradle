@@ -35,6 +35,13 @@ android {
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src\\main\\res', 'src\\main\\res\\layouts\\fragments', 'src\\main\\res\\layouts\\activities', 'src\\main\\res\\layouts\\navigation', 'src\\main\\res\\layouts\\others', 'src\\main\\res\\drawables\\icons', 'src\\main\\res\\drawables\\images', 'src\\main\\res\\drawables\\others'
+            }
+        }
+    }
 }
 
 dependencies {

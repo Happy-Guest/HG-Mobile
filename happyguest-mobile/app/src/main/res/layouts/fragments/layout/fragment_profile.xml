@@ -167,6 +167,25 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
+        android:id="@+id/btnPassword"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_primary"
+        android:clickable="true"
+        android:text="@string/change_password"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:visibility="visible"
+        app:icon="@drawable/password_icon"
+        app:iconPadding="-20dp"
+        app:iconTint="@color/black"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
         android:id="@+id/btnCancel"
         android:layout_width="250dp"
         android:layout_height="48dp"
