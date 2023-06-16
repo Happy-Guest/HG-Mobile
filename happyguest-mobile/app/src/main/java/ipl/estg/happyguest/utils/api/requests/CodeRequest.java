@@ -6,7 +6,6 @@ public class CodeRequest {
 
     @SerializedName("user_id")
     private final int user_id;
-
     @SerializedName("code")
     private final String code;
 

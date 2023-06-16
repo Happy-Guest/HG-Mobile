@@ -63,7 +63,7 @@
     <string name="password_confirmation_required">Confirme a sua palavra-passe.</string>
     <string name="password_confirmation_not_match">A confirmação não corresponde!</string>
     <string name="new_password_required">Introduza a nova palavra-passe.</string>
-    <string name="password_same_as_current">A nova palavra-passe não pode ser igual à palavra-passe atual.</string>
+    <string name="password_same_as_current">A nova palavra-passe não pode ser igual à atual.</string>
     <string name="invalid_phone">O Nº telefone não é válido!</string>
     <string name="code_required">Introduza o código.</string>
     <string name="invalid_code">O código não é válido!</string>

@@ -6,10 +6,8 @@ public class ChangePasswordRequest {
 
     @SerializedName("old_password")
     private final String old_password;
-
     @SerializedName("new_password")
     private final String new_password;
-
     @SerializedName("new_password_confirmation")
     private final String new_password_confirmation;
 

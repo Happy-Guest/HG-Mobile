@@ -6,11 +6,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -29,20 +26,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.auth.RegisterActivity;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentPasswordBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
-import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import ipl.estg.happyguest.utils.api.responses.UserResponse;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
+import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,15 +48,13 @@ public class PasswordFragment extends Fragment {
     private EditText txtCurrentPassword;
     private EditText txtNewPassword;
     private EditText txtConfirmPassword;
-    private User user;
     private APIRoutes api;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPasswordBinding.inflate(inflater, container, false);
 
-        //TextInputLayouts and EditTexts
+        // TextInputLayouts and EditTexts
         inputCurrentPassword = binding.inputCurrentPassword;
         inputNewPassword = binding.inputNewPassword;
         inputConfirmPassword = binding.inputPasswordConfirm;
@@ -72,15 +62,12 @@ public class PasswordFragment extends Fragment {
         txtNewPassword = binding.txtNewPassword;
         txtConfirmPassword = binding.txtPasswordConfirm;
 
-        // User, API and Token
-        user = new User(binding.getRoot().getContext());
+        // API and Token
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         // Change password button
-        binding.btnChange.setOnClickListener(v -> {
-            changePasswordClick();
-        });
+        binding.btnChange.setOnClickListener(v -> changePasswordClick());
 
         // Cancel button
         binding.btnCancel.setOnClickListener(v -> {
@@ -90,17 +77,16 @@ public class PasswordFragment extends Fragment {
             }
         });
 
-
         return binding.getRoot();
     }
 
     public void changePasswordClick() {
-        //clear errors
+        // Clear errors
         inputCurrentPassword.setError(null);
         inputNewPassword.setError(null);
         inputConfirmPassword.setError(null);
 
-        //Get values and validate
+        // Get values and validate
         String currentPassword = txtCurrentPassword.getText().toString();
         String newPassword = txtNewPassword.getText().toString();
         String confirmPassword = txtConfirmPassword.getText().toString();
@@ -110,7 +96,7 @@ public class PasswordFragment extends Fragment {
             inputNewPassword.setError(getString(R.string.new_password_required));
         } else if (newPassword.length() < 5) {
             inputNewPassword.setError(getString(R.string.password_too_short));
-        } else if (newPassword.equals(currentPassword)){
+        } else if (newPassword.equals(currentPassword)) {
             inputNewPassword.setError(getString(R.string.password_same_as_current));
         } else if (confirmPassword.isEmpty()) {
             inputConfirmPassword.setError(getString(R.string.password_confirmation_required));
@@ -119,7 +105,6 @@ public class PasswordFragment extends Fragment {
         } else {
             showPopup();
         }
-
     }
 
     private void changePasswordAttempt() {
@@ -128,7 +113,6 @@ public class PasswordFragment extends Fragment {
                 txtNewPassword.getText().toString(),
                 txtConfirmPassword.getText().toString()
         ));
-
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -197,10 +181,10 @@ public class PasswordFragment extends Fragment {
         // close popup
         Button btnPopClose = popupView.findViewById(R.id.btnClose);
         btnPopClose.setOnClickListener(view1 ->
-            popupWindow.dismiss());
+                popupWindow.dismiss());
 
         // accept popup
-        Button btnPopAccept = popupView.findViewById(R.id.btnChangePassword);
+        Button btnPopAccept = popupView.findViewById(R.id.btnConfirm);
         btnPopAccept.setOnClickListener(view1 -> {
             changePasswordAttempt();
             binding.btnChange.setEnabled(false);
@@ -211,7 +195,7 @@ public class PasswordFragment extends Fragment {
     }
 
 
-        @Override
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;

@@ -119,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
             }
-            if (destination.getId() == R.id.nav_profile) {
+            if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
@@ -156,6 +156,8 @@ public class HomeActivity extends AppCompatActivity {
         // Get user data if it's not already loaded
         if (user.getName() == null) {
             getMeAttempt();
+        }else if (user.getPhotoUrl() != null) {
+            populateImageProfile();
         }
 
         // Select Image

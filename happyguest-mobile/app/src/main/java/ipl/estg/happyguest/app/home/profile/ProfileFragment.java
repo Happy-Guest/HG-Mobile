@@ -182,14 +182,17 @@ public class ProfileFragment extends Fragment {
             } else {
                 txtBirthDate.setText("");
             }
-            if (user.getPhotoUrl() != null) {
-                if (getActivity() instanceof HomeActivity) {
-                    HomeActivity homeActivity = (HomeActivity) getActivity();
-                    homeActivity.populateImageProfile();
-                }
-            }
         } catch (Exception e) {
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void populateImage() {
+        if (user.getPhotoUrl() != null) {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.populateImageProfile();
+            }
         }
     }
 
@@ -256,6 +259,7 @@ public class ProfileFragment extends Fragment {
                             response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl());
                     changeFieldsState(false);
                     populateFields();
+                    populateImage();
                 } else {
                     try {
                         if (response.errorBody() != null) {
