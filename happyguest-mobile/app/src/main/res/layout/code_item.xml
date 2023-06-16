@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="25dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginBottom="25dp"
+    android:elevation="8dp"
+    app:cardBackgroundColor="#E4E4E4"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:id="@+id/txtEntryDate"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="false"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/code_entry_date"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txtExitDate"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtEntryDate"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/code_exit_date"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txtRooms"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtExitDate"
+            android:layout_centerHorizontal="false"
+            android:elevation="10dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/code_rooms"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layoutOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/txtEntryDate"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/btn_primary"
+                android:elegantTextHeight="true"
+                android:elevation="10dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:minHeight="30dip"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:shadowColor="@color/dark_gray"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <ImageButton
+                android:id="@+id/btnCodeRemove"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@color/red"
+                android:contentDescription="@string/remove_code"
+                app:srcCompat="@drawable/delete_icon"
+                app:tint="@color/red"
+                tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

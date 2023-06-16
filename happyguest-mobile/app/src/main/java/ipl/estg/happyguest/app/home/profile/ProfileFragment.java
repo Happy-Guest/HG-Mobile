@@ -30,8 +30,8 @@ import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
+import ipl.estg.happyguest.utils.storage.Token;
+import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,6 +131,7 @@ public class ProfileFragment extends Fragment {
         binding = null;
     }
 
+    // Set Visibility of TextInputLayouts and Buttons
     private void changeFieldsState(boolean state) {
         if (getActivity() instanceof HomeActivity) {
             HomeActivity homeActivity = (HomeActivity) getActivity();

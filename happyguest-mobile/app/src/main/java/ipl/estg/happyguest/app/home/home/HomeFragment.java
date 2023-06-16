@@ -26,11 +26,10 @@ import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import ipl.estg.happyguest.utils.others.Code;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
+import ipl.estg.happyguest.utils.storage.HasCodes;
+import ipl.estg.happyguest.utils.storage.Token;
+import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +42,6 @@ public class HomeFragment extends Fragment {
     private TextInputLayout inputCode;
     private User user;
     private APIRoutes api;
-    private Code code;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -52,13 +50,17 @@ public class HomeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        code = new Code(binding.getRoot().getContext());
+        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
 
         // Check if user has codes
-        if (code.getHasCode() && Objects.equals(code.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+        if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
             binding.codeLayout.setVisibility(View.GONE);
-        } else if (code.getHasCode() && !Objects.equals(code.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            hasCodesAttempt();
+        } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+            if (hasCodes.hasCodesAttempt(api)) {
+                binding.codeLayout.setVisibility(View.GONE);
+            } else {
+                binding.codeLayout.setVisibility(View.VISIBLE);
+            }
         } else {
             binding.codeLayout.setVisibility(View.VISIBLE);
         }
@@ -87,30 +89,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void hasCodesAttempt() {
-        Call<HasCodesResponse> call = api.hasCodes(user.getId());
-        call.enqueue(new Callback<HasCodesResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    code.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    if (code.getHasCode()) {
-                        binding.codeLayout.setVisibility(View.GONE);
-                    } else {
-                        binding.codeLayout.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Log.i("HasCodes Error: ", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
-                Log.i("HasCodes Error: ", t.getMessage());
-            }
-        });
-    }
-
     private void associateCodeAttempt(String codeTxt) {
         Call<MessageResponse> call = api.associateCode(user.getId(), codeTxt);
         call.enqueue(new Callback<MessageResponse>() {
@@ -119,8 +97,8 @@ public class HomeFragment extends Fragment {
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Set hasCode to true and hide code layout
-                    Code code = new Code(binding.getRoot().getContext());
-                    code.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+                    hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     binding.codeLayout.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
