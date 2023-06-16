@@ -11,10 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.models.Code;
@@ -43,9 +41,20 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
 
         // Set Texts
         holder.code.setText(code.getCode());
-        holder.entryDate.setText(formatDate(code.getEntryDate()));
-        holder.exitDate.setText(formatDate(code.getExitDate()));
-        holder.rooms.setText(code.getRooms().toString());
+        String entryDate = holder.entryDate.getText().toString() + " " + code.getEntryDate();
+        holder.entryDate.setText(entryDate);
+        String exitDate = holder.exitDate.getText().toString() + " " + code.getExitDate();
+        holder.exitDate.setText(exitDate);
+
+        // Convert and concatenate room values
+        List<String> roomList = code.getRooms();
+        StringBuilder roomsBuilder = new StringBuilder();
+        for (int i = 0; i < roomList.size(); i++) {
+            if (i > 0) roomsBuilder.append(", ");
+            roomsBuilder.append(Integer.parseInt(roomList.get(i)));
+        }
+        String roomsText = "Rooms: " + roomsBuilder;
+        holder.rooms.setText(roomsText);
 
         // Remove Button
         holder.remove.setOnClickListener(view -> {
@@ -53,11 +62,6 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, codesList.size());
         });
-    }
-
-    private String formatDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        return sdf.format(date);
     }
 
     @Override

@@ -1,17 +1,23 @@
 package ipl.estg.happyguest.utils.models;
 
-import java.util.Date;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Code {
 
+    @SerializedName("id")
     private Long id;
+    @SerializedName("code")
     private String code;
-    private Date entryDate;
-    private Date exitDate;
+    @SerializedName("entry_date")
+    private String entryDate;
+    @SerializedName("exit_date")
+    private String exitDate;
+    @SerializedName("rooms")
     private List<String> rooms;
 
-    public Code(Long id, String code, Date entryDate, Date exitDate, List<String> rooms) {
+    public Code(Long id, String code, String entryDate, String exitDate, List<String> rooms) {
         this.id = id;
         this.code = code;
         this.entryDate = entryDate;
@@ -35,19 +41,19 @@ public class Code {
         this.code = code;
     }
 
-    public Date getEntryDate() {
+    public String getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(Date entryDate) {
+    public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
     }
 
-    public Date getExitDate() {
+    public String getExitDate() {
         return exitDate;
     }
 
-    public void setExitDate(Date exitDate) {
+    public void setExitDate(String exitDate) {
         this.exitDate = exitDate;
     }
 

@@ -49,7 +49,6 @@ public class CodeFragment extends Fragment {
     private User user;
     private APIRoutes api;
     private CodesAdapter codesAdapter;
-    private RecyclerView codesRV;
     private ArrayList<Code> codesList;
     private Meta meta;
 
@@ -75,12 +74,26 @@ public class CodeFragment extends Fragment {
         }
 
         // Codes
-        codesRV = binding.codesRV;
+        RecyclerView codesRV = binding.codesRV;
         codesList = new ArrayList<>();
         codesAdapter = new CodesAdapter(codesList, binding.getRoot().getContext());
         codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         codesRV.setAdapter(codesAdapter);
         getCodesAttempt(1);
+
+        // Get codes on scroll
+        binding.codesRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView codesRV, int dx, int dy) {
+                super.onScrolled(codesRV, dx, dy);
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) codesRV.getLayoutManager();
+                if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == codesList.size() - 1) {
+                    if (meta != null && meta.getCurrentPage() < meta.getLastPage()) {
+                        getCodesAttempt(meta.getCurrentPage() + 1);
+                    }
+                }
+            }
+        });
 
         return binding.getRoot();
     }
@@ -169,6 +182,7 @@ public class CodeFragment extends Fragment {
             }
         });
     }
+
 
     @Override
     public void onDestroyView() {
