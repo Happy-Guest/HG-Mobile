@@ -15,8 +15,9 @@ import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
-import ipl.estg.happyguest.utils.others.Token;
-import ipl.estg.happyguest.utils.others.User;
+import ipl.estg.happyguest.utils.storage.HasCodes;
+import ipl.estg.happyguest.utils.storage.Token;
+import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
                     // Display success message, save user data and redirect to home page
                     me.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
                             response.body().getBirthDate(), response.body().getPhotoUrl());
+
+                    // Check if user has codes
+                    HasCodes hasCodes = new HasCodes(MainActivity.this);
+                    hasCodes.hasCodesAttempt(api);
+
                     new Handler().postDelayed(() -> {
                         Toast.makeText(MainActivity.this, getString(R.string.restore_success), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);

@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.utils.others;
+package ipl.estg.happyguest.utils.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;

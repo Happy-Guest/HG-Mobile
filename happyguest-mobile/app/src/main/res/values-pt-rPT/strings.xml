@@ -30,6 +30,10 @@
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
     <string name="code_associate">Associar Código</string>
+    <string name="code_entry_date">Entrada - </string>
+    <string name="code_exit_date">Saída - </string>
+    <string name="code_rooms">Quartos: </string>
+    <string name="remove_code">Remover Código</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -47,6 +51,7 @@
     <string name="logout_error">Erro ao terminar sessão.</string>
     <string name="api_error">Erro ao ligar ao servidor!</string>
     <string name="data_error">Erro ao carregar dados!</string>
+    <string name="codes_error">Erro ao carregar códigos!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
