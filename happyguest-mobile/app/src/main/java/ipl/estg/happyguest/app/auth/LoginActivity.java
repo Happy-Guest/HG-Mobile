@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                         finish();
-                    }, 1000);
+                    }, 2000);
                 } else {
                     btnLogin.setEnabled(true);
                     btnGoToRegister.setEnabled(true);

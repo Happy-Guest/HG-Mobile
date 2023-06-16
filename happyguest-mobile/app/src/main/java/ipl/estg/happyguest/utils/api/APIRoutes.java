@@ -11,6 +11,7 @@ import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -53,4 +54,6 @@ public interface APIRoutes {
     @POST("users/{user_id}/codes/{code}/associate")
     Call<MessageResponse> associateCode(@Path("user_id") int user_id, @Path("code") String code);
 
+    @DELETE("users/{user_id}/codes/{code}/disassociate")
+    Call<MessageResponse> disassociateCode(@Path("user_id") int user_id, @Path("code") String code);
 }

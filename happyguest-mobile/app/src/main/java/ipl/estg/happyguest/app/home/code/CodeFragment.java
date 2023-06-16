@@ -74,15 +74,15 @@ public class CodeFragment extends Fragment {
         binding.addCode.txtCodeTitle.setText(R.string.code_associate);
         if (hasCodes.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
+            new Handler().postDelayed(() -> getCodesAttempt(1), 150);
         }
 
         // Codes
         RecyclerView codesRV = binding.codesRV;
         codesList = new ArrayList<>();
-        codesAdapter = new CodesAdapter(codesList, binding.getRoot().getContext());
+        codesAdapter = new CodesAdapter(codesList, binding.getRoot().getContext(), api, user);
         codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         codesRV.setAdapter(codesAdapter);
-        new Handler().postDelayed(() -> getCodesAttempt(1), 100);
 
         // Get codes on scroll
         binding.codesRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
