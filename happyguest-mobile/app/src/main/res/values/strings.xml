@@ -81,4 +81,5 @@
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
     <string name="title_ChangePassword">Do you want to change your password?</string>
+    <string name="title_DissociateCode">Do you want to dissociate your code?</string>
 </resources>

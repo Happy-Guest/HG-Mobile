@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
-                    }, 1000);
+                    }, 2000);
                 } else {
                     Toast.makeText(MainActivity.this, getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetMe Error: ", response.message());

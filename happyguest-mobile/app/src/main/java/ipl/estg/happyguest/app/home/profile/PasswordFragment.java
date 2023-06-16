@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -120,6 +121,9 @@ public class PasswordFragment extends Fragment {
 
         // Set background color
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_ChangePassword));
 
         // Show the popup window
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
