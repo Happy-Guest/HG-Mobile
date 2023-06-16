@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
         // Open drawer
         binding.appBarHome.btnBarOpen.setOnClickListener(v -> binding.drawerLayout.open());
 
-        // Hide old icon and check profile image
+        // Destination changed listener
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             ActionBar actionBar = getSupportActionBar();

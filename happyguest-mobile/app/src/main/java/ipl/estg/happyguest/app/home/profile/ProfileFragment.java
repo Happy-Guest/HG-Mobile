@@ -131,6 +131,7 @@ public class ProfileFragment extends Fragment {
         binding = null;
     }
 
+    // Set Visibility of TextInputLayouts and Buttons
     private void changeFieldsState(boolean state) {
         if (getActivity() instanceof HomeActivity) {
             HomeActivity homeActivity = (HomeActivity) getActivity();
