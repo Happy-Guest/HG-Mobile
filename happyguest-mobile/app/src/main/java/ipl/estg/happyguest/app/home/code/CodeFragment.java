@@ -66,6 +66,7 @@ public class CodeFragment extends Fragment {
 
         // Associate code button
         inputCode = binding.addCode.inputCode;
+        inputCode.setError(null);
         btnInsertCode = binding.addCode.btnAssociate;
         btnInsertCode.setOnClickListener(v -> associateCode());
 
