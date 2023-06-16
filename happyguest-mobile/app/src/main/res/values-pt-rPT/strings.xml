@@ -34,7 +34,7 @@
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
-    <string name="barTitle">Hotel Leiria</string>
+    <string name="barTitle">Hotel de Leiria</string>
     <string name="barTitle_profile">Perfil</string>
     <string name="barTitle_codes">Códigos Reserva</string>
     <string name="menu_home">Página Inicial</string>

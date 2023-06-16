@@ -1,6 +1,7 @@
 package ipl.estg.happyguest.app.home.code;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +80,7 @@ public class CodeFragment extends Fragment {
         codesAdapter = new CodesAdapter(codesList, binding.getRoot().getContext());
         codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         codesRV.setAdapter(codesAdapter);
-        getCodesAttempt(1);
+        new Handler().postDelayed(() -> getCodesAttempt(1), 100);
 
         // Get codes on scroll
         binding.codesRV.addOnScrollListener(new RecyclerView.OnScrollListener() {

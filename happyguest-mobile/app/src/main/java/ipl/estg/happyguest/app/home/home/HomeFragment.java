@@ -26,7 +26,6 @@ import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
@@ -43,7 +42,6 @@ public class HomeFragment extends Fragment {
     private TextInputLayout inputCode;
     private User user;
     private APIRoutes api;
-    private HasCodes hasCodes;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -52,13 +50,18 @@ public class HomeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        hasCodes = new HasCodes(binding.getRoot().getContext());
+        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
 
         // Check if user has codes
         if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
             binding.codeLayout.setVisibility(View.GONE);
         } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            hasCodesAttempt();
+            if (hasCodes.hasCodesAttempt(api)) {
+
+                binding.codeLayout.setVisibility(View.GONE);
+            } else {
+                binding.codeLayout.setVisibility(View.VISIBLE);
+            }
         } else {
             binding.codeLayout.setVisibility(View.VISIBLE);
         }
@@ -85,30 +88,6 @@ public class HomeFragment extends Fragment {
                 associateCodeAttempt(codeTxt);
             }
         }
-    }
-
-    private void hasCodesAttempt() {
-        Call<HasCodesResponse> call = api.hasCodes();
-        call.enqueue(new Callback<HasCodesResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    hasCodes.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    if (hasCodes.getHasCode()) {
-                        binding.codeLayout.setVisibility(View.GONE);
-                    } else {
-                        binding.codeLayout.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Log.i("HasCodes Error: ", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
-                Log.i("HasCodes Error: ", t.getMessage());
-            }
-        });
     }
 
     private void associateCodeAttempt(String codeTxt) {

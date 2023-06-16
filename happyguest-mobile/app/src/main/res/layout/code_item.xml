@@ -15,7 +15,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp">
 
         <TextView
             android:id="@+id/txtEntryDate"
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txtExitDate"
             android:layout_centerHorizontal="false"
+            android:elevation="10dp"
             android:gravity="center_vertical"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
@@ -68,13 +70,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/btn_primary"
                 android:elegantTextHeight="true"
+                android:elevation="10dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:minHeight="30dip"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:shadowColor="@color/dark_gray"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15sp"
@@ -86,10 +94,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/btn_secondary"
+                android:backgroundTint="@color/red"
                 android:contentDescription="@string/remove_code"
                 app:srcCompat="@drawable/delete_icon"
-                app:tint="#930505"
+                app:tint="@color/red"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
         </LinearLayout>

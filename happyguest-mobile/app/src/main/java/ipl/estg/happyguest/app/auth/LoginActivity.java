@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +28,7 @@ import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,13 +117,20 @@ public class LoginActivity extends AppCompatActivity {
                     // Save token
                     token.setToken(response.body().getAccessToken());
                     token.setRemember(remember.isChecked());
+                    api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
+
+                    // Check if user has codes
+                    HasCodes hasCodes = new HasCodes(LoginActivity.this);
+                    hasCodes.hasCodesAttempt(api);
 
                     // Display success message and go to HomeActivity
-                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-                    finish();
+                    new Handler().postDelayed(() -> {
+                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                        finish();
+                    }, 1000);
                 } else {
                     btnLogin.setEnabled(true);
                     btnGoToRegister.setEnabled(true);

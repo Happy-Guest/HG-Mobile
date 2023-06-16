@@ -2,6 +2,19 @@ package ipl.estg.happyguest.utils.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HasCodes {
 
@@ -30,5 +43,28 @@ public class HasCodes {
     public void clearCode() {
         editor.clear();
         editor.commit();
+    }
+
+    public boolean hasCodesAttempt(APIRoutes api) {
+        final boolean[] hasCodes = {false};
+        Call<HasCodesResponse> call = api.hasCodes();
+        call.enqueue(new Callback<HasCodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Hide addCode if user has codes
+                    setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    hasCodes[0] = response.body().hasCodes();
+                } else {
+                    Log.i("HasCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
+                Log.i("HasCodes Error: ", t.getMessage());
+            }
+        });
+        return hasCodes[0];
     }
 }

@@ -53,7 +53,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             if (i > 0) roomsBuilder.append(", ");
             roomsBuilder.append(Integer.parseInt(roomList.get(i)));
         }
-        String roomsText = "Rooms: " + roomsBuilder;
+        String roomsText = holder.rooms.getText().toString() + " " + roomsBuilder;
         holder.rooms.setText(roomsText);
 
         // Remove Button

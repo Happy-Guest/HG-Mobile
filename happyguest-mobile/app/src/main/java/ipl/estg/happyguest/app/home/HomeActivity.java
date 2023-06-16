@@ -29,9 +29,6 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -39,12 +36,10 @@ import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import ipl.estg.happyguest.utils.others.CircleImage;
 import ipl.estg.happyguest.utils.others.CloseService;
-import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -98,7 +93,6 @@ public class HomeActivity extends AppCompatActivity {
         token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
-        hasCodesAttempt();
         setupNavigation();
 
         // Resize title, logo and set profile image invisible
@@ -287,27 +281,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetMe Error: ", t.getMessage());
-            }
-        });
-    }
-
-    private void hasCodesAttempt() {
-        Call<HasCodesResponse> call = api.hasCodes();
-        call.enqueue(new Callback<HasCodesResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    // Hide addCode if user has codes
-                    HasCodes hasCodes = new HasCodes(getApplicationContext());
-                    hasCodes.setHasCode(response.body().hasCodes(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                } else {
-                    Log.i("HasCodes Error: ", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
-                Log.i("HasCodes Error: ", t.getMessage());
             }
         });
     }
