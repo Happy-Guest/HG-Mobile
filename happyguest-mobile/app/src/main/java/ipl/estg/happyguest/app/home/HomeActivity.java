@@ -98,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
+        hasCodesAttempt();
         setupNavigation();
 
         // Resize title, logo and set profile image invisible
@@ -157,8 +158,6 @@ public class HomeActivity extends AppCompatActivity {
         // Get user data if it's not already loaded
         if (user.getName() == null) {
             getMeAttempt();
-        } else {
-            hasCodesAttempt();
         }
 
         // Select Image
@@ -278,7 +277,6 @@ public class HomeActivity extends AppCompatActivity {
                     if (user.getPhotoUrl() != null) {
                         populateImageProfile();
                     }
-                    hasCodesAttempt();
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetMe Error: ", response.message());
@@ -294,7 +292,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void hasCodesAttempt() {
-        Call<HasCodesResponse> call = api.hasCodes(user.getId());
+        Call<HasCodesResponse> call = api.hasCodes();
         call.enqueue(new Callback<HasCodesResponse>() {
             @Override
             public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {

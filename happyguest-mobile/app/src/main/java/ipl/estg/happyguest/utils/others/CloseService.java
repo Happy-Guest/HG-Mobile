@@ -14,6 +14,7 @@ import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
+import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 
 public class CloseService extends Service {
@@ -32,6 +33,7 @@ public class CloseService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Token token = new Token(this);
+        User user = new User(this);
         HasCodes hasCodes = new HasCodes(this);
         hasCodes.clearCode();
         APIRoutes api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
@@ -42,6 +44,7 @@ public class CloseService extends Service {
                 StrictMode.setThreadPolicy(policy);
                 Call<MessageResponse> call = api.logout();
                 call.execute();
+                user.clearUser();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

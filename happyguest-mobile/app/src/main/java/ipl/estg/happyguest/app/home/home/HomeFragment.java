@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void hasCodesAttempt() {
-        Call<HasCodesResponse> call = api.hasCodes(user.getId());
+        Call<HasCodesResponse> call = api.hasCodes();
         call.enqueue(new Callback<HasCodesResponse>() {
             @Override
             public void onResponse(@NonNull Call<HasCodesResponse> call, @NonNull Response<HasCodesResponse> response) {

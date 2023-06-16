@@ -39,8 +39,8 @@ public interface APIRoutes {
     Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
 
     // Codes
-    @GET("users/{id}/codes/valid")
-    Call<HasCodesResponse> hasCodes(@Path("id") int id);
+    @GET("valid-code")
+    Call<HasCodesResponse> hasCodes();
 
     @GET("users/{id}/codes")
     Call<CodesResponse> getUserCodes(@Path("id") int id, @Query("page") int page);
