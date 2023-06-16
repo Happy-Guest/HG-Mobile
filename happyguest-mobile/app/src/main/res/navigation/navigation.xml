@@ -15,7 +15,7 @@
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
     <action
-        android:id="@+id/action_global_profile"
+        android:id="@+id/action_nav_profile"
         app:destination="@id/nav_profile"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_left" />
@@ -29,5 +29,15 @@
         android:name="ipl.estg.happyguest.app.home.profile.PasswordFragment"
         android:label="@string/menu_password"
         tools:layout="@layout/fragment_password" />
+    <action
+        android:id="@+id/action_nav_password"
+        app:destination="@id/nav_password"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/action2_nav_profile"
+        app:destination="@id/nav_profile"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

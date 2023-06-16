@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
         binding.btnPassword.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.changeFragment(R.id.nav_password);
+                homeActivity.changeFragment(R.id.action_nav_password);
             }
         });
 

@@ -26,6 +26,7 @@
     <string name="change_password">Password</string>
     <string name="cancel">Cancel</string>
     <string name="change">Change</string>
+    <string name="confirm">Confirm</string>
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
     <string name="select_image">Select Image</string>
@@ -79,5 +80,5 @@
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
-    <string name="title_ChangePassword">Do you want to change the password?</string>
+    <string name="title_ChangePassword">Do you want to change your password?</string>
 </resources>

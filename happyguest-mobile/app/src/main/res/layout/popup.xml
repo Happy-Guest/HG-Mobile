@@ -2,23 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="120dp"
-    android:background="@drawable/popup_background">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/popup_background"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="15dp">
+        android:paddingBottom="15dp"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textViewPopUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
+            android:maxWidth="350dp"
             android:text="@string/title_ChangePassword"
             android:textAlignment="center"
             android:textColor="#000000"
@@ -30,38 +35,40 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnConfirm"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="154dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="25dp"
                 android:background="@drawable/btn_primary"
                 android:clickable="true"
-                android:text="@string/change"
+                android:gravity="center"
+                android:text="@string/confirm"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                app:icon="@drawable/password_icon"
-                app:iconPadding="-15dp"
+                android:textSize="15sp"
+                app:icon="@drawable/check_icon"
+                app:iconPadding="2dp"
                 app:iconTint="@color/black"
                 tools:ignore="ButtonStyle,TextContrastCheck,TouchTargetSizeCheck" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnClose"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="25dp"
                 android:background="@drawable/btn_secondary"
+                android:backgroundTint="@color/red"
                 android:contentDescription="@string/btnClose"
-                app:icon="@drawable/close_icon"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:iconTint="#000000"
-                tools:ignore="ButtonStyle,TouchTargetSizeCheck" />
+                android:src="@drawable/close_icon"
+                app:tint="@color/red"
+                tools:ignore="ButtonStyle,TouchTargetSizeCheck,VisualLintBounds" />
 
         </LinearLayout>
 

@@ -14,7 +14,7 @@
     <string name="email">Email</string>
     <string name="password">Palavra-Passe</string>
     <string name="password_current">Palavra-Passe Atual</string>
-    <string name="password_new">Nova Palavra-Passe</string>
+    <string name="password_new">Palavra-Passe Nova</string>
     <string name="addImage">Adicionar Imagem</string>
     <string name="name">Nome</string>
     <string name="phoneNr">Nº Telefone</string>
@@ -26,6 +26,7 @@
     <string name="change_password">Palavra-Passe</string>
     <string name="cancel">Cancelar</string>
     <string name="change">Alterar</string>
+    <string name="confirm">Confirmar</string>
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>

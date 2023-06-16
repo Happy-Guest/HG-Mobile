@@ -13,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -73,7 +74,7 @@ public class PasswordFragment extends Fragment {
         binding.btnCancel.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.changeFragment(R.id.nav_profile);
+                homeActivity.changeFragment(R.id.action2_nav_profile);
             }
         });
 
@@ -105,6 +106,37 @@ public class PasswordFragment extends Fragment {
         } else {
             showPopup();
         }
+    }
+
+    private void showPopup() {
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Show the popup window
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        // Close popup
+        ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
+        btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
+
+        // Accept popup
+        Button btnPopAccept = popupView.findViewById(R.id.btnConfirm);
+        btnPopAccept.setOnClickListener(view1 -> {
+            changePasswordAttempt();
+            binding.btnChange.setEnabled(false);
+            binding.btnCancel.setEnabled(false);
+            popupWindow.dismiss();
+
+        });
     }
 
     private void changePasswordAttempt() {
@@ -161,39 +193,6 @@ public class PasswordFragment extends Fragment {
             }
         });
     }
-
-
-    private void showPopup() {
-
-        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
-
-        // create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        // show the popup window
-        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
-        // close popup
-        Button btnPopClose = popupView.findViewById(R.id.btnClose);
-        btnPopClose.setOnClickListener(view1 ->
-                popupWindow.dismiss());
-
-        // accept popup
-        Button btnPopAccept = popupView.findViewById(R.id.btnConfirm);
-        btnPopAccept.setOnClickListener(view1 -> {
-            changePasswordAttempt();
-            binding.btnChange.setEnabled(false);
-            binding.btnCancel.setEnabled(false);
-            popupWindow.dismiss();
-
-        });
-    }
-
 
     @Override
     public void onDestroyView() {

@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
             binding.appBarHome.txtBarTitle.setMaxWidth(0);
             navController.popBackStack();
-            navController.navigate(R.id.action_global_profile);
+            navController.navigate(R.id.action_nav_profile);
         });
 
         // Button logout

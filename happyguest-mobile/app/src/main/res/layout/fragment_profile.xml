@@ -181,7 +181,7 @@
         android:textSize="17sp"
         android:visibility="visible"
         app:icon="@drawable/password_icon"
-        app:iconPadding="-15dp"
+        app:iconPadding="-20dp"
         app:iconTint="@color/black"
         tools:ignore="TextContrastCheck" />
 
