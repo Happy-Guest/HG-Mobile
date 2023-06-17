@@ -44,6 +44,9 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
 
+    @DELETE("users/{id}")
+    Call<MessageResponse> deleteUser(@Path("id") int id, @Query("password") String password);
+
     // Codes
     @GET("valid-code")
     Call<HasCodesResponse> hasCodes();

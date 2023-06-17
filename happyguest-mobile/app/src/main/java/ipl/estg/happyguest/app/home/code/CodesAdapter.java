@@ -84,7 +84,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         holder.rooms.setText(roomsText);
 
         // Remove Button
-        holder.remove.setOnClickListener(view -> showPopUp(code.getCode(), position));
+        holder.remove.setOnClickListener(view -> showPopUp(code.getCode(), position, holder.remove));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         return codesList.size();
     }
 
-    private void showPopUp(String code, int position) {
+    private void showPopUp(String code, int position, ImageButton btnRemove) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
 
@@ -115,21 +115,21 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
         btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
 
-        // Accept popup
-        Button btnPopAccept = popupView.findViewById(R.id.btnConfirm);
-        btnPopAccept.setOnClickListener(view1 -> {
-            disassociateCodeAttempt(code, position, btnPopAccept);
-            btnPopAccept.setEnabled(false);
+        // Confirm popup
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setOnClickListener(view1 -> {
+            disassociateCodeAttempt(code, position, btnRemove);
+            btnRemove.setEnabled(false);
             popupWindow.dismiss();
         });
     }
 
-    public void disassociateCodeAttempt(String code, int position, Button btnPopAccept) {
+    public void disassociateCodeAttempt(String code, int position, ImageButton btnRemove) {
         Call<MessageResponse> call = api.disassociateCode(user.getId(), code);
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
-                btnPopAccept.setEnabled(true);
+                btnRemove.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Remove code from list and notify adapter
                     Toast.makeText(context.getApplicationContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -161,7 +161,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.e("DisassociateCode Error: ", t.getMessage());
-                btnPopAccept.setEnabled(true);
+                btnRemove.setEnabled(true);
             }
         });
     }

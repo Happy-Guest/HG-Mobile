@@ -132,9 +132,9 @@ public class PasswordFragment extends Fragment {
         ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
         btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
 
-        // Accept popup
-        Button btnPopAccept = popupView.findViewById(R.id.btnConfirm);
-        btnPopAccept.setOnClickListener(view1 -> {
+        // Confirm popup
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setOnClickListener(view1 -> {
             changePasswordAttempt();
             binding.btnChange.setEnabled(false);
             binding.btnCancel.setEnabled(false);

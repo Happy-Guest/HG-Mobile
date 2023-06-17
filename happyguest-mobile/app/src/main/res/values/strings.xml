@@ -25,6 +25,7 @@
     <string name="update_profile">Update Profile</string>
     <string name="change_password">Password</string>
     <string name="cancel">Cancel</string>
+    <string name="remove_profile">Remove Profile</string>
     <string name="change">Change</string>
     <string name="confirm">Confirm</string>
     <string name="address">Address</string>
@@ -75,11 +76,12 @@
     <string name="invalid_birth_date">The birth date is not valid!</string>
     <string name="restore_success">Session restored successfully.</string>
 
-    <!-- Others -->
-    <string name="slash_placeholder">%1$s/</string>
-
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
     <string name="title_ChangePassword">Do you want to change your password?</string>
     <string name="title_DissociateCode">Do you want to dissociate your code?</string>
+    <string name="title_RemoveProfile">Do you want to remove your profile?</string>
+
+    <!-- Others -->
+    <string name="slash_placeholder">%1$s/</string>
 </resources>

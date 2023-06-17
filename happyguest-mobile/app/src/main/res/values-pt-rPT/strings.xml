@@ -25,6 +25,7 @@
     <string name="update_profile">Atualizar Perfil</string>
     <string name="change_password">Palavra-Passe</string>
     <string name="cancel">Cancelar</string>
+    <string name="remove_profile">Eliminar Perfil</string>
     <string name="change">Alterar</string>
     <string name="confirm">Confirmar</string>
     <string name="address">Morada</string>
@@ -75,11 +76,12 @@
     <string name="invalid_birth_date">A data de nascimento não é válida!</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>
 
-    <!-- Others -->
-    <string name="slash_placeholder">%1$s/</string>
-
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
     <string name="title_ChangePassword">Pretende alterar a palavra-passe?</string>
     <string name="title_DissociateCode">Pretende desassociar o código?</string>
+    <string name="title_RemoveProfile">Pretende eliminar o perfil?</string>
+
+    <!-- Others -->
+    <string name="slash_placeholder">%1$s/</string>
 </resources>
