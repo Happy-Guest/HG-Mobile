@@ -278,6 +278,7 @@ public class ProfileFragment extends Fragment {
         inputPassword.setError(null);
 
         // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
 
         // Close popup

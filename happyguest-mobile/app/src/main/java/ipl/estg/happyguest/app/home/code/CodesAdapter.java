@@ -109,6 +109,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(context.getString(R.string.title_DissociateCode));
 
         // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
         // Close popup

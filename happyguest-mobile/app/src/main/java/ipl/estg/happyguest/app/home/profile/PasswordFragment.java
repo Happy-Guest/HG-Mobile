@@ -126,6 +126,7 @@ public class PasswordFragment extends Fragment {
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_ChangePassword));
 
         // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
 
         // Close popup

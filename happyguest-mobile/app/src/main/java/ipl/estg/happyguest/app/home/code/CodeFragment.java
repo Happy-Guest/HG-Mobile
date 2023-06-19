@@ -74,7 +74,7 @@ public class CodeFragment extends Fragment {
         binding.addCode.txtCodeTitle.setText(R.string.code_associate);
         if (hasCodes.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
-            new Handler().postDelayed(() -> getCodesAttempt(1), 150);
+            new Handler().postDelayed(() -> getCodesAttempt(1), 200);
         }
 
         // Codes
