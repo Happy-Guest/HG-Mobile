@@ -2,10 +2,12 @@ package ipl.estg.happyguest.app.home.code;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -84,6 +86,12 @@ public class CodeFragment extends Fragment {
         codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         codesRV.setAdapter(codesAdapter);
 
+        // Set the minimum height of SwipeRefreshLayout
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
+
         // Get codes on scroll
         binding.codesRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -97,6 +105,25 @@ public class CodeFragment extends Fragment {
                 }
             }
         });
+
+        // Swipe to refresh codes
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            int previousItemCount = codesList.size();
+            codesList.clear();
+            getCodesAttempt(1);
+
+            int newItemCount = codesList.size();
+            if (newItemCount > previousItemCount) {
+                codesAdapter.notifyItemRangeInserted(previousItemCount, newItemCount - previousItemCount);
+            } else if (newItemCount < previousItemCount) {
+                codesAdapter.notifyItemRangeRemoved(newItemCount, previousItemCount - newItemCount);
+            } else {
+                codesAdapter.notifyItemRangeChanged(0, newItemCount);
+            }
+
+            binding.swipeRefresh.setRefreshing(false);
+        });
+
 
         return binding.getRoot();
     }
@@ -174,9 +201,11 @@ public class CodeFragment extends Fragment {
                     meta = response.body().getMeta();
                     codesAdapter.notifyItemRangeInserted(lastPos, userCodes.size());
                     if (codesList.size() == 0) {
+                        binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
                         binding.addCode.txtCodeText.setVisibility(View.VISIBLE);
                         hasCodes.setHasCode(false, "");
                     } else {
+                        binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
                         binding.addCode.txtCodeText.setVisibility(View.GONE);
                     }
                 } else {

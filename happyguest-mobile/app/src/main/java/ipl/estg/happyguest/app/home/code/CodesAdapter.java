@@ -68,9 +68,9 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
 
         // Set Texts
         holder.code.setText(code.getCode());
-        String entryDate = holder.entryDate.getText().toString() + " " + code.getEntryDate();
+        String entryDate = context.getString(R.string.code_entry_date) + " " + code.getEntryDate();
         holder.entryDate.setText(entryDate);
-        String exitDate = holder.exitDate.getText().toString() + " " + code.getExitDate();
+        String exitDate = context.getString(R.string.code_exit_date) + " " + code.getExitDate();
         holder.exitDate.setText(exitDate);
 
         // Convert and concatenate room values
@@ -80,7 +80,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             if (i > 0) roomsBuilder.append(", ");
             roomsBuilder.append(Integer.parseInt(roomList.get(i)));
         }
-        String roomsText = holder.rooms.getText().toString() + " " + roomsBuilder;
+        String roomsText = context.getString(R.string.code_rooms) + " " + roomsBuilder;
         holder.rooms.setText(roomsText);
 
         // Remove Button

@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
         // Get user data if it's not already loaded
         if (user.getName() == null) {
             getMeAttempt();
-        }else if (user.getPhotoUrl() != null) {
+        } else if (user.getPhotoUrl() != null) {
             populateImageProfile();
         }
 
