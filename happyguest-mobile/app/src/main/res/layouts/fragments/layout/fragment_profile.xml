@@ -202,4 +202,22 @@
         app:iconPadding="-25dp"
         app:iconTint="@color/black" />
 
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_secondary"
+        android:text="@string/remove_profile"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:visibility="visible"
+        app:icon="@drawable/delete_icon"
+        app:iconPadding="-15dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/black" />
+
 </LinearLayout>

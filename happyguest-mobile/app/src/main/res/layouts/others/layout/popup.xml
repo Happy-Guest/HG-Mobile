@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:maxWidth="350dp"
             android:text="@string/title_ChangePassword"
             android:textAlignment="center"
@@ -32,10 +33,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputPasswordPopUp"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+            app:errorTextColor="#B84141"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/password_icon"
+            app:startIconTint="@color/gold">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textPasswordPopUp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLength="255"
+                android:textColorHint="#757575"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">

@@ -1,33 +1,49 @@
 package ipl.estg.happyguest.app.home.profile;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentProfileBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
+import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
@@ -49,6 +65,7 @@ public class ProfileFragment extends Fragment {
     private EditText txtAddress;
     private EditText txtBirthDate;
     private User user;
+    private Token token;
     private APIRoutes api;
 
     @Override
@@ -69,7 +86,7 @@ public class ProfileFragment extends Fragment {
 
         // User, API and Token
         user = new User(binding.getRoot().getContext());
-        Token token = new Token(binding.getRoot().getContext());
+        token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         populateFields();
@@ -95,6 +112,9 @@ public class ProfileFragment extends Fragment {
                 homeActivity.changeFragment(R.id.action_nav_password);
             }
         });
+
+        // Delete button
+        binding.btnDelete.setOnClickListener(v -> showPopup());
 
         // Add "/" to birth date
         final int[] birthDateLength = {txtBirthDate.getText().toString().length()};
@@ -150,19 +170,23 @@ public class ProfileFragment extends Fragment {
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnPassword.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.btnDelete.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnSave.setVisibility(View.VISIBLE);
             binding.btnCancel.setVisibility(View.VISIBLE);
             binding.btnEdit.setVisibility(View.INVISIBLE);
             binding.btnPassword.setVisibility(View.GONE);
+            binding.btnDelete.setVisibility(View.GONE);
         } else {
             binding.btnSave.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnCancel.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.btnEdit.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnPassword.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.btnDelete.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.btnSave.setVisibility(View.GONE);
             binding.btnCancel.setVisibility(View.GONE);
             binding.btnEdit.setVisibility(View.VISIBLE);
             binding.btnPassword.setVisibility(View.VISIBLE);
+            binding.btnDelete.setVisibility(View.VISIBLE);
             inputName.setError(null);
             inputEmail.setError(null);
             inputPhone.setError(null);
@@ -231,6 +255,48 @@ public class ProfileFragment extends Fragment {
     private String formatDate(String date) {
         String[] dateArray = date.split("/");
         return dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+    }
+
+    private void showPopup() {
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts and password input
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_RemoveProfile));
+        TextInputLayout inputPassword = popupView.findViewById(R.id.inputPasswordPopUp);
+        TextInputEditText textPassword = popupView.findViewById(R.id.textPasswordPopUp);
+        inputPassword.setVisibility(View.VISIBLE);
+        inputPassword.setError(null);
+
+        // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        // Close popup
+        ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
+        btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
+
+        // Confirm popup
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setOnClickListener(view1 -> {
+            String password = Objects.requireNonNull(textPassword.getText()).toString();
+            if (password.isEmpty()) {
+                inputPassword.setError(getString(R.string.password_required));
+            } else {
+                deleteAttempt(password, popupWindow, btnPopClose, btnPopConfirm, inputPassword);
+                btnPopClose.setEnabled(false);
+                btnPopConfirm.setEnabled(false);
+            }
+        });
     }
 
     private void updateAttempt() {
@@ -302,6 +368,55 @@ public class ProfileFragment extends Fragment {
                 Log.i("UpdateUser Error: ", t.getMessage());
                 binding.btnSave.setEnabled(true);
                 binding.btnCancel.setEnabled(true);
+            }
+        });
+    }
+
+    private void deleteAttempt(String password, PopupWindow popupWindow, ImageButton btnPopClose, Button btnPopConfirm, TextInputLayout inputPassword) {
+        Call<MessageResponse> call = api.deleteUser(user.getId(), password);
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                btnPopClose.setEnabled(true);
+                btnPopConfirm.setEnabled(true);
+                if (response.isSuccessful() && response.body() != null) {
+                    // Display success message, clear user and token and go to login
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    user.clearUser();
+                    token.clearToken();
+                    popupWindow.dismiss();
+                    Intent intent = new Intent(binding.getRoot().getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    if (getActivity() != null) {
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        getActivity().finish();
+                    }
+                } else {
+                    try {
+                        if (response.errorBody() != null) {
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
+                                if (errors.has("password")) {
+                                    inputPassword.setError(errors.getJSONArray("password").get(0).toString());
+                                }
+                            } else {
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                        Log.i("DeleteUser Error: ", e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.i("DeleteUser Error: ", t.getMessage());
+                btnPopClose.setEnabled(true);
+                btnPopConfirm.setEnabled(true);
             }
         });
     }
