@@ -81,6 +81,11 @@
     <string name="code_required">Introduza o código.</string>
     <string name="invalid_code">O código não é válido!</string>
     <string name="star_required">Selecione uma ou mais estrelas.</string>
+    <string name="title_required">Introduza um título.</string>
+    <string name="local_required">Introduza um local.</string>
+    <string name="date_required">Introduza uma data.</string>
+    <string name="comment_required">Introduza um comentário.</string>
+    <string name="title_min_length">O título é demasiado curto!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>
@@ -96,6 +101,7 @@
     <string name="title_DissociateCode">Pretende desassociar o código?</string>
     <string name="title_RemoveProfile">Pretende eliminar o perfil?</string>
     <string name="title_Review">Confirmar submissão da avaliação?</string>
+    <string name="title_Complaint">Confirmar submissão da reclamação?</string>
     <string name="authorization_review">Autorizo a partilha da minha avaliação!</string>
 
     <!-- Others -->

@@ -25,7 +25,7 @@
         app:startIconTint="@color/gold">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textDate"
+            android:id="@+id/txtDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
@@ -48,7 +48,7 @@
         app:startIconTint="@color/gold">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textTitle"
+            android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
@@ -71,7 +71,7 @@
         app:startIconTint="@color/gold">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textLocal"
+            android:id="@+id/txtLocal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
