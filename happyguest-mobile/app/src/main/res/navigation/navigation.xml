@@ -54,5 +54,20 @@
         app:destination="@id/nav_register_review"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_complaint"
+        android:name="ipl.estg.happyguest.app.home.complaint.ComplaintFragment"
+        android:label="@string/menu_complaint"
+        tools:layout="@layout/fragment_complaint" />
+    <fragment
+        android:id="@+id/nav_register_complaint"
+        android:name="ipl.estg.happyguest.app.home.complaint.RegisterComplaintFragment"
+        android:label="@string/menu_register_complaint"
+        tools:layout="@layout/fragment_register_complaint" />
+    <action
+        android:id="@+id/action_nav_register_complaint"
+        app:destination="@id/nav_register_complaint"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

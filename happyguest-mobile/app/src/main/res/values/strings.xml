@@ -39,6 +39,10 @@
     <string name="star_review">Star</string>
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="local">Local</string>
+    <string name="complain">Complain</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -51,6 +55,8 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_review">Reviews</string>
     <string name="menu_register_review">Register Review</string>
+    <string name="menu_complaint">Complaints</string>
+    <string name="menu_register_complaint">Register Complaint</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -94,4 +100,6 @@
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

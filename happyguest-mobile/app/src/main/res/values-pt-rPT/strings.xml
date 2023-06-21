@@ -39,6 +39,10 @@
     <string name="star_review">Estrela</string>
     <string name="comment">Comentário</string>
     <string name="submit">Submeter</string>
+    <string name="date">Data</string>
+    <string name="title">Título</string>
+    <string name="local">Local</string>
+    <string name="complain">Reclamar</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -51,6 +55,8 @@
     <string name="menu_logout">Sair</string>
     <string name="menu_review">Avaliações</string>
     <string name="menu_register_review">Registar Avaliação</string>
+    <string name="menu_complaint">Reclamações</string>
+    <string name="menu_register_complaint">Registar Reclamação</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>

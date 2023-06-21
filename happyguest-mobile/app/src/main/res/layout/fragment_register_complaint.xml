@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical"
+    tools:context=".app.home.complaint.RegisterComplaintFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputDate"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        app:counterEnabled="false"
+        app:counterTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/calendar_icon"
+        app:startIconScaleType="centerInside"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/date"
+            android:inputType="datetime|date"
+            android:maxLength="10"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTitle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/title_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/title"
+            android:inputType="text"
+            android:maxLength="255"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLocal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/local_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textLocal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:hint="@string/local"
+            android:inputType="text"
+            android:maxLength="255"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputComment"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:enabled="true"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:errorTextColor="#B84141"
+        app:startIconDrawable="@drawable/comment_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:hint="@string/comment"
+            android:inputType="text|textMultiLine"
+            android:lineSpacingExtra="8sp"
+            android:maxLength="255"
+            android:maxLines="10"
+            android:minLines="1"
+            android:nestedScrollingEnabled="false"
+            android:singleLine="false"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnRegisterComplaint"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_primary"
+        android:clickable="true"
+        android:text="@string/complain"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:visibility="visible"
+        app:icon="@drawable/complain_icon"
+        app:iconPadding="-20dp"
+        app:iconTint="@color/black"
+        tools:ignore="TextContrastCheck" />
+</LinearLayout>
