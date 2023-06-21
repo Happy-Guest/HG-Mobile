@@ -37,6 +37,8 @@
     <string name="code_rooms">Quartos: </string>
     <string name="remove_code">Remover Código</string>
     <string name="star_review">Estrela</string>
+    <string name="comment">Comentário</string>
+    <string name="submit">Submeter</string>
 
 
     <!-- Menu -->
@@ -80,6 +82,7 @@
     <string name="invalid_birth_date">A data de nascimento não é válida!</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="classification_review">Como classifica a sua estadia?</string>
+    <string name="comment_review">Deixe o seu comentário:</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

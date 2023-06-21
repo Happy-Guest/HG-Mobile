@@ -32,7 +32,7 @@ public class RegisterReviewFragment extends Fragment {
         binding.imageStar3.setOnClickListener(v -> updateStars(3));
         binding.imageStar4.setOnClickListener(v -> updateStars(4));
         binding.imageStar5.setOnClickListener(v -> updateStars(5));
-
+        
         return binding.getRoot();
     }
 
