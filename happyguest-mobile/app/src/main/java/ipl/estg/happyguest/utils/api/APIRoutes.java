@@ -3,6 +3,7 @@ package ipl.estg.happyguest.utils.api;
 import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
+import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
@@ -59,4 +60,8 @@ public interface APIRoutes {
 
     @DELETE("users/{user_id}/codes/{code}/disassociate")
     Call<MessageResponse> disassociateCode(@Path("user_id") int user_id, @Path("code") String code);
+
+    //Reviews
+    @POST("reviews")
+    Call<MessageResponse> reviewReview(@Body ReviewRequest reviewRequest);
 }
