@@ -89,6 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
         android:text="@string/star_required"
         android:textColor="#B84141"
         android:textSize="12sp"

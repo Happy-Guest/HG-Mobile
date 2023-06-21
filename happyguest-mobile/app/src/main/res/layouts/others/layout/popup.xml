@@ -65,7 +65,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/authorization_review"
             android:textColor="@color/black"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
