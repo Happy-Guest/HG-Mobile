@@ -36,6 +36,9 @@
     <string name="code_exit_date">Exit - </string>
     <string name="code_rooms">Rooms: </string>
     <string name="remove_code">Remove Code</string>
+    <string name="star_review">Star</string>
+    <string name="comment">Comment</string>
+    <string name="submit">Submit</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -46,6 +49,8 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_password">Password</string>
     <string name="menu_logout">Logout</string>
+    <string name="menu_review">Reviews</string>
+    <string name="menu_register_review">Register Review</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -69,18 +74,23 @@
     <string name="invalid_phone">The phone number is not valid!</string>
     <string name="code_required">Enter your code.</string>
     <string name="invalid_code">The code is not valid!</string>
+    <string name="star_required">Select one or more stars.</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>
     <string name="message_associate_register">You don\'t have a valid code, register one to access services and activities.</string>
     <string name="invalid_birth_date">The birth date is not valid!</string>
     <string name="restore_success">Session restored successfully.</string>
+    <string name="classification_review">How do you rate your stay?</string>
+    <string name="comment_review">Leave your comment:</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
     <string name="title_ChangePassword">Do you want to change your password?</string>
     <string name="title_DissociateCode">Do you want to dissociate your code?</string>
     <string name="title_RemoveProfile">Do you want to remove your profile?</string>
+    <string name="title_Review">Confirm review submission?</string>
+    <string name="authorization_review">I authorize the sharing of my review.</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
