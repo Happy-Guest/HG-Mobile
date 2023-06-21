@@ -55,6 +55,8 @@ public class CodeFragment extends Fragment {
     private ArrayList<Code> codesList;
     private HasCodes hasCodes;
     private Meta meta;
+    private int screenHeight;
+    private String filter = "V";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,10 +75,13 @@ public class CodeFragment extends Fragment {
         btnInsertCode.setOnClickListener(v -> associateCode());
 
         // Hide textCode
-        binding.addCode.txtCodeTitle.setText(R.string.code_associate);
         if (hasCodes.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
+            binding.txtNoCodes.setVisibility(View.GONE);
             new Handler().postDelayed(() -> getCodesAttempt(1), 200);
+        } else {
+            binding.addCode.txtCodeText.setVisibility(View.VISIBLE);
+            binding.txtNoCodes.setVisibility(View.VISIBLE);
         }
 
         // Codes
@@ -86,11 +91,11 @@ public class CodeFragment extends Fragment {
         codesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         codesRV.setAdapter(codesAdapter);
 
-        // Set the minimum height of SwipeRefreshLayout
+        // Set the minimum height
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
+        screenHeight = displayMetrics.heightPixels;
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
 
         // Get codes on scroll
         binding.codesRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -107,25 +112,34 @@ public class CodeFragment extends Fragment {
         });
 
         // Swipe to refresh codes
-        binding.swipeRefresh.setOnRefreshListener(() -> {
-            int previousItemCount = codesList.size();
-            codesList.clear();
-            getCodesAttempt(1);
+        binding.swipeRefresh.setOnRefreshListener(this::getCodes);
 
-            int newItemCount = codesList.size();
-            if (newItemCount > previousItemCount) {
-                codesAdapter.notifyItemRangeInserted(previousItemCount, newItemCount - previousItemCount);
-            } else if (newItemCount < previousItemCount) {
-                codesAdapter.notifyItemRangeRemoved(newItemCount, previousItemCount - newItemCount);
-            } else {
-                codesAdapter.notifyItemRangeChanged(0, newItemCount);
-            }
-
-            binding.swipeRefresh.setRefreshing(false);
+        // Switch filter
+        binding.switchValidCodes.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            binding.switchValidCodes.setEnabled(false);
+            if (isChecked) filter = "V";
+            else filter = "ALL";
+            getCodes();
         });
 
-
         return binding.getRoot();
+    }
+
+    private void getCodes() {
+        binding.switchValidCodes.setEnabled(false);
+        int previousItemCount = codesList.size();
+        codesList.clear();
+        getCodesAttempt(1);
+
+        int newItemCount = codesList.size();
+        if (newItemCount > previousItemCount) {
+            codesAdapter.notifyItemRangeInserted(previousItemCount, newItemCount - previousItemCount);
+        } else if (newItemCount < previousItemCount) {
+            codesAdapter.notifyItemRangeRemoved(newItemCount, previousItemCount - newItemCount);
+        } else {
+            codesAdapter.notifyItemRangeChanged(0, newItemCount);
+        }
+        binding.swipeRefresh.setRefreshing(false);
     }
 
     private void associateCode() {
@@ -187,10 +201,11 @@ public class CodeFragment extends Fragment {
     }
 
     private void getCodesAttempt(int page) {
-        Call<CodesResponse> call = api.getUserCodes(user.getId(), page);
+        Call<CodesResponse> call = api.getUserCodes(user.getId(), page, filter);
         call.enqueue(new Callback<CodesResponse>() {
             @Override
             public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
+                binding.switchValidCodes.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Save codes in list and update adapter
                     int lastPos = codesList.size();
@@ -201,12 +216,13 @@ public class CodeFragment extends Fragment {
                     meta = response.body().getMeta();
                     codesAdapter.notifyItemRangeInserted(lastPos, userCodes.size());
                     if (codesList.size() == 0) {
-                        binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
-                        binding.addCode.txtCodeText.setVisibility(View.VISIBLE);
-                        hasCodes.setHasCode(false, "");
+                        binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
+                        binding.txtNoCodes.setVisibility(View.VISIBLE);
+                        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
                     } else {
-                        binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
-                        binding.addCode.txtCodeText.setVisibility(View.GONE);
+                        binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
+                        binding.txtNoCodes.setVisibility(View.GONE);
+                        binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
                     }
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
@@ -218,6 +234,7 @@ public class CodeFragment extends Fragment {
             public void onFailure(@NonNull Call<CodesResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetCodes Error: ", t.getMessage());
+                binding.switchValidCodes.setEnabled(true);
             }
         });
     }

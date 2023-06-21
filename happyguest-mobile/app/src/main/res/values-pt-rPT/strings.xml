@@ -32,6 +32,7 @@
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
     <string name="code_associate">Associar Código</string>
+    <string name="codes_valid">Códigos Válidos</string>
     <string name="code_entry_date">Entrada - </string>
     <string name="code_exit_date">Saída - </string>
     <string name="code_rooms">Quartos: </string>
@@ -83,6 +84,7 @@
     <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="classification_review">Como classifica a sua estadia?</string>
     <string name="comment_review">Deixe o seu comentário:</string>
+    <string name="no_codes">Não tem códigos associados.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

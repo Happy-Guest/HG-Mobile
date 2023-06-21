@@ -142,6 +142,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
                         HasCodes hasCodes = new HasCodes(context);
                         hasCodes.setHasCode(false, "");
                         ((Activity) context).findViewById(R.id.txtCodeText).setVisibility(View.VISIBLE);
+                        ((Activity) context).findViewById(R.id.txtNoCodes).setVisibility(View.VISIBLE);
                     }
                 } else {
                     try {

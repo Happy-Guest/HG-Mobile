@@ -52,8 +52,8 @@ public interface APIRoutes {
     @GET("valid-code")
     Call<HasCodesResponse> hasCodes();
 
-    @GET("users/{id}/codes")
-    Call<CodesResponse> getUserCodes(@Path("id") int id, @Query("page") int page);
+    @GET("users/{id}/codes?order=DESC")
+    Call<CodesResponse> getUserCodes(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
 
     @POST("users/{user_id}/codes/{code}/associate")
     Call<MessageResponse> associateCode(@Path("user_id") int user_id, @Path("code") String code);
