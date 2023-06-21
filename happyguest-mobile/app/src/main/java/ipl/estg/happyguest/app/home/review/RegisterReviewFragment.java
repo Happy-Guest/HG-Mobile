@@ -6,10 +6,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,20 +21,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentRegisterReviewBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
 import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.storage.Token;
@@ -46,7 +43,6 @@ import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class RegisterReviewFragment extends Fragment {
 
@@ -79,20 +75,18 @@ public class RegisterReviewFragment extends Fragment {
         txtComment = binding.txtComment;
 
         // Change register review button
-        binding.btnRegisterReview.setOnClickListener(v -> changeregisterReviewClick());
+        binding.btnRegisterReview.setOnClickListener(v -> changeRegisterReviewClick());
 
         return binding.getRoot();
     }
 
-    private void changeregisterReviewClick() {
-
+    private void changeRegisterReviewClick() {
         inputComment.setError(null);
         binding.textErrorStars.setVisibility(View.INVISIBLE);
-
         if (currentStar == 0) {
             binding.textErrorStars.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
             binding.textErrorStars.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             showPopup();
         }
     }
@@ -134,8 +128,7 @@ public class RegisterReviewFragment extends Fragment {
     }
 
     private void registerReviewAttempt() {
-        Call<MessageResponse> call = api.reviewReview(new ReviewRequest(user.getId(), currentStar, txtComment.getText().toString(),checkBox.isChecked() ? "1" : "0"));
-
+        Call<MessageResponse> call = api.reviewReview(new ReviewRequest(user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -163,7 +156,7 @@ public class RegisterReviewFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("Register review Error: ", e.getMessage());
+                        Log.i("RegisterReview Error: ", e.getMessage());
                     }
                 }
             }
@@ -171,12 +164,13 @@ public class RegisterReviewFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("Register review Error: ", t.getMessage());
+                Log.i("RegisterReview Error: ", t.getMessage());
                 binding.btnRegisterReview.setEnabled(true);
             }
         });
     }
 
+    // Update stars to selected star
     private void updateStars(int selectedStar) {
         currentStar = selectedStar;
         for (int i = 1; i <= 5; i++) {
@@ -192,9 +186,27 @@ public class RegisterReviewFragment extends Fragment {
         }
     }
 
+    // Get star image view
     private ImageButton getStarImageView(int star) {
-        String starImageId = "imageStar" + star;
-        int starImageViewId = getResources().getIdentifier(starImageId, "id", requireActivity().getPackageName());
-        return requireView().findViewById(starImageViewId);
+        ImageButton starImageView = null;
+        switch (star) {
+            case 1:
+                starImageView = binding.imageStar1;
+                break;
+            case 2:
+                starImageView = binding.imageStar2;
+                break;
+            case 3:
+                starImageView = binding.imageStar3;
+                break;
+            case 4:
+                starImageView = binding.imageStar4;
+                break;
+            case 5:
+                starImageView = binding.imageStar5;
+                break;
+        }
+        return starImageView;
     }
+
 }

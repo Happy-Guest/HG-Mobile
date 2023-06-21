@@ -3,6 +3,7 @@ package ipl.estg.happyguest.utils.api.requests;
 import com.google.gson.annotations.SerializedName;
 
 public class ReviewRequest {
+
     @SerializedName("user_id")
     private final int user_id;
     @SerializedName("stars")
