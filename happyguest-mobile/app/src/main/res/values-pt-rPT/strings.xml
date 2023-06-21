@@ -36,6 +36,8 @@
     <string name="code_exit_date">Saída - </string>
     <string name="code_rooms">Quartos: </string>
     <string name="remove_code">Remover Código</string>
+    <string name="star_review">Estrela</string>
+
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -46,6 +48,8 @@
     <string name="menu_profile">Perfil</string>
     <string name="menu_password">Palavra-Passe</string>
     <string name="menu_logout">Sair</string>
+    <string name="menu_review">Avaliações</string>
+    <string name="menu_register_review">Registar Avaliação</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
@@ -75,6 +79,7 @@
     <string name="message_associate_register">Não tem nenhum código válido, adicione um para ter acesso aos serviços e atividades.</string>
     <string name="invalid_birth_date">A data de nascimento não é válida!</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>
+    <string name="classification_review">Como classifica a sua estadia?</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
