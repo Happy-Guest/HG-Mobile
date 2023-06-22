@@ -22,7 +22,7 @@ import java.util.Date;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.databinding.FragmentReviewBinding;
+import ipl.estg.happyguest.databinding.FragmentReviewsBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 public class ReviewFragment extends Fragment {
 
-    private FragmentReviewBinding binding;
+    private FragmentReviewsBinding binding;
     private User user;
     private APIRoutes api;
     private String order = "DESC";
@@ -47,7 +47,7 @@ public class ReviewFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentReviewBinding.inflate(inflater, container, false);
+        binding = FragmentReviewsBinding.inflate(inflater, container, false);
 
         // User, API and Token
         user = new User(binding.getRoot().getContext());

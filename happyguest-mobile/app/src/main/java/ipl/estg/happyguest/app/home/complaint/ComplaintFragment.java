@@ -10,15 +10,15 @@ import androidx.fragment.app.Fragment;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.databinding.FragmentComplaintBinding;
+import ipl.estg.happyguest.databinding.FragmentComplaintsBinding;
 
 public class ComplaintFragment extends Fragment {
 
-    private FragmentComplaintBinding binding;
+    private FragmentComplaintsBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentComplaintBinding.inflate(inflater, container, false);
+        binding = FragmentComplaintsBinding.inflate(inflater, container, false);
 
         binding.btnRegisterComplaint.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {

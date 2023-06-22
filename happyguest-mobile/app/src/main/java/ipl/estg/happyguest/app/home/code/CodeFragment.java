@@ -29,7 +29,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.databinding.FragmentCodeBinding;
+import ipl.estg.happyguest.databinding.FragmentCodesBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
@@ -46,7 +46,7 @@ import retrofit2.Response;
 
 public class CodeFragment extends Fragment {
 
-    private FragmentCodeBinding binding;
+    private FragmentCodesBinding binding;
     private Button btnInsertCode;
     private TextInputLayout inputCode;
     private User user;
@@ -60,7 +60,7 @@ public class CodeFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentCodeBinding.inflate(inflater, container, false);
+        binding = FragmentCodesBinding.inflate(inflater, container, false);
 
         // User, Token, Code and API
         user = new User(binding.getRoot().getContext());
