@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
                 if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaints) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
-                } else if (destination.getId() == R.id.nav_reviews || destination.getId() == R.id.nav_register_review) {
+                } else if (destination.getId() == R.id.nav_reviews || destination.getId() == R.id.nav_register_review || destination.getId() == R.id.nav_review) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_review);
                 } else {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
@@ -209,12 +209,16 @@ public class HomeActivity extends AppCompatActivity {
         navController.navigate(id);
     }
 
-    public void changeFragmentBundle(int id, Long idObject) {
+    public void changeFragmentBundle(int id, Long idObject, Long position) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", idObject);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.popBackStack();
         navController.navigate(id, bundle);
+        new Handler().postDelayed(() -> {
+           String title = binding.appBarHome.txtBarTitle.getText() + position.toString();
+           binding.appBarHome.txtBarTitle.setText(title);
+        }, 100);
     }
 
     public byte[] getPhoto() {

@@ -43,10 +43,13 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
         // Set Texts
         String title;
+        long id;
         if (order.equals("DESC")) {
             title = context.getString(R.string.review_title) + " " + (position + 1);
+            id = position + 1;
         } else {
             title = context.getString(R.string.review_title) + " " + (getItemCount() - position);
+            id = (long) getItemCount() - position;
         }
         holder.id.setText(title);
         holder.date.setText(review.getCreatedAt());
@@ -55,7 +58,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         holder.reviewOpen.setOnClickListener(view -> {
             if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentBundle(R.id.nav_review, review.getId());
+                homeActivity.changeFragmentBundle(R.id.nav_review, review.getId(), id);
             }
         });
     }

@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/nav_reviews"
         android:name="ipl.estg.happyguest.app.home.review.ReviewsFragment"
-        android:label="@string/menu_review"
+        android:label="@string/menu_reviews"
         tools:layout="@layout/fragment_reviews" />
     <fragment
         android:id="@+id/nav_register_review"
@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/nav_complaints"
         android:name="ipl.estg.happyguest.app.home.complaint.ComplaintsFragment"
-        android:label="@string/menu_complaint"
+        android:label="@string/menu_complaints"
         tools:layout="@layout/fragment_complaints" />
     <fragment
         android:id="@+id/nav_register_complaint"
@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/nav_review"
         android:name="ipl.estg.happyguest.app.home.review.ReviewFragment"
-        android:label="@string/review"
+        android:label="@string/menu_review"
         tools:layout="@layout/fragment_review" />
 
 </navigation>

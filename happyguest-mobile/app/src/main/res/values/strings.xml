@@ -50,7 +50,6 @@
     <string name="complaint_anonymous">Anonymous Complaint</string>
     <string name="addFiles">Add Files</string>
     <string name="open">Open</string>
-    <string name="review">Review</string>
     <string name="no_comment">No Comment</string>
     <string name="authorized_sharing">Authorized Sharing</string>
     <string name="shared">Shared</string>
@@ -64,10 +63,12 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_password">Password</string>
     <string name="menu_logout">Logout</string>
-    <string name="menu_review">Reviews</string>
+    <string name="menu_reviews">Reviews</string>
     <string name="menu_register_review">Register Review</string>
-    <string name="menu_complaint">Complaints</string>
+    <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>
+    <string name="menu_review">Review Nº</string>
+    <string name="menu_complaint">Complaints Nº</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
