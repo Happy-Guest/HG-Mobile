@@ -22,6 +22,7 @@ import java.util.Date;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
+
 import ipl.estg.happyguest.databinding.FragmentReviewsBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -34,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReviewFragment extends Fragment {
+public class ReviewsFragment extends Fragment {
 
     private FragmentReviewsBinding binding;
     private User user;
@@ -122,7 +123,7 @@ public class ReviewFragment extends Fragment {
         // Get reviews
         binding.switchOrderReviews.setEnabled(false);
         new Handler().postDelayed(() -> getReviewsAttempt(1), 200);
-
+        
         return binding.getRoot();
     }
 
