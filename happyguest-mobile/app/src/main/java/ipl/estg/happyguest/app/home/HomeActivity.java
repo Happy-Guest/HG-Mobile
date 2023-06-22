@@ -118,6 +118,7 @@ public class HomeActivity extends AppCompatActivity {
             // Set toolbar title and background
             if (destination.getId() == R.id.nav_home) {
                 binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
                 if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaint) {
