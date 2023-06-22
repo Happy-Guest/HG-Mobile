@@ -50,6 +50,9 @@
     <string name="complaint_anonymous">Reclamação Anónima</string>
     <string name="addFiles">Adicionar Ficheiros</string>
     <string name="open">Abrir</string>
+    <string name="no_comment">Sem comentário</string>
+    <string name="authorized_sharing">Partilha autorizada</string>
+    <string name="shared">Partilhada</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -60,10 +63,12 @@
     <string name="menu_profile">Perfil</string>
     <string name="menu_password">Palavra-Passe</string>
     <string name="menu_logout">Sair</string>
-    <string name="menu_review">Avaliações</string>
+    <string name="menu_reviews">Avaliações</string>
     <string name="menu_register_review">Registar Avaliação</string>
-    <string name="menu_complaint">Reclamações</string>
+    <string name="menu_complaints">Reclamações</string>
     <string name="menu_register_complaint">Registar Reclamação</string>
+    <string name="menu_review">Avaliação Nº</string>
+    <string name="menu_complaint">Reclamação Nº</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>

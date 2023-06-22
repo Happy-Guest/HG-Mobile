@@ -147,7 +147,7 @@ public class RegisterReviewFragment extends Fragment {
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
-                        homeActivity.changeFragment(R.id.nav_review);
+                        homeActivity.changeFragment(R.id.nav_reviews);
                     }
                 } else {
                     try {

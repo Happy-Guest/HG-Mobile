@@ -12,7 +12,7 @@ import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentComplaintsBinding;
 
-public class ComplaintFragment extends Fragment {
+public class ComplaintsFragment extends Fragment {
 
     private FragmentComplaintsBinding binding;
 

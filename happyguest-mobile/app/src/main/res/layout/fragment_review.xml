@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".app.home.review.ReviewFragment">
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/date"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textClassificationReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/classification_review"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageStar1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:contentDescription="@string/star_review"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:src="@drawable/star_icon"
+            app:tint="@color/dark_gold"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <ImageButton
+            android:id="@+id/imageStar2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:contentDescription="@string/star_review"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:src="@drawable/star_icon"
+            app:tint="@color/dark_gold" />
+
+        <ImageButton
+            android:id="@+id/imageStar3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:contentDescription="@string/star_review"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:src="@drawable/star_icon"
+            app:tint="@color/dark_gold" />
+
+        <ImageButton
+            android:id="@+id/imageStar4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:contentDescription="@string/star_review"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:src="@drawable/star_icon"
+            app:tint="@color/dark_gold" />
+
+        <ImageButton
+            android:id="@+id/imageStar5"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/star_review"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:src="@drawable/star_icon"
+            app:tint="@color/dark_gold" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textCommentReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/comment_review"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputComment"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:enabled="true"
+        app:startIconDrawable="@drawable/comment_icon"
+        app:startIconTint="@color/gold">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:enabled="false"
+            android:hint="@string/comment"
+            android:inputType="text|textMultiLine"
+            android:lineSpacingExtra="8sp"
+            android:maxLength="255"
+            android:maxLines="10"
+            android:minLines="1"
+            android:nestedScrollingEnabled="false"
+            android:singleLine="false"
+            android:textColorHint="#757575"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/checkAuthorization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
+        android:enabled="false"
+        android:paddingHorizontal="10dp"
+        android:text="@string/authorized_sharing"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/checkShared"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:enabled="false"
+        android:paddingHorizontal="10dp"
+        android:text="@string/shared"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_secondary"
+        android:clickable="true"
+        android:text="@string/btnClose"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:visibility="visible"
+        app:icon="@drawable/close_icon"
+        app:iconPadding="-20dp"
+        app:iconTint="@color/black"
+        tools:ignore="TextContrastCheck" />
+
+</LinearLayout>

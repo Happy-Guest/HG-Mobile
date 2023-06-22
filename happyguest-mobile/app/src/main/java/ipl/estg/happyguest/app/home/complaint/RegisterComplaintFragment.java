@@ -196,7 +196,7 @@ public class RegisterComplaintFragment extends Fragment {
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
-                        homeActivity.changeFragment(R.id.nav_complaint);
+                        homeActivity.changeFragment(R.id.nav_complaints);
                     }
                 } else {
                     try {
