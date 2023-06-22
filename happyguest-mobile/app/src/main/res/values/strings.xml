@@ -31,6 +31,7 @@
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
     <string name="select_image">Select Image</string>
+    <string name="select_files">Select Files</string>
     <string name="code_associate">Code Associate</string>
     <string name="codes_valid">Valid Codes</string>
     <string name="code_entry_date">Entry ➔ </string>

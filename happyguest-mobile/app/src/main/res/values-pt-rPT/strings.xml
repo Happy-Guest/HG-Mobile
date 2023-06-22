@@ -31,6 +31,7 @@
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
+    <string name="select_files">Selecionar Ficheiros</string>
     <string name="code_associate">Associar Código</string>
     <string name="codes_valid">Códigos Válidos</string>
     <string name="code_entry_date">Entrada ➔ </string>
