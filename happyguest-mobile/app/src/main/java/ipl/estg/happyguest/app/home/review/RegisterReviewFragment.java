@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -134,7 +133,6 @@ public class RegisterReviewFragment extends Fragment {
 
     private void registerReviewAttempt() {
         Call<MessageResponse> call = api.registerReview(new ReviewRequest(checkAnonymous.isChecked() ? null : user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
-        Call<MessageResponse> call = api.postReview(new ReviewRequest(user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

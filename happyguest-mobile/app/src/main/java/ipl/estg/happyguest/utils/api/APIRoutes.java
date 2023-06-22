@@ -75,5 +75,4 @@ public interface APIRoutes {
     @POST("complaints")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
-    Call<MessageResponse> postReview(@Body ReviewRequest reviewRequest);
 }

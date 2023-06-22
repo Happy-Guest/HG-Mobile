@@ -20,7 +20,6 @@ public class ComplaintFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentComplaintBinding.inflate(inflater, container, false);
 
-        //code here
         binding.btnRegisterComplaint.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();

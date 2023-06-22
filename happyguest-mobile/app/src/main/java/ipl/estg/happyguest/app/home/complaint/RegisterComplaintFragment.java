@@ -47,7 +47,6 @@ import retrofit2.Response;
 public class RegisterComplaintFragment extends Fragment {
 
     private FragmentRegisterComplaintBinding binding;
-
     private TextInputLayout inputDate;
     private TextInputLayout inputTitle;
     private TextInputLayout inputLocal;
@@ -58,6 +57,7 @@ public class RegisterComplaintFragment extends Fragment {
     private EditText txtComment;
     private User user;
     private APIRoutes api;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegisterComplaintBinding.inflate(inflater, container, false);
@@ -126,9 +126,9 @@ public class RegisterComplaintFragment extends Fragment {
             inputDate.setError(getString(R.string.date_required));
         } else if (title.isEmpty()) {
             inputTitle.setError(getString(R.string.title_required));
-        } else if (title.length()<5) {
+        } else if (title.length() < 5) {
             inputTitle.setError(getString(R.string.title_min_length));
-        }else if (local.isEmpty()) {
+        } else if (local.isEmpty()) {
             inputLocal.setError(getString(R.string.local_required));
         } else if (comment.isEmpty()) {
             inputComment.setError(getString(R.string.comment_required));
@@ -136,6 +136,7 @@ public class RegisterComplaintFragment extends Fragment {
             showPopup();
         }
     }
+
     private void showPopup() {
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
@@ -171,7 +172,7 @@ public class RegisterComplaintFragment extends Fragment {
     }
 
     private void registerComlaintAttempt() {
-        Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(user.getId(), txtTitle.getText().toString(), txtLocal.getText().toString(),"P", txtComment.getText().toString(), formatDate(txtDate.getText().toString())));
+        Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(user.getId(), txtTitle.getText().toString(), txtLocal.getText().toString(), "P", txtComment.getText().toString(), formatDate(txtDate.getText().toString())));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
