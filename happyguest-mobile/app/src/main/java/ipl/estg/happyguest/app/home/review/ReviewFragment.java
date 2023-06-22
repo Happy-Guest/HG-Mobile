@@ -92,10 +92,6 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-        // Get reviews
-        binding.switchOrderReviews.setEnabled(false);
-        new Handler().postDelayed(() -> getReviewsAttempt(1), 200);
-
         // Get reviews on scroll
         binding.reviewsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -115,11 +111,17 @@ public class ReviewFragment extends Fragment {
 
         // Switch order
         binding.switchOrderReviews.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            binding.switchOrderReviews.setEnabled(false);
             if (isChecked) order = "DESC";
             else order = "ASC";
-            getReviews();
+            reviewsAdapter.setOrder(order);
+            if (binding.switchOrderReviews.isEnabled()) {
+                getReviews();
+            }
         });
+
+        // Get reviews
+        binding.switchOrderReviews.setEnabled(false);
+        new Handler().postDelayed(() -> getReviewsAttempt(1), 200);
 
         return binding.getRoot();
     }
