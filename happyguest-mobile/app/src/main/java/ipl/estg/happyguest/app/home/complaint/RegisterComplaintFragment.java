@@ -81,29 +81,29 @@ public class RegisterComplaintFragment extends Fragment {
         binding.btnRegisterComplaint.setOnClickListener(v -> changeRegisterComplaintClick());
 
         // Add "/" to birth date
-        final int[] birthDateLength = {txtDate.getText().toString().length()};
+        final int[] dateLength = {txtDate.getText().toString().length()};
         txtDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                birthDateLength[0] = txtDate.getText().toString().length();
+                dateLength[0] = txtDate.getText().toString().length();
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String birthDate = txtDate.getText().toString();
-                if ((birthDate.length() == 2 || birthDate.length() == 5) && !birthDate.endsWith("/") && birthDateLength[0] < birthDate.length()) {
+                if ((birthDate.length() == 2 || birthDate.length() == 5) && !birthDate.endsWith("/") && dateLength[0] < birthDate.length()) {
                     txtDate.append("/");
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String birthDate = txtDate.getText().toString();
-                if (birthDate.length() == 2 && !birthDate.endsWith("/")) {
-                    txtDate.setText(birthDate.substring(0, 1));
+                String date = txtDate.getText().toString();
+                if (date.length() == 2 && !date.endsWith("/")) {
+                    txtDate.setText(date.substring(0, 1));
                     txtDate.setSelection(txtDate.getText().length());
-                } else if (birthDate.length() == 5 && !birthDate.endsWith("/")) {
-                    txtDate.setText(birthDate.substring(0, 4));
+                } else if (date.length() == 5 && !date.endsWith("/")) {
+                    txtDate.setText(date.substring(0, 4));
                     txtDate.setSelection(txtDate.getText().length());
                 }
             }
