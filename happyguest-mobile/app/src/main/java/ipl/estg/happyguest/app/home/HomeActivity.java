@@ -209,9 +209,9 @@ public class HomeActivity extends AppCompatActivity {
         navController.navigate(id);
     }
 
-    public void changeFragmentBundle(int id, int idObject) {
+    public void changeFragmentBundle(int id, Long idObject) {
         Bundle bundle = new Bundle();
-        bundle.putInt("id", idObject);
+        bundle.putLong("id", idObject);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.popBackStack();
         navController.navigate(id, bundle);

@@ -50,6 +50,8 @@
     <string name="complaint_anonymous">Anonymous Complaint</string>
     <string name="addFiles">Add Files</string>
     <string name="open">Open</string>
+    <string name="review">Review</string>
+    <string name="no_comment">No Comment</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

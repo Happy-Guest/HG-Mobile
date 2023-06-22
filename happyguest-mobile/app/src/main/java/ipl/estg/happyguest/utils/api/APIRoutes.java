@@ -10,6 +10,7 @@ import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import retrofit2.Call;
@@ -70,6 +71,9 @@ public interface APIRoutes {
     @POST("reviews")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
+
+    @GET("reviews/{id}")
+    Call<ReviewResponse> getReview(@Path("id") Long id);
 
     //Complaints
     @POST("complaints")
