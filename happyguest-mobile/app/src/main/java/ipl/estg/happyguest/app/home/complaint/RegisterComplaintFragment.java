@@ -164,14 +164,14 @@ public class RegisterComplaintFragment extends Fragment {
         // Confirm popup
         Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
         btnPopConfirm.setOnClickListener(view1 -> {
-            registerComlaintAttempt();
+            registerComplaintAttempt();
             binding.btnRegisterComplaint.setEnabled(false);
             popupWindow.dismiss();
 
         });
     }
 
-    private void registerComlaintAttempt() {
+    private void registerComplaintAttempt() {
         Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(user.getId(), txtTitle.getText().toString(), txtLocal.getText().toString(), "P", txtComment.getText().toString(), formatDate(txtDate.getText().toString())));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
