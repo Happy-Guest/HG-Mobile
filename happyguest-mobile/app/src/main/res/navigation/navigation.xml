@@ -20,7 +20,7 @@
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_left" />
     <fragment
-        android:id="@+id/nav_code"
+        android:id="@+id/nav_codes"
         android:name="ipl.estg.happyguest.app.home.code.CodeFragment"
         android:label="@string/menu_code"
         tools:layout="@layout/fragment_codes" />
@@ -40,7 +40,7 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
     <fragment
-        android:id="@+id/nav_review"
+        android:id="@+id/nav_reviews"
         android:name="ipl.estg.happyguest.app.home.review.ReviewsFragment"
         android:label="@string/menu_review"
         tools:layout="@layout/fragment_reviews" />
@@ -55,7 +55,7 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
     <fragment
-        android:id="@+id/nav_complaint"
+        android:id="@+id/nav_complaints"
         android:name="ipl.estg.happyguest.app.home.complaint.ComplaintsFragment"
         android:label="@string/menu_complaint"
         tools:layout="@layout/fragment_complaints" />

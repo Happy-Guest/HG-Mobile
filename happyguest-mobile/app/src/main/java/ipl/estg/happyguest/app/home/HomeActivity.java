@@ -121,9 +121,9 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
-                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaint) {
+                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaints) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
-                } else if (destination.getId() == R.id.nav_review || destination.getId() == R.id.nav_register_review) {
+                } else if (destination.getId() == R.id.nav_reviews || destination.getId() == R.id.nav_register_review) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_review);
                 } else {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
@@ -209,6 +209,14 @@ public class HomeActivity extends AppCompatActivity {
         navController.navigate(id);
     }
 
+    public void changeFragmentBundle(int id, int idObject) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", idObject);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        navController.popBackStack();
+        navController.navigate(id, bundle);
+    }
+
     public byte[] getPhoto() {
         return photo;
     }
@@ -220,7 +228,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_review, R.id.nav_register_review, R.id.nav_complaint, R.id.nav_code)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews, R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

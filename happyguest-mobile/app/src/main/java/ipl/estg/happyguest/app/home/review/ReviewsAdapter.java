@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.models.Review;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
@@ -51,7 +52,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         holder.date.setText(review.getCreatedAt());
 
         // View Button
-        ///holder.reviewOpen.setOnClickListener(view -> xxx);
+        holder.reviewOpen.setOnClickListener(view -> {
+            if (context instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) context;
+                homeActivity.changeFragmentBundle(R.id.nav_review, review.getId());
+            }
+        });
     }
 
     @Override
