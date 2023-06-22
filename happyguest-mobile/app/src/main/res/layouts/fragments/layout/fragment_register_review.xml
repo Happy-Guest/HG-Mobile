@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
     android:orientation="vertical"
     tools:context=".app.home.review.RegisterReviewFragment">
 
     <TextView
         android:id="@+id/textClassificationReview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="@string/classification_review"
@@ -21,8 +20,9 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -86,8 +86,9 @@
 
     <TextView
         android:id="@+id/textErrorStars"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
         android:text="@string/star_required"
@@ -97,8 +98,9 @@
 
     <TextView
         android:id="@+id/textCommentReview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:text="@string/comment_review"
@@ -139,8 +141,10 @@
         android:id="@+id/checkAnonymous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingHorizontal="10dp"
         android:text="@string/review_anonymous"
         android:textSize="16sp" />
 
@@ -150,7 +154,6 @@
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/btn_primary"
         android:clickable="true"
         android:text="@string/submit"
