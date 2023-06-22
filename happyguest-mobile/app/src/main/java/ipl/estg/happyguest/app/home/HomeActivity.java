@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -114,16 +115,15 @@ public class HomeActivity extends AppCompatActivity {
                 actionBar.setDisplayHomeAsUpEnabled(false);
                 actionBar.setDisplayShowTitleEnabled(false);
             }
+
             if (destination.getId() == R.id.nav_home) {
                 binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
-            }
-
-            if (destination.getId() == R.id.nav_register_complaint) {
-                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
-            } else {
-                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
+                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaint) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
+                }
             }
 
             if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
