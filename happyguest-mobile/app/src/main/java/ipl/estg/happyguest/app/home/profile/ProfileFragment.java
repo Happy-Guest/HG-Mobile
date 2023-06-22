@@ -322,7 +322,7 @@ public class ProfileFragment extends Fragment {
                     // Display success message and update user
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     user.setUser(response.body().getUser().getId(), response.body().getUser().getName(), response.body().getUser().getEmail(), response.body().getUser().getPhone() == null ? -1 : response.body().getUser().getPhone(), response.body().getUser().getAddress(),
-                            response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl());
+                            response.body().getUser().getBirthDate(), response.body().getUser().getPhotoUrl(), response.body().getLastReview());
                     changeFieldsState(false);
                     populateFields();
                     populateImage();

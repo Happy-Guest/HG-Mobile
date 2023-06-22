@@ -134,6 +134,7 @@ public class RegisterReviewFragment extends Fragment {
 
     private void registerReviewAttempt() {
         Call<MessageResponse> call = api.registerReview(new ReviewRequest(checkAnonymous.isChecked() ? null : user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
+        Call<MessageResponse> call = api.postReview(new ReviewRequest(user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -214,4 +215,9 @@ public class RegisterReviewFragment extends Fragment {
         return starImageView;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

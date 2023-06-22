@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,34 @@
         android:id="@+id/add_code"
         layout="@layout/insert_code" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchValidCodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="5dp"
+        android:checked="true"
+        android:text="@string/codes_valid"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:switchMinWidth="55dp"
+        app:switchPadding="7dp" />
+
+    <TextView
+        android:id="@+id/txtNoCodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-22dp"
+        android:elevation="10dp"
+        android:text="@string/no_codes"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        android:translationY="90dp"
+        android:visibility="gone" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -19,7 +48,9 @@
             android:id="@+id/codesRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/code_item" />
+            tools:listitem="@layout/code_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

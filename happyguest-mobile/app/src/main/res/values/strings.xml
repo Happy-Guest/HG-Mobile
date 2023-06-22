@@ -32,11 +32,14 @@
     <string name="birthDate">Birth Date</string>
     <string name="select_image">Select Image</string>
     <string name="code_associate">Code Associate</string>
-    <string name="code_entry_date">Entry - </string>
-    <string name="code_exit_date">Exit - </string>
+    <string name="codes_valid">Valid Codes</string>
+    <string name="code_entry_date">Entry ➔ </string>
+    <string name="code_exit_date">Exit ➔ </string>
     <string name="code_rooms">Rooms: </string>
     <string name="remove_code">Remove Code</string>
+    <string name="review_title">Review nº</string>
     <string name="star_review">Star</string>
+    <string name="switch_order">Most Recent</string>
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
     <string name="date">Date</string>
@@ -45,6 +48,7 @@
     <string name="complain">Complain</string>
     <string name="review_anonymous">Anonymous Review</string>
     <string name="addFiles">Add Files</string>
+    <string name="open">Open</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -96,11 +100,14 @@
     <string name="restore_success">Session restored successfully.</string>
     <string name="classification_review">How do you rate your stay?</string>
     <string name="comment_review">Leave your comment:</string>
+    <string name="no_codes">You don\'t have any associated code.</string>
+    <string name="no_reviews">You don\'t have any reviews.</string>
+    <string name="review_week">You can only review once a week!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
     <string name="title_ChangePassword">Do you want to change your password?</string>
-    <string name="title_DissociateCode">Do you want to dissociate your code?</string>
+    <string name="title_disassociateCode">Do you want to disassociate your code?</string>
     <string name="title_RemoveProfile">Do you want to remove your profile?</string>
     <string name="title_Review">Confirm review submission?</string>
     <string name="title_Complaint">Confirm complaint submission?</string>
