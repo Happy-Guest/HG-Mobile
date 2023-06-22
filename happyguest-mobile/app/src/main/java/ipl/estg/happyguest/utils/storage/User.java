@@ -41,7 +41,11 @@ public class User {
         return sharedPreferences.getString("photo_url", null);
     }
 
-    public void setUser(int id, String name, String email, Long phone, String address, String birthDate, String photoUrl) {
+    public String getLastReview() {
+        return sharedPreferences.getString("last_review", null);
+    }
+
+    public void setUser(int id, String name, String email, Long phone, String address, String birthDate, String photoUrl, String lastReview) {
         editor.putInt("id", id);
         editor.putString("name", name);
         editor.putString("email", email);
@@ -49,6 +53,7 @@ public class User {
         editor.putString("address", address);
         editor.putString("birth_date", birthDate);
         editor.putString("photo_url", photoUrl);
+        editor.putString("last_review", lastReview);
         editor.commit();
     }
 

@@ -106,7 +106,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
 
         // Set popup texts
-        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(context.getString(R.string.title_DissociateCode));
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(context.getString(R.string.title_disassociateCode));
 
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
@@ -142,6 +142,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
                         HasCodes hasCodes = new HasCodes(context);
                         hasCodes.setHasCode(false, "");
                         ((Activity) context).findViewById(R.id.txtCodeText).setVisibility(View.VISIBLE);
+                        ((Activity) context).findViewById(R.id.txtNoCodes).setVisibility(View.VISIBLE);
                     }
                 } else {
                     try {
@@ -178,8 +179,8 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             super(itemView);
             code = itemView.findViewById(R.id.txtCode);
             entryDate = itemView.findViewById(R.id.txtEntryDate);
-            exitDate = itemView.findViewById(R.id.txtExitDate);
-            rooms = itemView.findViewById(R.id.txtRooms);
+            exitDate = itemView.findViewById(R.id.txtIdReview);
+            rooms = itemView.findViewById(R.id.txtDateReview);
             remove = itemView.findViewById(R.id.btnCodeRemove);
         }
     }

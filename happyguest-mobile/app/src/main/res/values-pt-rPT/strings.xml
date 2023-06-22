@@ -32,13 +32,17 @@
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
     <string name="code_associate">Associar Código</string>
-    <string name="code_entry_date">Entrada - </string>
-    <string name="code_exit_date">Saída - </string>
+    <string name="codes_valid">Códigos Válidos</string>
+    <string name="code_entry_date">Entrada ➔ </string>
+    <string name="code_exit_date">Saída ➔ </string>
     <string name="code_rooms">Quartos: </string>
     <string name="remove_code">Remover Código</string>
+    <string name="review_title">Avaliação nº</string>
     <string name="star_review">Estrela</string>
+    <string name="switch_order">Mais Recentes</string>
     <string name="comment">Comentário</string>
     <string name="submit">Submeter</string>
+    <string name="open">Abrir</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -83,11 +87,14 @@
     <string name="restore_success">Sessão restaurada com sucesso.</string>
     <string name="classification_review">Como classifica a sua estadia?</string>
     <string name="comment_review">Deixe o seu comentário:</string>
+    <string name="no_codes">Não tem códigos associados.</string>
+    <string name="no_reviews">Não tem avaliações registadas.</string>
+    <string name="review_week">Só pode fazer uma avaliação por semana!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
     <string name="title_ChangePassword">Pretende alterar a palavra-passe?</string>
-    <string name="title_DissociateCode">Pretende desassociar o código?</string>
+    <string name="title_disassociateCode">Pretende desassociar o código?</string>
     <string name="title_RemoveProfile">Pretende eliminar o perfil?</string>
     <string name="title_Review">Confirmar submissão da avaliação?</string>
     <string name="authorization_review">Autorizo a partilha da minha avaliação!</string>
