@@ -29,7 +29,6 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -116,6 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                 actionBar.setDisplayShowTitleEnabled(false);
             }
 
+            // Set toolbar title and background
             if (destination.getId() == R.id.nav_home) {
                 binding.appBarHome.txtBarTitle.setText(R.string.barTitle);
                 binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
@@ -123,9 +123,12 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
                 if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaint) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
+                } else if (destination.getId() == R.id.nav_review || destination.getId() == R.id.nav_register_review) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_review);
                 }
             }
 
+            // Set profile image
             if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
