@@ -46,7 +46,8 @@
     <string name="title">Título</string>
     <string name="local">Local</string>
     <string name="complain">Reclamar</string>
-    <string name="review_anonymous">Reclamação Anónima</string>
+    <string name="review_anonymous">Avaliação Anónima</string>
+    <string name="complaint_anonymous">Reclamação Anónima</string>
     <string name="addFiles">Adicionar Ficheiros</string>
     <string name="open">Abrir</string>
 
@@ -105,6 +106,9 @@
     <string name="no_codes">Não tem códigos associados.</string>
     <string name="no_reviews">Não tem avaliações registadas.</string>
     <string name="review_week">Só pode fazer uma avaliação por semana!</string>
+    <string name="review_anonymous_message">Avaliação anónima não poderá ser revista!</string>
+    <string name="complaint_anonymous_message">Reclamação anónima não poderá ser revista!</string>
+
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

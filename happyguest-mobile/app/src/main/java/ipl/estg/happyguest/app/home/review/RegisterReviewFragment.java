@@ -75,8 +75,13 @@ public class RegisterReviewFragment extends Fragment {
         inputComment = binding.inputComment;
         txtComment = binding.txtComment;
 
-        // Switch anonymous
+        // Checkbox anonymous
         checkAnonymous = binding.checkAnonymous;
+        checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.review_anonymous_message), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Change register review button
         binding.btnRegisterReview.setOnClickListener(v -> changeRegisterReviewClick());

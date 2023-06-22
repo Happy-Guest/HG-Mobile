@@ -11,15 +11,16 @@ public class ReviewRequest {
     private final Integer user_id;
     @SerializedName("stars")
     private final int stars;
+    @Nullable
     @SerializedName("comment")
     private final String comment;
-    @SerializedName("autorize")
-    private final String autorize;
+    @SerializedName("authorize")
+    private final String authorize;
 
-    public ReviewRequest(@Nullable Integer user_id, int stars, String comment, String autorize) {
+    public ReviewRequest(@Nullable Integer user_id, int stars, @Nullable String comment, String authorize) {
         this.user_id = user_id;
         this.stars = stars;
         this.comment = comment;
-        this.autorize = autorize;
+        this.authorize = authorize;
     }
 }

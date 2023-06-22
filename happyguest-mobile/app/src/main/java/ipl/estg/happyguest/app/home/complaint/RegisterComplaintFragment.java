@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -55,6 +56,7 @@ public class RegisterComplaintFragment extends Fragment {
     private EditText txtTitle;
     private EditText txtLocal;
     private EditText txtComment;
+    private CheckBox checkAnonymous;
     private User user;
     private APIRoutes api;
 
@@ -79,6 +81,14 @@ public class RegisterComplaintFragment extends Fragment {
 
         //Register Button
         binding.btnRegisterComplaint.setOnClickListener(v -> changeRegisterComplaintClick());
+
+        // Checkbox anonymous
+        checkAnonymous = binding.checkAnonymous;
+        checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.complaint_anonymous_message), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Add "/" to birth date
         final int[] dateLength = {txtDate.getText().toString().length()};
@@ -176,7 +186,7 @@ public class RegisterComplaintFragment extends Fragment {
     }
 
     private void registerComplaintAttempt() {
-        Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(user.getId(), txtTitle.getText().toString(), txtLocal.getText().toString(), "P", txtComment.getText().toString(), formatDate(txtDate.getText().toString())));
+        Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(checkAnonymous.isChecked() ? null :user.getId(), txtTitle.getText().toString(), txtLocal.getText().toString(), "P", txtComment.getText().toString(), formatDate(txtDate.getText().toString())));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
