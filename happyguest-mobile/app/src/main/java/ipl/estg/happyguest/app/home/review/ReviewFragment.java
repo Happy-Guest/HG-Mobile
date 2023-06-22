@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentReviewBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -42,6 +43,13 @@ public class ReviewFragment extends Fragment {
 
         getReviewAttempt();
 
+        binding.btnClose.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_reviews);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -53,8 +61,12 @@ public class ReviewFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Review and populate fields
                     Review review = response.body().getReview();
-                    binding.txtDate.setText(review.getCreatedAt());
+                    String date = getString(R.string.date) + ": " + review.getCreatedAt();
+                    binding.txtDate.setText(date);
                     fillStars(review.getStars());
+                    binding.txtComment.setText(review.getComment() != null ? review.getComment() : getString(R.string.no_comment));
+                    binding.checkAuthorization.setChecked(review.getAuthorize() == 1);
+                    binding.checkShared.setChecked(review.getShared() == 1);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetReview Error: ", response.message());

@@ -52,6 +52,8 @@
     <string name="open">Open</string>
     <string name="review">Review</string>
     <string name="no_comment">No Comment</string>
+    <string name="authorized_sharing">Authorized Sharing</string>
+    <string name="shared">Shared</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
