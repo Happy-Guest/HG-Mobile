@@ -119,6 +119,13 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
             }
+
+            if (destination.getId() == R.id.nav_register_complaint) {
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
+            } else {
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
+            }
+
             if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
@@ -208,7 +215,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_review, R.id.nav_register_review, R.id.nav_complaint,R.id.nav_code)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_review, R.id.nav_register_review, R.id.nav_complaint, R.id.nav_code)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -319,4 +326,5 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
 }
