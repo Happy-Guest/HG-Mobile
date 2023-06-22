@@ -92,6 +92,9 @@
     <string name="title_required">Enter the title.</string>
     <string name="comment_required">Enter your comment.</string>
     <string name="title_min_length">The title is too short!</string>
+    <string name="local_min_length">The local is too short!</string>
+    <string name="comment_min_length">The comment is too short!</string>
+
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>

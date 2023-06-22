@@ -130,8 +130,12 @@ public class RegisterComplaintFragment extends Fragment {
             inputTitle.setError(getString(R.string.title_min_length));
         } else if (local.isEmpty()) {
             inputLocal.setError(getString(R.string.local_required));
+        } else if (local.length() < 5) {
+            inputLocal.setError(getString(R.string.local_min_length));
         } else if (comment.isEmpty()) {
             inputComment.setError(getString(R.string.comment_required));
+        } else if (comment.length() < 5) {
+            inputComment.setError(getString(R.string.comment_min_length));
         } else {
             showPopup();
         }
