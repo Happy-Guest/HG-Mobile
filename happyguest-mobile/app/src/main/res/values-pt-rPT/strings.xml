@@ -43,6 +43,7 @@
     <string name="title">Título</string>
     <string name="local">Local</string>
     <string name="complain">Reclamar</string>
+    <string name="review_anonymous">Reclamação Anónima</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
