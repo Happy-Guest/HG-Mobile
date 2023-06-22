@@ -118,7 +118,7 @@ public class CodeFragment extends Fragment {
         binding.switchValidCodes.setOnCheckedChangeListener((buttonView, isChecked) -> {
             binding.switchValidCodes.setEnabled(false);
             if (isChecked) filter = "V";
-            else filter = "ALL";
+            else filter = "E";
             getCodes();
         });
 
@@ -167,9 +167,11 @@ public class CodeFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     binding.addCode.textCode.setText("");
+                    binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
+                    binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     codesList.clear();
-                    getCodesAttempt(1);
+                    if (filter.equals("V")) getCodesAttempt(1);
                 } else {
                     if (response.code() == 404) {
                         inputCode.setError(binding.getRoot().getContext().getString(R.string.invalid_code));

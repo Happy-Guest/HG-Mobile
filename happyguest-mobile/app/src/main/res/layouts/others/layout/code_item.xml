@@ -23,30 +23,32 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="false"
+            android:layout_marginStart="3dp"
             android:gravity="center_vertical"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/code_entry_date"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/txtExitDate"
+            android:id="@+id/txtReview"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtEntryDate"
+            android:layout_marginStart="3dp"
             android:gravity="center_vertical"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/code_exit_date"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/txtRooms"
+            android:id="@+id/txtDate"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtExitDate"
+            android:layout_below="@id/txtReview"
             android:layout_centerHorizontal="false"
             android:elevation="10dp"
             android:gravity="center_vertical"
@@ -73,6 +75,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/btn_primary"
+                android:drawablePadding="5dp"
                 android:elegantTextHeight="true"
                 android:elevation="10dp"
                 android:gravity="center_horizontal|center_vertical"
@@ -87,6 +90,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                app:drawableStartCompat="@drawable/key_full2_icon"
                 tools:ignore="TextContrastCheck" />
 
             <ImageButton
