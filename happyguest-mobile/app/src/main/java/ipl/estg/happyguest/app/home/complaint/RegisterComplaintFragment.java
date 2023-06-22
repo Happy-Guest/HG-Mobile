@@ -6,10 +6,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,7 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,6 +20,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -39,7 +37,6 @@ import ipl.estg.happyguest.databinding.FragmentRegisterComplaintBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
-import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
@@ -60,7 +57,6 @@ public class RegisterComplaintFragment extends Fragment {
     private EditText txtLocal;
     private EditText txtComment;
     private User user;
-    private Token token;
     private APIRoutes api;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +74,7 @@ public class RegisterComplaintFragment extends Fragment {
 
         // User, API and Token
         user = new User(binding.getRoot().getContext());
-        token = new Token(binding.getRoot().getContext());
+        Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         //Register Button

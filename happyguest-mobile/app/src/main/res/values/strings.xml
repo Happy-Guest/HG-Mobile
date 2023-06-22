@@ -44,6 +44,7 @@
     <string name="local">Local</string>
     <string name="complain">Complain</string>
     <string name="review_anonymous">Anonymous Review</string>
+    <string name="addFiles">Add Files</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
