@@ -42,6 +42,13 @@
     <string name="switch_order">Most Recent</string>
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="local">Local</string>
+    <string name="complain">Complain</string>
+    <string name="review_anonymous">Anonymous Review</string>
+    <string name="complaint_anonymous">Anonymous Complaint</string>
+    <string name="addFiles">Add Files</string>
     <string name="open">Open</string>
 
     <!-- Menu -->
@@ -55,6 +62,8 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_review">Reviews</string>
     <string name="menu_register_review">Register Review</string>
+    <string name="menu_complaint">Complaints</string>
+    <string name="menu_register_complaint">Register Complaint</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -79,6 +88,14 @@
     <string name="code_required">Enter your code.</string>
     <string name="invalid_code">The code is not valid!</string>
     <string name="star_required">Select one or more stars.</string>
+    <string name="date_required">Select a date.</string>
+    <string name="local_required">Enter the local.</string>
+    <string name="title_required">Enter the title.</string>
+    <string name="comment_required">Enter your comment.</string>
+    <string name="title_min_length">The title is too short!</string>
+    <string name="local_min_length">The local is too short!</string>
+    <string name="comment_min_length">The comment is too short!</string>
+
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>
@@ -90,6 +107,8 @@
     <string name="no_codes">You don\'t have any associated code.</string>
     <string name="no_reviews">You don\'t have any reviews.</string>
     <string name="review_week">You can only review once a week!</string>
+    <string name="review_anonymous_message">Anonymous review cannot be revised!</string>
+    <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
@@ -97,6 +116,7 @@
     <string name="title_disassociateCode">Do you want to disassociate your code?</string>
     <string name="title_RemoveProfile">Do you want to remove your profile?</string>
     <string name="title_Review">Confirm review submission?</string>
+    <string name="title_Complaint">Confirm complaint submission?</string>
     <string name="authorization_review">I authorize the sharing of my review.</string>
 
     <!-- Others -->

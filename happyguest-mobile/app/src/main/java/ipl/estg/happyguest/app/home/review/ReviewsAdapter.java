@@ -20,10 +20,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     private final ArrayList<Review> reviewsList;
     private final Context context;
+    private String order;
 
     public ReviewsAdapter(ArrayList<Review> reviewsList, Context context) {
         this.reviewsList = reviewsList;
         this.context = context;
+        this.order = "DESC";
     }
 
     @NonNull
@@ -39,7 +41,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         Review review = reviewsList.get(position);
 
         // Set Texts
-        String title = context.getString(R.string.review_title) + " " + (position + 1);
+        String title;
+        if (order.equals("DESC")) {
+            title = context.getString(R.string.review_title) + " " + (position + 1);
+        } else {
+            title = context.getString(R.string.review_title) + " " + (getItemCount() - position);
+        }
         holder.id.setText(title);
         holder.date.setText(review.getCreatedAt());
 
@@ -50,6 +57,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     @Override
     public int getItemCount() {
         return reviewsList.size();
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

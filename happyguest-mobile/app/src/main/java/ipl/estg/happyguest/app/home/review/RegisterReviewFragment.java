@@ -53,6 +53,7 @@ public class RegisterReviewFragment extends Fragment {
     private APIRoutes api;
     private User user;
     private CheckBox checkBox;
+    private CheckBox checkAnonymous;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +74,14 @@ public class RegisterReviewFragment extends Fragment {
         // TextInputLayouts and EditTexts
         inputComment = binding.inputComment;
         txtComment = binding.txtComment;
+
+        // Checkbox anonymous
+        checkAnonymous = binding.checkAnonymous;
+        checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.review_anonymous_message), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Change register review button
         binding.btnRegisterReview.setOnClickListener(v -> changeRegisterReviewClick());
@@ -128,7 +137,7 @@ public class RegisterReviewFragment extends Fragment {
     }
 
     private void registerReviewAttempt() {
-        Call<MessageResponse> call = api.postReview(new ReviewRequest(user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
+        Call<MessageResponse> call = api.registerReview(new ReviewRequest(checkAnonymous.isChecked() ? null : user.getId(), currentStar, txtComment.getText().toString(), checkBox.isChecked() ? "1" : "0"));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

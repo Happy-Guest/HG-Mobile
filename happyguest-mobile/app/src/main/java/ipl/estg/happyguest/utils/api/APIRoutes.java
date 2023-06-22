@@ -1,6 +1,7 @@
 package ipl.estg.happyguest.utils.api;
 
 import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
+import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
@@ -68,5 +69,10 @@ public interface APIRoutes {
 
     @POST("reviews")
     @Headers("Accept: application/json")
-    Call<MessageResponse> postReview(@Body ReviewRequest reviewRequest);
+    Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
+
+    //Complaints
+    @POST("complaints")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
 }

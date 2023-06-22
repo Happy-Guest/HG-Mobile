@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:breakStrategy="high_quality"
                     android:justificationMode="none"
-                    android:maxWidth="200dp"
+                    android:maxWidth="220dp"
                     android:minLines="2"
                     android:shadowColor="#000000"
                     android:shadowDx="3"

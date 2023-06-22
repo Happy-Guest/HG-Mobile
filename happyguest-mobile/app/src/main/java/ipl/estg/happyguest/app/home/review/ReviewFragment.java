@@ -22,7 +22,7 @@ import java.util.Date;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.databinding.FragmentReviewBinding;
+import ipl.estg.happyguest.databinding.FragmentReviewsBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 public class ReviewFragment extends Fragment {
 
-    private FragmentReviewBinding binding;
+    private FragmentReviewsBinding binding;
     private User user;
     private APIRoutes api;
     private String order = "DESC";
@@ -47,7 +47,7 @@ public class ReviewFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentReviewBinding.inflate(inflater, container, false);
+        binding = FragmentReviewsBinding.inflate(inflater, container, false);
 
         // User, API and Token
         user = new User(binding.getRoot().getContext());
@@ -92,10 +92,6 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-        // Get reviews
-        binding.switchOrderReviews.setEnabled(false);
-        new Handler().postDelayed(() -> getReviewsAttempt(1), 200);
-
         // Get reviews on scroll
         binding.reviewsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -115,11 +111,17 @@ public class ReviewFragment extends Fragment {
 
         // Switch order
         binding.switchOrderReviews.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            binding.switchOrderReviews.setEnabled(false);
             if (isChecked) order = "DESC";
             else order = "ASC";
-            getReviews();
+            reviewsAdapter.setOrder(order);
+            if (binding.switchOrderReviews.isEnabled()) {
+                getReviews();
+            }
         });
+
+        // Get reviews
+        binding.switchOrderReviews.setEnabled(false);
+        new Handler().postDelayed(() -> getReviewsAttempt(1), 200);
 
         return binding.getRoot();
     }
