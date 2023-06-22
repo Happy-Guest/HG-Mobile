@@ -62,6 +62,11 @@ public interface APIRoutes {
     Call<MessageResponse> disassociateCode(@Path("user_id") int user_id, @Path("code") String code);
 
     //Reviews
+    @GET("users/{id}/reviews?order=DESC")
+    // TODO: Response
+    Call<CodesResponse> getUserReviews(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
+
     @POST("reviews")
-    Call<MessageResponse> reviewReview(@Body ReviewRequest reviewRequest);
+    @Headers("Accept: application/json")
+    Call<MessageResponse> postReview(@Body ReviewRequest reviewRequest);
 }

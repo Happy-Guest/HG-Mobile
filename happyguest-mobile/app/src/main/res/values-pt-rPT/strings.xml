@@ -38,6 +38,7 @@
     <string name="code_rooms">Quartos: </string>
     <string name="remove_code">Remover Código</string>
     <string name="star_review">Estrela</string>
+    <string name="switch_order">Mais Recentes</string>
     <string name="comment">Comentário</string>
     <string name="submit">Submeter</string>
 
@@ -85,6 +86,7 @@
     <string name="classification_review">Como classifica a sua estadia?</string>
     <string name="comment_review">Deixe o seu comentário:</string>
     <string name="no_codes">Não tem códigos associados.</string>
+    <string name="no_reviews">Não tem avaliações registadas.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

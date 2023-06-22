@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message, save user data and redirect to home page
                     me.setUser(response.body().getId(), response.body().getName(), response.body().getEmail(), response.body().getPhone() == null ? -1 : response.body().getPhone(), response.body().getAddress(),
-                            response.body().getBirthDate(), response.body().getPhotoUrl());
+                            response.body().getBirthDate(), response.body().getPhotoUrl(), response.body().getLastReview());
 
                     // Check if user has codes
                     HasCodes hasCodes = new HasCodes(MainActivity.this);

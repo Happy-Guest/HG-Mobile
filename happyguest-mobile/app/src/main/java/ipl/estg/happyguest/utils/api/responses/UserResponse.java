@@ -24,10 +24,13 @@ public class UserResponse extends MessageResponse {
     @Nullable
     @SerializedName("photo_url")
     private final String photoUrl;
+    @Nullable
+    @SerializedName("last_review")
+    private final String lastReview;
     @SerializedName("user")
     private final UserResponse user;
 
-    public UserResponse(int id, String name, String email, @Nullable Long phone, @Nullable String address, @Nullable String birthDate, @Nullable String photoUrl, UserResponse user, String message) {
+    public UserResponse(int id, String name, String email, @Nullable Long phone, @Nullable String address, @Nullable String birthDate, @Nullable String photoUrl, @Nullable String lastReview, UserResponse user, String message) {
         super(message);
         this.id = id;
         this.name = name;
@@ -36,6 +39,7 @@ public class UserResponse extends MessageResponse {
         this.address = address;
         this.birthDate = birthDate;
         this.photoUrl = photoUrl;
+        this.lastReview = lastReview;
         this.user = user;
     }
 
@@ -69,6 +73,11 @@ public class UserResponse extends MessageResponse {
     @Nullable
     public String getPhotoUrl() {
         return photoUrl;
+    }
+
+    @Nullable
+    public String getLastReview() {
+        return lastReview;
     }
 
     public UserResponse getUser() {
