@@ -209,4 +209,9 @@ public class RegisterReviewFragment extends Fragment {
         return starImageView;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

@@ -9,6 +9,7 @@ import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -62,9 +63,8 @@ public interface APIRoutes {
     Call<MessageResponse> disassociateCode(@Path("user_id") int user_id, @Path("code") String code);
 
     //Reviews
-    @GET("users/{id}/reviews?order=DESC")
-    // TODO: Response
-    Call<CodesResponse> getUserReviews(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
+    @GET("users/{id}/reviews")
+    Call<ReviewsResponse> getUserReviews(@Path("id") int id, @Query("page") int page, @Query("order") String order);
 
     @POST("reviews")
     @Headers("Accept: application/json")

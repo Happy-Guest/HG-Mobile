@@ -71,7 +71,7 @@
         android:textColor="@android:color/white"
         android:textSize="17sp"
         app:icon="@android:drawable/ic_input_add"
-        app:iconPadding="-20dp"
+        app:iconPadding="-15dp"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

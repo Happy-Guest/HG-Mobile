@@ -28,8 +28,8 @@
             app:tint="@color/dark_gold" />
 
         <TextView
-            android:id="@+id/txtReview"
-            android:layout_width="match_parent"
+            android:id="@+id/txtIdReview"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:gravity="center_vertical"
@@ -40,12 +40,13 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txtDate"
+            android:id="@+id/txtDateReview"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtReview"
+            android:layout_below="@id/txtIdReview"
             android:layout_centerHorizontal="false"
-            android:layout_marginTop="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
             android:elevation="10dp"
             android:gravity="center_vertical"
             android:paddingTop="5dp"
@@ -55,12 +56,13 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/buttonOrderOpen"
+            android:id="@+id/btnReviewOpen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtReview"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/btn_primary"
             android:gravity="center_horizontal|center_vertical"
@@ -78,7 +80,7 @@
             app:iconPadding="5sp"
             app:iconSize="20dp"
             app:iconTint="@color/black"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            tools:ignore="RelativeOverlap,TextContrastCheck,TouchTargetSizeCheck" />
 
     </RelativeLayout>
 

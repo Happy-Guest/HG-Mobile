@@ -78,6 +78,7 @@ public class CodeFragment extends Fragment {
         if (hasCodes.getHasCode()) {
             binding.addCode.txtCodeText.setVisibility(View.GONE);
             binding.txtNoCodes.setVisibility(View.GONE);
+            binding.switchValidCodes.setEnabled(false);
             new Handler().postDelayed(() -> getCodesAttempt(1), 200);
         } else {
             binding.addCode.txtCodeText.setVisibility(View.VISIBLE);

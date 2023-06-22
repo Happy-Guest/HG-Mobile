@@ -89,6 +89,7 @@
     <string name="comment_review">Deixe o seu comentário:</string>
     <string name="no_codes">Não tem códigos associados.</string>
     <string name="no_reviews">Não tem avaliações registadas.</string>
+    <string name="review_week">Só pode fazer uma avaliação por semana!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

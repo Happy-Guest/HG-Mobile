@@ -89,6 +89,7 @@
     <string name="comment_review">Leave your comment:</string>
     <string name="no_codes">You don\'t have any associated code.</string>
     <string name="no_reviews">You don\'t have any reviews.</string>
+    <string name="review_week">You can only review once a week!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>

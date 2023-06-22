@@ -179,8 +179,8 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             super(itemView);
             code = itemView.findViewById(R.id.txtCode);
             entryDate = itemView.findViewById(R.id.txtEntryDate);
-            exitDate = itemView.findViewById(R.id.txtReview);
-            rooms = itemView.findViewById(R.id.txtDate);
+            exitDate = itemView.findViewById(R.id.txtIdReview);
+            rooms = itemView.findViewById(R.id.txtDateReview);
             remove = itemView.findViewById(R.id.btnCodeRemove);
         }
     }
