@@ -13,18 +13,18 @@ public class Review {
     @Nullable
     @SerializedName("comment")
     private String comment;
-    @SerializedName("autorize")
-    private int autorize;
+    @SerializedName("authorize")
+    private int authorize;
     @SerializedName("shared")
     private int shared;
     @SerializedName("created_at")
     private String createdAt;
 
-    public Review(Long id, int stars, @Nullable String comment, int autorize, int shared, String createdAt) {
+    public Review(Long id, int stars, @Nullable String comment, int authorize, int shared, String createdAt) {
         this.id = id;
         this.stars = stars;
         this.comment = comment;
-        this.autorize = autorize;
+        this.authorize = authorize;
         this.shared = shared;
         this.createdAt = createdAt;
     }
@@ -54,12 +54,12 @@ public class Review {
         this.comment = comment;
     }
 
-    public int getAutorize() {
-        return autorize;
+    public int getAuthorize() {
+        return authorize;
     }
 
-    public void setAutorize(int autorize) {
-        this.autorize = autorize;
+    public void setAuthorize(int authorize) {
+        this.authorize = authorize;
     }
 
     public int getShared() {

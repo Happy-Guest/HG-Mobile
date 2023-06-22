@@ -9,15 +9,15 @@
             android:icon="@drawable/home_icon"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_complaint"
+            android:id="@+id/nav_complaints"
             android:icon="@drawable/complaint_icon"
-            android:title="@string/menu_complaint" />
+            android:title="@string/menu_complaints" />
         <item
-            android:id="@+id/nav_review"
+            android:id="@+id/nav_reviews"
             android:icon="@drawable/star_icon"
-            android:title="@string/menu_review" />
+            android:title="@string/menu_reviews" />
         <item
-            android:id="@+id/nav_code"
+            android:id="@+id/nav_codes"
             android:icon="@drawable/key_icon"
             android:title="@string/menu_code" />
     </group>

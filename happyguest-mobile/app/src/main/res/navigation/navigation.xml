@@ -20,7 +20,7 @@
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_left" />
     <fragment
-        android:id="@+id/nav_code"
+        android:id="@+id/nav_codes"
         android:name="ipl.estg.happyguest.app.home.code.CodeFragment"
         android:label="@string/menu_code"
         tools:layout="@layout/fragment_codes" />
@@ -40,9 +40,9 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
     <fragment
-        android:id="@+id/nav_review"
-        android:name="ipl.estg.happyguest.app.home.review.ReviewFragment"
-        android:label="@string/menu_review"
+        android:id="@+id/nav_reviews"
+        android:name="ipl.estg.happyguest.app.home.review.ReviewsFragment"
+        android:label="@string/menu_reviews"
         tools:layout="@layout/fragment_reviews" />
     <fragment
         android:id="@+id/nav_register_review"
@@ -55,9 +55,9 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
     <fragment
-        android:id="@+id/nav_complaint"
-        android:name="ipl.estg.happyguest.app.home.complaint.ComplaintFragment"
-        android:label="@string/menu_complaint"
+        android:id="@+id/nav_complaints"
+        android:name="ipl.estg.happyguest.app.home.complaint.ComplaintsFragment"
+        android:label="@string/menu_complaints"
         tools:layout="@layout/fragment_complaints" />
     <fragment
         android:id="@+id/nav_register_complaint"
@@ -69,5 +69,10 @@
         app:destination="@id/nav_register_complaint"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_review"
+        android:name="ipl.estg.happyguest.app.home.review.ReviewFragment"
+        android:label="@string/menu_review"
+        tools:layout="@layout/fragment_review" />
 
 </navigation>
