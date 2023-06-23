@@ -37,8 +37,8 @@
     <string name="code_entry_date">Entry ➔ </string>
     <string name="code_exit_date">Exit ➔ </string>
     <string name="code_rooms">Rooms: </string>
+    <string name="complaint_local">Local: </string>
     <string name="remove_code">Remove Code</string>
-    <string name="review_title">Review nº</string>
     <string name="star_review">Star</string>
     <string name="switch_order">Most Recent</string>
     <string name="comment">Comment</string>
@@ -54,6 +54,10 @@
     <string name="no_comment">No Comment</string>
     <string name="authorized_sharing">Authorized Sharing</string>
     <string name="shared">Shared</string>
+    <string name="pending">Pending</string>
+    <string name="solving">Solving</string>
+    <string name="resolved">Resolved</string>
+    <string name="canceled">Annulled</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -69,7 +73,7 @@
     <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>
     <string name="menu_review">Review Nº</string>
-    <string name="menu_complaint">Complaints Nº</string>
+    <string name="menu_complaint">Complaint Nº</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>

@@ -67,7 +67,8 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         Code code = codesList.get(position);
 
         // Set Texts
-        holder.code.setText(code.getCode());
+        String codeString = code.getCode().length() > 10 ? code.getCode().substring(0, 10) + "..." : code.getCode();
+        holder.code.setText(codeString);
         String entryDate = context.getString(R.string.code_entry_date) + " " + code.getEntryDate();
         holder.entryDate.setText(entryDate);
         String exitDate = context.getString(R.string.code_exit_date) + " " + code.getExitDate();
@@ -80,6 +81,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             if (i > 0) roomsBuilder.append(", ");
             roomsBuilder.append(Integer.parseInt(roomList.get(i)));
         }
+        roomsBuilder = new StringBuilder(roomsBuilder.length() > 25 ? roomsBuilder.substring(0, 25) + "..." : roomsBuilder.toString());
         String roomsText = context.getString(R.string.code_rooms) + " " + roomsBuilder;
         holder.rooms.setText(roomsText);
 

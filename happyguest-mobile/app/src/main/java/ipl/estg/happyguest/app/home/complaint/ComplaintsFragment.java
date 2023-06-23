@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.app.home.review.ReviewsAdapter;
 import ipl.estg.happyguest.databinding.FragmentComplaintsBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -42,7 +41,7 @@ public class ComplaintsFragment extends Fragment {
     private ArrayList<Complaint> complaintsList;
     private Meta meta;
     private int screenHeight;
-    private String selectedState = "all";
+    private String selectedState = "ALL";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class ComplaintsFragment extends Fragment {
         // Complaints
         RecyclerView reviewsRV = binding.complaintsRV;
         complaintsList = new ArrayList<>();
-        complaintsAdapter = new ReviewsAdapter(complaintsList, binding.getRoot().getContext());
+        complaintsAdapter = new ComplaintsAdapter(complaintsList, binding.getRoot().getContext());
         reviewsRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
         reviewsRV.setAdapter(complaintsAdapter);
 

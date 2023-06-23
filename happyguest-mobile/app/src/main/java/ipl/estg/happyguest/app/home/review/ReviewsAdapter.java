@@ -45,10 +45,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         String title;
         long id;
         if (order.equals("DESC")) {
-            title = context.getString(R.string.review_title) + " " + (position + 1);
+            title = context.getString(R.string.menu_review) + " " + (position + 1);
             id = position + 1;
         } else {
-            title = context.getString(R.string.review_title) + " " + (getItemCount() - position);
+            title = context.getString(R.string.menu_review) + " " + (getItemCount() - position);
             id = (long) getItemCount() - position;
         }
         holder.id.setText(title);
