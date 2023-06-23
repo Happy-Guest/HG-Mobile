@@ -2,12 +2,10 @@ package ipl.estg.happyguest.app.home.complaint;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -40,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -61,50 +61,40 @@ import retrofit2.Response;
 public class RegisterComplaintFragment extends Fragment {
 
     private final List<byte[]> files = new ArrayList<>();
-    private FragmentRegisterComplaintBinding binding;
-    // Select Image from Gallery
+    // Select files
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
-                        List<Uri> selectedFiles = new ArrayList<>();
-                        ClipData clipData = result.getData().getClipData();
-                        if (clipData != null) {
-                            int count = clipData.getItemCount();
-                            for (int i = 0; i < count; i++) {
-                                Uri selectedFile = clipData.getItemAt(i).getUri();
-                                selectedFiles.add(selectedFile);
+                        Uri selectedFile = result.getData().getData();
+                        try {
+                            InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                            File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                fileOutputStream.write(buffer, 0, bytesRead);
                             }
-                        } else {
-                            Uri selectedFile = result.getData().getData();
-                            selectedFiles.add(selectedFile);
-                        }
-                        for (Uri selectedFile : selectedFiles) {
-                            try {
-                                InputStream inputStream = binding.getRoot().getContext().getContentResolver().openInputStream(selectedFile);
-                                String mimeType = binding.getRoot().getContext().getContentResolver().getType(selectedFile);
-
-                                if (mimeType != null && mimeType.equals("image/jpeg")) {
-                                    // Handle JPEG image
-                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                    byte[] photo = stream.toByteArray();
-                                    files.add(photo);
-                                } else if (mimeType != null && mimeType.equals("application/pdf")) {
-                                    // Handle PDF file
-                                    byte[] pdfBytes = readBytesFromInputStream(inputStream);
-                                    files.add(pdfBytes);
-                                }
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                            inputStream.close();
+                            fileOutputStream.close();
+                            // Check if the file is an image or a PDF
+                            String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                            if (mimeType != null && mimeType.startsWith("image/")) {
+                                files.add(getStreamByteFromImage(tempFile));
+                            } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                byte[] pdfBytes = getStreamByteFromFile(tempFile);
+                                files.add(pdfBytes);
                             }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
             }
     );
+    private FragmentRegisterComplaintBinding binding;
     private TextInputLayout inputDate;
     private TextInputLayout inputTitle;
     private TextInputLayout inputLocal;
@@ -116,17 +106,6 @@ public class RegisterComplaintFragment extends Fragment {
     private CheckBox checkAnonymous;
     private User user;
     private APIRoutes api;
-
-    // ReadBytes from file
-    private byte[] readBytesFromInputStream(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-        return byteBuffer.toByteArray();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -235,6 +214,18 @@ public class RegisterComplaintFragment extends Fragment {
             inputComment.setError(getString(R.string.comment_min_length));
         } else {
             showPopup();
+        }
+    }
+
+    private byte[] getStreamByteFromFile(File file) throws IOException {
+        try (InputStream inputStream = requireActivity().getContentResolver().openInputStream(Uri.fromFile(file))) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            return outputStream.toByteArray();
         }
     }
 

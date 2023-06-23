@@ -79,6 +79,7 @@ public class HomeActivity extends AppCompatActivity {
                             inputStream.close();
                             fileOutputStream.close();
                             photo = getStreamByteFromImage(tempFile);
+                            Toast.makeText(this, R.string.save_photo, Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
