@@ -31,13 +31,15 @@
     <string name="address">Morada</string>
     <string name="birthDate">Data Nascimento</string>
     <string name="select_image">Selecionar Imagem</string>
+    <string name="select_files">Selecionar Ficheiros</string>
     <string name="code_associate">Associar Código</string>
     <string name="codes_valid">Códigos Válidos</string>
     <string name="code_entry_date">Entrada ➔ </string>
     <string name="code_exit_date">Saída ➔ </string>
     <string name="code_rooms">Quartos: </string>
+    <string name="complaint_local">Local: </string>
+    <string name="complaint_status">Estado: </string>
     <string name="remove_code">Remover Código</string>
-    <string name="review_title">Avaliação nº</string>
     <string name="star_review">Estrela</string>
     <string name="switch_order">Mais Recentes</string>
     <string name="comment">Comentário</string>
@@ -53,6 +55,10 @@
     <string name="no_comment">Sem comentário</string>
     <string name="authorized_sharing">Partilha autorizada</string>
     <string name="shared">Partilhada</string>
+    <string name="pending">Pendente</string>
+    <string name="solving">Resolução</string>
+    <string name="resolved">Resolvida</string>
+    <string name="canceled">Anulada</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -77,6 +83,8 @@
     <string name="api_error">Erro ao ligar ao servidor!</string>
     <string name="data_error">Erro ao carregar dados!</string>
     <string name="codes_error">Erro ao carregar códigos!</string>
+    <string name="reviews_error">Erro ao carregar avaliações!</string>
+    <string name="complaints_error">Erro ao carregar reclamações!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
@@ -110,6 +118,7 @@
     <string name="comment_review">Deixe o seu comentário:</string>
     <string name="no_codes">Não tem códigos associados.</string>
     <string name="no_reviews">Não tem avaliações registadas.</string>
+    <string name="no_complaints">Não tem reclamações registadas.</string>
     <string name="review_week">Só pode fazer uma avaliação por semana!</string>
     <string name="review_anonymous_message">Avaliação anónima não poderá ser revista!</string>
     <string name="complaint_anonymous_message">Reclamação anónima não poderá ser revista!</string>
@@ -126,4 +135,11 @@
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
+    <string-array name="complaint_status" translatable="true">
+        <item>Todas</item>
+        <item>Pendentes</item>
+        <item>Resolução</item>
+        <item>Resolvidas</item>
+        <item>Anuladas</item>
+    </string-array>
 </resources>

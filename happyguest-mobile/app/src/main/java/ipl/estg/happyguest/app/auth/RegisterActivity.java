@@ -54,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText txtPasswordConfirm;
     private Button btnRegister;
     private byte[] photo;
-    // Select Image from Gallery and convert to byte array
+    // Select Image from Gallery
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {

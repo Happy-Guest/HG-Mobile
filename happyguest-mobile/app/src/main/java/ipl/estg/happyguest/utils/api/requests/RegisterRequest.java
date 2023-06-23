@@ -17,10 +17,11 @@ public class RegisterRequest {
     @Nullable
     @SerializedName("phone")
     private final Long phone;
+    @Nullable
     @SerializedName("photoBase64")
     private final String photoBase64;
 
-    public RegisterRequest(String name, String email, @Nullable Long phone, String password, String passwordConfirm, String photoBase64) {
+    public RegisterRequest(String name, String email, @Nullable Long phone, String password, String passwordConfirm, @Nullable String photoBase64) {
         this.name = name;
         this.email = email;
         this.phone = phone;

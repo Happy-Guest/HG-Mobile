@@ -19,10 +19,11 @@ public class UpdateUserRequest {
     @Nullable
     @SerializedName("birth_date")
     private final String birthDate;
+    @Nullable
     @SerializedName("photoBase64")
     private final String photoBase64;
 
-    public UpdateUserRequest(String name, String email, @Nullable Long phone, @Nullable String address, @Nullable String birthDate, String photoBase64) {
+    public UpdateUserRequest(String name, String email, @Nullable Long phone, @Nullable String address, @Nullable String birthDate, @Nullable String photoBase64) {
         this.name = name;
         this.email = email;
         this.phone = phone;
