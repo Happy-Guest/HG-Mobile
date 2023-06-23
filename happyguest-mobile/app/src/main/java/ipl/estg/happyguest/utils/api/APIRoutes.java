@@ -78,7 +78,7 @@ public interface APIRoutes {
     Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
 
     //Complaints
-    @GET("users/{id}/complaints")
+    @GET("users/{id}/complaints?order=DESC")
     Call<ComplaintsResponse> getUserComplaints(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
 
     @GET("complaints/{id}")

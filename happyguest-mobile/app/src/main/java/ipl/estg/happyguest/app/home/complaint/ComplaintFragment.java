@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -43,6 +46,7 @@ public class ComplaintFragment extends Fragment {
 
         getComplaintAttempt();
 
+        // Close Button
         binding.btnClose.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();
@@ -87,8 +91,15 @@ public class ComplaintFragment extends Fragment {
                     binding.txtLocal.setText(complaint.getLocal());
                     binding.txtComment.setText(complaint.getComment());
                     binding.txtResponse.setText(complaint.getResponse() != null ? complaint.getResponse() : getString(R.string.no_response));
-                    String dateUpdateAt = getString(R.string.response_date) + ": " + complaint.getUpdatedAt();
-                    binding.txtResponseDate.setText(dateUpdateAt);
+                    if (complaint.getResponse() != null && !complaint.getResponse().isEmpty() && !Objects.equals(complaint.getResponse(), "Sem resposta")) {
+                        binding.txtResponse.setTextColor(ContextCompat.getColor(binding.getRoot().getContext(), R.color.dark_gray));
+                        String dateUpdateAt = getString(R.string.response_date) + ": " + complaint.getUpdatedAt();
+                        binding.txtResponseDate.setText(dateUpdateAt);
+                        binding.txtResponseDate.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.txtResponse.setTextColor(ContextCompat.getColor(binding.getRoot().getContext(), R.color.gray));
+                        binding.txtResponseDate.setVisibility(View.GONE);
+                    }
                     String dateCreatedAt = getString(R.string.createdDate) + ": " + complaint.getCreatedAt();
                     binding.txtCreatedDate.setText(dateCreatedAt);
                 } else {

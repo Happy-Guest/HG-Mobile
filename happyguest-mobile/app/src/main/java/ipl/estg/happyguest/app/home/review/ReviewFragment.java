@@ -44,6 +44,7 @@ public class ReviewFragment extends Fragment {
 
         getReviewAttempt();
 
+        // Close Button
         binding.btnClose.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();

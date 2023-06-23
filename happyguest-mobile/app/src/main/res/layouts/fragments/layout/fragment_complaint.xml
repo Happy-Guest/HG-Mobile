@@ -49,7 +49,7 @@
             android:elegantTextHeight="true"
             android:elevation="3dp"
             android:gravity="center_horizontal|center_vertical"
-            android:minHeight="30dip"
+            android:minHeight="34dip"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:shadowColor="@color/dark_gray"
@@ -58,7 +58,7 @@
             android:shadowRadius="10"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:ignore="TextContrastCheck" />
     </LinearLayout>
@@ -176,9 +176,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         android:text="@string/response_date"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/gray"
         android:textSize="14sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/txtCreatedDate"
@@ -208,7 +209,7 @@
         android:textSize="17sp"
         android:visibility="visible"
         app:icon="@drawable/close_icon"
-        app:iconPadding="-20dp"
+        app:iconPadding="-25dp"
         app:iconTint="@color/black"
         tools:ignore="TextContrastCheck" />
 

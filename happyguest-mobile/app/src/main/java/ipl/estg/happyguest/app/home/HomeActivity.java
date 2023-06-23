@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -131,14 +132,15 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             // Set profile image
-            if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
+            if (destination.getId() == R.id.nav_profile || destination.getId() == R.id.nav_password) {
+                binding.appBarHome.txtBarTitle.setGravity(Gravity.CENTER_HORIZONTAL);
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
             }
             if (destination.getId() != R.id.nav_profile && destination.getId() != R.id.nav_password && binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE) {
-                binding.appBarHome.txtBarTitle.setMaxWidth(600);
+                binding.appBarHome.txtBarTitle.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
@@ -154,7 +156,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // Go to profile fragment
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
-            binding.appBarHome.txtBarTitle.setMaxWidth(0);
             navController.popBackStack();
             navController.navigate(R.id.action_nav_profile);
         });
