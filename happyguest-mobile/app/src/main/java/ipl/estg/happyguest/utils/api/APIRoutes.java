@@ -70,21 +70,21 @@ public interface APIRoutes {
     @GET("users/{id}/reviews")
     Call<ReviewsResponse> getUserReviews(@Path("id") int id, @Query("page") int page, @Query("order") String order);
 
+    @GET("reviews/{id}")
+    Call<ReviewResponse> getReview(@Path("id") Long id);
+
     @POST("reviews")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
-
-    @GET("reviews/{id}")
-    Call<ReviewResponse> getReview(@Path("id") Long id);
 
     //Complaints
     @GET("users/{id}/complaints")
     Call<ComplaintsResponse> getUserComplaints(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
 
+    @GET("complaints/{id}")
+    Call<ComplaintResponse> getComplaint(@Path("id") Long id);
+
     @POST("complaints")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
-
-    @GET("complaints/{id}")
-    Call<ComplaintResponse> getComplaint(@Path("id") Long id);
 }

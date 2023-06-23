@@ -1,7 +1,5 @@
 package ipl.estg.happyguest.utils.api.responses;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
 import ipl.estg.happyguest.utils.models.Review;

@@ -7,18 +7,18 @@ import com.google.gson.annotations.SerializedName;
 public class Review {
 
     @SerializedName("id")
-    private Long id;
+    private final Long id;
     @SerializedName("stars")
-    private int stars;
+    private final int stars;
     @Nullable
     @SerializedName("comment")
-    private String comment;
+    private final String comment;
     @SerializedName("authorize")
-    private int authorize;
+    private final int authorize;
     @SerializedName("shared")
-    private int shared;
+    private final int shared;
     @SerializedName("created_at")
-    private String createdAt;
+    private final String createdAt;
 
     public Review(Long id, int stars, @Nullable String comment, int authorize, int shared, String createdAt) {
         this.id = id;
@@ -33,16 +33,8 @@ public class Review {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public int getStars() {
         return stars;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
     }
 
     @Nullable
@@ -50,31 +42,15 @@ public class Review {
         return comment;
     }
 
-    public void setComment(@Nullable String comment) {
-        this.comment = comment;
-    }
-
     public int getAuthorize() {
         return authorize;
-    }
-
-    public void setAuthorize(int authorize) {
-        this.authorize = authorize;
     }
 
     public int getShared() {
         return shared;
     }
 
-    public void setShared(int shared) {
-        this.shared = shared;
-    }
-
     public String getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
     }
 }

@@ -22,7 +22,6 @@ import java.util.Date;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-
 import ipl.estg.happyguest.databinding.FragmentReviewsBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -123,7 +122,7 @@ public class ReviewsFragment extends Fragment {
         // Get reviews
         binding.switchOrderReviews.setEnabled(false);
         new Handler().postDelayed(() -> getReviewsAttempt(1), 200);
-        
+
         return binding.getRoot();
     }
 

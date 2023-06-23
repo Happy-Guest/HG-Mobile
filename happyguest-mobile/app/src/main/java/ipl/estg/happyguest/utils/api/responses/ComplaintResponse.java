@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import ipl.estg.happyguest.utils.models.Complaint;
 
 
-public class ComplaintResponse extends MessageResponse{
+public class ComplaintResponse extends MessageResponse {
 
     @SerializedName("data")
     private final Complaint complaint;
