@@ -1,7 +1,6 @@
 package ipl.estg.happyguest.app.home.complaint;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +41,7 @@ public class ComplaintsFragment extends Fragment {
     private ArrayList<Complaint> complaintsList;
     private Meta meta;
     private int screenHeight;
-    private String selectedState = "ALL";
+    private String selectedStatus = "ALL";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,15 +87,34 @@ public class ComplaintsFragment extends Fragment {
             }
         });
 
-        // Swipe to refresh reviews
+        // Swipe to refresh complaints
         binding.swipeRefresh.setOnRefreshListener(this::getComplaints);
 
-        // Switch order
-        binding.spinnerSelectState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // Switch status
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.complaint_status, android.R.layout.simple_spinner_item);
+        binding.spinnerSelectStatus.setAdapter(adapter);
+        binding.spinnerSelectStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                switch (binding.spinnerSelectStatus.getSelectedItem().toString()) {
+                    case "All":
+                        selectedStatus = "ALL";
+                        break;
+                    case "Pending":
+                        selectedStatus = "P";
+                        break;
+                    case "Solving":
+                        selectedStatus = "S";
+                        break;
+                    case "Resolved":
+                        selectedStatus = "R";
+                        break;
+                    case "Annulled":
+                        selectedStatus = "C";
+                        break;
+                }
+                getComplaints();
             }
 
             @Override
@@ -104,15 +123,11 @@ public class ComplaintsFragment extends Fragment {
             }
         });
 
-        // Get reviews
-        binding.spinnerSelectState.setEnabled(false);
-        new Handler().postDelayed(() -> getComplaintsAttempt(1), 200);
-
         return binding.getRoot();
     }
 
     private void getComplaints() {
-        binding.spinnerSelectState.setEnabled(false);
+        binding.spinnerSelectStatus.setEnabled(false);
         int previousItemCount = complaintsList.size();
         complaintsList.clear();
         getComplaintsAttempt(1);
@@ -129,11 +144,11 @@ public class ComplaintsFragment extends Fragment {
     }
 
     private void getComplaintsAttempt(int page) {
-        Call<ComplaintsResponse> call = api.getUserComplaints(user.getId(), page, selectedState);
+        Call<ComplaintsResponse> call = api.getUserComplaints(user.getId(), page, selectedStatus);
         call.enqueue(new Callback<ComplaintsResponse>() {
             @Override
             public void onResponse(@NonNull Call<ComplaintsResponse> call, @NonNull Response<ComplaintsResponse> response) {
-                binding.spinnerSelectState.setEnabled(true);
+                binding.spinnerSelectStatus.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Save complaints and update the adapter
                     int lastPos = complaintsList.size();
@@ -160,7 +175,7 @@ public class ComplaintsFragment extends Fragment {
             public void onFailure(@NonNull Call<ComplaintsResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.complaints_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetComplaints Error: ", t.getMessage());
-                binding.spinnerSelectState.setEnabled(true);
+                binding.spinnerSelectStatus.setEnabled(true);
             }
         });
     }
