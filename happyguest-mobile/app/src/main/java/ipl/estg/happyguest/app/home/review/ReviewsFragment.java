@@ -167,14 +167,14 @@ public class ReviewsFragment extends Fragment {
                         binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
                     }
                 } else {
-                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.reviews_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetReviews Error: ", response.message());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ReviewsResponse> call, @NonNull Throwable t) {
-                Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.reviews_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetReviews Error: ", t.getMessage());
                 binding.switchOrderReviews.setEnabled(true);
             }

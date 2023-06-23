@@ -1,13 +1,20 @@
 package ipl.estg.happyguest.app.home.complaint;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +29,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -30,7 +39,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -47,7 +61,42 @@ import retrofit2.Response;
 
 public class RegisterComplaintFragment extends Fragment {
 
+    private final List<byte[]> files = new ArrayList<>();
     private FragmentRegisterComplaintBinding binding;
+    // Select Image from Gallery
+    private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
+                        List<Uri> selectedImages = new ArrayList<>();
+                        ClipData clipData = result.getData().getClipData();
+                        if (clipData != null) {
+                            int count = clipData.getItemCount();
+                            for (int i = 0; i < count; i++) {
+                                Uri selectedImage = clipData.getItemAt(i).getUri();
+                                selectedImages.add(selectedImage);
+                            }
+                        } else {
+                            Uri selectedImage = result.getData().getData();
+                            selectedImages.add(selectedImage);
+                        }
+                        for (Uri selectedImage : selectedImages) {
+                            try {
+                                InputStream inputStream = binding.getRoot().getContext().getContentResolver().openInputStream(selectedImage);
+                                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                                byte[] photo = stream.toByteArray();
+                                files.add(photo);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+    );
     private TextInputLayout inputDate;
     private TextInputLayout inputTitle;
     private TextInputLayout inputLocal;
@@ -88,6 +137,17 @@ public class RegisterComplaintFragment extends Fragment {
             if (isChecked) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.complaint_anonymous_message), Toast.LENGTH_SHORT).show();
             }
+        });
+
+        // Select Files
+        binding.btnAddFiles.setOnClickListener(view -> {
+            Intent photoPicker = new Intent();
+            photoPicker.setType("*/*");
+            photoPicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+            String[] mimeTypes = {"image/*", "application/pdf"};
+            photoPicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_files)));
         });
 
         // Add "/" to birth date
@@ -185,8 +245,20 @@ public class RegisterComplaintFragment extends Fragment {
         });
     }
 
+    // Convert photos to base64
+    private List<String> convertPhotosToBase64(List<byte[]> photos) {
+        List<String> base64Photos = new ArrayList<>();
+        for (byte[] photo : photos) {
+            String base64Photo = Base64.encodeToString(photo, Base64.DEFAULT);
+            base64Photos.add(base64Photo);
+        }
+        return base64Photos;
+    }
+
     private void registerComplaintAttempt() {
-        Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(checkAnonymous.isChecked() ? null :user.getId(), txtTitle.getText().toString(), txtLocal.getText().toString(), "P", txtComment.getText().toString(), formatDate(txtDate.getText().toString())));
+        Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(checkAnonymous.isChecked() ? null : user.getId(), txtTitle.getText().toString(),
+                txtLocal.getText().toString(), "P", txtComment.getText().toString(),
+                formatDate(txtDate.getText().toString()), files.isEmpty() ? null : convertPhotosToBase64(files)));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

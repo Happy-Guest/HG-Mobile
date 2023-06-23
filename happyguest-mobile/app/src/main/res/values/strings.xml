@@ -31,13 +31,15 @@
     <string name="address">Address</string>
     <string name="birthDate">Birth Date</string>
     <string name="select_image">Select Image</string>
+    <string name="select_files">Select Files</string>
     <string name="code_associate">Code Associate</string>
     <string name="codes_valid">Valid Codes</string>
     <string name="code_entry_date">Entry ➔ </string>
     <string name="code_exit_date">Exit ➔ </string>
     <string name="code_rooms">Rooms: </string>
+    <string name="complaint_local">Local: </string>
+    <string name="complaint_status">Status: </string>
     <string name="remove_code">Remove Code</string>
-    <string name="review_title">Review nº</string>
     <string name="star_review">Star</string>
     <string name="switch_order">Most Recent</string>
     <string name="comment">Comment</string>
@@ -56,6 +58,10 @@
     <string name="response">Response</string>
     <string name="response_date">Answered in: </string>
     <string name="status">Status:</string>
+    <string name="pending">Pending</string>
+    <string name="solving">Solving</string>
+    <string name="resolved">Resolved</string>
+    <string name="canceled">Annulled</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -71,7 +77,7 @@
     <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>
     <string name="menu_review">Review Nº</string>
-    <string name="menu_complaint">Complaints Nº</string>
+    <string name="menu_complaint">Complaint Nº</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -80,6 +86,8 @@
     <string name="api_error">Error connecting to the server!</string>
     <string name="data_error">Error loading data!</string>
     <string name="codes_error">Error loading codes!</string>
+    <string name="reviews_error">Error loading reviews!</string>
+    <string name="complaints_error">Error loading complaints!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
@@ -114,6 +122,7 @@
     <string name="comment_review">Leave your comment:</string>
     <string name="no_codes">You don\'t have any associated code.</string>
     <string name="no_reviews">You don\'t have any reviews.</string>
+    <string name="no_complaints">You don\'t have any complaints.</string>
     <string name="review_week">You can only review once a week!</string>
     <string name="review_anonymous_message">Anonymous review cannot be revised!</string>
     <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>
@@ -129,4 +138,11 @@
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
+    <string-array name="complaint_status" translatable="true">
+        <item>All</item>
+        <item>Pending</item>
+        <item>Solving</item>
+        <item>Resolved</item>
+        <item>Annulled</item>
+    </string-array>
 </resources>
