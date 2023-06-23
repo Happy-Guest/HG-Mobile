@@ -112,6 +112,7 @@
     <string name="title_min_length">O título é demasiado curto!</string>
     <string name="local_min_length">O local é demasiado curto!</string>
     <string name="comment_min_length">O comentário é demasiado curto!</string>
+    <string name="address_too_short">A morada é demasiado curta!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>

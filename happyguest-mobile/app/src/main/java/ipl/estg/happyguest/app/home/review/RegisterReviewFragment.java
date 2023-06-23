@@ -99,10 +99,13 @@ public class RegisterReviewFragment extends Fragment {
 
     private void changeRegisterReviewClick() {
         inputComment.setError(null);
+        String comment = txtComment.getText().toString();
         binding.textErrorStars.setVisibility(View.INVISIBLE);
         if (currentStar == 0) {
             binding.textErrorStars.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
             binding.textErrorStars.setVisibility(View.VISIBLE);
+        } else if (!comment.isEmpty() && comment.length() < 5) {
+            inputComment.setError(getString(R.string.comment_min_length));
         } else {
             showPopup();
         }

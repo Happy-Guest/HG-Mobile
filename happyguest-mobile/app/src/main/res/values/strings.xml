@@ -112,6 +112,7 @@
     <string name="title_min_length">The title is too short!</string>
     <string name="local_min_length">The local is too short!</string>
     <string name="comment_min_length">The comment is too short!</string>
+    <string name="address_too_short">A morada é demasiado curta!</string>
 
 
     <!-- Messages -->
