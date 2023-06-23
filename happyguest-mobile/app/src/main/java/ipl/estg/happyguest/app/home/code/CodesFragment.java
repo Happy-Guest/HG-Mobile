@@ -44,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CodeFragment extends Fragment {
+public class CodesFragment extends Fragment {
 
     private FragmentCodesBinding binding;
     private Button btnInsertCode;
@@ -85,7 +85,7 @@ public class CodeFragment extends Fragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
 
         // Get codes on scroll
         binding.codesRV.addOnScrollListener(new RecyclerView.OnScrollListener() {

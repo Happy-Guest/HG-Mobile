@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -71,7 +70,7 @@ public class ComplaintsFragment extends Fragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
 
         // Get complaints on scroll
         binding.complaintsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -91,8 +90,6 @@ public class ComplaintsFragment extends Fragment {
         binding.swipeRefresh.setOnRefreshListener(this::getComplaints);
 
         // Switch status
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(binding.getRoot().getContext(), R.array.complaint_status, android.R.layout.simple_spinner_item);
-        binding.spinnerSelectStatus.setAdapter(adapter);
         binding.spinnerSelectStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

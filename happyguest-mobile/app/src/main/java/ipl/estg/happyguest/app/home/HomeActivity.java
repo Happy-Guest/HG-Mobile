@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     private APIRoutes api;
     private Token token;
     private Button btnLogout;
+    private int titleMaxWidth;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -104,6 +105,9 @@ public class HomeActivity extends AppCompatActivity {
             updateProfileImageVisibility(percentage);
         });
 
+        // Title max width
+        titleMaxWidth = binding.appBarHome.txtBarTitle.getMaxWidth();
+
         // Open drawer
         binding.appBarHome.btnBarOpen.setOnClickListener(v -> binding.drawerLayout.open());
 
@@ -131,6 +135,13 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
 
+            // Check title size
+            if (binding.appBarHome.txtBarTitle.getText().toString().contains(" ")) {
+                binding.appBarHome.txtBarTitle.setMaxWidth(titleMaxWidth);
+            } else {
+                binding.appBarHome.txtBarTitle.setMaxWidth(0);
+            }
+
             // Set profile image
             if (destination.getId() == R.id.nav_profile || destination.getId() == R.id.nav_password) {
                 binding.appBarHome.txtBarTitle.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -145,19 +156,24 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
+                binding.appBarHome.btnBarProfile.setEnabled(true);
             }
         });
 
         // Go to home fragment
         binding.appBarHome.btnBarLogo.setOnClickListener(v -> {
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_home)
+                return;
             navController.popBackStack();
-            navController.navigate(R.id.nav_home);
+            navController.navigate(R.id.action_nav_home);
         });
 
         // Go to profile fragment
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
+            binding.appBarHome.btnBarProfile.setEnabled(false);
             navController.popBackStack();
             navController.navigate(R.id.action_nav_profile);
+
         });
 
         // Button logout
@@ -176,14 +192,14 @@ public class HomeActivity extends AppCompatActivity {
         // Select Image
         binding.appBarHome.imageProfile.setOnClickListener(v -> {
             if (editMode) {
-                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_fast));
                 binding.appBarHome.imageUpload.setVisibility(View.VISIBLE);
                 Intent photoPicker = new Intent();
                 photoPicker.setType("image/*");
                 photoPicker.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_image)));
                 new Handler().postDelayed(() -> {
-                    binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
+                    binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                     binding.appBarHome.imageUpload.setVisibility(View.GONE);
                 }, 1000);
             }

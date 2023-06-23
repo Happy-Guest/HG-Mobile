@@ -65,7 +65,7 @@ public class ReviewsFragment extends Fragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
 
         // Register review button
         binding.btnRegisterReview.setOnClickListener(v -> {
