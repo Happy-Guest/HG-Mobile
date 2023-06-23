@@ -131,6 +131,14 @@ public class RegisterComplaintFragment extends Fragment {
         //Register Button
         binding.btnRegisterComplaint.setOnClickListener(v -> changeRegisterComplaintClick());
 
+        // Cancel Button
+        binding.btnClose.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_complaints);
+            }
+        });
+
         // Checkbox anonymous
         checkAnonymous = binding.checkAnonymous;
         checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -264,7 +272,7 @@ public class RegisterComplaintFragment extends Fragment {
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 binding.btnRegisterComplaint.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    // Display success message and update user
+                    // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();

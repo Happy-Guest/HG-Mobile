@@ -75,6 +75,14 @@ public class RegisterReviewFragment extends Fragment {
         inputComment = binding.inputComment;
         txtComment = binding.txtComment;
 
+        // Cancel Button
+        binding.btnClose.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_reviews);
+            }
+        });
+
         // Checkbox anonymous
         checkAnonymous = binding.checkAnonymous;
         checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -143,7 +151,7 @@ public class RegisterReviewFragment extends Fragment {
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 binding.btnRegisterReview.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    // Display success message and update user
+                    // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();

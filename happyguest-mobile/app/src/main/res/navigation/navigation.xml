@@ -79,5 +79,15 @@
         android:name="ipl.estg.happyguest.app.home.complaint.ComplaintFragment"
         android:label="@string/menu_complaint"
         tools:layout="@layout/fragment_complaint" />
+    <action
+        android:id="@+id/action_nav_review"
+        app:destination="@id/nav_review"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/action_nav_complaint"
+        app:destination="@id/nav_complaint"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

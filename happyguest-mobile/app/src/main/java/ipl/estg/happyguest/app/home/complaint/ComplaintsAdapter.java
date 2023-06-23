@@ -76,7 +76,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Vi
         holder.complaintOpen.setOnClickListener(view -> {
             if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentBundle(R.id.nav_complaint, complaint.getId(), id);
+                homeActivity.changeFragmentBundle(R.id.action_nav_complaint, complaint.getId(), id);
             }
         });
     }

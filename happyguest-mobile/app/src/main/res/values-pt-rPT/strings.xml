@@ -54,15 +54,15 @@
     <string name="open">Abrir</string>
     <string name="no_comment">Sem comentário</string>
     <string name="no_response">Sem resposta</string>
-    <string name="authorized_sharing">Partilha autorizada</string>
-    <string name="shared">Partilhada</string>
+    <string name="authorized_sharing">Partilha Autorizada</string>
+    <string name="shared">Avaliação Partilhada</string>
     <string name="response">Resposta</string>
-    <string name="response_date">Respondido em</string>
+    <string name="response_date">Respondida em</string>
     <string name="pending">Pendente</string>
     <string name="solving">Resolução</string>
     <string name="resolved">Resolvida</string>
     <string name="canceled">Anulada</string>
-    <string name="createdDate">Data de Criação</string>
+    <string name="createdDate">Criada em</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

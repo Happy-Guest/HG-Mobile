@@ -22,14 +22,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/complaint_status"
             android:textColor="#000000"
@@ -40,20 +42,20 @@
             android:id="@+id/txtStatusType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="7dp"
             android:background="@drawable/btn_primary"
             android:drawablePadding="5dp"
             android:elegantTextHeight="true"
-            android:elevation="10dp"
+            android:elevation="3dp"
             android:gravity="center_horizontal|center_vertical"
             android:minHeight="30dip"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:shadowColor="@color/dark_gray"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="10"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp"
@@ -66,7 +68,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:enabled="false"
         app:startIconDrawable="@drawable/title_icon"
         app:startIconTint="@color/gold">
 
@@ -79,6 +81,7 @@
             android:hint="@string/title"
             android:inputType="text"
             android:maxLength="255"
+            android:textColor="@color/dark_gray"
             android:textColorHint="#757575"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
+        android:enabled="false"
         app:startIconDrawable="@drawable/local_icon"
         app:startIconTint="@color/gold">
 
@@ -101,6 +105,7 @@
             android:hint="@string/local"
             android:inputType="text"
             android:maxLength="255"
+            android:textColor="@color/dark_gray"
             android:textColorHint="#757575"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -111,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:enabled="true"
+        android:enabled="false"
         app:startIconDrawable="@drawable/comment_icon"
         app:startIconTint="@color/gold">
 
@@ -129,6 +134,7 @@
             android:minLines="1"
             android:nestedScrollingEnabled="false"
             android:singleLine="false"
+            android:textColor="@color/dark_gray"
             android:textColorHint="#757575"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -138,8 +144,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:enabled="true"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
         app:startIconDrawable="@drawable/response_icon"
         app:startIconTint="@color/gold">
 
@@ -157,6 +163,7 @@
             android:minLines="1"
             android:nestedScrollingEnabled="false"
             android:singleLine="false"
+            android:textColor="@color/dark_gray"
             android:textColorHint="#757575"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -165,11 +172,11 @@
         android:id="@+id/txtResponseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/response_date"
-        android:textColor="#000000"
+        android:textColor="@color/dark_gray"
         android:textSize="14sp"
         android:textStyle="normal" />
 
@@ -178,12 +185,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="@string/createdDate"
-        android:textColor="#000000"
+        android:textColor="@color/dark_gray"
         android:textSize="14sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btnClose"
@@ -191,6 +199,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/btn_secondary"
         android:clickable="true"
         android:text="@string/btnClose"

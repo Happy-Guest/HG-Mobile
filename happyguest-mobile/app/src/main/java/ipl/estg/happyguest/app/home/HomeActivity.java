@@ -121,7 +121,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
-                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaints) {
+                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaints || destination.getId() == R.id.nav_complaint) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
                 } else if (destination.getId() == R.id.nav_reviews || destination.getId() == R.id.nav_register_review || destination.getId() == R.id.nav_review) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_review);
