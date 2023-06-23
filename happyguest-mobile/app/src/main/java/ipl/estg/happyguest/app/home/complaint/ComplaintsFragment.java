@@ -99,18 +99,23 @@ public class ComplaintsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (binding.spinnerSelectStatus.getSelectedItem().toString()) {
                     case "All":
+                    case "Todas":
                         selectedStatus = "ALL";
                         break;
                     case "Pending":
+                    case "Pendentes":
                         selectedStatus = "P";
                         break;
                     case "Solving":
+                    case "Resolução":
                         selectedStatus = "S";
                         break;
                     case "Resolved":
+                    case "Resolvidas":
                         selectedStatus = "R";
                         break;
                     case "Annulled":
+                    case "Anuladas":
                         selectedStatus = "C";
                         break;
                 }

@@ -127,7 +127,6 @@
     <string name="review_anonymous_message">Avaliação anónima não poderá ser revista!</string>
     <string name="complaint_anonymous_message">Reclamação anónima não poderá ser revista!</string>
 
-
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
     <string name="title_ChangePassword">Pretende alterar a palavra-passe?</string>
