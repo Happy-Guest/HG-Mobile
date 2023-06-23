@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.models.Complaint;
 
 public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.ViewHolder> {
@@ -72,12 +73,12 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Vi
         holder.status.setText(complaintStatus);
 
         // View Button
-        /*holder.complaintOpen.setOnClickListener(view -> {
+        holder.complaintOpen.setOnClickListener(view -> {
             if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
                 homeActivity.changeFragmentBundle(R.id.nav_complaint, complaint.getId(), id);
             }
-        });*/
+        });
     }
 
     @Override

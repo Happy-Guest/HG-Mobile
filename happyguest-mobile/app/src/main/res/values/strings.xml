@@ -57,7 +57,6 @@
     <string name="shared">Shared</string>
     <string name="response">Response</string>
     <string name="response_date">Answered in: </string>
-    <string name="status">Status:</string>
     <string name="pending">Pending</string>
     <string name="solving">Solving</string>
     <string name="resolved">Resolved</string>

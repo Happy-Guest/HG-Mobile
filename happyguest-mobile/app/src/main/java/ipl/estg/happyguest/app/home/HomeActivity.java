@@ -216,8 +216,8 @@ public class HomeActivity extends AppCompatActivity {
         navController.popBackStack();
         navController.navigate(id, bundle);
         new Handler().postDelayed(() -> {
-           String title = binding.appBarHome.txtBarTitle.getText() + position.toString();
-           binding.appBarHome.txtBarTitle.setText(title);
+            String title = binding.appBarHome.txtBarTitle.getText() + position.toString();
+            binding.appBarHome.txtBarTitle.setText(title);
         }, 100);
     }
 
@@ -232,7 +232,8 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews, R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
+                R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

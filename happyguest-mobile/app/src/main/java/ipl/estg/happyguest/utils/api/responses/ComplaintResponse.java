@@ -2,6 +2,8 @@ package ipl.estg.happyguest.utils.api.responses;
 
 import com.google.gson.annotations.SerializedName;
 
+import ipl.estg.happyguest.utils.models.Complaint;
+
 
 public class ComplaintResponse extends MessageResponse{
 

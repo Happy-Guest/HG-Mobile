@@ -1,23 +1,21 @@
 package ipl.estg.happyguest.app.home.complaint;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentComplaintBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
-import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
-import ipl.estg.happyguest.utils.models.Review;
+import ipl.estg.happyguest.utils.models.Complaint;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,11 +23,9 @@ import retrofit2.Callback;
 
 public class ComplaintFragment extends Fragment {
 
-    private FragmentComplaintBinding binding;
-
-    private APIRoutes api;
-
     Long complaintId;
+    private FragmentComplaintBinding binding;
+    private APIRoutes api;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +76,7 @@ public class ComplaintFragment extends Fragment {
                     binding.txtComment.setText(complaint.getComment());
                     String txtResponse = getString(R.string.response) + ": " + complaint.getResponse();
                     binding.txtResponse.setText(txtResponse);
-                    String dateUpdateAt = getString(R.string.response_date) + ": " + complaint.getUpdateAt();
+                    String dateUpdateAt = getString(R.string.response_date) + ": " + complaint.getUpdatedAt();
                     binding.txtResponseDate.setText(dateUpdateAt);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
