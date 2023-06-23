@@ -78,6 +78,8 @@
     <string name="api_error">Error connecting to the server!</string>
     <string name="data_error">Error loading data!</string>
     <string name="codes_error">Error loading codes!</string>
+    <string name="reviews_error">Error loading reviews!</string>
+    <string name="complaints_error">Error loading complaints!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
@@ -112,6 +114,7 @@
     <string name="comment_review">Leave your comment:</string>
     <string name="no_codes">You don\'t have any associated code.</string>
     <string name="no_reviews">You don\'t have any reviews.</string>
+    <string name="no_complaints">You don\'t have any complaints.</string>
     <string name="review_week">You can only review once a week!</string>
     <string name="review_anonymous_message">Anonymous review cannot be revised!</string>
     <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>

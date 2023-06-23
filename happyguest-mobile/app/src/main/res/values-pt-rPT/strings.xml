@@ -78,6 +78,8 @@
     <string name="api_error">Erro ao ligar ao servidor!</string>
     <string name="data_error">Erro ao carregar dados!</string>
     <string name="codes_error">Erro ao carregar códigos!</string>
+    <string name="reviews_error">Erro ao carregar avaliações!</string>
+    <string name="complaints_error">Erro ao carregar reclamações!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
@@ -111,6 +113,7 @@
     <string name="comment_review">Deixe o seu comentário:</string>
     <string name="no_codes">Não tem códigos associados.</string>
     <string name="no_reviews">Não tem avaliações registadas.</string>
+    <string name="no_complaints">Não tem reclamações registadas.</string>
     <string name="review_week">Só pode fazer uma avaliação por semana!</string>
     <string name="review_anonymous_message">Avaliação anónima não poderá ser revista!</string>
     <string name="complaint_anonymous_message">Reclamação anónima não poderá ser revista!</string>
