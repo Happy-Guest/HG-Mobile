@@ -69,34 +69,54 @@ public class RegisterComplaintFragment extends Fragment {
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
-                        List<Uri> selectedImages = new ArrayList<>();
+                        List<Uri> selectedFiles = new ArrayList<>();
                         ClipData clipData = result.getData().getClipData();
                         if (clipData != null) {
                             int count = clipData.getItemCount();
                             for (int i = 0; i < count; i++) {
-                                Uri selectedImage = clipData.getItemAt(i).getUri();
-                                selectedImages.add(selectedImage);
+                                Uri selectedFile = clipData.getItemAt(i).getUri();
+                                selectedFiles.add(selectedFile);
                             }
                         } else {
-                            Uri selectedImage = result.getData().getData();
-                            selectedImages.add(selectedImage);
+                            Uri selectedFile = result.getData().getData();
+                            selectedFiles.add(selectedFile);
                         }
-                        for (Uri selectedImage : selectedImages) {
+                        for (Uri selectedFile : selectedFiles) {
                             try {
-                                InputStream inputStream = binding.getRoot().getContext().getContentResolver().openInputStream(selectedImage);
-                                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                byte[] photo = stream.toByteArray();
-                                files.add(photo);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
+                                InputStream inputStream = binding.getRoot().getContext().getContentResolver().openInputStream(selectedFile);
+                                String mimeType = binding.getRoot().getContext().getContentResolver().getType(selectedFile);
+
+                                if (mimeType != null && mimeType.equals("image/jpeg")) {
+                                    // Handle JPEG image
+                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                                    byte[] photo = stream.toByteArray();
+                                    files.add(photo);
+                                } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                    // Handle PDF file
+                                    byte[] pdfBytes = readBytesFromInputStream(inputStream);
+                                    files.add(pdfBytes);
+                                }
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
                             }
                         }
                     }
                 }
             }
     );
+
+    private byte[] readBytesFromInputStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
     private TextInputLayout inputDate;
     private TextInputLayout inputTitle;
     private TextInputLayout inputLocal;
