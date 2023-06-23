@@ -24,9 +24,10 @@ import retrofit2.Callback;
 
 public class ReviewFragment extends Fragment {
 
-    Long reviewId;
+
     private FragmentReviewBinding binding;
     private APIRoutes api;
+    Long reviewId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -53,6 +53,9 @@
     <string name="no_comment">Sem comentário</string>
     <string name="authorized_sharing">Partilha autorizada</string>
     <string name="shared">Partilhada</string>
+    <string name="response">Resposta</string>
+    <string name="response_date">Respondido em:</string>
+    <string name="status">Estado:</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

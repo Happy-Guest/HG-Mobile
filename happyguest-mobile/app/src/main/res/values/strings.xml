@@ -53,6 +53,9 @@
     <string name="no_comment">No Comment</string>
     <string name="authorized_sharing">Authorized Sharing</string>
     <string name="shared">Shared</string>
+    <string name="response">Response</string>
+    <string name="response_date">Answered in: </string>
+    <string name="status">Status:</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
