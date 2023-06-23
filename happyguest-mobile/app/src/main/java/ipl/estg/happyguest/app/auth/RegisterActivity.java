@@ -1,9 +1,9 @@
 package ipl.estg.happyguest.app.auth;
 
+import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
+
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -25,8 +25,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -63,11 +63,19 @@ public class RegisterActivity extends AppCompatActivity {
                         Uri selectedImage = result.getData().getData();
                         try {
                             InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                            photo = stream.toByteArray();
-                        } catch (FileNotFoundException e) {
+                            // Create a temporary file to save the image
+                            File tempFile = File.createTempFile("temp_image", null, getCacheDir());
+                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                fileOutputStream.write(buffer, 0, bytesRead);
+                            }
+                            // Close the streams
+                            inputStream.close();
+                            fileOutputStream.close();
+                            photo = getStreamByteFromImage(tempFile);
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
