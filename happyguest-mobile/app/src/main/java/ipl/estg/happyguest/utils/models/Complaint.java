@@ -23,6 +23,8 @@ public class Complaint {
     @Nullable
     @SerializedName("response")
     private String response;
+    @SerializedName("date")
+    private String date;
     @Nullable
     @SerializedName("files")
     private ArrayList<File> files;
@@ -31,7 +33,7 @@ public class Complaint {
     @SerializedName("updated_at")
     private String updatedAt;
 
-    public Complaint(Long id, String title, String local, char status, String comment, String response, ArrayList<File> files, String createdAt, String updatedAt) {
+    public Complaint(Long id, String title, String local, char status, String comment, String response, ArrayList<File> files, String date, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.local = local;
@@ -39,6 +41,7 @@ public class Complaint {
         this.comment = comment;
         this.response = response;
         this.files = files;
+        this.date = date;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -116,5 +119,13 @@ public class Complaint {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

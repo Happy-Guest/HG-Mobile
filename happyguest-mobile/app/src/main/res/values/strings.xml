@@ -53,14 +53,16 @@
     <string name="addFiles">Add Files</string>
     <string name="open">Open</string>
     <string name="no_comment">No Comment</string>
+    <string name="no_response">No Response</string>
     <string name="authorized_sharing">Authorized Sharing</string>
     <string name="shared">Shared</string>
     <string name="response">Response</string>
-    <string name="response_date">Answered in: </string>
+    <string name="response_date">Answered in</string>
     <string name="pending">Pending</string>
     <string name="solving">Solving</string>
     <string name="resolved">Resolved</string>
     <string name="canceled">Annulled</string>
+    <string name="createdDate">Created in</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

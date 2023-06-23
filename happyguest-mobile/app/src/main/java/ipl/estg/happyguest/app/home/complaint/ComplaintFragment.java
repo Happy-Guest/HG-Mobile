@@ -1,5 +1,7 @@
 package ipl.estg.happyguest.app.home.complaint;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentComplaintBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.models.Complaint;
+import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
+import ipl.estg.happyguest.utils.models.Complaint;
+import ipl.estg.happyguest.utils.models.Review;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +46,13 @@ public class ComplaintFragment extends Fragment {
 
         getComplaintAttempt();
 
+        binding.btnClose.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_complaints);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -51,33 +64,36 @@ public class ComplaintFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Review and populate fields
                     Complaint complaint = response.body().getComplaint();
-                    String date = getString(R.string.date) + ": " + complaint.getCreatedAt();
+                    String date = getString(R.string.date) + ": " + complaint.getDate();
                     binding.txtDate.setText(date);
+                    String complaintStatus = "";
                     switch (complaint.getStatus()) {
-                        case "P":
-                            binding.txtStatusType.setBackgroundTintList();
-                            binding.txtStatusType.setText(getString(R.string.pending));
+                        case 'P':
+                            complaintStatus = getString(R.string.pending);
+                            binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#009688")));
                             break;
-                        case "S":
-                            binding.txtStatusType.setTextColor(getResources().getColor(R.color.orange));
-                            binding.txtStatusType.setText(getString(R.string.solving));
+                        case 'S':
+                            complaintStatus = getString(R.string.solving);
+                            binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BA810F")));
                             break;
-                        case "R":
-                            binding.txtStatusType.setTextColor(getResources().getColor(R.color.green));
-                            binding.txtStatusType.setText(getString(R.string.resolved));
+                        case 'R':
+                            complaintStatus = getString(R.string.resolved);
+                            binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF189329")));
                             break;
-                        case "C":
-                            binding.txtStatusType.setTextColor(getResources().getColor(R.color.red));
-                            binding.txtStatusType.setText(getString(R.string.canceled));
+                        case 'C':
+                            complaintStatus = getString(R.string.canceled);
+                            binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#932218")));
                             break;
                     }
+                    binding.txtStatusType.setText(complaintStatus);
                     binding.txtTitle.setText(complaint.getTitle());
                     binding.txtLocal.setText(complaint.getLocal());
                     binding.txtComment.setText(complaint.getComment());
-                    String txtResponse = getString(R.string.response) + ": " + complaint.getResponse();
-                    binding.txtResponse.setText(txtResponse);
+                    binding.txtResponse.setText(complaint.getResponse() != null ? complaint.getResponse() : getString(R.string.no_response));
                     String dateUpdateAt = getString(R.string.response_date) + ": " + complaint.getUpdatedAt();
                     binding.txtResponseDate.setText(dateUpdateAt);
+                    String dateCreatedAt = getString(R.string.createdDate) + ": " + complaint.getCreatedAt();
+                    binding.txtCreatedDate.setText(dateCreatedAt);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetComplaint Error: ", response.message());

@@ -7,6 +7,7 @@ import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
+import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.api.responses.ComplaintsResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
@@ -85,5 +86,5 @@ public interface APIRoutes {
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
 
     @GET("complaints/{id}")
-    Call<CodesResponse> getComplaint(@Path("id") Long id);
+    Call<ComplaintResponse> getComplaint(@Path("id") Long id);
 }
