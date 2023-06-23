@@ -38,6 +38,7 @@
     <string name="code_exit_date">Exit ➔ </string>
     <string name="code_rooms">Rooms: </string>
     <string name="complaint_local">Local: </string>
+    <string name="complaint_status">Status: </string>
     <string name="remove_code">Remove Code</string>
     <string name="star_review">Star</string>
     <string name="switch_order">Most Recent</string>
