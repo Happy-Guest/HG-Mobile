@@ -5,11 +5,14 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -61,34 +64,45 @@ import retrofit2.Response;
 public class RegisterComplaintFragment extends Fragment {
 
     private final List<byte[]> files = new ArrayList<>();
+    private final List<String> nameFiles = new ArrayList<>();
     // Select files
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
-                        Uri selectedFile = result.getData().getData();
-                        try {
-                            InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
-                            File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
-                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
-                            byte[] buffer = new byte[4096];
-                            int bytesRead;
-                            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                                fileOutputStream.write(buffer, 0, bytesRead);
+                        ClipData clipData = result.getData().getClipData();
+                        if (clipData != null) {
+                            int itemCount = clipData.getItemCount();
+                            for (int i = 0; i < itemCount; i++) {
+                                Uri selectedFile = clipData.getItemAt(i).getUri();
+                                String fileName = getFileName(selectedFile);
+                                nameFiles.add(fileName);
                             }
-                            inputStream.close();
-                            fileOutputStream.close();
-                            // Check if the file is an image or a PDF
-                            String mimeType = requireActivity().getContentResolver().getType(selectedFile);
-                            if (mimeType != null && mimeType.startsWith("image/")) {
-                                files.add(getStreamByteFromImage(tempFile));
-                            } else if (mimeType != null && mimeType.equals("application/pdf")) {
-                                byte[] pdfBytes = getStreamByteFromFile(tempFile);
-                                files.add(pdfBytes);
+                        } else {
+                            Uri selectedFile = result.getData().getData();
+                            try {
+                                InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                                File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                                FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                                byte[] buffer = new byte[4096];
+                                int bytesRead;
+                                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                    fileOutputStream.write(buffer, 0, bytesRead);
+                                }
+                                inputStream.close();
+                                fileOutputStream.close();
+                                // Check if the file is an image or a PDF
+                                String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                                if (mimeType != null && mimeType.startsWith("image/")) {
+                                    files.add(getStreamByteFromImage(tempFile));
+                                } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                    byte[] pdfBytes = getStreamByteFromFile(tempFile);
+                                    files.add(pdfBytes);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
@@ -217,6 +231,24 @@ public class RegisterComplaintFragment extends Fragment {
         }
     }
 
+    private String getFileName(Uri uri) {
+        String fileName = null;
+        Cursor cursor = null;
+        try {
+            String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+            cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+                fileName = cursor.getString(columnIndex);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return fileName;
+    }
+
     private byte[] getStreamByteFromFile(File file) throws IOException {
         try (InputStream inputStream = requireActivity().getContentResolver().openInputStream(Uri.fromFile(file))) {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -276,7 +308,7 @@ public class RegisterComplaintFragment extends Fragment {
     private void registerComplaintAttempt() {
         Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(checkAnonymous.isChecked() ? null : user.getId(), txtTitle.getText().toString(),
                 txtLocal.getText().toString(), "P", txtComment.getText().toString(),
-                formatDate(txtDate.getText().toString()), files.isEmpty() ? null : convertPhotosToBase64(files)));
+                formatDate(txtDate.getText().toString()), files.isEmpty() ? null : convertPhotosToBase64(files), files.isEmpty() ? null : nameFiles));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

@@ -23,8 +23,11 @@ public class ComplaintRequest {
     @Nullable
     @SerializedName("filesBase64")
     private final List<String> filesBase64;
+    @Nullable
+    @SerializedName("fileNames")
+    private final List<String> fileNames;
 
-    public ComplaintRequest(@Nullable Integer user_id, String title, String local, String status, String comment, String date, @Nullable List<String> filesBase64) {
+    public ComplaintRequest(@Nullable Integer user_id, String title, String local, String status, String comment, String date, @Nullable List<String> filesBase64, @Nullable List<String> fileNames) {
         this.user_id = user_id;
         this.title = title;
         this.local = local;
@@ -32,5 +35,6 @@ public class ComplaintRequest {
         this.comment = comment;
         this.date = date;
         this.filesBase64 = filesBase64;
+        this.fileNames = fileNames;
     }
 }
