@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Complaint {
@@ -27,13 +26,13 @@ public class Complaint {
     private final String date;
     @Nullable
     @SerializedName("files")
-    private final ArrayList<File> files;
+    private final ArrayList<ComplaintFile> files;
     @SerializedName("created_at")
     private final String createdAt;
     @SerializedName("updated_at")
     private final String updatedAt;
 
-    public Complaint(Long id, String title, @Nullable String local, char status, String comment, @Nullable String response, @Nullable ArrayList<File> files, String date, String createdAt, String updatedAt) {
+    public Complaint(Long id, String title, @Nullable String local, char status, String comment, @Nullable String response, @Nullable ArrayList<ComplaintFile> files, String date, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.local = local;
@@ -73,7 +72,7 @@ public class Complaint {
     }
 
     @Nullable
-    public ArrayList<File> getFiles() {
+    public ArrayList<ComplaintFile> getFiles() {
         return files;
     }
 

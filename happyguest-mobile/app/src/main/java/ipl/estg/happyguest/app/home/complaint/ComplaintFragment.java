@@ -12,16 +12,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
+import ipl.estg.happyguest.app.home.review.ComplaintFilesAdapter;
 import ipl.estg.happyguest.databinding.FragmentComplaintBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.models.Complaint;
+import ipl.estg.happyguest.utils.models.ComplaintFile;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +37,8 @@ public class ComplaintFragment extends Fragment {
     Long complaintId;
     private FragmentComplaintBinding binding;
     private APIRoutes api;
+    private ComplaintFilesAdapter complaintFilesAdapter;
+    private ArrayList<ComplaintFile> complaintFilesList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +97,7 @@ public class ComplaintFragment extends Fragment {
                     binding.txtTitle.setText(complaint.getTitle());
                     binding.txtLocal.setText(complaint.getLocal());
                     binding.txtComment.setText(complaint.getComment());
+                    // Response
                     binding.txtResponse.setText(complaint.getResponse() != null ? complaint.getResponse() : getString(R.string.no_response));
                     if (complaint.getResponse() != null && !complaint.getResponse().isEmpty() && !Objects.equals(complaint.getResponse(), "Sem resposta")) {
                         binding.txtResponse.setTextColor(ContextCompat.getColor(binding.getRoot().getContext(), R.color.dark_gray));
@@ -102,6 +110,21 @@ public class ComplaintFragment extends Fragment {
                     }
                     String dateCreatedAt = getString(R.string.createdDate) + ": " + complaint.getCreatedAt();
                     binding.txtCreatedDate.setText(dateCreatedAt);
+                    // Files
+                    if (complaint.getFiles() != null && complaint.getFiles().size() > 0) {
+                        binding.complaintFilesRV.setVisibility(View.VISIBLE);
+                        binding.txtFiles.setVisibility(View.VISIBLE);
+                        RecyclerView complaintFilesRV = binding.complaintFilesRV;
+                        complaintFilesList = new ArrayList<>();
+                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext());
+                        complaintFilesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+                        complaintFilesRV.setAdapter(complaintFilesAdapter);
+                        complaintFilesList.addAll(complaint.getFiles());
+                        complaintFilesAdapter.notifyItemRangeInserted(0, complaint.getFiles().size());
+                    } else {
+                        binding.complaintFilesRV.setVisibility(View.GONE);
+                        binding.txtFiles.setVisibility(View.GONE);
+                    }
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetComplaint Error: ", response.message());
