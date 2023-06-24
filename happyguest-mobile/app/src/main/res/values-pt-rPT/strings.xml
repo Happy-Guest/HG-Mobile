@@ -91,6 +91,8 @@
     <string name="codes_error">Erro ao carregar códigos!</string>
     <string name="reviews_error">Erro ao carregar avaliações!</string>
     <string name="complaints_error">Erro ao carregar reclamações!</string>
+    <string name="error_file">Erro ao carregar ficheiro!</string>
+    <string name="error_file_app">Erro ao abrir ficheiro!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>

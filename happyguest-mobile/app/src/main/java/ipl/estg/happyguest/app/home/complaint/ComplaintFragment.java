@@ -70,7 +70,7 @@ public class ComplaintFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ComplaintResponse> call, @NonNull retrofit2.Response<ComplaintResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Get Review and populate fields
+                    // Get Complaint and populate fields
                     Complaint complaint = response.body().getComplaint();
                     String date = getString(R.string.date) + ": " + complaint.getDate();
                     binding.txtDate.setText(date);
@@ -116,7 +116,7 @@ public class ComplaintFragment extends Fragment {
                         binding.txtFiles.setVisibility(View.VISIBLE);
                         RecyclerView complaintFilesRV = binding.complaintFilesRV;
                         complaintFilesList = new ArrayList<>();
-                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext());
+                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext(), complaintId, api);
                         complaintFilesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         complaintFilesRV.setAdapter(complaintFilesAdapter);
                         complaintFilesList.addAll(complaint.getFiles());

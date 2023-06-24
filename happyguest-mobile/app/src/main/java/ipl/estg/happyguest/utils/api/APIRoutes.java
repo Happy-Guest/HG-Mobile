@@ -15,6 +15,7 @@ import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -83,6 +84,9 @@ public interface APIRoutes {
 
     @GET("complaints/{id}")
     Call<ComplaintResponse> getComplaint(@Path("id") Long id);
+
+    @GET("complaints/{id}/file/{file}")
+    Call<ResponseBody> getComplaintFile(@Path("id") Long id, @Path("file") Long file);
 
     @POST("complaints")
     @Headers("Accept: application/json")

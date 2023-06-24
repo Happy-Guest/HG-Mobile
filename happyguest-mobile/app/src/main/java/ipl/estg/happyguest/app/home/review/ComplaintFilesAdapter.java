@@ -2,28 +2,48 @@ package ipl.estg.happyguest.app.home.review;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.models.ComplaintFile;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAdapter.ViewHolder> {
 
     private final ArrayList<ComplaintFile> complaintFilesList;
     private final Context context;
+    private final APIRoutes api;
+    private final long complaintId;
 
-    public ComplaintFilesAdapter(ArrayList<ComplaintFile> complaintFilesList, Context context) {
+    public ComplaintFilesAdapter(ArrayList<ComplaintFile> complaintFilesList, Context context, long complaintId, APIRoutes api) {
         this.complaintFilesList = complaintFilesList;
         this.context = context;
+        this.complaintId = complaintId;
+        this.api = api;
     }
 
     @NonNull
@@ -45,14 +65,71 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
         holder.name.setText(name);
 
         // View Button
-        holder.fileOpen.setOnClickListener(view -> {
-            // Download File
-        });
+        holder.fileOpen.setOnClickListener(view -> getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename()));
     }
 
     @Override
     public int getItemCount() {
         return complaintFilesList.size();
+    }
+
+    private void getComplaintFileAttempt(long complaintId, long fileId, String fileName) {
+        Call<ResponseBody> call = api.getComplaintFile(complaintId, fileId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull retrofit2.Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String responseString = Objects.requireNonNull(response.body()).string();
+                        downloadFile(responseString.getBytes(), fileName);
+                    } catch (IOException e) {
+                        Toast.makeText(context.getApplicationContext(), context.getString(R.string.error_file), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                    Log.i("GetComplaintFile Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.i("GetComplaintFile Error: ", t.getMessage());
+            }
+        });
+    }
+
+    private void downloadFile(byte[] fileData, String fileName) {
+        try {
+            File appDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            if (appDir == null) {
+                // App-specific directory is not available
+                Toast.makeText(context, context.getString(R.string.error_file_app), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Create a file
+            File file = new File(appDir, fileName);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(fileData);
+            outputStream.close();
+            MediaScannerConnection.scanFile(context, new String[]{file.getAbsolutePath()}, null, null);
+            // Open the file
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri fileUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+            String mimeType = getMimeType(file.getName());
+            intent.setDataAndType(fileUri, mimeType);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.startActivity(intent);
+        } catch (IOException e) {
+            Toast.makeText(context, context.getString(R.string.error_file), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    private String getMimeType(String fileName) {
+        String extension = MimeTypeMap.getFileExtensionFromUrl(fileName);
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -91,6 +91,8 @@
     <string name="codes_error">Error loading codes!</string>
     <string name="reviews_error">Error loading reviews!</string>
     <string name="complaints_error">Error loading complaints!</string>
+    <string name="error_file">Error loading file!</string>
+    <string name="error_file_app">Error opening file!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
