@@ -31,6 +31,7 @@ import ipl.estg.happyguest.utils.models.ComplaintFile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAdapter.ViewHolder> {
 
@@ -65,7 +66,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
         holder.name.setText(name);
 
         // View Button
-        holder.fileOpen.setOnClickListener(view -> getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename()));
+        holder.fileOpen.setOnClickListener(view -> getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen));
     }
 
     @Override
@@ -73,15 +74,17 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
         return complaintFilesList.size();
     }
 
-    private void getComplaintFileAttempt(long complaintId, long fileId, String fileName) {
+    private void getComplaintFileAttempt(long complaintId, long fileId, String fileName, Button fileOpen) {
+        fileOpen.setEnabled(false);
         Call<ResponseBody> call = api.getComplaintFile(complaintId, fileId);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull retrofit2.Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                fileOpen.setEnabled(true);
                 if (response.isSuccessful()) {
                     try {
-                        String responseString = Objects.requireNonNull(response.body()).string();
-                        downloadFile(responseString.getBytes(), fileName);
+                        byte[] fileData = Objects.requireNonNull(response.body()).bytes();
+                        downloadFile(fileData, fileName);
                     } catch (IOException e) {
                         Toast.makeText(context.getApplicationContext(), context.getString(R.string.error_file), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
@@ -96,23 +99,27 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetComplaintFile Error: ", t.getMessage());
+                fileOpen.setEnabled(true);
             }
         });
     }
 
     private void downloadFile(byte[] fileData, String fileName) {
         try {
-            File appDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            if (appDir == null) {
-                // App-specific directory is not available
-                Toast.makeText(context, context.getString(R.string.error_file_app), Toast.LENGTH_SHORT).show();
-                return;
+            File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            if (!downloadsDir.exists()) {
+                boolean isDirCreated = downloadsDir.mkdirs();
+                if (!isDirCreated) {
+                    // Directory creation failed
+                    Toast.makeText(context, context.getString(R.string.error_file_app), Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
-            // Create a file
-            File file = new File(appDir, fileName);
+            File file = new File(downloadsDir, fileName);
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(fileData);
             outputStream.close();
+            // Notify the MediaScanner about the new file
             MediaScannerConnection.scanFile(context, new String[]{file.getAbsolutePath()}, null, null);
             // Open the file
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -121,6 +128,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
             intent.setDataAndType(fileUri, mimeType);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(intent);
+            Toast.makeText(context, context.getString(R.string.file_downloaded), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(context, context.getString(R.string.error_file), Toast.LENGTH_SHORT).show();
             e.printStackTrace();

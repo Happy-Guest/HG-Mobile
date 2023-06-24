@@ -132,6 +132,7 @@
     <string name="review_anonymous_message">Avaliação anónima não poderá ser revista!</string>
     <string name="complaint_anonymous_message">Reclamação anónima não poderá ser revista!</string>
     <string name="save_photo">Atualize o perfil para guardar a foto.</string>
+    <string name="file_downloaded">O ficheiro foi descarregado com sucesso.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

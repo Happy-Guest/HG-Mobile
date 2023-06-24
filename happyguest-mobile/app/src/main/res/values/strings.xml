@@ -132,6 +132,7 @@
     <string name="review_anonymous_message">Anonymous review cannot be revised!</string>
     <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>
     <string name="save_photo">Update profile to save the photo.</string>
+    <string name="file_downloaded">File was downloaded successfully.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
