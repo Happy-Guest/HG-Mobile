@@ -5,7 +5,6 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -71,38 +70,30 @@ public class RegisterComplaintFragment extends Fragment {
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
-                        ClipData clipData = result.getData().getClipData();
-                        if (clipData != null) {
-                            int itemCount = clipData.getItemCount();
-                            for (int i = 0; i < itemCount; i++) {
-                                Uri selectedFile = clipData.getItemAt(i).getUri();
-                                String fileName = getFileName(selectedFile);
-                                nameFiles.add(fileName);
+                        Uri selectedFile = result.getData().getData();
+                        try {
+                            InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                            File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                fileOutputStream.write(buffer, 0, bytesRead);
                             }
-                        } else {
-                            Uri selectedFile = result.getData().getData();
-                            try {
-                                InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
-                                File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
-                                FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
-                                byte[] buffer = new byte[4096];
-                                int bytesRead;
-                                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                                    fileOutputStream.write(buffer, 0, bytesRead);
-                                }
-                                inputStream.close();
-                                fileOutputStream.close();
-                                // Check if the file is an image or a PDF
-                                String mimeType = requireActivity().getContentResolver().getType(selectedFile);
-                                if (mimeType != null && mimeType.startsWith("image/")) {
-                                    files.add(getStreamByteFromImage(tempFile));
-                                } else if (mimeType != null && mimeType.equals("application/pdf")) {
-                                    byte[] pdfBytes = getStreamByteFromFile(tempFile);
-                                    files.add(pdfBytes);
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            inputStream.close();
+                            fileOutputStream.close();
+                            // Get the file name from the file URI
+                            nameFiles.add(getFileNameFromUri(selectedFile));
+                            // Check if the file is an image or a PDF
+                            String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                            if (mimeType != null && mimeType.startsWith("image/")) {
+                                files.add(getStreamByteFromImage(tempFile));
+                            } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                byte[] pdfBytes = getStreamByteFromFile(tempFile);
+                                files.add(pdfBytes);
                             }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -231,20 +222,14 @@ public class RegisterComplaintFragment extends Fragment {
         }
     }
 
-    private String getFileName(Uri uri) {
+    private String getFileNameFromUri(Uri uri) {
         String fileName = null;
-        Cursor cursor = null;
-        try {
-            String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
-            cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
-                fileName = cursor.getString(columnIndex);
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+        Cursor cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+            fileName = cursor.getString(columnIndex);
+            cursor.close();
         }
         return fileName;
     }
