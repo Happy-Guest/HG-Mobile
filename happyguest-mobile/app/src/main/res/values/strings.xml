@@ -63,6 +63,7 @@
     <string name="resolved">Resolved</string>
     <string name="canceled">Annulled</string>
     <string name="createdDate">Created in</string>
+    <string name="complaint_file">File Nº</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -112,8 +113,7 @@
     <string name="title_min_length">The title is too short!</string>
     <string name="local_min_length">The local is too short!</string>
     <string name="comment_min_length">The comment is too short!</string>
-    <string name="address_too_short">A morada é demasiado curta!</string>
-
+    <string name="address_too_short">The address is too short!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>

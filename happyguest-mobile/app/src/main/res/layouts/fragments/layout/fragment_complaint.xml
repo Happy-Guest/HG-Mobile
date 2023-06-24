@@ -181,6 +181,14 @@
         android:textStyle="normal"
         tools:ignore="TextContrastCheck" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/complaintFilesRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/complaint_file_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <TextView
         android:id="@+id/txtCreatedDate"
         android:layout_width="wrap_content"

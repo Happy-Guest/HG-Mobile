@@ -63,6 +63,7 @@
     <string name="resolved">Resolvida</string>
     <string name="canceled">Anulada</string>
     <string name="createdDate">Criada em</string>
+    <string name="complaint_file">Ficheiro Nº</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
