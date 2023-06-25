@@ -1,6 +1,5 @@
 package ipl.estg.happyguest.app.home.complaint;
 
-import android.Manifest;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -53,7 +52,7 @@ public class ComplaintFragment extends Fragment {
                 new ActivityResultContracts.RequestPermission(),
                 isWriteGranted -> {
                     if (isWriteGranted) {
-                        requestReadPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                        complaintFilesAdapter.openFile();
                     } else {
                         Toast.makeText(requireContext(), getString(R.string.write_permission_denied), Toast.LENGTH_SHORT).show();
                     }
@@ -148,7 +147,7 @@ public class ComplaintFragment extends Fragment {
                         binding.txtFiles.setVisibility(View.VISIBLE);
                         RecyclerView complaintFilesRV = binding.complaintFilesRV;
                         complaintFilesList = new ArrayList<>();
-                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext(), requestWritePermissionLauncher, complaintId, api);
+                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext(), requestWritePermissionLauncher, requestReadPermissionLauncher, complaintId, api);
                         complaintFilesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         complaintFilesRV.setAdapter(complaintFilesAdapter);
                         complaintFilesList.addAll(complaint.getFiles());
