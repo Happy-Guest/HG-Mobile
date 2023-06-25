@@ -31,7 +31,6 @@ import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
 public class ComplaintFragment extends Fragment {
 
     Long complaintId;
@@ -116,7 +115,7 @@ public class ComplaintFragment extends Fragment {
                         binding.txtFiles.setVisibility(View.VISIBLE);
                         RecyclerView complaintFilesRV = binding.complaintFilesRV;
                         complaintFilesList = new ArrayList<>();
-                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext(), complaintId, api);
+                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, requireActivity(), binding.getRoot().getContext(), complaintId, api);
                         complaintFilesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         complaintFilesRV.setAdapter(complaintFilesAdapter);
                         complaintFilesList.addAll(complaint.getFiles());

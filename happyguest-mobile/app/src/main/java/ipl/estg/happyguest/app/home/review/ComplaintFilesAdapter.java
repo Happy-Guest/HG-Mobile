@@ -1,8 +1,10 @@
 package ipl.estg.happyguest.app.home.review;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -15,8 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
@@ -36,15 +42,31 @@ import retrofit2.Response;
 public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAdapter.ViewHolder> {
 
     private final ArrayList<ComplaintFile> complaintFilesList;
+    private final FragmentActivity activity;
     private final Context context;
     private final APIRoutes api;
     private final long complaintId;
+    private final ActivityResultLauncher<String> requestPermissionLauncher;
+    private ComplaintFile complaintFile;
+    private ViewHolder holder;
 
-    public ComplaintFilesAdapter(ArrayList<ComplaintFile> complaintFilesList, Context context, long complaintId, APIRoutes api) {
+    public ComplaintFilesAdapter(ArrayList<ComplaintFile> complaintFilesList, FragmentActivity activity, Context context, long complaintId, APIRoutes api) {
         this.complaintFilesList = complaintFilesList;
+        this.activity = activity;
         this.context = context;
         this.complaintId = complaintId;
         this.api = api;
+
+        // Request Permission Launcher
+        requestPermissionLauncher = activity.registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(), isGranted -> {
+                    if (isGranted) {
+                        getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen);
+                    } else {
+                        Toast.makeText(context, R.string.write_permission_denied, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 
     @NonNull
@@ -58,6 +80,8 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get Complaint File
         ComplaintFile complaintFile = complaintFilesList.get(position);
+        this.complaintFile = complaintFile;
+        this.holder = holder;
 
         // Set Texts
         String title = context.getString(R.string.complaint_file) + " " + (position + 1);
@@ -66,7 +90,16 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
         holder.name.setText(name);
 
         // View Button
-        holder.fileOpen.setOnClickListener(view -> getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen));
+        holder.fileOpen.setOnClickListener(view -> {
+            String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                if (activity != null) {
+                    requestPermissionLauncher.launch(permission);
+                }
+            } else {
+                getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen);
+            }
+        });
     }
 
     @Override

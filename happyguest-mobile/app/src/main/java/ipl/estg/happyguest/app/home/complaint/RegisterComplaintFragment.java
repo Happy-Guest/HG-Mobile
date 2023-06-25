@@ -4,8 +4,10 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -100,6 +103,13 @@ public class RegisterComplaintFragment extends Fragment {
             }
     );
     private FragmentRegisterComplaintBinding binding;
+    // Request permission to read files
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+        if (isGranted) getFiles();
+        else {
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.read_permission_denied), Toast.LENGTH_SHORT).show();
+        }
+    });
     private TextInputLayout inputDate;
     private TextInputLayout inputTitle;
     private TextInputLayout inputLocal;
@@ -152,13 +162,13 @@ public class RegisterComplaintFragment extends Fragment {
 
         // Select Files
         binding.btnAddFiles.setOnClickListener(view -> {
-            Intent photoPicker = new Intent();
-            photoPicker.setType("*/*");
-            photoPicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            photoPicker.setAction(Intent.ACTION_GET_CONTENT);
-            String[] mimeTypes = {"image/*", "application/pdf"};
-            photoPicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-            startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_files)));
+            // Check if the permission is granted
+            String permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+            if (ContextCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(permission);
+            } else {
+                getFiles();
+            }
         });
 
         // Add "/" to birth date
@@ -191,6 +201,16 @@ public class RegisterComplaintFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void getFiles() {
+        Intent photoPicker = new Intent();
+        photoPicker.setType("*/*");
+        photoPicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+        String[] mimeTypes = {"image/*", "application/pdf"};
+        photoPicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_files)));
     }
 
     private void changeRegisterComplaintClick() {

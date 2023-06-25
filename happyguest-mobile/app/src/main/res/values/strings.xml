@@ -133,6 +133,8 @@
     <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>
     <string name="save_photo">Update profile to save the photo.</string>
     <string name="file_downloaded">File was downloaded successfully.</string>
+    <string name="read_permission_denied">Permission denied. Unable to access files.</string>
+    <string name="write_permission_denied">Permission denied. Unable to save files.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
