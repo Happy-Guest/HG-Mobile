@@ -1,6 +1,5 @@
 package ipl.estg.happyguest.app.home.review;
 
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -78,22 +77,20 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
         holder.name.setText(name);
 
         // View Button
-        holder.fileOpen.setOnClickListener(view -> {
-            String permissionWrite = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-            if (ContextCompat.checkSelfPermission(context, permissionWrite) != PackageManager.PERMISSION_GRANTED) {
-                requestWritePermissionLauncher.launch(permissionWrite);
-            } else {
-                openFile();
-            }
-        });
+        holder.fileOpen.setOnClickListener(view -> openFile());
     }
 
     public void openFile() {
-        String permissionRead = Manifest.permission.READ_EXTERNAL_STORAGE;
-        if (ContextCompat.checkSelfPermission(context, permissionRead) != PackageManager.PERMISSION_GRANTED) {
-            requestReadPermissionLauncher.launch(permissionRead);
+        String permissionWrite = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        if (ContextCompat.checkSelfPermission(context, permissionWrite) != PackageManager.PERMISSION_GRANTED) {
+            requestWritePermissionLauncher.launch(permissionWrite);
         } else {
-            getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen);
+            String permissionRead = Manifest.permission.READ_EXTERNAL_STORAGE;
+            if (ContextCompat.checkSelfPermission(context, permissionRead) != PackageManager.PERMISSION_GRANTED) {
+                requestReadPermissionLauncher.launch(permissionRead);
+            } else {
+                getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen);
+            }
         }
     }
 
@@ -114,18 +111,18 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
                         byte[] fileData = Objects.requireNonNull(response.body()).bytes();
                         downloadFile(fileData, fileName);
                     } catch (IOException e) {
-                        Toast.makeText(context.getApplicationContext(), context.getString(R.string.error_file), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.error_file), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetComplaintFile Error: ", response.message());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetComplaintFile Error: ", t.getMessage());
                 fileOpen.setEnabled(true);
             }
@@ -134,7 +131,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
 
     private void downloadFile(byte[] fileData, String fileName) {
         try {
-            File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            File downloadsDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
             if (!downloadsDir.exists()) {
                 boolean isDirCreated = downloadsDir.mkdirs();
                 if (!isDirCreated) {
