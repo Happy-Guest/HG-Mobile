@@ -75,4 +75,38 @@ class TextBox {
 		Mobile.scrollToText('Nº Telefone')
 		Mobile.setText(findTestObject('Object Repository/EditText/android.widget.EditText - N Telefone'), phone, 0)
 	}
+
+	@When("utilizador insere {string} no campo do nome perfil")
+	void utilizador_insere_no_campo_do_nome_perfil(String name) {
+		Mobile.scrollToText('Nome')
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - XPTO'), name , 0)
+	}
+	@When("utilizador insere {string} no campo de email perfil")
+	void utilizador_insere_NotValid_no_campo_de_email_perfil(String email) {
+		//Insert email
+		Mobile.scrollToText('Email')
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - XPTOmail.pt'),email, 0)
+	}
+
+	@When("utilizador insere {string} no campo de nº telefone perfil")
+	void utilizador_insere_no_campo_de_n_telefone_perfil(String phone) {
+		Mobile.scrollToText('Nº Telefone')
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - 999999999'), phone, 0)
+	}
+
+	@When("utilizador insere {string} no campo de morada perfil")
+	public void utilizador_insere_no_campo_de_morada_perfil(String address) {
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - Morada'), address, 0);
+	}
+
+	@When("utilizador insere {string} no campo de data de nascimento perfil")
+	public void utilizador_insere_no_campo_de_data_de_nascimento_perfil(String date) {
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - Data Nascimento'), date, 0);
+	}
+
+	@When("utilizador insere {string} no campo de código")
+	public void utilizador_insere_no_campo_de_código(String code) {
+		Mobile.scrollToText('Código')
+		Mobile.setText(findTestObject('Object Repository/Inserir_Código/android.widget.EditText - Cdigo'), code, 0)
+	}
 }
