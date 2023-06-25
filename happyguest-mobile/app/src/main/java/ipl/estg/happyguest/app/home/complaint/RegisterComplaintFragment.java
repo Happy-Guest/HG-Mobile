@@ -295,8 +295,8 @@ public class RegisterComplaintFragment extends Fragment {
         btnPopConfirm.setOnClickListener(view1 -> {
             registerComplaintAttempt();
             binding.btnRegisterComplaint.setEnabled(false);
+            binding.btnClose.setEnabled(false);
             popupWindow.dismiss();
-
         });
     }
 
@@ -318,6 +318,7 @@ public class RegisterComplaintFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 binding.btnRegisterComplaint.setEnabled(true);
+                binding.btnClose.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -360,6 +361,7 @@ public class RegisterComplaintFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("RegisterComplaint Error: ", t.getMessage());
                 binding.btnRegisterComplaint.setEnabled(true);
+                binding.btnClose.setEnabled(true);
             }
         });
 

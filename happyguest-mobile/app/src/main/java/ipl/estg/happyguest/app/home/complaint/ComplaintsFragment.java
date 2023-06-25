@@ -116,7 +116,9 @@ public class ComplaintsFragment extends Fragment {
                         selectedStatus = "C";
                         break;
                 }
-                getComplaints();
+                if (binding.spinnerSelectStatus.isEnabled()) {
+                    getComplaints();
+                }
             }
 
             @Override

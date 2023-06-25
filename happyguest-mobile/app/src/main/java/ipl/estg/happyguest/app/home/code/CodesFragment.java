@@ -169,7 +169,7 @@ public class CodesFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
                     binding.addCode.textCode.setText("");
-                    binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
+                    binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
                     binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     codesList.clear();
@@ -220,11 +220,11 @@ public class CodesFragment extends Fragment {
                     meta = response.body().getMeta();
                     codesAdapter.notifyItemRangeInserted(lastPos, userCodes.size());
                     if (codesList.size() == 0) {
-                        binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
+                        binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
                         binding.txtNoCodes.setVisibility(View.VISIBLE);
                         binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
                     } else {
-                        binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
+                        binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
                         binding.txtNoCodes.setVisibility(View.GONE);
                         binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
                     }

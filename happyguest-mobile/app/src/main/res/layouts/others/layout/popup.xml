@@ -70,8 +70,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -80,9 +80,12 @@
                 android:layout_width="154dp"
                 android:layout_height="42dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="25dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/btn_primary"
                 android:clickable="true"
+                android:elevation="10dp"
                 android:gravity="center"
                 android:text="@string/confirm"
                 android:textAllCaps="false"
@@ -98,9 +101,12 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/btn_secondary"
                 android:backgroundTint="@color/red"
                 android:contentDescription="@string/btnClose"
+                android:elevation="10dp"
                 android:src="@drawable/close_icon"
                 app:tint="@color/red"
                 tools:ignore="ButtonStyle,TouchTargetSizeCheck,VisualLintBounds" />

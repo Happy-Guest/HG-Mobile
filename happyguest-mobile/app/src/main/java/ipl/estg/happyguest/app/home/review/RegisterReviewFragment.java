@@ -142,8 +142,8 @@ public class RegisterReviewFragment extends Fragment {
         btnPopConfirm.setOnClickListener(view1 -> {
             registerReviewAttempt();
             binding.btnRegisterReview.setEnabled(false);
+            binding.btnClose.setEnabled(false);
             popupWindow.dismiss();
-
         });
     }
 
@@ -153,6 +153,7 @@ public class RegisterReviewFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 binding.btnRegisterReview.setEnabled(true);
+                binding.btnClose.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -186,6 +187,7 @@ public class RegisterReviewFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("RegisterReview Error: ", t.getMessage());
                 binding.btnRegisterReview.setEnabled(true);
+                binding.btnClose.setEnabled(true);
             }
         });
     }
