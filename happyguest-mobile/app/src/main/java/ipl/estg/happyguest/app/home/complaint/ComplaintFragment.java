@@ -1,5 +1,6 @@
 package ipl.estg.happyguest.app.home.complaint;
 
+import android.Manifest;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +41,36 @@ public class ComplaintFragment extends Fragment {
     private FragmentComplaintBinding binding;
     private APIRoutes api;
     private ComplaintFilesAdapter complaintFilesAdapter;
+    private ActivityResultLauncher<String> requestWritePermissionLauncher;
+    private ActivityResultLauncher<String> requestReadPermissionLauncher;
     private ArrayList<ComplaintFile> complaintFilesList;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Requesting write permission
+        requestWritePermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isWriteGranted -> {
+                    if (isWriteGranted) {
+                        requestReadPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.write_permission_denied), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        // Requesting read permission
+        requestReadPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isReadGranted -> {
+                    if (isReadGranted) {
+                        complaintFilesAdapter.openFile();
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.read_permission_denied), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,7 +148,7 @@ public class ComplaintFragment extends Fragment {
                         binding.txtFiles.setVisibility(View.VISIBLE);
                         RecyclerView complaintFilesRV = binding.complaintFilesRV;
                         complaintFilesList = new ArrayList<>();
-                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, requireActivity(), binding.getRoot().getContext(), complaintId, api);
+                        complaintFilesAdapter = new ComplaintFilesAdapter(complaintFilesList, binding.getRoot().getContext(), requestWritePermissionLauncher, complaintId, api);
                         complaintFilesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         complaintFilesRV.setAdapter(complaintFilesAdapter);
                         complaintFilesList.addAll(complaint.getFiles());
