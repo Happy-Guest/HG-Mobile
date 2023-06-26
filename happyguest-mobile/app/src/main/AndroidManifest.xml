@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,23 +21,33 @@
         android:theme="@style/Theme.HappyGuest"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="ipl.estg.happyguest.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".app.home.HomeActivity"
             android:exported="false"
-            android:theme="@style/Theme.HappyGuest.NoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.HappyGuest.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".app.auth.RegisterActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".app.auth.LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".app.MainActivity"
@@ -51,6 +63,8 @@
         <service
             android:name=".utils.others.CloseService"
             android:stopWithTask="false" />
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
     </application>
-
 </manifest>

@@ -106,6 +106,7 @@
                 android:background="@drawable/btn_secondary"
                 android:backgroundTint="@color/red"
                 android:contentDescription="@string/remove_code"
+                android:elevation="10dp"
                 app:srcCompat="@drawable/delete_icon"
                 app:tint="@color/red"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />

@@ -2,16 +2,19 @@ package ipl.estg.happyguest.app.home.complaint;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -32,6 +35,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -40,7 +44,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -62,41 +67,92 @@ import retrofit2.Response;
 public class RegisterComplaintFragment extends Fragment {
 
     private final List<byte[]> files = new ArrayList<>();
-    private FragmentRegisterComplaintBinding binding;
-    // Select Image from Gallery
+    private final List<String> nameFiles = new ArrayList<>();
+    // Select files
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
-                        List<Uri> selectedImages = new ArrayList<>();
                         ClipData clipData = result.getData().getClipData();
                         if (clipData != null) {
-                            int count = clipData.getItemCount();
-                            for (int i = 0; i < count; i++) {
-                                Uri selectedImage = clipData.getItemAt(i).getUri();
-                                selectedImages.add(selectedImage);
+                            int itemCount = clipData.getItemCount();
+                            for (int i = 0; i < itemCount; i++) {
+                                ClipData.Item item = clipData.getItemAt(i);
+                                Uri selectedFile = item.getUri();
+                                if (selectedFile != null) {
+                                    try {
+                                        InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                                        File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                                        FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                                        byte[] buffer = new byte[4096];
+                                        int bytesRead;
+                                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                            fileOutputStream.write(buffer, 0, bytesRead);
+                                        }
+                                        inputStream.close();
+                                        fileOutputStream.close();
+                                        // Get the file name from the file URI
+                                        String fileName = getFileNameFromUri(selectedFile);
+                                        nameFiles.add(fileName);
+                                        // Check if the file is an image or a PDF
+                                        String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                                        if (mimeType != null && mimeType.startsWith("image/")) {
+                                            byte[] imageData = getStreamByteFromImage(tempFile);
+                                            files.add(imageData);
+                                        } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                            byte[] pdfData = getStreamByteFromFile(tempFile);
+                                            files.add(pdfData);
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
                         } else {
-                            Uri selectedImage = result.getData().getData();
-                            selectedImages.add(selectedImage);
-                        }
-                        for (Uri selectedImage : selectedImages) {
-                            try {
-                                InputStream inputStream = binding.getRoot().getContext().getContentResolver().openInputStream(selectedImage);
-                                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                byte[] photo = stream.toByteArray();
-                                files.add(photo);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
+                            // Single file
+                            Uri selectedFile = result.getData().getData();
+                            if (selectedFile != null) {
+                                try {
+                                    InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                                    File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                                    FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                                    byte[] buffer = new byte[4096];
+                                    int bytesRead;
+                                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                        fileOutputStream.write(buffer, 0, bytesRead);
+                                    }
+                                    inputStream.close();
+                                    fileOutputStream.close();
+                                    // Get the file name from the file URI
+                                    String fileName = getFileNameFromUri(selectedFile);
+                                    nameFiles.add(fileName);
+                                    // Check if the file is an image or a PDF
+                                    String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                                    if (mimeType != null && mimeType.startsWith("image/")) {
+                                        byte[] imageData = getStreamByteFromImage(tempFile);
+                                        files.add(imageData);
+                                    } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                        byte[] pdfData = getStreamByteFromFile(tempFile);
+                                        files.add(pdfData);
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
                 }
             }
     );
+    private FragmentRegisterComplaintBinding binding;
+    // Request permission to read files
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+        if (isGranted) getFiles();
+        else {
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.read_permission_denied), Toast.LENGTH_SHORT).show();
+        }
+    });
     private TextInputLayout inputDate;
     private TextInputLayout inputTitle;
     private TextInputLayout inputLocal;
@@ -131,6 +187,14 @@ public class RegisterComplaintFragment extends Fragment {
         //Register Button
         binding.btnRegisterComplaint.setOnClickListener(v -> changeRegisterComplaintClick());
 
+        // Cancel Button
+        binding.btnClose.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_complaints);
+            }
+        });
+
         // Checkbox anonymous
         checkAnonymous = binding.checkAnonymous;
         checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -141,13 +205,13 @@ public class RegisterComplaintFragment extends Fragment {
 
         // Select Files
         binding.btnAddFiles.setOnClickListener(view -> {
-            Intent photoPicker = new Intent();
-            photoPicker.setType("*/*");
-            photoPicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            photoPicker.setAction(Intent.ACTION_GET_CONTENT);
-            String[] mimeTypes = {"image/*", "application/pdf"};
-            photoPicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-            startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_files)));
+            // Check if the permission is granted
+            String permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+            if (ContextCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(permission);
+            } else {
+                getFiles();
+            }
         });
 
         // Add "/" to birth date
@@ -182,6 +246,16 @@ public class RegisterComplaintFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void getFiles() {
+        Intent photoPicker = new Intent();
+        photoPicker.setType("*/*");
+        photoPicker.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+        String[] mimeTypes = {"image/*", "application/pdf"};
+        photoPicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_files)));
+    }
+
     private void changeRegisterComplaintClick() {
         inputDate.setError(null);
         inputTitle.setError(null);
@@ -208,6 +282,30 @@ public class RegisterComplaintFragment extends Fragment {
             inputComment.setError(getString(R.string.comment_min_length));
         } else {
             showPopup();
+        }
+    }
+
+    private String getFileNameFromUri(Uri uri) {
+        String fileName = null;
+        String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+        Cursor cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+            fileName = cursor.getString(columnIndex);
+            cursor.close();
+        }
+        return fileName;
+    }
+
+    private byte[] getStreamByteFromFile(File file) throws IOException {
+        try (InputStream inputStream = requireActivity().getContentResolver().openInputStream(Uri.fromFile(file))) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            return outputStream.toByteArray();
         }
     }
 
@@ -240,8 +338,8 @@ public class RegisterComplaintFragment extends Fragment {
         btnPopConfirm.setOnClickListener(view1 -> {
             registerComplaintAttempt();
             binding.btnRegisterComplaint.setEnabled(false);
+            binding.btnClose.setEnabled(false);
             popupWindow.dismiss();
-
         });
     }
 
@@ -258,13 +356,14 @@ public class RegisterComplaintFragment extends Fragment {
     private void registerComplaintAttempt() {
         Call<MessageResponse> call = api.registerComplaint(new ComplaintRequest(checkAnonymous.isChecked() ? null : user.getId(), txtTitle.getText().toString(),
                 txtLocal.getText().toString(), "P", txtComment.getText().toString(),
-                formatDate(txtDate.getText().toString()), files.isEmpty() ? null : convertPhotosToBase64(files)));
+                formatDate(txtDate.getText().toString()), files.isEmpty() ? null : convertPhotosToBase64(files), files.isEmpty() ? null : nameFiles));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 binding.btnRegisterComplaint.setEnabled(true);
+                binding.btnClose.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    // Display success message and update user
+                    // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
@@ -305,6 +404,7 @@ public class RegisterComplaintFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("RegisterComplaint Error: ", t.getMessage());
                 binding.btnRegisterComplaint.setEnabled(true);
+                binding.btnClose.setEnabled(true);
             }
         });
 

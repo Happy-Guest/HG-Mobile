@@ -4,34 +4,35 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Complaint {
 
     @SerializedName("id")
-    private Long id;
+    private final Long id;
     @SerializedName("title")
-    private String title;
+    private final String title;
     @Nullable
     @SerializedName("local")
-    private String local;
+    private final String local;
     @SerializedName("status")
-    private char status;
+    private final char status;
     @SerializedName("comment")
-    private String comment;
+    private final String comment;
     @Nullable
     @SerializedName("response")
-    private String response;
+    private final String response;
+    @SerializedName("date")
+    private final String date;
     @Nullable
     @SerializedName("files")
-    private ArrayList<File> files;
+    private final ArrayList<ComplaintFile> files;
     @SerializedName("created_at")
-    private String createdAt;
+    private final String createdAt;
     @SerializedName("updated_at")
-    private String updatedAt;
+    private final String updatedAt;
 
-    public Complaint(Long id, String title, String local, char status, String comment, String response, ArrayList<File> files, String createdAt, String updatedAt) {
+    public Complaint(Long id, String title, @Nullable String local, char status, String comment, @Nullable String response, @Nullable ArrayList<ComplaintFile> files, String date, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.local = local;
@@ -39,6 +40,7 @@ public class Complaint {
         this.comment = comment;
         this.response = response;
         this.files = files;
+        this.date = date;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -47,16 +49,8 @@ public class Complaint {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Nullable
@@ -64,24 +58,12 @@ public class Complaint {
         return local;
     }
 
-    public void setLocal(@Nullable String local) {
-        this.local = local;
-    }
-
     public char getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
-        this.status = status;
-    }
-
     public String getComment() {
         return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     @Nullable
@@ -89,32 +71,20 @@ public class Complaint {
         return response;
     }
 
-    public void setResponse(@Nullable String response) {
-        this.response = response;
-    }
-
     @Nullable
-    public ArrayList<File> getFiles() {
+    public ArrayList<ComplaintFile> getFiles() {
         return files;
-    }
-
-    public void setFiles(@Nullable ArrayList<File> files) {
-        this.files = files;
     }
 
     public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public String getDate() {
+        return date;
     }
 }

@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
                     // Set hasCode to true and hide code layout
                     HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out_fast));
+                    binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
                     binding.codeLayout.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {

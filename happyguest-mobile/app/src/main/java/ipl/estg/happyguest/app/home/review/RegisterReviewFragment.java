@@ -75,6 +75,14 @@ public class RegisterReviewFragment extends Fragment {
         inputComment = binding.inputComment;
         txtComment = binding.txtComment;
 
+        // Cancel Button
+        binding.btnClose.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.nav_reviews);
+            }
+        });
+
         // Checkbox anonymous
         checkAnonymous = binding.checkAnonymous;
         checkAnonymous.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -91,10 +99,13 @@ public class RegisterReviewFragment extends Fragment {
 
     private void changeRegisterReviewClick() {
         inputComment.setError(null);
+        String comment = txtComment.getText().toString();
         binding.textErrorStars.setVisibility(View.INVISIBLE);
         if (currentStar == 0) {
             binding.textErrorStars.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
             binding.textErrorStars.setVisibility(View.VISIBLE);
+        } else if (!comment.isEmpty() && comment.length() < 5) {
+            inputComment.setError(getString(R.string.comment_min_length));
         } else {
             showPopup();
         }
@@ -131,8 +142,8 @@ public class RegisterReviewFragment extends Fragment {
         btnPopConfirm.setOnClickListener(view1 -> {
             registerReviewAttempt();
             binding.btnRegisterReview.setEnabled(false);
+            binding.btnClose.setEnabled(false);
             popupWindow.dismiss();
-
         });
     }
 
@@ -142,8 +153,9 @@ public class RegisterReviewFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 binding.btnRegisterReview.setEnabled(true);
+                binding.btnClose.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    // Display success message and update user
+                    // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
@@ -175,6 +187,7 @@ public class RegisterReviewFragment extends Fragment {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("RegisterReview Error: ", t.getMessage());
                 binding.btnRegisterReview.setEnabled(true);
+                binding.btnClose.setEnabled(true);
             }
         });
     }

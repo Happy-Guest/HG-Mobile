@@ -21,7 +21,7 @@
         app:exitAnim="@anim/slide_out_left" />
     <fragment
         android:id="@+id/nav_codes"
-        android:name="ipl.estg.happyguest.app.home.code.CodeFragment"
+        android:name="ipl.estg.happyguest.app.home.code.CodesFragment"
         android:label="@string/menu_code"
         tools:layout="@layout/fragment_codes" />
     <fragment
@@ -74,5 +74,25 @@
         android:name="ipl.estg.happyguest.app.home.review.ReviewFragment"
         android:label="@string/menu_review"
         tools:layout="@layout/fragment_review" />
+    <fragment
+        android:id="@+id/nav_complaint"
+        android:name="ipl.estg.happyguest.app.home.complaint.ComplaintFragment"
+        android:label="@string/menu_complaint"
+        tools:layout="@layout/fragment_complaint" />
+    <action
+        android:id="@+id/action_nav_review"
+        app:destination="@id/nav_review"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/action_nav_complaint"
+        app:destination="@id/nav_complaint"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/action_nav_home"
+        app:destination="@id/nav_home"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

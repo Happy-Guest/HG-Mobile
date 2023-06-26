@@ -7,15 +7,15 @@ import java.util.List;
 public class Code {
 
     @SerializedName("id")
-    private Long id;
+    private final Long id;
     @SerializedName("code")
-    private String code;
+    private final String code;
     @SerializedName("entry_date")
-    private String entryDate;
+    private final String entryDate;
     @SerializedName("exit_date")
-    private String exitDate;
+    private final String exitDate;
     @SerializedName("rooms")
-    private List<String> rooms;
+    private final List<String> rooms;
 
     public Code(Long id, String code, String entryDate, String exitDate, List<String> rooms) {
         this.id = id;
@@ -29,39 +29,19 @@ public class Code {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getCode() {
         return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(String entryDate) {
-        this.entryDate = entryDate;
-    }
-
     public String getExitDate() {
         return exitDate;
     }
 
-    public void setExitDate(String exitDate) {
-        this.exitDate = exitDate;
-    }
-
     public List<String> getRooms() {
         return rooms;
-    }
-
-    public void setRooms(List<String> rooms) {
-        this.rooms = rooms;
     }
 }

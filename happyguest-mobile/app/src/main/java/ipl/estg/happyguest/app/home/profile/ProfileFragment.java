@@ -232,6 +232,7 @@ public class ProfileFragment extends Fragment {
         String name = txtName.getText().toString();
         String email = txtEmail.getText().toString();
         String phone = txtPhone.getText().toString();
+        String address = txtAddress.getText().toString();
         String birthDate = txtBirthDate.getText().toString();
         if (name.isEmpty()) {
             inputName.setError(getString(R.string.name_required));
@@ -243,6 +244,8 @@ public class ProfileFragment extends Fragment {
             inputEmail.setError(getString(R.string.invalid_email));
         } else if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 12) {
             inputPhone.setError(getString(R.string.invalid_phone));
+        } else if (!address.isEmpty() && address.length() < 5) {
+            inputAddress.setError(getString(R.string.address_too_short));
         } else if (!birthDate.isEmpty() && birthDate.length() != 10) {
             inputBirthDate.setError(getString(R.string.invalid_birth_date));
         } else {

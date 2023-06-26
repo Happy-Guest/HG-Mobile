@@ -53,12 +53,18 @@
     <string name="addFiles">Add Files</string>
     <string name="open">Open</string>
     <string name="no_comment">No Comment</string>
+    <string name="no_response">No Response</string>
     <string name="authorized_sharing">Authorized Sharing</string>
-    <string name="shared">Shared</string>
+    <string name="shared">Shared Review</string>
+    <string name="response">Response</string>
+    <string name="response_date">Answered in</string>
     <string name="pending">Pending</string>
     <string name="solving">Solving</string>
     <string name="resolved">Resolved</string>
     <string name="canceled">Annulled</string>
+    <string name="createdDate">Created in</string>
+    <string name="complaint_file">File Nº</string>
+    <string name="complaint_files">Files: </string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -85,6 +91,8 @@
     <string name="codes_error">Error loading codes!</string>
     <string name="reviews_error">Error loading reviews!</string>
     <string name="complaints_error">Error loading complaints!</string>
+    <string name="error_file">Error loading file!</string>
+    <string name="error_file_app">Error opening file!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
@@ -108,7 +116,7 @@
     <string name="title_min_length">The title is too short!</string>
     <string name="local_min_length">The local is too short!</string>
     <string name="comment_min_length">The comment is too short!</string>
-
+    <string name="address_too_short">The address is too short!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associate a code to access services and activities.</string>
@@ -123,6 +131,10 @@
     <string name="review_week">You can only review once a week!</string>
     <string name="review_anonymous_message">Anonymous review cannot be revised!</string>
     <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>
+    <string name="save_photo">Update profile to save the photo.</string>
+    <string name="file_downloaded">File was downloaded successfully!</string>
+    <string name="read_permission_denied">Permission denied. Unable to access files.</string>
+    <string name="write_permission_denied">Permission denied. Unable to save files.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>

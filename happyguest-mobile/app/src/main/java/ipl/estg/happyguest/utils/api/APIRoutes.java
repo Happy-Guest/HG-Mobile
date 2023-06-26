@@ -7,6 +7,7 @@ import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
+import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.api.responses.ComplaintsResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
@@ -14,6 +15,7 @@ import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -69,16 +71,22 @@ public interface APIRoutes {
     @GET("users/{id}/reviews")
     Call<ReviewsResponse> getUserReviews(@Path("id") int id, @Query("page") int page, @Query("order") String order);
 
+    @GET("reviews/{id}")
+    Call<ReviewResponse> getReview(@Path("id") Long id);
+
     @POST("reviews")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
 
-    @GET("reviews/{id}")
-    Call<ReviewResponse> getReview(@Path("id") Long id);
-
     //Complaints
-    @GET("users/{id}/complaints")
+    @GET("users/{id}/complaints?order=DESC")
     Call<ComplaintsResponse> getUserComplaints(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
+
+    @GET("complaints/{id}")
+    Call<ComplaintResponse> getComplaint(@Path("id") Long id);
+
+    @GET("complaints/{id}/file/{file}")
+    Call<ResponseBody> getComplaintFile(@Path("id") Long id, @Path("file") Long file);
 
     @POST("complaints")
     @Headers("Accept: application/json")

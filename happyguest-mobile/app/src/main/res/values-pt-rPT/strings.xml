@@ -53,12 +53,18 @@
     <string name="addFiles">Adicionar Ficheiros</string>
     <string name="open">Abrir</string>
     <string name="no_comment">Sem comentário</string>
-    <string name="authorized_sharing">Partilha autorizada</string>
-    <string name="shared">Partilhada</string>
+    <string name="no_response">Sem resposta</string>
+    <string name="authorized_sharing">Partilha Autorizada</string>
+    <string name="shared">Avaliação Partilhada</string>
+    <string name="response">Resposta</string>
+    <string name="response_date">Respondida em</string>
     <string name="pending">Pendente</string>
     <string name="solving">Resolução</string>
     <string name="resolved">Resolvida</string>
     <string name="canceled">Anulada</string>
+    <string name="createdDate">Criada em</string>
+    <string name="complaint_file">Ficheiro Nº</string>
+    <string name="complaint_files">Ficheiros: </string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -85,6 +91,8 @@
     <string name="codes_error">Erro ao carregar códigos!</string>
     <string name="reviews_error">Erro ao carregar avaliações!</string>
     <string name="complaints_error">Erro ao carregar reclamações!</string>
+    <string name="error_file">Erro ao carregar ficheiro!</string>
+    <string name="error_file_app">Erro ao abrir ficheiro!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
@@ -108,6 +116,7 @@
     <string name="title_min_length">O título é demasiado curto!</string>
     <string name="local_min_length">O local é demasiado curto!</string>
     <string name="comment_min_length">O comentário é demasiado curto!</string>
+    <string name="address_too_short">A morada é demasiado curta!</string>
 
     <!-- Messages -->
     <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>
@@ -122,7 +131,10 @@
     <string name="review_week">Só pode fazer uma avaliação por semana!</string>
     <string name="review_anonymous_message">Avaliação anónima não poderá ser revista!</string>
     <string name="complaint_anonymous_message">Reclamação anónima não poderá ser revista!</string>
-
+    <string name="save_photo">Atualize o perfil para guardar a foto.</string>
+    <string name="file_downloaded">O ficheiro foi descarregado com sucesso!</string>
+    <string name="read_permission_denied">Permissão negada. Não é possível aceder aos ficheiros.</string>
+    <string name="write_permission_denied">Permissão negada. Não é possível guardar ficheiros.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

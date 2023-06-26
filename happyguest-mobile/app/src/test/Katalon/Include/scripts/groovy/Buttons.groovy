@@ -71,12 +71,29 @@ class Buttons {
 	}
 
 	@When("clica no botão “Lembrar“ na secção de Login")
-    void clica_no_botão_Lembrar_na_secção_de_Login() {
+	void clica_no_botão_Lembrar_na_secção_de_Login() {
 		Mobile.tap(findTestObject('Object Repository/Button/android.widget.CheckBox - Lembrar'), 0)
-    }
+	}
 
 	@When("utilizador clica no icon de perfil")
-    void utilizador_clica_no_icon_de_perfil() {
+	void utilizador_clica_no_icon_de_perfil() {
 		Mobile.tap(findTestObject('Object Repository/Button/android.widget.ImageButton_Profile'), 0)
-    }
+	}
+
+	@When("utilizador clica no ícone de Editar")
+	public void utilizador_clica_no_ícone_de_Editar() {
+		Mobile.tap(findTestObject('Object Repository/AtualizarPerfil/android.widget.ImageButton'), 0);
+	}
+
+	@When("utilizador clica no botão “Atualizar Perfil“")
+	public void utilizador_clica_no_botão_Atualizar_Perfil() {
+		Mobile.tap(findTestObject('Object Repository/AtualizarPerfil/android.widget.Button - Atualizar Perfil'), 0);
+	}
+	
+	
+	@When("utilizador clica no botão “Associar“")
+	public void utilizador_clica_no_botão_Associar(String string) {
+		Mobile.tap(findTestObject('Object Repository/Inserir_Código/android.widget.Button - Associar'), 0);
+	}
+	
 }

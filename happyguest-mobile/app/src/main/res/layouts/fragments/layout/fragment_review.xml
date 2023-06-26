@@ -114,7 +114,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:enabled="true"
+        android:enabled="false"
         app:startIconDrawable="@drawable/comment_icon"
         app:startIconTint="@color/gold">
 
@@ -132,6 +132,7 @@
             android:minLines="1"
             android:nestedScrollingEnabled="false"
             android:singleLine="false"
+            android:textColor="@color/dark_gray"
             android:textColorHint="#757575"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -145,6 +146,7 @@
         android:enabled="false"
         android:paddingHorizontal="10dp"
         android:text="@string/authorized_sharing"
+        android:textColor="@color/dark_gray"
         android:textSize="16sp" />
 
     <CheckBox
@@ -157,6 +159,7 @@
         android:enabled="false"
         android:paddingHorizontal="10dp"
         android:text="@string/shared"
+        android:textColor="@color/dark_gray"
         android:textSize="16sp" />
 
     <Button
@@ -164,7 +167,8 @@
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/btn_secondary"
         android:clickable="true"
         android:text="@string/btnClose"
@@ -173,7 +177,7 @@
         android:textSize="17sp"
         android:visibility="visible"
         app:icon="@drawable/close_icon"
-        app:iconPadding="-20dp"
+        app:iconPadding="-25dp"
         app:iconTint="@color/black"
         tools:ignore="TextContrastCheck" />
 

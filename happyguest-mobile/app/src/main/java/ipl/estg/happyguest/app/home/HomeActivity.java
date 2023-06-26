@@ -1,12 +1,13 @@
 package ipl.estg.happyguest.app.home;
 
+import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -26,8 +27,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -54,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
     private APIRoutes api;
     private Token token;
     private Button btnLogout;
+    private int titleMaxWidth;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -64,11 +67,20 @@ public class HomeActivity extends AppCompatActivity {
                         Uri selectedImage = result.getData().getData();
                         try {
                             InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                            photo = stream.toByteArray();
-                        } catch (FileNotFoundException e) {
+                            // Create a temporary file to save the image
+                            File tempFile = File.createTempFile("temp_image", null, getCacheDir());
+                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                fileOutputStream.write(buffer, 0, bytesRead);
+                            }
+                            // Close the streams
+                            inputStream.close();
+                            fileOutputStream.close();
+                            photo = getStreamByteFromImage(tempFile);
+                            Toast.makeText(this, R.string.save_photo, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -103,6 +115,9 @@ public class HomeActivity extends AppCompatActivity {
             updateProfileImageVisibility(percentage);
         });
 
+        // Title max width
+        titleMaxWidth = binding.appBarHome.txtBarTitle.getMaxWidth();
+
         // Open drawer
         binding.appBarHome.btnBarOpen.setOnClickListener(v -> binding.drawerLayout.open());
 
@@ -121,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
             } else {
                 binding.appBarHome.txtBarTitle.setText(destination.getLabel());
-                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaints) {
+                if (destination.getId() == R.id.nav_register_complaint || destination.getId() == R.id.nav_complaints || destination.getId() == R.id.nav_complaint) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
                 } else if (destination.getId() == R.id.nav_reviews || destination.getId() == R.id.nav_register_review || destination.getId() == R.id.nav_review) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_review);
@@ -130,33 +145,45 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
 
+            // Check title size
+            if (binding.appBarHome.txtBarTitle.getText().toString().contains(" ")) {
+                binding.appBarHome.txtBarTitle.setMaxWidth(titleMaxWidth);
+            } else {
+                binding.appBarHome.txtBarTitle.setMaxWidth(0);
+            }
+
             // Set profile image
-            if (destination.getId() == R.id.nav_profile && destination.getId() == R.id.nav_password) {
+            if (destination.getId() == R.id.nav_profile || destination.getId() == R.id.nav_password) {
+                binding.appBarHome.txtBarTitle.setGravity(Gravity.CENTER_HORIZONTAL);
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.imageProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
                 binding.appBarHome.btnBarProfile.setVisibility(View.GONE);
             }
             if (destination.getId() != R.id.nav_profile && destination.getId() != R.id.nav_password && binding.appBarHome.imageProfile.getVisibility() == View.VISIBLE) {
-                binding.appBarHome.txtBarTitle.setMaxWidth(600);
+                binding.appBarHome.txtBarTitle.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                 binding.appBarHome.imageProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                 binding.appBarHome.imageProfile.setVisibility(View.GONE);
                 binding.appBarHome.btnBarProfile.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
+                binding.appBarHome.btnBarProfile.setEnabled(true);
             }
         });
 
         // Go to home fragment
         binding.appBarHome.btnBarLogo.setOnClickListener(v -> {
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.nav_home)
+                return;
             navController.popBackStack();
-            navController.navigate(R.id.nav_home);
+            navController.navigate(R.id.action_nav_home);
         });
 
         // Go to profile fragment
         binding.appBarHome.btnBarProfile.setOnClickListener(v -> {
-            binding.appBarHome.txtBarTitle.setMaxWidth(0);
+            binding.appBarHome.btnBarProfile.setEnabled(false);
             navController.popBackStack();
             navController.navigate(R.id.action_nav_profile);
+
         });
 
         // Button logout
@@ -175,14 +202,14 @@ public class HomeActivity extends AppCompatActivity {
         // Select Image
         binding.appBarHome.imageProfile.setOnClickListener(v -> {
             if (editMode) {
-                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+                binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_fast));
                 binding.appBarHome.imageUpload.setVisibility(View.VISIBLE);
                 Intent photoPicker = new Intent();
                 photoPicker.setType("image/*");
                 photoPicker.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_image)));
                 new Handler().postDelayed(() -> {
-                    binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out));
+                    binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                     binding.appBarHome.imageUpload.setVisibility(View.GONE);
                 }, 1000);
             }
@@ -216,8 +243,8 @@ public class HomeActivity extends AppCompatActivity {
         navController.popBackStack();
         navController.navigate(id, bundle);
         new Handler().postDelayed(() -> {
-           String title = binding.appBarHome.txtBarTitle.getText() + position.toString();
-           binding.appBarHome.txtBarTitle.setText(title);
+            String title = binding.appBarHome.txtBarTitle.getText() + position.toString();
+            binding.appBarHome.txtBarTitle.setText(title);
         }, 100);
     }
 
@@ -232,7 +259,8 @@ public class HomeActivity extends AppCompatActivity {
     private void setupNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews, R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
+                R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

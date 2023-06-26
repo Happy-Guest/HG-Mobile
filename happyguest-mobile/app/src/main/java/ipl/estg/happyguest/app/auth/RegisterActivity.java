@@ -1,9 +1,11 @@
 package ipl.estg.happyguest.app.auth;
 
+import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -18,6 +20,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,8 +29,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -63,11 +67,19 @@ public class RegisterActivity extends AppCompatActivity {
                         Uri selectedImage = result.getData().getData();
                         try {
                             InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                            photo = stream.toByteArray();
-                        } catch (FileNotFoundException e) {
+                            // Create a temporary file to save the image
+                            File tempFile = File.createTempFile("temp_image", null, getCacheDir());
+                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                fileOutputStream.write(buffer, 0, bytesRead);
+                            }
+                            // Close the streams
+                            inputStream.close();
+                            fileOutputStream.close();
+                            photo = getStreamByteFromImage(tempFile);
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -101,10 +113,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Select Image
         btnImage.setOnClickListener(view -> {
-            Intent photoPicker = new Intent();
-            photoPicker.setType("image/*");
-            photoPicker.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_image)));
+            // Check if the permission is granted
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else getPhoto();
         });
 
         // Attempt Register and go to LoginActivity
@@ -117,6 +129,25 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getPhoto();
+            } else {
+                Toast.makeText(this, R.string.read_permission_denied, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void getPhoto() {
+        Intent photoPicker = new Intent();
+        photoPicker.setType("image/*");
+        photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityResult.launch(Intent.createChooser(photoPicker, getString(R.string.select_image)));
     }
 
     private void registerClick() {
