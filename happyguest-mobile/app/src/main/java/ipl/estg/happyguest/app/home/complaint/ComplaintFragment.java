@@ -23,7 +23,6 @@ import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.app.home.review.ComplaintFilesAdapter;
 import ipl.estg.happyguest.databinding.FragmentComplaintBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;

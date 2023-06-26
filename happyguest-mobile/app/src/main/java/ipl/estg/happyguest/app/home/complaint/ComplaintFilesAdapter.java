@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.app.home.review;
+package ipl.estg.happyguest.app.home.complaint;
 
 import android.Manifest;
 import android.content.Context;
@@ -44,7 +44,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
     private final long complaintId;
     private final ActivityResultLauncher<String> requestWritePermissionLauncher;
     private final ActivityResultLauncher<String> requestReadPermissionLauncher;
-    private ComplaintFile complaintFile;
+    private ComplaintFile complaintFileSelected;
     private ViewHolder holder;
 
     public ComplaintFilesAdapter(ArrayList<ComplaintFile> complaintFilesList, Context context, ActivityResultLauncher<String> requestWritePermissionLauncher, ActivityResultLauncher<String> requestReadPermissionLauncher, long complaintId, APIRoutes api) {
@@ -65,10 +65,8 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Get Complaint File, Holder and Position
+        // Get Complaint File
         ComplaintFile complaintFile = complaintFilesList.get(position);
-        this.complaintFile = complaintFile;
-        this.holder = holder;
 
         // Set Texts
         String title = context.getString(R.string.complaint_file) + " " + (position + 1);
@@ -76,8 +74,16 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
         String name = complaintFile.getFilename().length() > 20 ? complaintFile.getFilename().substring(0, 20) + "..." : complaintFile.getFilename();
         holder.name.setText(name);
 
+        // Set unique tag for the fileOpen button
+        holder.fileOpen.setTag(position);
+
         // View Button
-        holder.fileOpen.setOnClickListener(view -> openFile());
+        holder.fileOpen.setOnClickListener(view -> {
+            int clickedPosition = (int) view.getTag();
+            complaintFileSelected = complaintFilesList.get(clickedPosition);
+            this.holder = holder;
+            openFile();
+        });
     }
 
     public void openFile() {
@@ -89,7 +95,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
             if (ContextCompat.checkSelfPermission(context, permissionRead) != PackageManager.PERMISSION_GRANTED) {
                 requestReadPermissionLauncher.launch(permissionRead);
             } else {
-                getComplaintFileAttempt(complaintId, complaintFile.getId(), complaintFile.getFilename(), holder.fileOpen);
+                getComplaintFileAttempt(complaintId, complaintFileSelected.getId(), complaintFileSelected.getFilename(), holder.fileOpen);
             }
         }
     }

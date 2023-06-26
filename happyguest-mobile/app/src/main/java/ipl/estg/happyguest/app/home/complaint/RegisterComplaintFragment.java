@@ -6,6 +6,7 @@ import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -73,30 +74,72 @@ public class RegisterComplaintFragment extends Fragment {
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     if (result.getData() != null) {
-                        Uri selectedFile = result.getData().getData();
-                        try {
-                            InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
-                            File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
-                            FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
-                            byte[] buffer = new byte[4096];
-                            int bytesRead;
-                            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                                fileOutputStream.write(buffer, 0, bytesRead);
+                        ClipData clipData = result.getData().getClipData();
+                        if (clipData != null) {
+                            int itemCount = clipData.getItemCount();
+                            for (int i = 0; i < itemCount; i++) {
+                                ClipData.Item item = clipData.getItemAt(i);
+                                Uri selectedFile = item.getUri();
+                                if (selectedFile != null) {
+                                    try {
+                                        InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                                        File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                                        FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                                        byte[] buffer = new byte[4096];
+                                        int bytesRead;
+                                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                            fileOutputStream.write(buffer, 0, bytesRead);
+                                        }
+                                        inputStream.close();
+                                        fileOutputStream.close();
+                                        // Get the file name from the file URI
+                                        String fileName = getFileNameFromUri(selectedFile);
+                                        nameFiles.add(fileName);
+                                        // Check if the file is an image or a PDF
+                                        String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                                        if (mimeType != null && mimeType.startsWith("image/")) {
+                                            byte[] imageData = getStreamByteFromImage(tempFile);
+                                            files.add(imageData);
+                                        } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                            byte[] pdfData = getStreamByteFromFile(tempFile);
+                                            files.add(pdfData);
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
-                            inputStream.close();
-                            fileOutputStream.close();
-                            // Get the file name from the file URI
-                            nameFiles.add(getFileNameFromUri(selectedFile));
-                            // Check if the file is an image or a PDF
-                            String mimeType = requireActivity().getContentResolver().getType(selectedFile);
-                            if (mimeType != null && mimeType.startsWith("image/")) {
-                                files.add(getStreamByteFromImage(tempFile));
-                            } else if (mimeType != null && mimeType.equals("application/pdf")) {
-                                byte[] pdfBytes = getStreamByteFromFile(tempFile);
-                                files.add(pdfBytes);
+                        } else {
+                            // Single file
+                            Uri selectedFile = result.getData().getData();
+                            if (selectedFile != null) {
+                                try {
+                                    InputStream inputStream = requireActivity().getContentResolver().openInputStream(selectedFile);
+                                    File tempFile = File.createTempFile("temp_file", null, requireActivity().getCacheDir());
+                                    FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                                    byte[] buffer = new byte[4096];
+                                    int bytesRead;
+                                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                        fileOutputStream.write(buffer, 0, bytesRead);
+                                    }
+                                    inputStream.close();
+                                    fileOutputStream.close();
+                                    // Get the file name from the file URI
+                                    String fileName = getFileNameFromUri(selectedFile);
+                                    nameFiles.add(fileName);
+                                    // Check if the file is an image or a PDF
+                                    String mimeType = requireActivity().getContentResolver().getType(selectedFile);
+                                    if (mimeType != null && mimeType.startsWith("image/")) {
+                                        byte[] imageData = getStreamByteFromImage(tempFile);
+                                        files.add(imageData);
+                                    } else if (mimeType != null && mimeType.equals("application/pdf")) {
+                                        byte[] pdfData = getStreamByteFromFile(tempFile);
+                                        files.add(pdfData);
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
