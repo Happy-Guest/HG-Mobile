@@ -47,7 +47,6 @@
     <string name="date">Data</string>
     <string name="title">Título</string>
     <string name="local">Local</string>
-    <string name="complain">Reclamar</string>
     <string name="review_anonymous">Avaliação Anónima</string>
     <string name="complaint_anonymous">Reclamação Anónima</string>
     <string name="addFiles">Adicionar Ficheiros</string>
@@ -135,7 +134,6 @@
     <string name="address_too_short">A morada é demasiado curta!</string>
 
     <!-- Messages -->
-    <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>
     <string name="message_associate_register">Não tem nenhum código válido, adicione um para ter acesso aos serviços e atividades.</string>
     <string name="invalid_birth_date">A data de nascimento não é válida!</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>

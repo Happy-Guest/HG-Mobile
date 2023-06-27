@@ -50,7 +50,8 @@
                 android:contentDescription="@string/home_btn_clean"
                 android:elevation="3dp"
                 android:padding="0dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_clean"
                 tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
             <TextView
@@ -64,7 +65,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:translationY="-35dp"
-                tools:ignore="TextSizeCheck" />
+                tools:ignore="TextSizeCheck,TextContrastCheck" />
 
             <LinearLayout
                 android:id="@+id/subServicesLayout"
@@ -82,7 +83,8 @@
                     android:contentDescription="@string/home_btn_objects"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_objects"
                     tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 <ImageButton
@@ -94,7 +96,8 @@
                     android:contentDescription="@string/home_btn_food"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_food"
                     tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
             </LinearLayout>
 
@@ -118,7 +121,8 @@
                     android:elevation="10dp"
                     android:text="@string/home_btn_objects"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
 
                 <TextView
                     android:id="@+id/txtFood"
@@ -130,7 +134,8 @@
                     android:elevation="10dp"
                     android:text="@string/home_btn_food"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
             </LinearLayout>
         </LinearLayout>
 
@@ -164,10 +169,11 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/home_btn_objects"
+                    android:contentDescription="@string/home_btn_restaurant"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_restaurant"
                     tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 <ImageButton
@@ -176,10 +182,11 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/home_btn_food"
+                    android:contentDescription="@string/home_btn_spa"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_spa"
                     tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
             </LinearLayout>
 
@@ -223,10 +230,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_marginTop="15dp"
-                android:contentDescription="@string/home_btn_clean"
+                android:contentDescription="@string/home_btn_gym"
                 android:elevation="3dp"
                 android:padding="0dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_gym"
                 tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
             <TextView
@@ -274,10 +282,11 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/home_btn_objects"
+                    android:contentDescription="@string/home_btn_complaints"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_complaint"
                     tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 <ImageButton
@@ -286,10 +295,11 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/home_btn_food"
+                    android:contentDescription="@string/home_btn_reviews"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_review"
                     tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
             </LinearLayout>
 
@@ -360,11 +370,12 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/home_btn_objects"
+                    android:contentDescription="@string/home_btn_hotel"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
-                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_hotel"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,VisualLintBounds,TouchTargetSizeCheck" />
 
                 <ImageButton
                     android:id="@+id/imgRegion"
@@ -372,11 +383,12 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/home_btn_food"
+                    android:contentDescription="@string/home_btn_region"
                     android:elevation="3dp"
                     android:padding="0dp"
-                    android:scaleType="fitXY"
-                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_region"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,VisualLintBounds,TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
