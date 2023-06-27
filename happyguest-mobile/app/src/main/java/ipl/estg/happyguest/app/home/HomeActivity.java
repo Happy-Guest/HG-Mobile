@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -327,7 +328,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void getMeAttempt() {
-        Call<UserResponse> call = api.me();
+        // Get locale
+        String languageCode = Locale.getDefault().getLanguage();
+        Call<UserResponse> call = api.me(languageCode);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {

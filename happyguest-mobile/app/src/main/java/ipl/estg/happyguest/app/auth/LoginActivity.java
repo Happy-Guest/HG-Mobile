@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -109,10 +110,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginAttempt() {
-        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()));
+        // Get locale
+        String languageCode = Locale.getDefault().getLanguage();
+        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()), languageCode);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                // Check if activity is finishing
+                if (isFinishing()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     // Save token
                     token.setToken(response.body().getAccessToken());
@@ -159,6 +164,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
+                // Check if activity is finishing
+                if (isFinishing()) return;
                 Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("Login Error: ", t.getMessage());
                 btnLogin.setEnabled(true);
