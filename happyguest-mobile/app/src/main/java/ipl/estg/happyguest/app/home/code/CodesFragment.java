@@ -165,6 +165,8 @@ public class CodesFragment extends Fragment {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
@@ -197,6 +199,8 @@ public class CodesFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.e("AssociateCode Error: ", t.getMessage());
                 btnInsertCode.setEnabled(true);
@@ -209,6 +213,8 @@ public class CodesFragment extends Fragment {
         call.enqueue(new Callback<CodesResponse>() {
             @Override
             public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 binding.switchValidCodes.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Save codes in list and update adapter
@@ -236,13 +242,14 @@ public class CodesFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<CodesResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetCodes Error: ", t.getMessage());
                 binding.switchValidCodes.setEnabled(true);
             }
         });
     }
-
 
     @Override
     public void onDestroyView() {

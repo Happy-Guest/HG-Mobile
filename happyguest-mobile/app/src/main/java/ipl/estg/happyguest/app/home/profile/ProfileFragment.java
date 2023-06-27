@@ -319,6 +319,8 @@ public class ProfileFragment extends Fragment {
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 binding.btnSave.setEnabled(true);
                 binding.btnCancel.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
@@ -367,6 +369,8 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
                 binding.btnSave.setEnabled(true);
@@ -380,6 +384,8 @@ public class ProfileFragment extends Fragment {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 btnPopClose.setEnabled(true);
                 btnPopConfirm.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
@@ -416,6 +422,8 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("DeleteUser Error: ", t.getMessage());
                 btnPopClose.setEnabled(true);

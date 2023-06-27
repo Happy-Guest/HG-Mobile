@@ -153,6 +153,8 @@ public class PasswordFragment extends Fragment {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 binding.btnChange.setEnabled(true);
                 binding.btnCancel.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
@@ -191,6 +193,8 @@ public class PasswordFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("UpdateUser Error: ", t.getMessage());
                 binding.btnChange.setEnabled(true);

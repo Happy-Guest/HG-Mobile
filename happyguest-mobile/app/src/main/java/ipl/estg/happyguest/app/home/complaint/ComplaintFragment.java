@@ -99,6 +99,8 @@ public class ComplaintFragment extends Fragment {
         call.enqueue(new Callback<ComplaintResponse>() {
             @Override
             public void onResponse(@NonNull Call<ComplaintResponse> call, @NonNull retrofit2.Response<ComplaintResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Complaint and populate fields
                     Complaint complaint = response.body().getComplaint();
@@ -163,6 +165,8 @@ public class ComplaintFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ComplaintResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetComplaint Error: ", t.getMessage());
             }

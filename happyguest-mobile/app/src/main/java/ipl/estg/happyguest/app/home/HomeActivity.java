@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -31,6 +32,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -227,6 +230,16 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         if (drawer.isOpen()) {
             drawer.close();
+        }
+    }
+
+    public void homeWithCodes(boolean hasCode) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        List<Integer> menuItemIds = Arrays.asList(); // TODO: Add menu items ids
+        // Show or hide multiple menu items
+        for (int menuItemId : menuItemIds) {
+            MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);
+            menuItem.setVisible(hasCode);
         }
     }
 
