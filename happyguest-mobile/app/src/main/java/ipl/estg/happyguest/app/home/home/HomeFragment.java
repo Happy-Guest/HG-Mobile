@@ -68,17 +68,39 @@ public class HomeFragment extends Fragment {
         btnInsertCode = binding.addCode.btnAssociate;
         btnInsertCode.setOnClickListener(v -> associateCode());
 
+        // Complaints button
+        binding.imgComplaints.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_complaints);
+            }
+        });
+
+        // Reviews button
+        binding.imgReviews.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_reviews);
+            }
+        });
+
         return binding.getRoot();
     }
 
     private void homeWithCodes(boolean hasCode) {
         if (hasCode) {
+            binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.codeLayout.setVisibility(View.GONE);
+            binding.servicesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.servicesLayout.setVisibility(View.VISIBLE);
+            binding.activitiesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.activitiesLayout.setVisibility(View.VISIBLE);
         } else {
+            binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
             binding.codeLayout.setVisibility(View.VISIBLE);
+            binding.servicesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.servicesLayout.setVisibility(View.GONE);
+            binding.activitiesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
             binding.activitiesLayout.setVisibility(View.GONE);
         }
         if (getActivity() instanceof HomeActivity) {
@@ -115,8 +137,7 @@ public class HomeFragment extends Fragment {
                     // Set hasCode to true and hide code layout
                     HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-                    binding.codeLayout.setVisibility(View.GONE);
+                    homeWithCodes(true);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     if (response.code() == 404) {

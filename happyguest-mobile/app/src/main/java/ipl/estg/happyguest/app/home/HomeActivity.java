@@ -19,12 +19,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -248,7 +250,14 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.popBackStack();
         navController.navigate(id);
+
+        // Scroll to the top of the page
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+        appBarLayout.setExpanded(true);
+        NestedScrollView nestedScrollView = findViewById(R.id.scrollView);
+        nestedScrollView.smoothScrollTo(0, 0);
     }
+
 
     public void changeFragmentBundle(int id, Long idObject, Long position) {
         Bundle bundle = new Bundle();
