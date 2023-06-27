@@ -66,6 +66,22 @@
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
 
+    <!-- Home -->
+    <string name="home_services">Room Services</string>
+    <string name="home_activities">Activities</string>
+    <string name="home_history">History</string>
+    <string name="home_info">Information\'s</string>
+    <string name="home_btn_clean">Cleaning</string>
+    <string name="home_btn_objects">Objects</string>
+    <string name="home_btn_food">Food</string>
+    <string name="home_btn_restaurant">Book Table</string>
+    <string name="home_btn_spa">Spa</string>
+    <string name="home_btn_gym">Gym</string>
+    <string name="home_btn_complaints">Complaints</string>
+    <string name="home_btn_reviews">Reviews</string>
+    <string name="home_btn_hotel">Hotel</string>
+    <string name="home_btn_region">Region</string>
+
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Profile</string>

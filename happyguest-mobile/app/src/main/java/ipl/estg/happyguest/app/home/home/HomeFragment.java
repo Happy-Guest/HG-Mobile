@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +29,7 @@ import ipl.estg.happyguest.databinding.FragmentHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.others.CornersImage;
 import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
@@ -46,6 +48,8 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        setPhotos();
 
         // User, Token, Code and API
         user = new User(binding.getRoot().getContext());
@@ -72,6 +76,12 @@ public class HomeFragment extends Fragment {
         btnInsertCode.setOnClickListener(v -> associateCode());
 
         return binding.getRoot();
+    }
+
+    private void setPhotos() {
+        Picasso.get().load(R.drawable.bg_clean).transform(new CornersImage()).into(binding.imgClean);
+        Picasso.get().load(R.drawable.bg_objects).transform(new CornersImage()).into(binding.imgObjects);
+        Picasso.get().load(R.drawable.bg_food).transform(new CornersImage()).into(binding.imgFood);
     }
 
     private void associateCode() {

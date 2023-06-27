@@ -66,6 +66,22 @@
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
 
+    <!-- Home -->
+    <string name="home_services">Serviços de Quarto</string>
+    <string name="home_activities">Atividades</string>
+    <string name="home_history">Histórico</string>
+    <string name="home_info">Informações</string>
+    <string name="home_btn_clean">Limpeza</string>
+    <string name="home_btn_objects">Objetos</string>
+    <string name="home_btn_food">Alimentação</string>
+    <string name="home_btn_restaurant">Marcar Mesa</string>
+    <string name="home_btn_spa">Spa</string>
+    <string name="home_btn_gym">Ginásio</string>
+    <string name="home_btn_complaints">Reclamações</string>
+    <string name="home_btn_reviews">Avaliações</string>
+    <string name="home_btn_hotel">Hotel</string>
+    <string name="home_btn_region">Região</string>
+
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
