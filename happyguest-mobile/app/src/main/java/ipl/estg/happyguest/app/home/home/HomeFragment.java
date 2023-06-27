@@ -82,6 +82,13 @@ public class HomeFragment extends Fragment {
         Picasso.get().load(R.drawable.bg_clean).transform(new CornersImage()).into(binding.imgClean);
         Picasso.get().load(R.drawable.bg_objects).transform(new CornersImage()).into(binding.imgObjects);
         Picasso.get().load(R.drawable.bg_food).transform(new CornersImage()).into(binding.imgFood);
+        Picasso.get().load(R.drawable.bg_restaurant).transform(new CornersImage()).into(binding.imgRestaurant);
+        Picasso.get().load(R.drawable.bg_spa).transform(new CornersImage()).into(binding.imgSpa);
+        Picasso.get().load(R.drawable.bg_gym).transform(new CornersImage()).into(binding.imgGym);
+        Picasso.get().load(R.drawable.bg_complaint).transform(new CornersImage()).into(binding.imgComplaints);
+        Picasso.get().load(R.drawable.bg_review).transform(new CornersImage()).into(binding.imgReviews);
+        Picasso.get().load(R.drawable.bg_hotel).transform(new CornersImage()).into(binding.imgHotel);
+        Picasso.get().load(R.drawable.bg_region).transform(new CornersImage()).into(binding.imgRegion);
     }
 
     private void associateCode() {

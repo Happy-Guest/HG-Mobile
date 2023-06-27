@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:orientation="vertical">
 
@@ -151,13 +151,104 @@
                 android:textColor="#000000"
                 android:textSize="19sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/subActivitiesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgRestaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/home_btn_objects"
+                    android:elevation="3dp"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgSpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/home_btn_food"
+                    android:elevation="3dp"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subActivitiesTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-35dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtRestaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_restaurant"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtSpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_spa"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imgGym"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="15dp"
+                android:contentDescription="@string/home_btn_clean"
+                android:elevation="3dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+            <TextView
+                android:id="@+id/txtGym"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="-22dp"
+                android:elevation="10dp"
+                android:text="@string/home_btn_gym"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:translationY="-35dp"
+                tools:ignore="TextSizeCheck" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/historyLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -170,13 +261,80 @@
                 android:textColor="#000000"
                 android:textSize="19sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/subHistoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgComplaints"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/home_btn_objects"
+                    android:elevation="3dp"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/home_btn_food"
+                    android:elevation="3dp"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subHistoryTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-35dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtComplaints"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_complaints"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_reviews"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/infoLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -189,6 +347,72 @@
                 android:textColor="#000000"
                 android:textSize="19sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/subInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgHotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/home_btn_objects"
+                    android:elevation="3dp"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/home_btn_food"
+                    android:elevation="3dp"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subInfoTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-35dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtHotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_hotel"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_region"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
