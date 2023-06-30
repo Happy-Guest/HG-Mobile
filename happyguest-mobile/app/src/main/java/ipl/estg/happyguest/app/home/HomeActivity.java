@@ -174,6 +174,11 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setEnabled(true);
             }
+            // Scroll to the top of the page
+            AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+            appBarLayout.setExpanded(true);
+            NestedScrollView nestedScrollView = findViewById(R.id.scrollView);
+            nestedScrollView.smoothScrollTo(0, 0);
         });
 
         // Go to home fragment
@@ -250,14 +255,7 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.popBackStack();
         navController.navigate(id);
-
-        // Scroll to the top of the page
-        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
-        appBarLayout.setExpanded(true);
-        NestedScrollView nestedScrollView = findViewById(R.id.scrollView);
-        nestedScrollView.smoothScrollTo(0, 0);
     }
-
 
     public void changeFragmentBundle(int id, Long idObject, Long position) {
         Bundle bundle = new Bundle();
