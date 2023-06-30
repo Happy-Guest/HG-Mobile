@@ -46,6 +46,7 @@
                 android:id="@+id/imgClean"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
+                android:background="@drawable/shadow"
                 android:contentDescription="@string/home_btn_clean"
                 android:elevation="5dp"
                 android:padding="0dp"
@@ -69,7 +70,7 @@
             <LinearLayout
                 android:id="@+id/subServicesLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
@@ -79,6 +80,7 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_objects"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -92,6 +94,7 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_food"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -108,7 +111,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="-22dp"
                 android:orientation="horizontal"
-                android:translationY="-35dp"
+                android:translationY="-45dp"
                 tools:ignore="TextSizeCheck">
 
                 <TextView
@@ -142,7 +145,6 @@
             android:id="@+id/activitiesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -159,7 +161,7 @@
             <LinearLayout
                 android:id="@+id/subActivitiesLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -168,6 +170,7 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_restaurant"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -181,6 +184,7 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_spa"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -197,7 +201,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="-22dp"
                 android:orientation="horizontal"
-                android:translationY="-35dp"
+                android:translationY="-45dp"
                 tools:ignore="TextSizeCheck">
 
                 <TextView
@@ -228,7 +232,9 @@
                 android:id="@+id/imgGym"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shadow"
                 android:contentDescription="@string/home_btn_gym"
                 android:elevation="5dp"
                 android:padding="0dp"
@@ -246,7 +252,7 @@
                 android:text="@string/home_btn_gym"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:translationY="-35dp"
+                android:translationY="-45dp"
                 tools:ignore="TextSizeCheck" />
 
         </LinearLayout>
@@ -255,7 +261,6 @@
             android:id="@+id/historyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -272,7 +277,7 @@
             <LinearLayout
                 android:id="@+id/subHistoryLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -281,6 +286,7 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_complaints"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -294,6 +300,7 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_reviews"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -310,7 +317,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="-22dp"
                 android:orientation="horizontal"
-                android:translationY="-35dp"
+                android:translationY="-45dp"
                 tools:ignore="TextSizeCheck">
 
                 <TextView
@@ -342,7 +349,6 @@
             android:id="@+id/infoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
@@ -360,7 +366,7 @@
             <LinearLayout
                 android:id="@+id/subInfoLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -369,6 +375,7 @@
                     android:layout_height="90dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_hotel"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -382,6 +389,7 @@
                     android:layout_height="90dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/shadow"
                     android:contentDescription="@string/home_btn_region"
                     android:elevation="5dp"
                     android:padding="0dp"
@@ -398,7 +406,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="-22dp"
                 android:orientation="horizontal"
-                android:translationY="-35dp"
+                android:translationY="-45dp"
                 tools:ignore="TextSizeCheck">
 
                 <TextView
