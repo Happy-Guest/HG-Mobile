@@ -28,6 +28,7 @@ import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
 import ipl.estg.happyguest.utils.models.Meta;
 import ipl.estg.happyguest.utils.models.Review;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -49,10 +50,14 @@ public class ReviewsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentReviewsBinding.inflate(inflater, container, false);
 
-        // User, API and Token
+        // User, API, Token and HasCodes
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
+        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+
+        // Change register button
+        binding.btnRegisterReview.setEnabled(hasCodes.getHasCode());
 
         // Reviews
         RecyclerView reviewsRV = binding.reviewsRV;
@@ -148,6 +153,8 @@ public class ReviewsFragment extends Fragment {
         call.enqueue(new Callback<ReviewsResponse>() {
             @Override
             public void onResponse(@NonNull Call<ReviewsResponse> call, @NonNull Response<ReviewsResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 binding.switchOrderReviews.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Save reviews and update the adapter
@@ -173,6 +180,8 @@ public class ReviewsFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ReviewsResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.reviews_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetReviews Error: ", t.getMessage());
                 binding.switchOrderReviews.setEnabled(true);

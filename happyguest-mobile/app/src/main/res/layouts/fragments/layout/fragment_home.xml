@@ -1,23 +1,439 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".app.home.home.HomeFragment">
 
     <FrameLayout
         android:id="@+id/codeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="10dp"
+        android:visibility="gone">
 
         <include
             android:id="@+id/add_code"
             layout="@layout/insert_code" />
     </FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/homeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/servicesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitleServices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/home_services"
+                android:textColor="#000000"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/imgClean"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@drawable/shadow"
+                android:contentDescription="@string/home_btn_clean"
+                android:elevation="5dp"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_clean2"
+                tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+            <TextView
+                android:id="@+id/txtClean"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="-22dp"
+                android:elevation="10dp"
+                android:text="@string/home_btn_clean"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:translationY="-35dp"
+                tools:ignore="TextSizeCheck,TextContrastCheck" />
+
+            <LinearLayout
+                android:id="@+id/subServicesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgObjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_objects"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_objects2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_food"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_food2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subServicesTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-45dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtObjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_objects"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
+
+                <TextView
+                    android:id="@+id/txtFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_food"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/activitiesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitleActivities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/home_activities"
+                android:textColor="#000000"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/subActivitiesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgRestaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_restaurant"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_restaurant2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgSpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_spa"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_spa2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subActivitiesTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-45dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtRestaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_restaurant"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtSpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_spa"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imgGym"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shadow"
+                android:contentDescription="@string/home_btn_gym"
+                android:elevation="5dp"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_gym2"
+                tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+            <TextView
+                android:id="@+id/txtGym"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="-22dp"
+                android:elevation="10dp"
+                android:text="@string/home_btn_gym"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:translationY="-45dp"
+                tools:ignore="TextSizeCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/historyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitleHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/home_history"
+                android:textColor="#000000"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/subHistoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgComplaints"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_complaints"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_complaint2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_reviews"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_review2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subHistoryTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-45dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtComplaints"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_complaints"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_reviews"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitleInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/home_info"
+                android:textColor="#000000"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/subInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgHotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_hotel"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_hotel2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,VisualLintBounds,TouchTargetSizeCheck" />
+
+                <ImageButton
+                    android:id="@+id/imgRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shadow"
+                    android:contentDescription="@string/home_btn_region"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_region2"
+                    tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,VisualLintBounds,TouchTargetSizeCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subInfoTxtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                android:orientation="horizontal"
+                android:translationY="-45dp"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/txtHotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_hotel"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="-22dp"
+                    android:layout_weight="1"
+                    android:elevation="10dp"
+                    android:text="@string/home_btn_region"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

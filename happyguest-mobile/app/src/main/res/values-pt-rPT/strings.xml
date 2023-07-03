@@ -47,7 +47,6 @@
     <string name="date">Data</string>
     <string name="title">Título</string>
     <string name="local">Local</string>
-    <string name="complain">Reclamar</string>
     <string name="review_anonymous">Avaliação Anónima</string>
     <string name="complaint_anonymous">Reclamação Anónima</string>
     <string name="addFiles">Adicionar Ficheiros</string>
@@ -65,6 +64,22 @@
     <string name="createdDate">Criada em</string>
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
+
+    <!-- Home -->
+    <string name="home_services">Serviços de Quarto</string>
+    <string name="home_activities">Atividades</string>
+    <string name="home_history">Histórico</string>
+    <string name="home_info">Informações</string>
+    <string name="home_btn_clean">Limpeza</string>
+    <string name="home_btn_objects">Objetos</string>
+    <string name="home_btn_food">Alimentação</string>
+    <string name="home_btn_restaurant">Marcar Mesa</string>
+    <string name="home_btn_spa">Spa</string>
+    <string name="home_btn_gym">Ginásio</string>
+    <string name="home_btn_complaints">Reclamações</string>
+    <string name="home_btn_reviews">Avaliações</string>
+    <string name="home_btn_hotel">Hotel</string>
+    <string name="home_btn_region">Região</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -119,7 +134,6 @@
     <string name="address_too_short">A morada é demasiado curta!</string>
 
     <!-- Messages -->
-    <string name="message_associate_no_register">Associe um código para ter acesso aos serviços e atividades.</string>
     <string name="message_associate_register">Não tem nenhum código válido, adicione um para ter acesso aos serviços e atividades.</string>
     <string name="invalid_birth_date">A data de nascimento não é válida!</string>
     <string name="restore_success">Sessão restaurada com sucesso.</string>

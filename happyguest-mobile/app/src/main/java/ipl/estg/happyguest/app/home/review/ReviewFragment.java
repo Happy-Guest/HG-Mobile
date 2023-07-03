@@ -60,6 +60,8 @@ public class ReviewFragment extends Fragment {
         call.enqueue(new Callback<ReviewResponse>() {
             @Override
             public void onResponse(@NonNull Call<ReviewResponse> call, @NonNull retrofit2.Response<ReviewResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Review and populate fields
                     Review review = response.body().getReview();
@@ -77,6 +79,8 @@ public class ReviewFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ReviewResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetReview Error: ", t.getMessage());
             }

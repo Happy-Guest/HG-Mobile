@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -18,12 +19,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +34,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -168,6 +174,11 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.btnBarProfile.setVisibility(View.VISIBLE);
                 binding.appBarHome.btnBarProfile.setEnabled(true);
             }
+            // Scroll to the top of the page
+            AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+            appBarLayout.setExpanded(true);
+            NestedScrollView nestedScrollView = findViewById(R.id.scrollView);
+            nestedScrollView.smoothScrollTo(0, 0);
         });
 
         // Go to home fragment
@@ -227,6 +238,16 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         if (drawer.isOpen()) {
             drawer.close();
+        }
+    }
+
+    public void homeWithCodes(boolean hasCode) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        List<Integer> menuItemIds = Arrays.asList(); // TODO: Add menu items ids
+        // Show or hide multiple menu items
+        for (int menuItemId : menuItemIds) {
+            MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);
+            menuItem.setVisible(hasCode);
         }
     }
 
@@ -314,7 +335,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void getMeAttempt() {
-        Call<UserResponse> call = api.me();
+        // Get locale
+        String languageCode = Locale.getDefault().getLanguage();
+        Call<UserResponse> call = api.me(languageCode);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {

@@ -20,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -29,12 +30,12 @@ public interface APIRoutes {
 
     // Auth
     @POST("register")
-    @Headers("Accept: application/json")
-    Call<MessageResponse> register(@Body RegisterRequest registerRequest);
+    @Headers({"Accept: application/json"})
+    Call<MessageResponse> register(@Body RegisterRequest registerRequest, @Header("Accept-Language") String language);
 
     @POST("login")
     @Headers("Accept: application/json")
-    Call<LoginResponse> login(@Body LoginRequest loginRequest);
+    Call<LoginResponse> login(@Body LoginRequest loginRequest, @Header("Accept-Language") String language);
 
     @POST("logout")
     Call<MessageResponse> logout();
@@ -45,7 +46,7 @@ public interface APIRoutes {
 
     // User
     @GET("me")
-    Call<UserResponse> me();
+    Call<UserResponse> me(@Header("Accept-Language") String language);
 
     @POST("users/{id}")
     @Headers("Accept: application/json")

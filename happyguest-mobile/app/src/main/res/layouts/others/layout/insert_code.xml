@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="30dp"
-    android:layout_marginTop="10dp"
     android:layout_marginRight="30dp"
     android:orientation="vertical"
     tools:context=".app.home.home.HomeFragment">
@@ -60,7 +59,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/btn_primary"
         android:clickable="true"
         android:gravity="center_horizontal"

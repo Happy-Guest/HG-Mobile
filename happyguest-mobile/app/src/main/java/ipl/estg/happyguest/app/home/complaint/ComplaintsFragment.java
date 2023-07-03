@@ -25,6 +25,7 @@ import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.ComplaintsResponse;
 import ipl.estg.happyguest.utils.models.Complaint;
 import ipl.estg.happyguest.utils.models.Meta;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -46,10 +47,14 @@ public class ComplaintsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentComplaintsBinding.inflate(inflater, container, false);
 
-        // User, API and Token
+        // User, API, Token and HasCodes
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
+        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+
+        // Change register button
+        binding.btnRegisterComplaint.setEnabled(hasCodes.getHasCode());
 
         // Register Complaint
         binding.btnRegisterComplaint.setOnClickListener(v -> {
@@ -152,6 +157,9 @@ public class ComplaintsFragment extends Fragment {
         call.enqueue(new Callback<ComplaintsResponse>() {
             @Override
             public void onResponse(@NonNull Call<ComplaintsResponse> call, @NonNull Response<ComplaintsResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
+                binding.spinnerSelectStatus.setEnabled(true);
                 binding.spinnerSelectStatus.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Save complaints and update the adapter
@@ -177,6 +185,8 @@ public class ComplaintsFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ComplaintsResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.complaints_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetComplaints Error: ", t.getMessage());
                 binding.spinnerSelectStatus.setEnabled(true);

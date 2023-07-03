@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -55,15 +56,11 @@ public class HomeFragment extends Fragment {
 
         // Check if user has codes
         if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            binding.codeLayout.setVisibility(View.GONE);
+            homeWithCodes(true);
         } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            if (hasCodes.hasCodesAttempt(api)) {
-                binding.codeLayout.setVisibility(View.GONE);
-            } else {
-                binding.codeLayout.setVisibility(View.VISIBLE);
-            }
+            homeWithCodes(hasCodes.hasCodesAttempt(api));
         } else {
-            binding.codeLayout.setVisibility(View.VISIBLE);
+            homeWithCodes(false);
         }
 
         // Associate code button
@@ -71,7 +68,45 @@ public class HomeFragment extends Fragment {
         btnInsertCode = binding.addCode.btnAssociate;
         btnInsertCode.setOnClickListener(v -> associateCode());
 
+        // Complaints button
+        binding.imgComplaints.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_complaints);
+            }
+        });
+
+        // Reviews button
+        binding.imgReviews.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_reviews);
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void homeWithCodes(boolean hasCode) {
+        if (hasCode) {
+            binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.codeLayout.setVisibility(View.GONE);
+            binding.servicesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.servicesLayout.setVisibility(View.VISIBLE);
+            binding.activitiesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.activitiesLayout.setVisibility(View.VISIBLE);
+        } else {
+            binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
+            binding.codeLayout.setVisibility(View.VISIBLE);
+            binding.servicesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.servicesLayout.setVisibility(View.GONE);
+            binding.activitiesLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
+            binding.activitiesLayout.setVisibility(View.GONE);
+        }
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.homeWithCodes(hasCode);
+        }
     }
 
     private void associateCode() {
@@ -95,13 +130,14 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 btnInsertCode.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Set hasCode to true and hide code layout
                     HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
                     hasCodes.setHasCode(true, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    binding.codeLayout.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
-                    binding.codeLayout.setVisibility(View.GONE);
+                    homeWithCodes(true);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else {
                     if (response.code() == 404) {
@@ -126,6 +162,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.e("AssociateCode Error: ", t.getMessage());
                 btnInsertCode.setEnabled(true);

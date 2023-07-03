@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -47,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getMeAttempt() {
-        Call<UserResponse> call = api.me();
+        // Get locale
+        String languageCode = Locale.getDefault().getLanguage();
+        Call<UserResponse> call = api.me(languageCode);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull retrofit2.Response<UserResponse> response) {
