@@ -8,7 +8,7 @@ public class ReviewRequest {
 
     @Nullable
     @SerializedName("user_id")
-    private final Integer user_id;
+    private final Long user_id;
     @SerializedName("stars")
     private final int stars;
     @Nullable
@@ -17,7 +17,7 @@ public class ReviewRequest {
     @SerializedName("authorize")
     private final String authorize;
 
-    public ReviewRequest(@Nullable Integer user_id, int stars, @Nullable String comment, String authorize) {
+    public ReviewRequest(@Nullable Long user_id, int stars, @Nullable String comment, String authorize) {
         this.user_id = user_id;
         this.stars = stars;
         this.comment = comment;

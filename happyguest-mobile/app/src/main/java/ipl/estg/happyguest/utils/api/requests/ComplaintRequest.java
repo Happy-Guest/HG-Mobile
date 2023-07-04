@@ -9,7 +9,7 @@ import java.util.List;
 public class ComplaintRequest {
     @Nullable
     @SerializedName("user_id")
-    private final Integer user_id;
+    private final Long user_id;
     @SerializedName("title")
     private final String title;
     @SerializedName("local")
@@ -27,7 +27,7 @@ public class ComplaintRequest {
     @SerializedName("fileNames")
     private final List<String> fileNames;
 
-    public ComplaintRequest(@Nullable Integer user_id, String title, String local, String status, String comment, String date, @Nullable List<String> filesBase64, @Nullable List<String> fileNames) {
+    public ComplaintRequest(@Nullable Long user_id, String title, String local, String status, String comment, String date, @Nullable List<String> filesBase64, @Nullable List<String> fileNames) {
         this.user_id = user_id;
         this.title = title;
         this.local = local;

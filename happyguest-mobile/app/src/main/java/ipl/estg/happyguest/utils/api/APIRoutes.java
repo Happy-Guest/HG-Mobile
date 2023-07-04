@@ -14,6 +14,7 @@ import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
+import ipl.estg.happyguest.utils.api.responses.ServiceResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -50,27 +51,27 @@ public interface APIRoutes {
 
     @POST("users/{id}")
     @Headers("Accept: application/json")
-    Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") int id);
+    Call<UserResponse> updateUser(@Body UpdateUserRequest updateUserRequest, @Path("id") Long id);
 
     @DELETE("users/{id}")
-    Call<MessageResponse> deleteUser(@Path("id") int id, @Query("password") String password);
+    Call<MessageResponse> deleteUser(@Path("id") Long id, @Query("password") String password);
 
     // Codes
     @GET("valid-code")
     Call<HasCodesResponse> hasCodes();
 
     @GET("users/{id}/codes?order=DESC")
-    Call<CodesResponse> getUserCodes(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
+    Call<CodesResponse> getUserCodes(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
 
     @POST("users/{user_id}/codes/{code}/associate")
-    Call<MessageResponse> associateCode(@Path("user_id") int user_id, @Path("code") String code);
+    Call<MessageResponse> associateCode(@Path("user_id") Long user_id, @Path("code") String code);
 
     @DELETE("users/{user_id}/codes/{code}/disassociate")
-    Call<MessageResponse> disassociateCode(@Path("user_id") int user_id, @Path("code") String code);
+    Call<MessageResponse> disassociateCode(@Path("user_id") Long user_id, @Path("code") String code);
 
     //Reviews
     @GET("users/{id}/reviews")
-    Call<ReviewsResponse> getUserReviews(@Path("id") int id, @Query("page") int page, @Query("order") String order);
+    Call<ReviewsResponse> getUserReviews(@Path("id") Long id, @Query("page") int page, @Query("order") String order);
 
     @GET("reviews/{id}")
     Call<ReviewResponse> getReview(@Path("id") Long id);
@@ -81,7 +82,7 @@ public interface APIRoutes {
 
     //Complaints
     @GET("users/{id}/complaints?order=DESC")
-    Call<ComplaintsResponse> getUserComplaints(@Path("id") int id, @Query("page") int page, @Query("filter") String filter);
+    Call<ComplaintsResponse> getUserComplaints(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
 
     @GET("complaints/{id}")
     Call<ComplaintResponse> getComplaint(@Path("id") Long id);
@@ -92,4 +93,8 @@ public interface APIRoutes {
     @POST("complaints")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
+
+    //Services
+    @GET("service/{id}")
+    Call<ServiceResponse> getService(@Path("id") Long id);
 }
