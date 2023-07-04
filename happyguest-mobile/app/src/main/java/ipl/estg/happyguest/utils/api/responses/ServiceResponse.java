@@ -4,24 +4,22 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import ipl.estg.happyguest.utils.models.Complaint;
+import ipl.estg.happyguest.utils.models.Service;
+
 
 public class ServiceResponse extends MessageResponse {
 
-    @SerializedName("id")
-    private final Long id;
-    @SerializedName("name")
-    private final String name;
-    @SerializedName("email")
-    private final String email;
-    @Nullable
-    @SerializedName("phone")
-    private final Long phone;
+    @SerializedName("data")
+    private final Service service;
 
-    public ServiceResponse(String message, Long id, String name, String email, @Nullable Long phone) {
+    public ServiceResponse(String message, @Nullable Service service) {
         super(message);
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
+        this.service = service;
+    }
+
+    @Nullable
+    public Service getService() {
+        return service;
     }
 }

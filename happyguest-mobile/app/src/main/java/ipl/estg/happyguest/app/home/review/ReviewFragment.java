@@ -24,8 +24,7 @@ import retrofit2.Callback;
 
 public class ReviewFragment extends Fragment {
 
-
-    Long reviewId;
+    private Long reviewId;
     private FragmentReviewBinding binding;
     private APIRoutes api;
 
@@ -72,7 +71,7 @@ public class ReviewFragment extends Fragment {
                     binding.checkAuthorization.setChecked(review.getAuthorize() == 1);
                     binding.checkShared.setChecked(review.getShared() == 1);
                 } else {
-                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetReview Error: ", response.message());
                 }
             }

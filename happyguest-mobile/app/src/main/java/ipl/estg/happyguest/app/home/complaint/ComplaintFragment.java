@@ -158,7 +158,7 @@ public class ComplaintFragment extends Fragment {
                         binding.txtFiles.setVisibility(View.GONE);
                     }
                 } else {
-                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetComplaint Error: ", response.message());
                 }
             }

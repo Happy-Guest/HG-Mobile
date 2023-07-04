@@ -95,6 +95,6 @@ public interface APIRoutes {
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
 
     //Services
-    @GET("service/{id}")
+    @GET("services/{id}")
     Call<ServiceResponse> getService(@Path("id") Long id);
 }

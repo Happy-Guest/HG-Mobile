@@ -37,8 +37,8 @@
             android:id="@+id/txtServiceEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/gray"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/background_gray"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -63,8 +63,8 @@
             android:id="@+id/txtServicePhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/gray"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/background_gray"
             android:textSize="16sp" />
 
     </LinearLayout>
