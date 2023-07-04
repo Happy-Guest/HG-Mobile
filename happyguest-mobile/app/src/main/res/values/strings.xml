@@ -91,11 +91,19 @@
     <string name="menu_password">Password</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_reviews">Reviews</string>
+    <string name="menu_cleaning">Room Cleaning</string>
     <string name="menu_register_review">Register Review</string>
     <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>
     <string name="menu_review">Review Nº</string>
     <string name="menu_complaint">Complaint Nº</string>
+
+    <!-- Services -->
+    <string name="services_schedule">Schedule: </string>
+    <string name="services_email">Email: </string>
+    <string name="services_phone">Phone: </string>
+    <string name="services_description">Description</string>
+    <string name="services_menu">Open Menu</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>

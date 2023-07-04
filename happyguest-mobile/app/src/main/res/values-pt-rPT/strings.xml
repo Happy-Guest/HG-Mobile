@@ -81,16 +81,24 @@
     <string name="home_btn_hotel">Hotel</string>
     <string name="home_btn_region">Região</string>
 
+    <!-- Services -->
+    <string name="services_schedule">Horário: </string>
+    <string name="services_email">Email: </string>
+    <string name="services_phone">Nº Telefone: </string>
+    <string name="services_description">Descrição</string>
+    <string name="services_menu">Abrir Menu</string>
+
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
     <string name="profile_icon">Perfil</string>
     <string name="barTitle">Hotel de Leiria</string>
     <string name="menu_home">Página Inicial</string>
-    <string name="menu_code">Códigos Reserva</string>
+    <string name="menu_code">Códigos de Reserva</string>
     <string name="menu_profile">Perfil</string>
     <string name="menu_password">Palavra-Passe</string>
     <string name="menu_logout">Sair</string>
     <string name="menu_reviews">Avaliações</string>
+    <string name="menu_cleaning">Limpeza de Quarto</string>
     <string name="menu_register_review">Registar Avaliação</string>
     <string name="menu_complaints">Reclamações</string>
     <string name="menu_register_complaint">Registar Reclamação</string>
