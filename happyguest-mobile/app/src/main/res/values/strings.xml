@@ -100,12 +100,16 @@
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>
+    <string name="services_schedule_separator">and</string>
     <string name="services_email">Email: </string>
     <string name="services_phone">Phone: </string>
     <string name="services_occupation">Occupation: </string>
     <string name="services_location">Location: </string>
     <string name="services_description">Description</string>
     <string name="services_menu">Open Menu</string>
+    <string name="services_order">Order</string>
+    <string name="services_reserve">Reserve</string>
+    <string name="services_room">Room: </string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>

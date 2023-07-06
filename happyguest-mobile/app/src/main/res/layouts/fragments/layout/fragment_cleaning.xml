@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,5 +9,107 @@
 
     <include
         android:id="@+id/cleaning_service"
-        layout="@layout/service_details" />
+        layout="@layout/service_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/services_room"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerRoom"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:dropDownWidth="wrap_content"
+            android:spinnerMode="dropdown"
+            android:text="@string/services_room"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/services_schedule"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerSchedule"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:dropDownWidth="wrap_content"
+            android:spinnerMode="dropdown"
+            android:text="@string/services_schedule"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnOrder"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_primary"
+        android:clickable="true"
+        android:text="@string/services_order"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:icon="@drawable/complaint_add_icon"
+        app:iconPadding="-25dp"
+        app:iconTint="@color/black"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btnHistory"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_secondary"
+        android:text="@string/home_history"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        app:icon="@drawable/history_icon"
+        app:iconPadding="-25dp"
+        app:iconTint="@color/black" />
 </LinearLayout>

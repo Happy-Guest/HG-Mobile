@@ -107,7 +107,7 @@ public class CodesFragment extends Fragment {
         // Switch filter
         binding.switchValidCodes.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) filter = "V";
-            else filter = "E";
+            else filter = "ALL";
             if (binding.switchValidCodes.isEnabled()) {
                 getCodes();
             }
