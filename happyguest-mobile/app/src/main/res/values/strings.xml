@@ -102,6 +102,8 @@
     <string name="services_schedule">Schedule: </string>
     <string name="services_email">Email: </string>
     <string name="services_phone">Phone: </string>
+    <string name="services_occupation">Occupation: </string>
+    <string name="services_location">Location: </string>
     <string name="services_description">Description</string>
     <string name="services_menu">Open Menu</string>
 

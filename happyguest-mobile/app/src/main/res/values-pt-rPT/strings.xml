@@ -85,6 +85,8 @@
     <string name="services_schedule">Horário: </string>
     <string name="services_email">Email: </string>
     <string name="services_phone">Nº Telefone: </string>
+    <string name="services_occupation">Ocupação: </string>
+    <string name="services_location">Localização: </string>
     <string name="services_description">Descrição</string>
     <string name="services_menu">Abrir Menu</string>
 
