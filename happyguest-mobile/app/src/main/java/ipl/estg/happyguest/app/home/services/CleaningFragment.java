@@ -174,7 +174,15 @@ public class CleaningFragment extends Fragment {
                         calendar.set(Calendar.HOUR_OF_DAY, hour);
                         calendar.set(Calendar.MINUTE, minute);
                         String date = dateFormat.format(calendar.getTime());
-                        scheduleDates.add(date);
+
+                        // Check if the date is for today or tomorrow
+                        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Lisbon"));
+                        int dateDay = calendar.get(Calendar.DAY_OF_YEAR);
+                        int nowDay = now.get(Calendar.DAY_OF_YEAR);
+
+                        if (dateDay == nowDay || dateDay == nowDay + 1) {
+                            scheduleDates.add(date);
+                        }
                     }
                     minute = 0;
                 }
@@ -186,17 +194,15 @@ public class CleaningFragment extends Fragment {
             calendar.set(Calendar.SECOND, 0);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
             dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
-            String startTime = dateFormat.format(calendar.getTime());
-            availableDates.add(startTime);
 
             // Generate dates in 15-minute intervals for the specified number of hours
             for (int i = 0; i < 24 * 4; i++) {
-                calendar.add(Calendar.MINUTE, 15);
                 String date = dateFormat.format(calendar.getTime());
                 // Check if date is in the schedule
-                if (scheduleDates.contains(date)) {
+                if (scheduleDates.contains(date) && !availableDates.contains(date)) {
                     availableDates.add(date);
                 }
+                calendar.add(Calendar.MINUTE, 15);
                 if (calendar.get(Calendar.DATE) - 1 > Calendar.getInstance().get(Calendar.DATE)) {
                     break; // Stop after 24 hours
                 }
