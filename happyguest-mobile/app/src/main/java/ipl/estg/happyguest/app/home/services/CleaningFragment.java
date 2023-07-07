@@ -115,22 +115,27 @@ public class CleaningFragment extends Fragment {
     private String formatSchedule(String schedule) {
         // Schedule format is 9:00-14:00-15:00-21:00 or 9:00-23:00
         // Split the schedule into start and end times
-        String[] scheduleArray = schedule.split("-");
-        StringBuilder scheduleString = new StringBuilder();
-        for (int i = 0; i < scheduleArray.length; i++) {
-            if (i % 2 == 0) {
-                scheduleString.append(scheduleArray[i]).append("h-");
-            } else {
-                scheduleString.append(scheduleArray[i]).append("h");
-                if (i != scheduleArray.length - 1) {
-                    scheduleString.append(" ").append(getString(R.string.services_schedule_separator)).append(" ");
+        try {
+            String[] scheduleArray = schedule.split("-");
+            StringBuilder scheduleString = new StringBuilder();
+            for (int i = 0; i < scheduleArray.length; i++) {
+                if (i % 2 == 0) {
+                    scheduleString.append(scheduleArray[i]).append("h-");
+                } else {
+                    scheduleString.append(scheduleArray[i]).append("h");
+                    if (i != scheduleArray.length - 1) {
+                        scheduleString.append(" ").append(getString(R.string.services_schedule_separator)).append(" ");
+                    }
                 }
             }
-        }
-        if (scheduleString.toString().isEmpty()) {
+            if (scheduleString.toString().isEmpty()) {
+                return schedule;
+            }
+            return scheduleString.toString();
+        } catch (Exception e) {
+            Log.e("populateFormatSchedule: ", e.getMessage());
             return schedule;
         }
-        return scheduleString.toString();
     }
 
     private void populateScheduleSpinner(String schedule) {
@@ -138,68 +143,74 @@ public class CleaningFragment extends Fragment {
         List<String> availableDates = new ArrayList<>();
         List<String> scheduleDates = new ArrayList<>();
 
-        // Split the schedule into start and end times
-        String[] scheduleArray = schedule.split("-");
-        for (int i = 0; i < scheduleArray.length; i += 2) {
-            // Get the start and end times
-            String[] scheduleStartTime = scheduleArray[i].split(":");
-            int hour = Integer.parseInt(scheduleStartTime[0]);
-            int minute = Integer.parseInt(scheduleStartTime[1]);
-            String[] scheduleEndTime = scheduleArray[i + 1].split(":");
-            int endHour = Integer.parseInt(scheduleEndTime[0]);
-            int endMinute = Integer.parseInt(scheduleEndTime[1]);
+        try {
+            // Split the schedule into start and end times
+            String[] scheduleArray = schedule.split("-");
+            for (int i = 0; i < scheduleArray.length; i += 2) {
+                // Get the start and end times
+                String[] scheduleStartTime = scheduleArray[i].split(":");
+                int hour = Integer.parseInt(scheduleStartTime[0]);
+                int minute = Integer.parseInt(scheduleStartTime[1]);
+                String[] scheduleEndTime = scheduleArray[i + 1].split(":");
+                int endHour = Integer.parseInt(scheduleEndTime[0]);
+                int endMinute = Integer.parseInt(scheduleEndTime[1]);
 
-            // Get the start time
+                // Get the start time
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Lisbon"));
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+                dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
+                String startTime = dateFormat.format(calendar.getTime());
+                scheduleDates.add(startTime);
+
+                // Get all the dates between the start and end times in 15-minute intervals
+                for (; hour <= endHour; hour++) {
+                    for (; minute < 60; minute += 15) {
+                        if (hour == endHour && minute > endMinute) {
+                            break;
+                        }
+                        calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        calendar.set(Calendar.MINUTE, minute);
+                        String date = dateFormat.format(calendar.getTime());
+                        scheduleDates.add(date);
+                    }
+                    minute = 0;
+                }
+            }
+
+            // Set the start time to the next nearest 15-minute mark
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Lisbon"));
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
+            calendar.add(Calendar.MINUTE, (15 - calendar.get(Calendar.MINUTE) % 15) % 15);
             calendar.set(Calendar.SECOND, 0);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
             dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
             String startTime = dateFormat.format(calendar.getTime());
-            scheduleDates.add(startTime);
+            availableDates.add(startTime);
 
-            // Get all the dates between the start and end times in 15-minute intervals
-            for (; hour <= endHour; hour++) {
-                for (; minute < 60; minute += 15) {
-                    if (hour == endHour && minute > endMinute) {
-                        break;
-                    }
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    String date = dateFormat.format(calendar.getTime());
-                    scheduleDates.add(date);
+            // Generate dates in 15-minute intervals for the specified number of hours
+            for (int i = 0; i < 24 * 4; i++) {
+                calendar.add(Calendar.MINUTE, 15);
+                String date = dateFormat.format(calendar.getTime());
+                // Check if date is in the schedule
+                if (scheduleDates.contains(date)) {
+                    availableDates.add(date);
                 }
-                minute = 0;
+                if (calendar.get(Calendar.DATE) - 1 > Calendar.getInstance().get(Calendar.DATE)) {
+                    break; // Stop after 24 hours
+                }
             }
+
+            // Create adapter and set it to spinner
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, availableDates);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            binding.spinnerSchedule.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.i("populateScheduleSpinner: ", e.getMessage());
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+            selectedSchedule = null;
         }
-
-        // Set the start time to the next nearest 15-minute mark
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Lisbon"));
-        calendar.add(Calendar.MINUTE, (15 - calendar.get(Calendar.MINUTE) % 15) % 15);
-        calendar.set(Calendar.SECOND, 0);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
-        String startTime = dateFormat.format(calendar.getTime());
-        availableDates.add(startTime);
-
-        // Generate dates in 15-minute intervals for the specified number of hours
-        for (int i = 0; i < 24 * 4; i++) {
-            calendar.add(Calendar.MINUTE, 15);
-            String date = dateFormat.format(calendar.getTime());
-            // Check if date is in the schedule
-            if (scheduleDates.contains(date)) {
-                availableDates.add(date);
-            }
-            if (calendar.get(Calendar.DATE) - 1 > Calendar.getInstance().get(Calendar.DATE)) {
-                break; // Stop after 24 hours
-            }
-        }
-
-        // Create adapter and set it to spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, availableDates);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spinnerSchedule.setAdapter(adapter);
     }
 
     private void getServiceAttempt() {
