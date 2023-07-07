@@ -3,6 +3,7 @@ package ipl.estg.happyguest.utils.api;
 import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
 import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
+import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
 import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
@@ -97,4 +98,8 @@ public interface APIRoutes {
     //Services
     @GET("services/{id}")
     Call<ServiceResponse> getService(@Path("id") Long id);
+
+    //Orders
+    @POST("orders/")
+    Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
 }

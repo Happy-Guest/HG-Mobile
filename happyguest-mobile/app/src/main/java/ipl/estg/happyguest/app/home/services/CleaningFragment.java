@@ -13,6 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +30,9 @@ import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentCleaningBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
+import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ServiceResponse;
 import ipl.estg.happyguest.utils.models.Service;
 import ipl.estg.happyguest.utils.models.UserCode;
@@ -65,6 +71,17 @@ public class CleaningFragment extends Fragment {
 
         getServiceAttempt();
         getCodesAttempt();
+
+        // Register button listener
+        binding.btnOrder.setOnClickListener(v -> {
+            if (selectedRoom == null) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.room_required), Toast.LENGTH_SHORT).show();
+            } else if (selectedSchedule == null) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.schedule_required), Toast.LENGTH_SHORT).show();
+            } else {
+                registerOrderAttempt();
+            }
+        });
 
         // Spinner room listener
         binding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -292,6 +309,57 @@ public class CleaningFragment extends Fragment {
                 Log.i("GetCodes Error: ", t.getMessage());
             }
         });
+    }
+
+    private void registerOrderAttempt() {
+        String comment = Objects.requireNonNull(binding.txtComment.getText()).toString().isEmpty() ? null : binding.txtComment.getText().toString();
+        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, selectedSchedule, 1L, null, null, comment));
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
+                binding.btnOrder.setEnabled(true);
+                binding.btnHistory.setEnabled(true);
+                if (response.isSuccessful() && response.body() != null) {
+                    // Display success message and change fragment
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (getActivity() instanceof HomeActivity) {
+                        HomeActivity homeActivity = (HomeActivity) getActivity();
+                        homeActivity.changeFragment(R.id.nav_home); // TODO: Change to history fragment
+                    }
+                } else {
+                    try {
+                        if (response.errorBody() != null) {
+                            // Get response errors
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
+                                if (errors.has("comment")) {
+                                    binding.inputComment.setError(errors.getJSONArray("comment").get(0).toString());
+                                }
+                            } else {
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                        Log.i("RegisterOrder Error: ", e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.i("RegisterOrder Error: ", t.getMessage());
+                binding.btnOrder.setEnabled(true);
+                binding.btnHistory.setEnabled(true);
+            }
+        });
+
     }
 
     @Override

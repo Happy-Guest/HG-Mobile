@@ -93,6 +93,8 @@
     <string name="services_order">Pedir</string>
     <string name="services_reserve">Reservar</string>
     <string name="services_room">Quarto: </string>
+    <string name="schedule_required">Selecione um horário disponível!</string>
+    <string name="room_required">Selecione um número de quarto!</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
