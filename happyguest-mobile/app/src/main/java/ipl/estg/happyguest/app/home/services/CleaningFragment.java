@@ -17,11 +17,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -36,6 +34,7 @@ import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ServiceResponse;
+import ipl.estg.happyguest.utils.models.Code;
 import ipl.estg.happyguest.utils.models.Service;
 import ipl.estg.happyguest.utils.models.UserCode;
 import ipl.estg.happyguest.utils.storage.HasCodes;
@@ -50,10 +49,12 @@ public class CleaningFragment extends Fragment {
     private FragmentCleaningBinding binding;
     private APIRoutes api;
     private User user;
+    private Code selectedCode;
     private String selectedRoom;
     private String selectedSchedule;
-    private Date lastCodeDate;
     private String schedule;
+    private ArrayList<UserCode> userCodes = new ArrayList<>();
+    private ArrayList<Code> roomsCode = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class CleaningFragment extends Fragment {
             }
         }
 
+        binding.spinnerSchedule.setEnabled(false);
         getServiceAttempt();
 
         // Register button listener
@@ -91,11 +93,16 @@ public class CleaningFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedRoom = parent.getItemAtPosition(position).toString();
+                selectedCode = roomsCode.get(position);
+                binding.spinnerSchedule.setEnabled(true);
+                populateScheduleSpinner(schedule);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedRoom = null;
+                selectedCode = null;
+                binding.spinnerSchedule.setEnabled(false);
             }
         });
 
@@ -103,7 +110,15 @@ public class CleaningFragment extends Fragment {
         binding.spinnerSchedule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSchedule = parent.getItemAtPosition(position).toString();
+                if (parent.getItemAtPosition(position).toString().equals(getString(R.string.services_schedule_tomorrow) + ":")) {
+                    selectedSchedule = null;
+                    int nextPosition = position + 1;
+                    if (nextPosition < parent.getCount()) {
+                        binding.spinnerSchedule.setSelection(nextPosition);
+                    }
+                } else {
+                    selectedSchedule = parent.getItemAtPosition(position).toString();
+                }
             }
 
             @Override
@@ -190,37 +205,34 @@ public class CleaningFragment extends Fragment {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
             dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
 
+            Calendar codeCalendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            codeCalendar.setTime(Objects.requireNonNull(dateFormat2.parse(selectedCode.getExitDate())));
+            codeCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            codeCalendar.set(Calendar.MINUTE, 0);
+            codeCalendar.set(Calendar.SECOND, 0);
+            codeCalendar.set(Calendar.MILLISECOND, 0);
+
             // Generate dates in 15-minute intervals for the specified number of hours
             boolean tomorrow = false;
             for (int i = 0; i < 24 * 4; i++) {
                 String date = dateFormat.format(calendar.getTime());
-                // Check if date is after the last code date
-                if (lastCodeDate != null) {
-                    Calendar codeCalendar = Calendar.getInstance();
-                    codeCalendar.setTime(lastCodeDate);
-                    codeCalendar.set(Calendar.HOUR_OF_DAY, 0);
-                    codeCalendar.set(Calendar.MINUTE, 0);
-                    codeCalendar.set(Calendar.SECOND, 0);
-                    codeCalendar.set(Calendar.MILLISECOND, 0);
-
-                    Calendar dateCalendar = Calendar.getInstance();
-                    dateCalendar.setTime(Objects.requireNonNull(dateFormat.parse(date)));
-                    dateCalendar.set(Calendar.HOUR_OF_DAY, 0);
-                    dateCalendar.set(Calendar.MINUTE, 0);
-                    dateCalendar.set(Calendar.SECOND, 0);
-                    dateCalendar.set(Calendar.MILLISECOND, 0);
-
-                    if (dateCalendar.after(codeCalendar)) {
-                        Toast.makeText(binding.getRoot().getContext(), "1", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
+                Calendar dateCalendar = Calendar.getInstance();
+                dateCalendar.setTime(Objects.requireNonNull(dateFormat.parse(date)));
+                dateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                dateCalendar.set(Calendar.MINUTE, 0);
+                dateCalendar.set(Calendar.SECOND, 0);
+                dateCalendar.set(Calendar.MILLISECOND, 0);
+                if (dateCalendar.after(codeCalendar)) {
+                    break;
                 }
-                if (calendar.get(Calendar.DATE) - 1 == Calendar.getInstance().get(Calendar.DATE) && !tomorrow) {
-                    tomorrow = true;
-                    availableDates.add(" <-- " + getString(R.string.services_schedule_tomorrow) + " --> ");
-                }
+
                 // Check if date is in the schedule
                 if (scheduleDates.contains(date) && !availableDates.contains(date)) {
+                    if (calendar.get(Calendar.DATE) - 1 == Calendar.getInstance().get(Calendar.DATE) && !tomorrow) {
+                        tomorrow = true;
+                        availableDates.add(getString(R.string.services_schedule_tomorrow) + ":");
+                    }
                     availableDates.add((date));
                 }
                 calendar.add(Calendar.MINUTE, 15);
@@ -252,7 +264,6 @@ public class CleaningFragment extends Fragment {
                     Service service = response.body().getService();
                     if (Objects.requireNonNull(service).isActive()) {
                         binding.btnOrder.setEnabled(true);
-                        binding.spinnerSchedule.setEnabled(true);
                         binding.spinnerRoom.setEnabled(true);
                         binding.inputComment.setEnabled(true);
                         String schedule = getString(R.string.services_schedule) + " " + formatSchedule(Objects.requireNonNull(service).getSchedule());
@@ -260,7 +271,6 @@ public class CleaningFragment extends Fragment {
                         binding.cleaningService.txtServiceSchedule.setTextColor(getResources().getColor(R.color.black, null));
                     } else {
                         binding.btnOrder.setEnabled(false);
-                        binding.spinnerSchedule.setEnabled(false);
                         binding.spinnerRoom.setEnabled(false);
                         binding.inputComment.setEnabled(false);
                         binding.cleaningService.txtServiceSchedule.setText(R.string.services_unavailable);
@@ -332,25 +342,17 @@ public class CleaningFragment extends Fragment {
                 if (!isAdded()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     // Save codes in list and populate spinner
-                    ArrayList<UserCode> userCodes = new ArrayList<>(response.body().getData() != null ? response.body().getData() : new ArrayList<>());
+                    userCodes = new ArrayList<>(response.body().getData() != null ? response.body().getData() : new ArrayList<>());
                     if (userCodes.size() > 0) {
                         // Get rooms from codes
                         ArrayList<String> rooms = new ArrayList<>();
+                        roomsCode = new ArrayList<>();
                         for (UserCode userCode : userCodes) {
-                            // Get last code date
-                            Date codeDate = null;
-                            try {
-                                codeDate = new SimpleDateFormat("dd/MM", Locale.getDefault()).parse(userCode.getCode().getExitDate());
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            if (lastCodeDate == null || codeDate != null && codeDate.after(lastCodeDate)) {
-                                lastCodeDate = codeDate;
-                            }
                             // Get rooms
                             for (String room : userCode.getCode().getRooms()) {
                                 if (!rooms.contains(room)) {
                                     rooms.add(room);
+                                    roomsCode.add(userCode.getCode());
                                 }
                             }
                         }
@@ -359,7 +361,6 @@ public class CleaningFragment extends Fragment {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.spinnerRoom.setAdapter(adapter);
                     }
-                    populateScheduleSpinner(schedule);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetCodes Error: ", response.message());
