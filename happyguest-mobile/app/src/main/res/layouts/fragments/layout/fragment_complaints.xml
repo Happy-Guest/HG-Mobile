@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:dropDownWidth="wrap_content"
+            android:dropDownWidth="match_parent"
             android:entries="@array/complaint_status"
             android:spinnerMode="dropdown"
             android:text="@string/switch_order"

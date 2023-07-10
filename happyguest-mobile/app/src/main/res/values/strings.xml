@@ -100,6 +100,8 @@
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>
+    <string name="services_unavailable">Unavailable Temporarily</string>
+    <string name="services_schedule_tomorrow">Tomorrow</string>
     <string name="services_schedule_separator">and</string>
     <string name="services_email">Email: </string>
     <string name="services_phone">Phone: </string>

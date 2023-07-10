@@ -17,9 +17,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -50,6 +52,8 @@ public class CleaningFragment extends Fragment {
     private User user;
     private String selectedRoom;
     private String selectedSchedule;
+    private Date lastCodeDate;
+    private String schedule;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +74,6 @@ public class CleaningFragment extends Fragment {
         }
 
         getServiceAttempt();
-        getCodesAttempt();
 
         // Register button listener
         binding.btnOrder.setOnClickListener(v -> {
@@ -160,10 +163,8 @@ public class CleaningFragment extends Fragment {
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                 dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
-                String startTime = dateFormat.format(calendar.getTime());
-                scheduleDates.add(startTime);
 
                 // Get all the dates between the start and end times in 15-minute intervals
                 for (; hour <= endHour; hour++) {
@@ -173,16 +174,10 @@ public class CleaningFragment extends Fragment {
                         }
                         calendar.set(Calendar.HOUR_OF_DAY, hour);
                         calendar.set(Calendar.MINUTE, minute);
-                        String date = dateFormat.format(calendar.getTime());
-
-                        // Check if the date is for today or tomorrow
-                        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Lisbon"));
-                        int dateDay = calendar.get(Calendar.DAY_OF_YEAR);
-                        int nowDay = now.get(Calendar.DAY_OF_YEAR);
-
-                        if (dateDay == nowDay || dateDay == nowDay + 1) {
-                            scheduleDates.add(date);
-                        }
+                        scheduleDates.add(dateFormat.format(calendar.getTime()));
+                        calendar.add(Calendar.DAY_OF_MONTH, 1);
+                        scheduleDates.add(dateFormat.format(calendar.getTime()));
+                        calendar.add(Calendar.DAY_OF_MONTH, -1);
                     }
                     minute = 0;
                 }
@@ -192,15 +187,41 @@ public class CleaningFragment extends Fragment {
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Lisbon"));
             calendar.add(Calendar.MINUTE, (15 - calendar.get(Calendar.MINUTE) % 15) % 15);
             calendar.set(Calendar.SECOND, 0);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
             dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
 
             // Generate dates in 15-minute intervals for the specified number of hours
+            boolean tomorrow = false;
             for (int i = 0; i < 24 * 4; i++) {
                 String date = dateFormat.format(calendar.getTime());
+                // Check if date is after the last code date
+                if (lastCodeDate != null) {
+                    Calendar codeCalendar = Calendar.getInstance();
+                    codeCalendar.setTime(lastCodeDate);
+                    codeCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                    codeCalendar.set(Calendar.MINUTE, 0);
+                    codeCalendar.set(Calendar.SECOND, 0);
+                    codeCalendar.set(Calendar.MILLISECOND, 0);
+
+                    Calendar dateCalendar = Calendar.getInstance();
+                    dateCalendar.setTime(Objects.requireNonNull(dateFormat.parse(date)));
+                    dateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                    dateCalendar.set(Calendar.MINUTE, 0);
+                    dateCalendar.set(Calendar.SECOND, 0);
+                    dateCalendar.set(Calendar.MILLISECOND, 0);
+
+                    if (dateCalendar.after(codeCalendar)) {
+                        Toast.makeText(binding.getRoot().getContext(), "1", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                if (calendar.get(Calendar.DATE) - 1 == Calendar.getInstance().get(Calendar.DATE) && !tomorrow) {
+                    tomorrow = true;
+                    availableDates.add(" <-- " + getString(R.string.services_schedule_tomorrow) + " --> ");
+                }
                 // Check if date is in the schedule
                 if (scheduleDates.contains(date) && !availableDates.contains(date)) {
-                    availableDates.add(date);
+                    availableDates.add((date));
                 }
                 calendar.add(Calendar.MINUTE, 15);
                 if (calendar.get(Calendar.DATE) - 1 > Calendar.getInstance().get(Calendar.DATE)) {
@@ -229,8 +250,22 @@ public class CleaningFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Service and populate fields
                     Service service = response.body().getService();
-                    String schedule = getString(R.string.services_schedule) + " " + formatSchedule(Objects.requireNonNull(service).getSchedule());
-                    binding.cleaningService.txtServiceSchedule.setText(schedule);
+                    if (Objects.requireNonNull(service).isActive()) {
+                        binding.btnOrder.setEnabled(true);
+                        binding.spinnerSchedule.setEnabled(true);
+                        binding.spinnerRoom.setEnabled(true);
+                        binding.inputComment.setEnabled(true);
+                        String schedule = getString(R.string.services_schedule) + " " + formatSchedule(Objects.requireNonNull(service).getSchedule());
+                        binding.cleaningService.txtServiceSchedule.setText(schedule);
+                        binding.cleaningService.txtServiceSchedule.setTextColor(getResources().getColor(R.color.black, null));
+                    } else {
+                        binding.btnOrder.setEnabled(false);
+                        binding.spinnerSchedule.setEnabled(false);
+                        binding.spinnerRoom.setEnabled(false);
+                        binding.inputComment.setEnabled(false);
+                        binding.cleaningService.txtServiceSchedule.setText(R.string.services_unavailable);
+                        binding.cleaningService.txtServiceSchedule.setTextColor(getResources().getColor(R.color.red, null));
+                    }
                     if (service.getEmail() != null) {
                         binding.cleaningService.serviceEmail.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
                         binding.cleaningService.serviceEmail.setVisibility(View.VISIBLE);
@@ -270,7 +305,8 @@ public class CleaningFragment extends Fragment {
                     } else {
                         binding.cleaningService.txtDescription.setText(service.getDescriptionEN());
                     }
-                    populateScheduleSpinner(service.getSchedule());
+                    schedule = service.getSchedule();
+                    getCodesAttempt();
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetService Error: ", response.message());
@@ -301,6 +337,17 @@ public class CleaningFragment extends Fragment {
                         // Get rooms from codes
                         ArrayList<String> rooms = new ArrayList<>();
                         for (UserCode userCode : userCodes) {
+                            // Get last code date
+                            Date codeDate = null;
+                            try {
+                                codeDate = new SimpleDateFormat("dd/MM", Locale.getDefault()).parse(userCode.getCode().getExitDate());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            if (lastCodeDate == null || codeDate != null && codeDate.after(lastCodeDate)) {
+                                lastCodeDate = codeDate;
+                            }
+                            // Get rooms
                             for (String room : userCode.getCode().getRooms()) {
                                 if (!rooms.contains(room)) {
                                     rooms.add(room);
@@ -312,6 +359,7 @@ public class CleaningFragment extends Fragment {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.spinnerRoom.setAdapter(adapter);
                     }
+                    populateScheduleSpinner(schedule);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetCodes Error: ", response.message());
@@ -328,9 +376,16 @@ public class CleaningFragment extends Fragment {
         });
     }
 
+    private String formatDate(String date) {
+        // Format: dd/MM/yyyy HH:mm -> yyyy/MM/dd HH:mm
+        String[] dateParts = date.split(" ");
+        String[] dayParts = dateParts[0].split("/");
+        return dayParts[2] + "/" + dayParts[1] + "/" + dayParts[0] + " " + dateParts[1];
+    }
+
     private void registerOrderAttempt() {
         String comment = Objects.requireNonNull(binding.txtComment.getText()).toString().isEmpty() ? null : binding.txtComment.getText().toString();
-        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, selectedSchedule, 1L, null, null, comment));
+        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, formatDate(selectedSchedule), 1L, null, null, comment));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -354,6 +409,9 @@ public class CleaningFragment extends Fragment {
                                 JSONObject errors = jObjError.getJSONObject("errors");
                                 if (errors.has("comment")) {
                                     binding.inputComment.setError(errors.getJSONArray("comment").get(0).toString());
+                                } else {
+                                    binding.inputComment.setError(null);
+                                    Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();

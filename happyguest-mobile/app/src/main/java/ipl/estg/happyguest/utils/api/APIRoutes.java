@@ -101,5 +101,6 @@ public interface APIRoutes {
 
     //Orders
     @POST("orders/")
+    @Headers("Accept: application/json")
     Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
 }

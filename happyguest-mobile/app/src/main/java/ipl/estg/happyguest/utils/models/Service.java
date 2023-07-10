@@ -34,12 +34,14 @@ public class Service {
     @SerializedName("description")
     public final String description;
     @SerializedName("descriptionEN")
-    public final String descriptionEN;//TODO: ITEMS
+    public final String descriptionEN; //TODO: ITEMS
     @Nullable
     @SerializedName("menu_url")
     public final String menu_url;
+    @SerializedName("active")
+    public final int active;
 
-    public Service(Long id, String name, String nameEN, @Nullable String email, @Nullable Long phone, char type, String schedule, @Nullable Long occupation, @Nullable String location, @Nullable Long limit, String description, String descriptionEN, @Nullable String menu_url) {
+    public Service(Long id, String name, String nameEN, @Nullable String email, @Nullable Long phone, char type, String schedule, @Nullable Long occupation, @Nullable String location, @Nullable Long limit, String description, String descriptionEN, @Nullable String menu_url, int active) {
         this.id = id;
         this.name = name;
         this.nameEN = nameEN;
@@ -53,18 +55,7 @@ public class Service {
         this.description = description;
         this.descriptionEN = descriptionEN;
         this.menu_url = menu_url;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getNameEN() {
-        return nameEN;
+        this.active = active;
     }
 
     @Nullable
@@ -111,5 +102,9 @@ public class Service {
     @Nullable
     public String getMenu_url() {
         return menu_url;
+    }
+
+    public boolean isActive() {
+        return active == 1;
     }
 }

@@ -83,6 +83,8 @@
 
     <!-- Services -->
     <string name="services_schedule">Horário: </string>
+    <string name="services_unavailable">Temporariamente Indisponível</string>
+    <string name="services_schedule_tomorrow">Amanhã</string>
     <string name="services_schedule_separator">e</string>
     <string name="services_email">Email: </string>
     <string name="services_phone">Nº Telefone: </string>
