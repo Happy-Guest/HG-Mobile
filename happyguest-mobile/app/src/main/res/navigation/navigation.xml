@@ -124,5 +124,15 @@
         app:destination="@id/nav_objects"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_food"
+        android:name="ipl.estg.happyguest.app.home.services.FoodFragment"
+        android:label="@string/menu_food"
+        tools:layout="@layout/fragment_food" />
+    <action
+        android:id="@+id/action_nav_food"
+        app:destination="@id/nav_food"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>
