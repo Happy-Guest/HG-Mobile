@@ -85,6 +85,35 @@
     <string name="home_btn_hotel">Hotel</string>
     <string name="home_btn_region">Região</string>
 
+    <!-- Menu -->
+    <string name="menu_icon">Menu</string>
+    <string name="profile_icon">Perfil</string>
+    <string name="barTitle">Hotel de Leiria</string>
+    <string name="menu_home">Página Inicial</string>
+    <string name="menu_code">Códigos de Reserva</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_password">Palavra-Passe</string>
+    <string name="menu_logout">Sair</string>
+    <string name="menu_reviews">Avaliações</string>
+    <string name="menu_cleaning">Limpeza de Quarto</string>
+    <string name="menu_objects">Pedido de Objetos</string>
+    <string name="menu_food">Pedido de Alimentação</string>
+    <string name="menu_register_review">Registar Avaliação</string>
+    <string name="menu_complaints">Reclamações</string>
+    <string name="menu_register_complaint">Registar Reclamação</string>
+    <string name="menu_review">Avaliação Nº</string>
+    <string name="menu_complaint">Reclamação Nº</string>
+    <string name="menu_orders">Pedidos</string>
+    <string name="menu_order">Pedido </string>
+    <string name="menu_requested_orders">Pedidos Efetuados</string>
+    <string name="quantity">0</string>
+    <string name="price">0€</string>
+    <string name="total_price">Total: </string>
+    <string name="quantity_add">Adicionar Quantidade</string>
+    <string name="quantity_remove">Remover Quantidade</string>
+    <string name="item_name">Nome do Item</string>
+    <string name="items_category">Categoria:</string>
+
     <!-- Services -->
     <string name="services_schedule">Horário: </string>
     <string name="services_unavailable">Temporariamente Indisponível</string>
@@ -104,35 +133,6 @@
     <string name="items_required">Selecione pelo menos um item!</string>
     <string name="order">Pedido</string>
     <string name="no_orders_request">Sem pedidos efetudados!</string>
-
-
-    <!-- Menu -->
-    <string name="menu_icon">Menu</string>
-    <string name="profile_icon">Perfil</string>
-    <string name="barTitle">Hotel de Leiria</string>
-    <string name="menu_home">Página Inicial</string>
-    <string name="menu_code">Códigos de Reserva</string>
-    <string name="menu_profile">Perfil</string>
-    <string name="menu_password">Palavra-Passe</string>
-    <string name="menu_logout">Sair</string>
-    <string name="menu_reviews">Avaliações</string>
-    <string name="menu_cleaning">Limpeza de Quarto</string>
-    <string name="menu_objects">Pedido de Objetos</string>
-    <string name="menu_register_review">Registar Avaliação</string>
-    <string name="menu_complaints">Reclamações</string>
-    <string name="menu_register_complaint">Registar Reclamação</string>
-    <string name="menu_review">Avaliação Nº</string>
-    <string name="menu_complaint">Reclamação Nº</string>
-    <string name="menu_orders">Pedidos</string>
-    <string name="menu_order">Pedido </string>
-    <string name="menu_requested_orders">Pedidos Efetuados</string>
-    <string name="quantity">0</string>
-    <string name="price">0€</string>
-    <string name="total_price">Total: </string>
-    <string name="quantity_add">Adicionar Quantidade</string>
-    <string name="quantity_remove">Remover Quantidade</string>
-    <string name="item_name">Nome do Item</string>
-    <string name="items_category">Categoria:</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>

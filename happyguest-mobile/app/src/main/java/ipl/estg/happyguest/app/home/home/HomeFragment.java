@@ -100,6 +100,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Food button
+        binding.imgFood.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_food);
+            }
+        });
+
         return binding.getRoot();
     }
 
