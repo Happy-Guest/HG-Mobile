@@ -16,13 +16,14 @@ public class Item {
     private final String type;
     @SerializedName("category")
     private final String category;
+    @Nullable
     @SerializedName("stock")
-    private final int stock;
+    private final Integer stock;
     @Nullable
     @SerializedName("price")
     private final Float price;
 
-    public Item(Long id, String name, String nameEN, String type, String category, int stock, @Nullable Float price) {
+    public Item(Long id, String name, String nameEN, String type, String category, @Nullable Integer stock, @Nullable Float price) {
         this.id = id;
         this.name = name;
         this.nameEN = nameEN;
@@ -52,7 +53,8 @@ public class Item {
         return category;
     }
 
-    public int getStock() {
+    @Nullable
+    public Integer getStock() {
         return stock;
     }
 

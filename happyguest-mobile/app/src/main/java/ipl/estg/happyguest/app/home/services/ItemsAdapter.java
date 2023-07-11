@@ -103,7 +103,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         // Add Qnt Button
         holder.addQnt.setOnClickListener(v -> {
             int qnt = Integer.parseInt(holder.quantity.getText().toString());
-            if (qnt + 1 > item.getStock()) {
+            if (item.getStock() != null && qnt + 1 > item.getStock()) {
                 Toast.makeText(context, context.getString(R.string.stock_limit), Toast.LENGTH_SHORT).show();
                 return;
             }

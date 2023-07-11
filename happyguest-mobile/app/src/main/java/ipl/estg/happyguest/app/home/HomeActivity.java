@@ -247,7 +247,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void homeWithCodes(boolean hasCode) {
         NavigationView navigationView = findViewById(R.id.nav_view);
-        List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add menu items ids
+        List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add check-out menu item
         // Show or hide multiple menu items
         for (int menuItemId : menuItemIds) {
             MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);

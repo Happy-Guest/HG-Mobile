@@ -99,6 +99,14 @@ public class CleaningFragment extends Fragment {
             }
         });
 
+        // History button listener
+        binding.btnHistoryCleaning.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_orders);
+            }
+        });
+
         // Spinner room listener
         binding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -455,7 +463,7 @@ public class CleaningFragment extends Fragment {
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
-                        homeActivity.changeFragment(R.id.nav_home); // TODO: Change to history fragment
+                        homeActivity.changeFragment(R.id.action_nav_orders);
                     }
                 } else {
                     try {
