@@ -214,6 +214,7 @@
         <item>Room Cleaning</item>
         <item>Objects Request</item>
         <item>Foods Request</item>
+    </string-array>
     <string-array name="objects_categories" translatable="true">
         <item>All</item>
         <item>Room</item>

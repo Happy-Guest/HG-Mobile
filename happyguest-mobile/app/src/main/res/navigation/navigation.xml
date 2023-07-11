@@ -120,8 +120,6 @@
         android:label="@string/menu_requested_orders"
         tools:layout="@layout/fragment_orders" />
     <action
-        android:id="@+id/action_nav_orders"
-        app:destination="@id/nav_orders"
         android:id="@+id/nav_objects"
         android:name="ipl.estg.happyguest.app.home.services.ObjectsFragment"
         android:label="@string/menu_objects"
