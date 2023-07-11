@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -62,7 +61,6 @@ public class ObjectsFragment extends Fragment {
     private User user;
     private String selectedRoom;
     private String menuURL;
-    private int screenHeight;
     private ItemsAdapter itemsAdapter;
 
     @Override
@@ -82,12 +80,6 @@ public class ObjectsFragment extends Fragment {
                 homeActivity.changeFragment(R.id.action_nav_home);
             }
         }
-
-        // Set the minimum height
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
 
         getServiceAttempt();
 
@@ -265,10 +257,7 @@ public class ObjectsFragment extends Fragment {
                     }
                     // Get items
                     if (service.getItems() != null) {
-                        binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
                         populateMenu(service.getItems());
-                    } else {
-                        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
                     }
                     getCodesAttempt();
                 } else {

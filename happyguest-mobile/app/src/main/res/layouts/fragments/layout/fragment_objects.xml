@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".app.home.services.ObjectsFragment">
 
@@ -34,7 +34,7 @@
         <Spinner
             android:id="@+id/spinnerRoom"
             style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:dropDownWidth="match_parent"
@@ -47,22 +47,57 @@
             tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
     </LinearLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemsRV"
+        <TextView
+            android:id="@+id/txtCategory"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/items_category"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
+
+        <Spinner
+            android:id="@+id/spinnerItems"
+            style="@android:style/Widget.Material.Light.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_primary"
-            android:backgroundTint="#E4E4E4"
-            tools:listitem="@layout/code_item">
+            android:layout_marginStart="10dp"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/objects_categories"
+            android:gravity="center"
+            android:padding="12dp"
+            android:spinnerMode="dropdown"
+            android:text="@string/services_room"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </LinearLayout>
 
-        </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemsRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/btn_primary"
+        android:backgroundTint="#E4E4E4"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        tools:listitem="@layout/item_item">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputComment"

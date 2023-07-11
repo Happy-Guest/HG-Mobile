@@ -98,10 +98,12 @@
     <string name="schedule_required">Selecione um horário disponível!</string>
     <string name="room_required">Selecione um número de quarto!</string>
     <string name="order">Pedido</string>
-    <string name="quantity">Quantidade</string>
+    <string name="quantity">0</string>
+    <string name="price">0€</string>
     <string name="quantity_add">Adicionar Quantidade</string>
     <string name="quantity_remove">Remover Quantidade</string>
     <string name="item_name">Nome do Item</string>
+    <string name="items_category">Categoria:</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -194,5 +196,21 @@
         <item>Resolução</item>
         <item>Resolvidas</item>
         <item>Anuladas</item>
+    </string-array>
+    <string-array name="objects_categories" translatable="true">
+        <item>Todos</item>
+        <item>Quarto</item>
+        <item>Casa de Banho</item>
+        <item>Outros</item>
+    </string-array>
+    <string-array name="food_categories" translatable="true">
+        <item>Todos</item>
+        <item>Bebidas</item>
+        <item>Pequeno Almoço</item>
+        <item>Almoço</item>
+        <item>Jantar</item>
+        <item>Lanches</item>
+        <item>Sobremesas</item>
+        <item>Outros</item>
     </string-array>
 </resources>

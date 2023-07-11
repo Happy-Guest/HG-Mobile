@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -51,18 +52,26 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
         // Set Texts
         holder.name.setText(item.getName());
+        holder.price.setText(item.getPrice() != null ? item.getPrice().toString() + "€" : "0€");
         holder.quantity.setText("0");
 
         // Add Qnt Button
         holder.addQnt.setOnClickListener(v -> {
+            // anim
+            holder.addQnt.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
             int qnt = Integer.parseInt(holder.quantity.getText().toString());
-            holder.quantity.setText(qnt + 1);
+            if (qnt < 9) {
+                String qntString = String.valueOf(qnt + 1);
+                holder.quantity.setText(qntString);
+            }
         });
         // Remove Qnt Button
         holder.removeQnt.setOnClickListener(v -> {
             int qnt = Integer.parseInt(holder.quantity.getText().toString());
             if (qnt > 0) {
-                holder.quantity.setText(qnt - 1);
+                holder.removeQnt.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
+                String qntString = String.valueOf(qnt - 1);
+                holder.quantity.setText(qntString);
             }
         });
     }
@@ -74,6 +83,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
+        private final TextView price;
         private final TextView quantity;
         private final ImageButton removeQnt;
         private final ImageButton addQnt;
@@ -81,6 +91,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txtItemName);
+            price = itemView.findViewById(R.id.txtItemPrice);
             quantity = itemView.findViewById(R.id.txtItemQuantity);
             removeQnt = itemView.findViewById(R.id.btnQntRemove);
             addQnt = itemView.findViewById(R.id.btnQntAdd);

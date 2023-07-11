@@ -116,10 +116,12 @@
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
     <string name="order">Order</string>
-    <string name="quantity">Quantity</string>
+    <string name="quantity">0</string>
+    <string name="price">0€</string>
     <string name="quantity_add">Add Quantity</string>
     <string name="quantity_remove">Remove Quantity</string>
     <string name="item_name">Item Name</string>
+    <string name="items_category">Category:</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -194,5 +196,21 @@
         <item>Solving</item>
         <item>Resolved</item>
         <item>Annulled</item>
+    </string-array>
+    <string-array name="objects_categories" translatable="true">
+        <item>All</item>
+        <item>Room</item>
+        <item>Bathroom</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="food_categories" translatable="true">
+        <item>All</item>
+        <item>Drinks</item>
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Snacks</item>
+        <item>Desserts</item>
+        <item>Others</item>
     </string-array>
 </resources>

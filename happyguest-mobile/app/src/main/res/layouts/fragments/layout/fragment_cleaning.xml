@@ -34,7 +34,7 @@
         <Spinner
             android:id="@+id/spinnerRoom"
             style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:dropDownWidth="match_parent"
@@ -70,7 +70,7 @@
         <Spinner
             android:id="@+id/spinnerSchedule"
             style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:dropDownWidth="match_parent"

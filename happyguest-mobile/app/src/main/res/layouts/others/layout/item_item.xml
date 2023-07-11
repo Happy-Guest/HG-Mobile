@@ -4,32 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="25dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="25dp"
-    android:layout_marginBottom="25dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="5dp"
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
         android:layout_marginStart="10dp">
 
         <TextView
             android:id="@+id/txtItemName"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="false"
             android:layout_marginStart="10dp"
             android:elevation="10dp"
             android:gravity="center_vertical"
+            android:maxWidth="180dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/item_name"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="false"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@id/layoutOrder"
+            android:elevation="10dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/price"
+            android:textColor="@color/background_gray"
+            android:textSize="14sp"
+            tools:ignore="RelativeOverlap" />
 
         <LinearLayout
             android:id="@+id/layoutOrder"
@@ -38,21 +54,20 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:gravity="end"
+            android:gravity="center_horizontal|end"
             android:orientation="horizontal"
             tools:ignore="RelativeOverlap">
 
             <ImageButton
                 android:id="@+id/btnQntRemove"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="end"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/btn_primary"
                 android:backgroundTint="@color/black"
                 android:contentDescription="@string/quantity_remove"
-                android:elevation="10dp"
-                app:srcCompat="@drawable/close_icon"
+                app:srcCompat="@drawable/minus_icon"
                 app:tint="@color/ic_bg"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
@@ -62,21 +77,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="10dp"
+                android:gravity="center_horizontal"
                 android:text="@string/quantity"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <ImageButton
                 android:id="@+id/btnQntAdd"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="end"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/btn_primary"
                 android:backgroundTint="@color/black"
                 android:contentDescription="@string/quantity_add"
-                android:elevation="10dp"
-                app:srcCompat="@drawable/close_icon"
+                app:srcCompat="@drawable/plus_icon"
                 app:tint="@color/ic_bg"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
