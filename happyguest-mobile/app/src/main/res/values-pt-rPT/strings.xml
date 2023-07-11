@@ -61,9 +61,13 @@
     <string name="solving">Resolução</string>
     <string name="resolved">Resolvida</string>
     <string name="canceled">Anulada</string>
+    <string name="rejected">Rejeitada</string>
+    <string name="working">A preparar</string>
+    <string name="delivered">Entregue</string>
     <string name="createdDate">Criada em</string>
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
+    <string name="order_type">Tipo: </string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>
@@ -98,6 +102,8 @@
     <string name="schedule_required">Selecione um horário disponível!</string>
     <string name="room_required">Selecione um número de quarto!</string>
     <string name="order">Pedido</string>
+    <string name="no_orders_request">Sem pedidos efetudados!</string>
+
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -115,6 +121,9 @@
     <string name="menu_register_complaint">Registar Reclamação</string>
     <string name="menu_review">Avaliação Nº</string>
     <string name="menu_complaint">Reclamação Nº</string>
+    <string name="menu_orders">Pedidos</string>
+    <string name="menu_order">Pedido </string>
+    <string name="menu_requested_orders">Pedidos Efetuados</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
@@ -125,6 +134,7 @@
     <string name="codes_error">Erro ao carregar códigos!</string>
     <string name="reviews_error">Erro ao carregar avaliações!</string>
     <string name="complaints_error">Erro ao carregar reclamações!</string>
+    <string name="orders_error">Erro ao carregar pedidos!</string>
     <string name="error_file">Erro ao carregar ficheiro!</string>
     <string name="error_file_app">Erro ao abrir ficheiro!</string>
 
@@ -189,5 +199,11 @@
         <item>Resolução</item>
         <item>Resolvidas</item>
         <item>Anuladas</item>
+    </string-array>
+    <string-array name="order_type" translatable="true">
+        <item>Todos</item>
+        <item>Limpeza de Quarto</item>
+        <item>Pedido de Objetos</item>
+        <item>Pedido de Alimentos</item>
     </string-array>
 </resources>

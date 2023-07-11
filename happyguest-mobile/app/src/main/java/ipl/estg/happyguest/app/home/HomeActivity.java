@@ -284,7 +284,7 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
                 R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
-                R.id.nav_cleaning)
+                R.id.nav_orders, R.id.nav_cleaning)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

@@ -61,9 +61,13 @@
     <string name="solving">Solving</string>
     <string name="resolved">Resolved</string>
     <string name="canceled">Annulled</string>
+    <string name="rejected">Rejected</string>
+    <string name="working">Preparing</string>
+    <string name="delivered">Delivered</string>
     <string name="createdDate">Created in</string>
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
+    <string name="order_type">Type: </string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -97,6 +101,9 @@
     <string name="menu_register_complaint">Register Complaint</string>
     <string name="menu_review">Review Nº</string>
     <string name="menu_complaint">Complaint Nº</string>
+    <string name="menu_orders">Orders</string>
+    <string name="menu_order">Order</string>
+    <string name="menu_requested_orders">Placed Orders</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>
@@ -115,6 +122,7 @@
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
     <string name="order">Order</string>
+    <string name="no_orders_request">No order requested!</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -125,6 +133,7 @@
     <string name="codes_error">Error loading codes!</string>
     <string name="reviews_error">Error loading reviews!</string>
     <string name="complaints_error">Error loading complaints!</string>
+    <string name="orders_error">Error loading orders!</string>
     <string name="error_file">Error loading file!</string>
     <string name="error_file_app">Error opening file!</string>
 
@@ -189,5 +198,11 @@
         <item>Solving</item>
         <item>Resolved</item>
         <item>Annulled</item>
+    </string-array>
+    <string-array name="order_type" translatable="true">
+        <item>All</item>
+        <item>Room Cleaning</item>
+        <item>Objects Order</item>
+        <item>Foods Order</item>
     </string-array>
 </resources>
