@@ -116,6 +116,10 @@
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
     <string name="order">Order</string>
+    <string name="quantity">Quantity</string>
+    <string name="quantity_add">Add Quantity</string>
+    <string name="quantity_remove">Remove Quantity</string>
+    <string name="item_name">Item Name</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>

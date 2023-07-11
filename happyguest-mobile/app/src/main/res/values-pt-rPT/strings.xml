@@ -98,6 +98,10 @@
     <string name="schedule_required">Selecione um horário disponível!</string>
     <string name="room_required">Selecione um número de quarto!</string>
     <string name="order">Pedido</string>
+    <string name="quantity">Quantidade</string>
+    <string name="quantity_add">Adicionar Quantidade</string>
+    <string name="quantity_remove">Remover Quantidade</string>
+    <string name="item_name">Nome do Item</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>

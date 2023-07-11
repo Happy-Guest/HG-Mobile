@@ -3,8 +3,10 @@ package ipl.estg.happyguest.app.home.services;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +44,7 @@ import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ServiceResponse;
+import ipl.estg.happyguest.utils.models.Item;
 import ipl.estg.happyguest.utils.models.Service;
 import ipl.estg.happyguest.utils.models.UserCode;
 import ipl.estg.happyguest.utils.storage.HasCodes;
@@ -56,6 +60,7 @@ public class ObjectsFragment extends Fragment {
     private APIRoutes api;
     private User user;
     private String selectedRoom;
+    private String menuURL;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +101,15 @@ public class ObjectsFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedRoom = null;
+            }
+        });
+
+        // Open menu button listener
+        binding.objectsService.btnMenu.setOnClickListener(v -> {
+            if (menuURL != null) {
+                String menu = getString(R.string.api_photos) + "storage/services/" + menuURL;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(menu));
+                startActivity(intent);
             }
         });
 
@@ -166,6 +180,13 @@ public class ObjectsFragment extends Fragment {
         }
     }
 
+    private void populateMenu(ArrayList<Item> items) {
+        // Create adapter and set it to recycler view
+        ItemsAdapter adapter = new ItemsAdapter(items, binding.getRoot().getContext());
+        binding.itemsRV.setAdapter(adapter);
+        binding.itemsRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+    }
+
     private void getServiceAttempt() {
         Call<ServiceResponse> call = api.getService(2L);
         call.enqueue(new Callback<ServiceResponse>() {
@@ -231,8 +252,10 @@ public class ObjectsFragment extends Fragment {
                     }
                     if (service.getMenu_url() != null) {
                         binding.objectsService.btnMenu.setVisibility(View.VISIBLE);
+                        menuURL = service.getMenu_url();
                     }
                     getCodesAttempt();
+                    populateMenu(service.getItems());
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetService Error: ", response.message());

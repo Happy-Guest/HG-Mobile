@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Service {
 
     @SerializedName("id")
@@ -34,14 +36,17 @@ public class Service {
     @SerializedName("description")
     public final String description;
     @SerializedName("descriptionEN")
-    public final String descriptionEN; //TODO: ITEMS
+    public final String descriptionEN;
+    @Nullable
+    @SerializedName("items")
+    public final ArrayList<Item> items;
     @Nullable
     @SerializedName("menu_url")
     public final String menu_url;
     @SerializedName("active")
     public final int active;
 
-    public Service(Long id, String name, String nameEN, @Nullable String email, @Nullable Long phone, char type, String schedule, @Nullable Long occupation, @Nullable String location, @Nullable Long limit, String description, String descriptionEN, @Nullable String menu_url, int active) {
+    public Service(Long id, String name, String nameEN, @Nullable String email, @Nullable Long phone, char type, String schedule, @Nullable Long occupation, @Nullable String location, @Nullable Long limit, String description, String descriptionEN, @Nullable ArrayList<Item> items, @Nullable String menu_url, int active) {
         this.id = id;
         this.name = name;
         this.nameEN = nameEN;
@@ -54,6 +59,7 @@ public class Service {
         this.limit = limit;
         this.description = description;
         this.descriptionEN = descriptionEN;
+        this.items = items;
         this.menu_url = menu_url;
         this.active = active;
     }
@@ -97,6 +103,11 @@ public class Service {
 
     public String getDescriptionEN() {
         return descriptionEN;
+    }
+
+    @Nullable
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     @Nullable
