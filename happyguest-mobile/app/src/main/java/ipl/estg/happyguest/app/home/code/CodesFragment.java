@@ -174,8 +174,7 @@ public class CodesFragment extends Fragment {
                     binding.addCode.txtCodeText.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
                     binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    codesList.clear();
-                    if (filter.equals("V")) getCodesAttempt(1);
+                    if (filter.equals("V")) getCodes();
                 } else {
                     if (response.code() == 404) {
                         inputCode.setError(binding.getRoot().getContext().getString(R.string.invalid_code));
