@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".app.home.services.CleaningFragment">
+    tools:context=".app.home.services.ObjectsFragment">
 
     <include
-        android:id="@+id/cleaning_service"
+        android:id="@+id/objects_service"
         layout="@layout/service_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -47,41 +47,22 @@
             tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:orientation="horizontal">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txtSchedule"
-            android:layout_width="100dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemsRV"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/services_schedule"
-            android:textColor="@color/black"
-            android:textSize="19sp"
-            android:textStyle="bold"
-            tools:ignore="TextSizeCheck" />
+            android:background="@drawable/btn_primary"
+            android:backgroundTint="#E4E4E4"
+            tools:listitem="@layout/code_item">
 
-        <Spinner
-            android:id="@+id/spinnerSchedule"
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:dropDownWidth="match_parent"
-            android:gravity="center"
-            android:padding="12dp"
-            android:spinnerMode="dropdown"
-            android:text="@string/services_schedule"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputComment"
@@ -114,7 +95,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnOrderCleaning"
+        android:id="@+id/btnOrderObjects"
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
@@ -133,7 +114,7 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/btnHistoryCleaning"
+        android:id="@+id/btnHistoryObjects"
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
@@ -147,4 +128,5 @@
         app:icon="@drawable/history_icon"
         app:iconPadding="-25dp"
         app:iconTint="@color/black" />
+
 </LinearLayout>

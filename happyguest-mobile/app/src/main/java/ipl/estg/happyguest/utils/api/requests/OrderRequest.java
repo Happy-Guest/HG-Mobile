@@ -12,6 +12,7 @@ public class OrderRequest {
     private final Long user_id;
     @SerializedName("room")
     private final String room;
+    @Nullable
     @SerializedName("time")
     private final String time;
     @SerializedName("service_id")
@@ -25,7 +26,7 @@ public class OrderRequest {
     @SerializedName("comment")
     private final String comment;
 
-    public OrderRequest(Long user_id, String room, String time, Long service_id, @Nullable List<Long> items, Double price, @Nullable String comment) {
+    public OrderRequest(Long user_id, String room, @Nullable String time, Long service_id, @Nullable List<Long> items, Double price, @Nullable String comment) {
         this.user_id = user_id;
         this.room = room;
         this.time = time;
