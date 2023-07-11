@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="25dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginBottom="25dp"
+    android:elevation="8dp"
+    app:cardBackgroundColor="#E4E4E4"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imageOrder"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/menu_order"
+            app:srcCompat="@drawable/order_icon"
+            app:tint="@color/dark_gold" />
+
+        <TextView
+            android:id="@+id/txtNameService"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/menu_order"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtRoomOrder"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtNameService"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:elevation="10dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/services_room"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDateOrder"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtRoomOrder"
+            android:layout_centerHorizontal="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-3dp"
+            android:elevation="10dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            tools:ignore="RelativeOverlap">
+
+            <TextView
+                android:id="@+id/txtStatusOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_primary"
+                android:elegantTextHeight="true"
+                android:elevation="3dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:minWidth="88dp"
+                android:minHeight="30dip"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:shadowColor="@color/dark_gray"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <Button
+                android:id="@+id/btnOrderOpen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_primary"
+                android:gravity="center_horizontal|center_vertical"
+                android:minHeight="30dip"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="@string/open"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                app:icon="?android:attr/actionModeFindDrawable"
+                app:iconGravity="textStart"
+                app:iconPadding="5sp"
+                app:iconSize="20dp"
+                app:iconTint="@color/black"
+                tools:ignore="RelativeOverlap,TextContrastCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
