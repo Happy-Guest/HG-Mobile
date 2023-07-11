@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import ipl.estg.happyguest.utils.models.Complaint;
 import ipl.estg.happyguest.utils.models.Service;
 
 
