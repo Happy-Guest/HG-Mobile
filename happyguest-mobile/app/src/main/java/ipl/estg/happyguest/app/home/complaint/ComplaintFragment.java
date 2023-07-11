@@ -104,7 +104,7 @@ public class ComplaintFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Complaint and populate fields
                     Complaint complaint = response.body().getComplaint();
-                    String date = getString(R.string.date) + ": " + complaint.getDate();
+                    String date = getString(R.string.date) + ": " + Objects.requireNonNull(complaint).getDate();
                     binding.txtDate.setText(date);
                     String complaintStatus = "";
                     switch (complaint.getStatus()) {

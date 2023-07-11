@@ -89,7 +89,7 @@ public class CleaningFragment extends Fragment {
         getServiceAttempt();
 
         // Register button listener
-        binding.btnOrder.setOnClickListener(v -> {
+        binding.btnOrderCleaning.setOnClickListener(v -> {
             if (selectedRoom == null) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.room_required), Toast.LENGTH_SHORT).show();
             } else if (selectedSchedule == null) {
@@ -274,14 +274,14 @@ public class CleaningFragment extends Fragment {
                     // Get Service and populate fields
                     Service service = response.body().getService();
                     if (Objects.requireNonNull(service).isActive()) {
-                        binding.btnOrder.setEnabled(true);
+                        binding.btnOrderCleaning.setEnabled(true);
                         binding.spinnerRoom.setEnabled(true);
                         binding.inputComment.setEnabled(true);
                         String schedule = getString(R.string.services_schedule) + " " + formatSchedule(Objects.requireNonNull(service).getSchedule());
                         binding.cleaningService.txtServiceSchedule.setText(schedule);
                         binding.cleaningService.txtServiceSchedule.setTextColor(getResources().getColor(R.color.black, null));
                     } else {
-                        binding.btnOrder.setEnabled(false);
+                        binding.btnOrderCleaning.setEnabled(false);
                         binding.spinnerRoom.setEnabled(false);
                         binding.inputComment.setEnabled(false);
                         binding.cleaningService.txtServiceSchedule.setText(R.string.services_unavailable);
@@ -371,7 +371,7 @@ public class CleaningFragment extends Fragment {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, rooms);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.spinnerRoom.setAdapter(adapter);
-                        binding.btnOrder.setEnabled(true);
+                        binding.btnOrderCleaning.setEnabled(true);
                     }
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
@@ -422,8 +422,8 @@ public class CleaningFragment extends Fragment {
         Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
         btnPopConfirm.setOnClickListener(view1 -> {
             registerOrderAttempt();
-            binding.btnOrder.setEnabled(false);
-            binding.btnHistory.setEnabled(false);
+            binding.btnOrderCleaning.setEnabled(false);
+            binding.btnHistoryCleaning.setEnabled(false);
             popupWindow.dismiss();
         });
     }
@@ -448,8 +448,8 @@ public class CleaningFragment extends Fragment {
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
-                binding.btnOrder.setEnabled(true);
-                binding.btnHistory.setEnabled(true);
+                binding.btnOrderCleaning.setEnabled(true);
+                binding.btnHistoryCleaning.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -487,8 +487,8 @@ public class CleaningFragment extends Fragment {
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("RegisterOrder Error: ", t.getMessage());
-                binding.btnOrder.setEnabled(true);
-                binding.btnHistory.setEnabled(true);
+                binding.btnOrderCleaning.setEnabled(true);
+                binding.btnHistoryCleaning.setEnabled(true);
             }
         });
 
