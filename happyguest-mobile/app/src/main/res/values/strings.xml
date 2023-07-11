@@ -202,7 +202,7 @@
     <string-array name="order_type" translatable="true">
         <item>All</item>
         <item>Room Cleaning</item>
-        <item>Objects Order</item>
-        <item>Foods Order</item>
+        <item>Objects Request</item>
+        <item>Foods Request</item>
     </string-array>
 </resources>

@@ -96,15 +96,15 @@ public class OrdersFragment extends Fragment {
                     case "Todos":
                         selectedType = "ALL";
                         break;
-                    case "Cleaning Room":
+                    case "Room Cleaning":
                     case "Limpeza de Quarto":
                         selectedType = "OC";
                         break;
-                    case "Order Objects":
+                    case "Objects Request":
                     case "Pedido de Objetos":
                         selectedType = "OB";
                         break;
-                    case "Order Food":
+                    case "Foods Request":
                     case "Pedido de Alimentos":
                         selectedType = "OF";
                         break;

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -44,8 +45,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = ordersList.get(position);
 
         // Set Texts
-        long id = position + 1;
-        holder.nameService.setText(order.getService().name);
+        String name = Locale.getDefault().getLanguage().equals("pt") ? order.getService().name : order.getService().nameEN;
+        holder.nameService.setText(name);
         String room = context.getString(R.string.services_room) + " " + order.getRoom();
         holder.room.setText(room);
         holder.date.setText(order.getTime());
