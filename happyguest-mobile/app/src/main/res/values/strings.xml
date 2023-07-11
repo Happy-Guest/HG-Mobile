@@ -92,6 +92,7 @@
     <string name="menu_logout">Logout</string>
     <string name="menu_reviews">Reviews</string>
     <string name="menu_cleaning">Room Cleaning</string>
+    <string name="menu_objects">Objects Order</string>
     <string name="menu_register_review">Register Review</string>
     <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>

@@ -110,6 +110,7 @@
     <string name="menu_logout">Sair</string>
     <string name="menu_reviews">Avaliações</string>
     <string name="menu_cleaning">Limpeza de Quarto</string>
+    <string name="menu_objects">Pedido de Objetos</string>
     <string name="menu_register_review">Registar Avaliação</string>
     <string name="menu_complaints">Reclamações</string>
     <string name="menu_register_complaint">Registar Reclamação</string>

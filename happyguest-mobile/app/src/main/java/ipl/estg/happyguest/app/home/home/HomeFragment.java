@@ -92,6 +92,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Objects button
+        binding.imgObjects.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_objects);
+            }
+        });
+
         return binding.getRoot();
     }
 
