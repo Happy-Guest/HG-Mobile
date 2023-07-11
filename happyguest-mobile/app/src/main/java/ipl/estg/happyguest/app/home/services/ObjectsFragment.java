@@ -167,7 +167,7 @@ public class ObjectsFragment extends Fragment {
     }
 
     private void getServiceAttempt() {
-        Call<ServiceResponse> call = api.getService(1L);
+        Call<ServiceResponse> call = api.getService(2L);
         call.enqueue(new Callback<ServiceResponse>() {
             @Override
             public void onResponse(@NonNull Call<ServiceResponse> call, @NonNull retrofit2.Response<ServiceResponse> response) {
@@ -228,6 +228,9 @@ public class ObjectsFragment extends Fragment {
                         binding.objectsService.txtDescription.setText(service.getDescription());
                     } else {
                         binding.objectsService.txtDescription.setText(service.getDescriptionEN());
+                    }
+                    if (service.getMenu_url() != null) {
+                        binding.objectsService.btnMenu.setVisibility(View.VISIBLE);
                     }
                     getCodesAttempt();
                 } else {
