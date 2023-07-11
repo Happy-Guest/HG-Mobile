@@ -115,6 +115,11 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
     <fragment
+        android:id="@+id/nav_orders"
+        android:name="ipl.estg.happyguest.app.home.order.OrdersFragment"
+        android:label="@string/menu_requested_orders"
+        tools:layout="@layout/fragment_orders" />
+    <action
         android:id="@+id/nav_objects"
         android:name="ipl.estg.happyguest.app.home.services.ObjectsFragment"
         android:label="@string/menu_objects"
