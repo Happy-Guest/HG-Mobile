@@ -45,6 +45,7 @@ import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.ServiceResponse;
 import ipl.estg.happyguest.utils.models.Item;
+import ipl.estg.happyguest.utils.models.OrderItem;
 import ipl.estg.happyguest.utils.models.Service;
 import ipl.estg.happyguest.utils.models.UserCode;
 import ipl.estg.happyguest.utils.storage.HasCodes;
@@ -88,6 +89,8 @@ public class ObjectsFragment extends Fragment {
         binding.btnOrderObjects.setOnClickListener(v -> {
             if (selectedRoom == null) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.room_required), Toast.LENGTH_SHORT).show();
+            } else if (itemsAdapter.getOrderItems().isEmpty()) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.items_required), Toast.LENGTH_SHORT).show();
             } else {
                 showPopup();
             }
@@ -154,8 +157,13 @@ public class ObjectsFragment extends Fragment {
         popupView.findViewById(R.id.txtOrder).setVisibility(View.VISIBLE);
         popupView.findViewById(R.id.dividerOrder).setVisibility(View.VISIBLE);
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.service_objects_confirm));
-        String sb = getString(R.string.services_room) + " " + selectedRoom + "\n";
-        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb);
+        StringBuilder sb = new StringBuilder(getString(R.string.services_room) + " " + selectedRoom + "\n");
+        for (OrderItem item : itemsAdapter.getOrderItems()) {
+            sb.append(item.getQuantity()).append("x ").append(item.getName()).append("\n");
+        }
+        sb.append(getString(R.string.total_price)).append(" ").append(itemsAdapter.getTotalPrice()).append("€");
+        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb.toString());
+        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb.toString());
 
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
@@ -341,7 +349,7 @@ public class ObjectsFragment extends Fragment {
 
     private void registerOrderAttempt() {
         String comment = Objects.requireNonNull(binding.txtComment.getText()).toString().isEmpty() ? null : binding.txtComment.getText().toString();
-        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, null, 1L, itemsAdapter.getOrderItems(), itemsAdapter.getTotalPrice(), comment));
+        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, null, 2L, itemsAdapter.getOrderItems(), itemsAdapter.getTotalPrice(), comment));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

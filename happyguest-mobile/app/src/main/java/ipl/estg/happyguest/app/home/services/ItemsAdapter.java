@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -30,6 +31,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     private final TextView emptyListText;
     private final ArrayList<Item> backUpItemsList;
     private Double totalPrice = 0.0;
+    private String languageCode;
 
     public ItemsAdapter(ArrayList<Item> itemsList, Context context, TextView totalPriceText, TextView emptyListText) {
         this.itemsList = itemsList;
@@ -89,8 +91,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         // Get Item
         Item item = itemsList.get(position);
 
+        // Get language code and set description
+        languageCode = Locale.getDefault().getLanguage();
+
         // Set Texts
-        holder.name.setText(item.getName());
+        holder.name.setText(languageCode.equals("pt") ? item.getName() : item.getNameEN());
         holder.price.setText(item.getPrice() != null ? item.getPrice().toString() + "€" : "0€");
         holder.quantity.setText("0");
 
@@ -112,7 +117,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                         totalPrice += price;
                     }
                 } else {
-                    orderItems.add(new OrderItem(item.getId(), 0));
+                    orderItems.add(new OrderItem(item.getId(), languageCode.equals("pt") ? item.getName() : item.getNameEN(), 1));
                     float price = item.getPrice() != null ? item.getPrice() : 0;
                     totalPrice += price;
                 }

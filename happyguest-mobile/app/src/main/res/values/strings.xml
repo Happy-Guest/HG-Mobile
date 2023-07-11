@@ -115,6 +115,7 @@
     <string name="services_room">Room: </string>
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
+    <string name="items_required">Please select at least one item!</string>
     <string name="order">Order</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
