@@ -118,6 +118,7 @@
     <string name="order">Order</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
+    <string name="total_price">Total: </string>
     <string name="quantity_add">Add Quantity</string>
     <string name="quantity_remove">Remove Quantity</string>
     <string name="item_name">Item Name</string>
@@ -168,6 +169,7 @@
     <string name="no_codes">You don\'t have any associated code.</string>
     <string name="no_reviews">You don\'t have any reviews.</string>
     <string name="no_complaints">You don\'t have any complaints.</string>
+    <string name="no_items">There are no items available.</string>
     <string name="review_week">You can only review once a week!</string>
     <string name="review_anonymous_message">Anonymous review cannot be revised!</string>
     <string name="complaint_anonymous_message">Anonymous complaint cannot be revised!</string>
@@ -201,7 +203,7 @@
         <item>All</item>
         <item>Room</item>
         <item>Bathroom</item>
-        <item>Others</item>
+        <item>Other</item>
     </string-array>
     <string-array name="food_categories" translatable="true">
         <item>All</item>
@@ -209,8 +211,8 @@
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>
-        <item>Snacks</item>
-        <item>Desserts</item>
-        <item>Others</item>
+        <item>Snack</item>
+        <item>Dessert</item>
+        <item>Other</item>
     </string-array>
 </resources>

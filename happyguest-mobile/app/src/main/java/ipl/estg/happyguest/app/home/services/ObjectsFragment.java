@@ -60,6 +60,7 @@ public class ObjectsFragment extends Fragment {
     private APIRoutes api;
     private User user;
     private String selectedRoom;
+    private String selectedFilter = "All";
     private String menuURL;
     private ItemsAdapter itemsAdapter;
 
@@ -102,6 +103,25 @@ public class ObjectsFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedRoom = null;
+            }
+        });
+
+        // Spinner category listener
+        binding.spinnerItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedFilter = parent.getItemAtPosition(position).toString();
+                if (itemsAdapter != null) {
+                    itemsAdapter.setFilter(selectedFilter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedFilter = null;
+                if (itemsAdapter != null) {
+                    itemsAdapter.setFilter("All");
+                }
             }
         });
 
@@ -183,7 +203,7 @@ public class ObjectsFragment extends Fragment {
 
     private void populateMenu(ArrayList<Item> items) {
         // Create adapter and set it to recycler view
-        itemsAdapter = new ItemsAdapter(items, binding.getRoot().getContext());
+        itemsAdapter = new ItemsAdapter(items, binding.getRoot().getContext(), binding.txtPrice, binding.txtNoItems);
         binding.itemsRV.setAdapter(itemsAdapter);
         binding.itemsRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
     }
