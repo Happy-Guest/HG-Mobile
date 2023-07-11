@@ -97,6 +97,7 @@
     <string name="services_room">Quarto: </string>
     <string name="schedule_required">Selecione um horário disponível!</string>
     <string name="room_required">Selecione um número de quarto!</string>
+    <string name="order">Pedido</string>
 
     <!-- Menu -->
     <string name="menu_icon">Menu</string>
@@ -176,6 +177,9 @@
     <string name="title_Review">Confirmar submissão da avaliação?</string>
     <string name="title_Complaint">Confirmar submissão da reclamação?</string>
     <string name="authorization_review">Autorizo a partilha da minha avaliação!</string>
+    <string name="service_clean_confirm">Confirmar pedido de limpeza?</string>
+    <string name="service_objects_confirm">Confirmar pedido de objetos?</string>
+    <string name="service_food_confirm">Confirmar pedido de comida?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

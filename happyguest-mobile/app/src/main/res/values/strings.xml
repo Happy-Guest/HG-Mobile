@@ -114,6 +114,7 @@
     <string name="services_room">Room: </string>
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
+    <string name="order">Order</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -176,6 +177,9 @@
     <string name="title_Review">Confirm review submission?</string>
     <string name="title_Complaint">Confirm complaint submission?</string>
     <string name="authorization_review">I authorize the sharing of my review.</string>
+    <string name="service_clean_confirm">Confirm cleaning request?</string>
+    <string name="service_objects_confirm">Confirm object request?</string>
+    <string name="service_food_confirm">Confirm food request?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

@@ -47,12 +47,13 @@
 
         <Spinner
             android:id="@+id/spinnerSelectStatus"
-            style="@android:style/Widget.Holo.Light.Spinner"
+            style="@android:style/Widget.Material.Light.Spinner.Underlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:dropDownWidth="match_parent"
             android:entries="@array/complaint_status"
+            android:padding="12dp"
             android:spinnerMode="dropdown"
             android:text="@string/switch_order"
             android:textColor="@color/black"

@@ -1,13 +1,24 @@
 package ipl.estg.happyguest.app.home.services;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -84,7 +95,7 @@ public class CleaningFragment extends Fragment {
             } else if (selectedSchedule == null) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.schedule_required), Toast.LENGTH_SHORT).show();
             } else {
-                registerOrderAttempt();
+                showPopup();
             }
         });
 
@@ -360,6 +371,7 @@ public class CleaningFragment extends Fragment {
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, rooms);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.spinnerRoom.setAdapter(adapter);
+                        binding.btnOrder.setEnabled(true);
                     }
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
@@ -377,11 +389,55 @@ public class CleaningFragment extends Fragment {
         });
     }
 
+    private void showPopup() {
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts
+        popupView.findViewById(R.id.txtOrder).setVisibility(View.VISIBLE);
+        popupView.findViewById(R.id.dividerOrder).setVisibility(View.VISIBLE);
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.service_clean_confirm));
+        String sb = getString(R.string.services_room) + " " + selectedRoom + "\n" +
+                getString(R.string.services_schedule) + " " + selectedSchedule;
+        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb);
+
+        // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        // Close popup
+        ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
+        btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
+
+        // Confirm popup
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setOnClickListener(view1 -> {
+            registerOrderAttempt();
+            binding.btnOrder.setEnabled(false);
+            binding.btnHistory.setEnabled(false);
+            popupWindow.dismiss();
+        });
+    }
+
     private String formatDate(String date) {
         // Format: dd/MM/yyyy HH:mm -> yyyy/MM/dd HH:mm
         String[] dateParts = date.split(" ");
-        String[] dayParts = dateParts[0].split("/");
-        return dayParts[2] + "/" + dayParts[1] + "/" + dayParts[0] + " " + dateParts[1];
+        if (dateParts.length == 2 && dateParts[0].contains("/")) {
+            String[] dayParts = dateParts[0].split("/");
+            if (dayParts.length == 3) {
+                return dayParts[2] + "/" + dayParts[1] + "/" + dayParts[0] + " " + dateParts[1];
+            }
+        }
+        return date;
     }
 
     private void registerOrderAttempt() {
