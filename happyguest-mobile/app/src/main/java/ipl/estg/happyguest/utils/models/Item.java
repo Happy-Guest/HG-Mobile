@@ -52,7 +52,6 @@ public class Item {
         return category;
     }
 
-    @Nullable
     public int getStock() {
         return stock;
     }

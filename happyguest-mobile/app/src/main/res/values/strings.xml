@@ -188,6 +188,7 @@
     <string name="file_downloaded">File was downloaded successfully!</string>
     <string name="read_permission_denied">Permission denied. Unable to access files.</string>
     <string name="write_permission_denied">Permission denied. Unable to save files.</string>
+    <string name="stock_limit">The stock limit has been reached!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
@@ -224,7 +225,7 @@
     </string-array>
     <string-array name="food_categories" translatable="true">
         <item>All</item>
-        <item>Drinks</item>
+        <item>Drink</item>
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>

@@ -188,6 +188,7 @@
     <string name="file_downloaded">O ficheiro foi descarregado com sucesso!</string>
     <string name="read_permission_denied">Permissão negada. Não é possível aceder aos ficheiros.</string>
     <string name="write_permission_denied">Permissão negada. Não é possível guardar ficheiros.</string>
+    <string name="stock_limit">O limite de stock foi atingido!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>

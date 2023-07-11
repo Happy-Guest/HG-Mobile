@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -102,6 +103,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         // Add Qnt Button
         holder.addQnt.setOnClickListener(v -> {
             int qnt = Integer.parseInt(holder.quantity.getText().toString());
+            if (qnt + 1 > item.getStock()) {
+                Toast.makeText(context, context.getString(R.string.stock_limit), Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (qnt < 9) {
                 if (qnt > 0) {
                     // Update Old Item

@@ -15,12 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.models.Order;
-import ipl.estg.happyguest.utils.models.Service;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 

@@ -95,17 +95,17 @@ class TextBox {
 	}
 
 	@When("utilizador insere {string} no campo de morada perfil")
-	public void utilizador_insere_no_campo_de_morada_perfil(String address) {
-		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - Morada'), address, 0);
-	}
+    void utilizador_insere_no_campo_de_morada_perfil(String address) {
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - Morada'), address, 0)
+    }
 
 	@When("utilizador insere {string} no campo de data de nascimento perfil")
-	public void utilizador_insere_no_campo_de_data_de_nascimento_perfil(String date) {
-		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - Data Nascimento'), date, 0);
-	}
+    void utilizador_insere_no_campo_de_data_de_nascimento_perfil(String date) {
+		Mobile.setText(findTestObject('Object Repository/AtualizarPerfil/android.widget.EditText - Data Nascimento'), date, 0)
+    }
 
 	@When("utilizador insere {string} no campo de código")
-	public void utilizador_insere_no_campo_de_código(String code) {
+    void utilizador_insere_no_campo_de_código(String code) {
 		Mobile.scrollToText('Código')
 		Mobile.setText(findTestObject('Object Repository/Inserir_Código/android.widget.EditText - Cdigo'), code, 0)
 	}

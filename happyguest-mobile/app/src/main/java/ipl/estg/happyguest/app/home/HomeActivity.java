@@ -34,7 +34,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -247,7 +247,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void homeWithCodes(boolean hasCode) {
         NavigationView navigationView = findViewById(R.id.nav_view);
-        List<Integer> menuItemIds = Arrays.asList(); // TODO: Add menu items ids
+        List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add menu items ids
         // Show or hide multiple menu items
         for (int menuItemId : menuItemIds) {
             MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);
