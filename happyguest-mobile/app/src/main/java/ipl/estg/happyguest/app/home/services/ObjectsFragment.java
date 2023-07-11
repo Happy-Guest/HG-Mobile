@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -61,6 +62,8 @@ public class ObjectsFragment extends Fragment {
     private User user;
     private String selectedRoom;
     private String menuURL;
+    private int screenHeight;
+    private ItemsAdapter itemsAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +82,12 @@ public class ObjectsFragment extends Fragment {
                 homeActivity.changeFragment(R.id.action_nav_home);
             }
         }
+
+        // Set the minimum height
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenHeight = displayMetrics.heightPixels;
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
 
         getServiceAttempt();
 
@@ -182,8 +191,8 @@ public class ObjectsFragment extends Fragment {
 
     private void populateMenu(ArrayList<Item> items) {
         // Create adapter and set it to recycler view
-        ItemsAdapter adapter = new ItemsAdapter(items, binding.getRoot().getContext());
-        binding.itemsRV.setAdapter(adapter);
+        itemsAdapter = new ItemsAdapter(items, binding.getRoot().getContext());
+        binding.itemsRV.setAdapter(itemsAdapter);
         binding.itemsRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
     }
 
@@ -254,8 +263,14 @@ public class ObjectsFragment extends Fragment {
                         binding.objectsService.btnMenu.setVisibility(View.VISIBLE);
                         menuURL = service.getMenu_url();
                     }
+                    // Get items
+                    if (service.getItems() != null) {
+                        binding.swipeRefresh.setMinimumHeight(screenHeight - 210);
+                        populateMenu(service.getItems());
+                    } else {
+                        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
+                    }
                     getCodesAttempt();
-                    populateMenu(service.getItems());
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetService Error: ", response.message());
@@ -317,7 +332,7 @@ public class ObjectsFragment extends Fragment {
 
     private void registerOrderAttempt() {
         String comment = Objects.requireNonNull(binding.txtComment.getText()).toString().isEmpty() ? null : binding.txtComment.getText().toString();
-        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, null, 1L, null, null, comment));
+        Call<MessageResponse> call = api.registerOrder(new OrderRequest(user.getId(), selectedRoom, null, 1L, itemsAdapter.getOrderItems(), itemsAdapter.getTotalPrice(), comment));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

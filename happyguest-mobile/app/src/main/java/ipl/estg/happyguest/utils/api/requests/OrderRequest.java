@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import ipl.estg.happyguest.utils.models.OrderItem;
+
 public class OrderRequest {
 
     @SerializedName("user_id")
@@ -19,14 +21,14 @@ public class OrderRequest {
     private final Long service_id;
     @Nullable
     @SerializedName("items")
-    private final List<Long> items;
+    private final List<OrderItem> items;
     @SerializedName("price")
     private final Double price;
     @Nullable
     @SerializedName("comment")
     private final String comment;
 
-    public OrderRequest(Long user_id, String room, @Nullable String time, Long service_id, @Nullable List<Long> items, Double price, @Nullable String comment) {
+    public OrderRequest(Long user_id, String room, @Nullable String time, Long service_id, @Nullable List<OrderItem> items, Double price, @Nullable String comment) {
         this.user_id = user_id;
         this.room = room;
         this.time = time;

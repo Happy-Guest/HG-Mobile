@@ -15,15 +15,26 @@ import java.util.ArrayList;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.models.Item;
+import ipl.estg.happyguest.utils.models.OrderItem;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
     private final ArrayList<Item> itemsList;
     private final Context context;
+    private ArrayList<OrderItem> orderItems = new ArrayList<>();
+    private Double totalPrice = 0.0;
 
     public ItemsAdapter(ArrayList<Item> itemsList, Context context) {
         this.itemsList = itemsList;
         this.context = context;
+    }
+
+    public ArrayList<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
     @NonNull
@@ -40,7 +51,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
         // Set Texts
         holder.name.setText(item.getName());
-        holder.quantity.setText(0);
+        holder.quantity.setText("0");
 
         // Add Qnt Button
         holder.addQnt.setOnClickListener(v -> {
