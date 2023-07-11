@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class UserResponse extends MessageResponse {
 
     @SerializedName("id")
-    private final int id;
+    private final Long id;
     @SerializedName("name")
     private final String name;
     @SerializedName("email")
@@ -30,7 +30,7 @@ public class UserResponse extends MessageResponse {
     @SerializedName("user")
     private final UserResponse user;
 
-    public UserResponse(int id, String name, String email, @Nullable Long phone, @Nullable String address, @Nullable String birthDate, @Nullable String photoUrl, @Nullable String lastReview, UserResponse user, String message) {
+    public UserResponse(Long id, String name, String email, @Nullable Long phone, @Nullable String address, @Nullable String birthDate, @Nullable String photoUrl, @Nullable String lastReview, UserResponse user, String message) {
         super(message);
         this.id = id;
         this.name = name;
@@ -43,7 +43,7 @@ public class UserResponse extends MessageResponse {
         this.user = user;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

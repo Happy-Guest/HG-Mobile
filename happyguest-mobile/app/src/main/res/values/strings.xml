@@ -91,11 +91,30 @@
     <string name="menu_password">Password</string>
     <string name="menu_logout">Logout</string>
     <string name="menu_reviews">Reviews</string>
+    <string name="menu_cleaning">Room Cleaning</string>
     <string name="menu_register_review">Register Review</string>
     <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>
     <string name="menu_review">Review Nº</string>
     <string name="menu_complaint">Complaint Nº</string>
+
+    <!-- Services -->
+    <string name="services_schedule">Schedule: </string>
+    <string name="services_unavailable">Unavailable Temporarily</string>
+    <string name="services_schedule_tomorrow">Tomorrow</string>
+    <string name="services_schedule_separator">and</string>
+    <string name="services_email">Email: </string>
+    <string name="services_phone">Phone: </string>
+    <string name="services_occupation">Occupation: </string>
+    <string name="services_location">Location: </string>
+    <string name="services_description">Description</string>
+    <string name="services_menu">Open Menu</string>
+    <string name="services_order">Order</string>
+    <string name="services_reserve">Reserve</string>
+    <string name="services_room">Room: </string>
+    <string name="schedule_required">Please select a available schedule!</string>
+    <string name="room_required">Please select a room number!</string>
+    <string name="order">Order</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>
@@ -158,6 +177,9 @@
     <string name="title_Review">Confirm review submission?</string>
     <string name="title_Complaint">Confirm complaint submission?</string>
     <string name="authorization_review">I authorize the sharing of my review.</string>
+    <string name="service_clean_confirm">Confirm cleaning request?</string>
+    <string name="service_objects_confirm">Confirm object request?</string>
+    <string name="service_food_confirm">Confirm food request?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

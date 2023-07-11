@@ -146,6 +146,8 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_complaint);
                 } else if (destination.getId() == R.id.nav_reviews || destination.getId() == R.id.nav_register_review || destination.getId() == R.id.nav_review) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_review);
+                } else if (destination.getId() == R.id.nav_cleaning) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_clean);
                 } else {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
                 }
@@ -281,7 +283,8 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
-                R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint)
+                R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
+                R.id.nav_cleaning)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

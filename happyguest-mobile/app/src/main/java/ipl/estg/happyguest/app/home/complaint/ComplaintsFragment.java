@@ -128,7 +128,7 @@ public class ComplaintsFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                selectedStatus = "ALL";
             }
         });
 

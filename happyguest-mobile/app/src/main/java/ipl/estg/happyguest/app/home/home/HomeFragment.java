@@ -84,6 +84,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Cleaning button
+        binding.imgClean.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_cleaning);
+            }
+        });
+
         return binding.getRoot();
     }
 

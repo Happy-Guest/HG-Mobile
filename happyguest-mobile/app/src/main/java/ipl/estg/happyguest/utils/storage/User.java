@@ -13,8 +13,8 @@ public class User {
         editor = sharedPreferences.edit();
     }
 
-    public int getId() {
-        return sharedPreferences.getInt("id", -1);
+    public Long getId() {
+        return sharedPreferences.getLong("id", -1);
     }
 
     public String getName() {
@@ -45,8 +45,8 @@ public class User {
         return sharedPreferences.getString("last_review", null);
     }
 
-    public void setUser(int id, String name, String email, Long phone, String address, String birthDate, String photoUrl, String lastReview) {
-        editor.putInt("id", id);
+    public void setUser(Long id, String name, String email, Long phone, String address, String birthDate, String photoUrl, String lastReview) {
+        editor.putLong("id", id);
         editor.putString("name", name);
         editor.putString("email", email);
         editor.putLong("phone", phone);
