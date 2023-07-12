@@ -51,6 +51,37 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     }
 
     public void setFilter(String filter) {
+        switch (filter) {
+            case "Quarto":
+                filter = "Room";
+                break;
+            case "Casa de Banho":
+                filter = "Bathroom";
+                break;
+            case "Outro":
+                filter = "Other";
+                break;
+            case "Bebida":
+                filter = "Drink";
+                break;
+            case "Pequeno Almoço":
+                filter = "Breakfast";
+                break;
+            case "Almoço":
+                filter = "Lunch";
+                break;
+            case "Jantar":
+                filter = "Dinner";
+                break;
+            case "Lanche":
+                filter = "Snack";
+                break;
+            case "Sobremesa":
+                filter = "Dessert";
+                break;
+            default:
+                break;
+        }
         if (Objects.equals(filter, "All")) {
             if (!itemsList.equals(backUpItemsList)) {
                 itemsList.clear();
