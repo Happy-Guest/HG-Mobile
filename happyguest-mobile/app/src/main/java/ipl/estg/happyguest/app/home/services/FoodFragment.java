@@ -96,6 +96,14 @@ public class FoodFragment extends Fragment {
             }
         });
 
+        // History button listener
+        binding.btnHistoryFood.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_orders);
+            }
+        });
+
         // Spinner room listener
         binding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

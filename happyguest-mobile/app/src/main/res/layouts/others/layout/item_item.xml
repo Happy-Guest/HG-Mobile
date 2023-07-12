@@ -53,7 +53,7 @@
                 android:id="@+id/txtItemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="10dp"
                 android:elevation="10dp"
                 android:gravity="center_vertical"
                 android:paddingTop="5dp"
@@ -68,6 +68,7 @@
                 android:layout_width="23dp"
                 android:layout_height="23dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginVertical="4dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/btn_primary"
                 android:backgroundTint="@color/black"
@@ -85,14 +86,15 @@
                 android:gravity="center_horizontal"
                 android:text="@string/quantity"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <ImageButton
                 android:id="@+id/btnQntAdd"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="20dp"
+                android:layout_marginVertical="4dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/btn_primary"
                 android:backgroundTint="@color/black"
                 android:contentDescription="@string/quantity_add"
