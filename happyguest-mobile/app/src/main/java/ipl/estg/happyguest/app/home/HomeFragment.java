@@ -1,4 +1,4 @@
-package ipl.estg.happyguest.app.home.home;
+package ipl.estg.happyguest.app.home;
 
 import android.os.Bundle;
 import android.util.Log;

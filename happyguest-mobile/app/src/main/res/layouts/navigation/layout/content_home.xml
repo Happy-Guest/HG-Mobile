@@ -7,7 +7,8 @@
     android:background="@drawable/bg_page"
     android:orientation="vertical"
     android:translationZ="10dp"
-    tools:showIn="@layout/app_bar">
+    tools:showIn="@layout/app_bar"
+    tools:ignore="Overdraw">
 
     <fragment
         android:id="@+id/nav_host_fragment_content_home"

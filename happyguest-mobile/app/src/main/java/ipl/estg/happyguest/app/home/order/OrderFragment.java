@@ -22,11 +22,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -34,10 +29,7 @@ import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentOrderBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
-import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateStatusRequest;
-import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.OrderResponse;
 import ipl.estg.happyguest.utils.models.Order;
@@ -70,9 +62,7 @@ public class OrderFragment extends Fragment {
         getOrderAttempt();
 
         // Cancel Button
-        binding.btnCancel.setOnClickListener(v -> {
-            showPopup();
-        });
+        binding.btnCancel.setOnClickListener(v -> showPopup());
 
         //Close Button
         binding.btnClose.setOnClickListener(v -> {
@@ -120,7 +110,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void cancelOrderAttempt() {
-        Call<MessageResponse> call = api.cancelOrder( new UpdateStatusRequest("C"), orderId);
+        Call<MessageResponse> call = api.cancelOrder(new UpdateStatusRequest("C"), orderId);
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -196,7 +186,7 @@ public class OrderFragment extends Fragment {
                     String schedule = getString(R.string.services_schedule) + " " + order.getTime();
                     binding.txtSchedule.setText(schedule);
                     StringBuilder sb = new StringBuilder();
-                    if (order.getItems().size() > 0) {
+                    if (order.getItems() != null && !order.getItems().isEmpty()) {
                         binding.txtItems.setVisibility(View.VISIBLE);
                         binding.txtItemsOrder.setVisibility(View.VISIBLE);
                         if (order.getService().type == 'B')
@@ -213,7 +203,7 @@ public class OrderFragment extends Fragment {
                     String comment = order.getComment() != null ? order.getComment() : getString(R.string.no_comment);
                     binding.txtCommentOrder.setText(comment);
                 } else {
-                    Toast.makeText(binding.getRoot().getContext(),getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetOrder Error: ", response.message());
                 }
             }
