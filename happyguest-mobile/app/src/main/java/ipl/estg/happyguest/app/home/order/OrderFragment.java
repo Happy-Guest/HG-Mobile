@@ -56,6 +56,7 @@ public class OrderFragment extends Fragment {
             orderId = args.getLong("id");
         }
 
+        // Token and API
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
@@ -231,6 +232,4 @@ public class OrderFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-
 }

@@ -20,14 +20,6 @@ public class Meta {
         this.lastPage = lastPage;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public int getPerPage() {
-        return perPage;
-    }
-
     public int getCurrentPage() {
         return currentPage;
     }

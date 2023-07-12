@@ -30,7 +30,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class OrdersFragment extends Fragment {
 
     private User user;
@@ -197,5 +196,4 @@ public class OrdersFragment extends Fragment {
             }
         });
     }
-
 }

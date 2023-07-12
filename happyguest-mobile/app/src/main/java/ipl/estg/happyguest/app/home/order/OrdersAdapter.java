@@ -44,7 +44,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = ordersList.get(position);
 
         // Set Texts
-        switch (order.getService().type){
+        switch (order.getService().type) {
             case 'C':
                 holder.iconService.setImageResource(R.drawable.cleaning_icon);
                 break;

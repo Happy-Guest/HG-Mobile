@@ -7,11 +7,6 @@ public class OrderItem extends Item {
     @SerializedName("quantity")
     private int quantity;
 
-    public OrderItem(Long id, String name, String nameEN, String type, String category, int stock, Float price, int quantity) {
-        super(id, name, nameEN, type, category, stock, price);
-        this.quantity = quantity;
-    }
-
     public OrderItem(Long id, String name, int quantity) {
         super(id, name, null, null, null, 0, null);
         this.quantity = quantity;

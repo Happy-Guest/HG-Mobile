@@ -35,6 +35,7 @@ import retrofit2.http.Query;
 public interface APIRoutes {
 
     // Auth
+
     @POST("register")
     @Headers({"Accept: application/json"})
     Call<MessageResponse> register(@Body RegisterRequest registerRequest, @Header("Accept-Language") String language);
@@ -51,6 +52,7 @@ public interface APIRoutes {
     Call<MessageResponse> changePassword(@Body ChangePasswordRequest changePasswordRequest);
 
     // User
+
     @GET("me")
     Call<UserResponse> me(@Header("Accept-Language") String language);
 
@@ -62,6 +64,7 @@ public interface APIRoutes {
     Call<MessageResponse> deleteUser(@Path("id") Long id, @Query("password") String password);
 
     // Codes
+
     @GET("valid-code")
     Call<HasCodesResponse> hasCodes();
 
@@ -75,6 +78,7 @@ public interface APIRoutes {
     Call<MessageResponse> disassociateCode(@Path("user_id") Long user_id, @Path("code") String code);
 
     //Reviews
+
     @GET("users/{id}/reviews")
     Call<ReviewsResponse> getUserReviews(@Path("id") Long id, @Query("page") int page, @Query("order") String order);
 
@@ -86,6 +90,7 @@ public interface APIRoutes {
     Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
 
     //Complaints
+
     @GET("users/{id}/complaints?order=DESC")
     Call<ComplaintsResponse> getUserComplaints(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
 
@@ -100,10 +105,12 @@ public interface APIRoutes {
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
 
     //Services
+
     @GET("services/{id}")
     Call<ServiceResponse> getService(@Path("id") Long id);
 
     //Orders
+
     @POST("orders/")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
