@@ -150,6 +150,7 @@
     <string name="orders_error">Erro ao carregar pedidos!</string>
     <string name="error_file">Erro ao carregar ficheiro!</string>
     <string name="error_file_app">Erro ao abrir ficheiro!</string>
+    <string name="error_cancel">Erro ao cancelar pedido!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
@@ -202,6 +203,7 @@
     <string name="title_RemoveProfile">Pretende eliminar o perfil?</string>
     <string name="title_Review">Confirmar submissão da avaliação?</string>
     <string name="title_Complaint">Confirmar submissão da reclamação?</string>
+    <string name="title_CancelOrder">Pertende cancelar o pedido?</string>
     <string name="authorization_review">Autorizo a partilha da minha avaliação!</string>
     <string name="service_clean_confirm">Confirmar pedido de limpeza?</string>
     <string name="service_objects_confirm">Confirmar pedido de objetos?</string>

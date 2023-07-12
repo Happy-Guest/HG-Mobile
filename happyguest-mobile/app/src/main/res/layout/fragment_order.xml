@@ -182,4 +182,23 @@
         app:iconTint="@color/black"
         tools:ignore="TextContrastCheck" />
 
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_secondary"
+        android:clickable="true"
+        android:text="@string/btnClose"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:visibility="visible"
+        app:icon="@drawable/close_icon"
+        app:iconPadding="-25dp"
+        app:iconTint="@color/black"
+        tools:ignore="TextContrastCheck" />
+
 </LinearLayout>

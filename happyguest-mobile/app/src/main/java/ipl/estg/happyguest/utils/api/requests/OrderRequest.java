@@ -22,11 +22,13 @@ public class OrderRequest {
     @Nullable
     @SerializedName("items")
     private final List<OrderItem> items;
+
     @SerializedName("price")
     private final Double price;
     @Nullable
     @SerializedName("comment")
     private final String comment;
+
 
     public OrderRequest(Long user_id, String room, @Nullable String time, Long service_id, @Nullable List<OrderItem> items, Double price, @Nullable String comment) {
         this.user_id = user_id;
@@ -37,5 +39,7 @@ public class OrderRequest {
         this.price = price;
         this.comment = comment;
     }
+
+
 
 }
