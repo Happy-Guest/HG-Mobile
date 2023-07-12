@@ -139,9 +139,6 @@
         app:destination="@id/nav_food"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
-    <action
-        android:id="@+id/action_nav_orders"
-        app:destination="@id/nav_orders"
     <fragment
         android:id="@+id/nav_order"
         android:name="ipl.estg.happyguest.app.home.order.OrderFragment"
@@ -150,6 +147,11 @@
     <action
         android:id="@+id/action_nav_order"
         app:destination="@id/nav_order"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/action_nav_orders"
+        app:destination="@id/nav_orders"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
 

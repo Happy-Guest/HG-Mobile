@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.models.Order;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
@@ -42,7 +43,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = ordersList.get(position);
 
         // Set Texts
-        long id = position + 1;
         String nameService = Locale.getDefault().getLanguage().equals("pt") ? order.getService().name : order.getService().nameEN;
         holder.nameService.setText(nameService);
         String room = context.getString(R.string.services_room) + " " + order.getRoom();
