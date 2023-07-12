@@ -22,6 +22,7 @@ public class Item {
     @SerializedName("price")
     private final Float price;
 
+
     public Item(Long id, String name, String nameEN, String type, String category, int stock, @Nullable Float price) {
         this.id = id;
         this.name = name;
@@ -61,4 +62,6 @@ public class Item {
     public Float getPrice() {
         return price;
     }
+
+
 }

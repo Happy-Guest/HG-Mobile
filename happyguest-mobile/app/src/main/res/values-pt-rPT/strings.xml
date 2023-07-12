@@ -68,6 +68,10 @@
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
     <string name="order_type">Tipo: </string>
+    <string name="order_comment">Comentário: </string>
+    <string name="order_objects">Objetos: </string>
+    <string name="order_foods">Alimentos: </string>
+
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>

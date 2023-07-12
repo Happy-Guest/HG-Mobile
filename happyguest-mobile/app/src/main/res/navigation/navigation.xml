@@ -139,5 +139,15 @@
         app:destination="@id/nav_food"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_order"
+        android:name="ipl.estg.happyguest.app.home.order.OrderFragment"
+        android:label="@string/menu_order"
+        tools:layout="@layout/fragment_order" />
+    <action
+        android:id="@+id/action_nav_order"
+        app:destination="@id/nav_order"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>
