@@ -68,6 +68,9 @@
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
     <string name="order_type">Type: </string>
+    <string name="order_comment">Comment: </string>
+    <string name="order_objects">Objects: </string>
+    <string name="order_foods">Food: </string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>

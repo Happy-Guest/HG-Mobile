@@ -273,6 +273,17 @@ public class HomeActivity extends AppCompatActivity {
         }, 100);
     }
 
+    public void changeFragmentBundle(int id, Long idObject, String service) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("id", idObject);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        navController.popBackStack();
+        navController.navigate(id, bundle);
+        new Handler().postDelayed(() -> {
+            binding.appBarHome.txtBarTitle.setText(service);
+        }, 100);
+    }
+
     public byte[] getPhoto() {
         return photo;
     }

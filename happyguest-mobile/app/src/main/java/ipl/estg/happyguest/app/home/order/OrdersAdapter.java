@@ -42,8 +42,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = ordersList.get(position);
 
         // Set Texts
-        String name = Locale.getDefault().getLanguage().equals("pt") ? order.getService().name : order.getService().nameEN;
-        holder.nameService.setText(name);
+        long id = position + 1;
+        String nameService = Locale.getDefault().getLanguage().equals("pt") ? order.getService().name : order.getService().nameEN;
+        holder.nameService.setText(nameService);
         String room = context.getString(R.string.services_room) + " " + order.getRoom();
         holder.room.setText(room);
         holder.date.setText(order.getTime());
@@ -76,10 +77,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
         // View Button
         holder.orderOpen.setOnClickListener(view -> {
-            /*if (context instanceof HomeActivity) {
+            if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentBundle(R.id.action_nav_orders, order.getId(),id);
-            }*/
+                homeActivity.changeFragmentBundle(R.id.action_nav_order, order.getId(), nameService);
+            }
         });
     }
 
