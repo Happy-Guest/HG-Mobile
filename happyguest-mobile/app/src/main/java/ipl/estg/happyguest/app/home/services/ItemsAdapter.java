@@ -79,6 +79,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             case "Sobremesa":
                 filter = "Dessert";
                 break;
+            case "Todos":
+                filter = "All";
+                break;
             default:
                 break;
         }
