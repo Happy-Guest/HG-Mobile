@@ -13,6 +13,7 @@ import ipl.estg.happyguest.utils.api.responses.ComplaintsResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
+import ipl.estg.happyguest.utils.api.responses.OrderResponse;
 import ipl.estg.happyguest.utils.api.responses.OrdersResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewsResponse;
@@ -107,4 +108,8 @@ public interface APIRoutes {
 
     @GET("users/{id}/orders?order=DESC")
     Call<OrdersResponse> getUserOrders(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
+
+    @GET("orders/{id}")
+    Call<OrderResponse> getOrder(@Path("id") Long id);
+
 }

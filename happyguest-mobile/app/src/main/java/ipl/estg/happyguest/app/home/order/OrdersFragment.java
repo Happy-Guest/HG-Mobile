@@ -151,10 +151,11 @@ public class OrdersFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<OrdersResponse> call, @NonNull Response<OrdersResponse> response) {
                 // Check if this fragment is still attached to the activity
+                if (!isAdded()) return;
                 binding.spinnerSelectType.setEnabled(true);
                 binding.spinnerSelectType.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null) {
-                    // Save complaints and update the adapter
+                    // Save orders and update the adapter
                     int lastPos = ordersList.size();
                     ArrayList<Order> orders = response.body().getData();
                     ordersList.addAll(orders);
