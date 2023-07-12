@@ -94,7 +94,8 @@
     <string name="profile_icon">Perfil</string>
     <string name="barTitle">Hotel de Leiria</string>
     <string name="menu_home">Página Inicial</string>
-    <string name="menu_code">Códigos de Reserva</string>
+    <string name="menu_code">Códigos</string>
+    <string name="menu_reserve_code">Códigos Reserva</string>
     <string name="menu_profile">Perfil</string>
     <string name="menu_password">Palavra-Passe</string>
     <string name="menu_logout">Sair</string>

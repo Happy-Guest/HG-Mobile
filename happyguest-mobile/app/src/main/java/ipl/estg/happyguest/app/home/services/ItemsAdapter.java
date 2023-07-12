@@ -163,8 +163,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                 holder.addQnt.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
                 String qntString = String.valueOf(qnt + 1);
                 holder.quantity.setText(qntString);
+                totalPrice = Math.round(totalPrice * 100.0) / 100.0;
                 String totalPriceString = (totalPrice == 0 ? "0" : totalPrice) + "€";
                 totalPriceText.setText(totalPriceString);
+                totalPriceText.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
             }
         });
 
@@ -203,8 +205,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                 holder.removeQnt.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
                 String qntString = String.valueOf(qnt - 1);
                 holder.quantity.setText(qntString);
+                totalPrice = Math.round(totalPrice * 100.0) / 100.0;
                 String totalPriceString = (totalPrice == 0 ? "0" : totalPrice) + "€";
                 totalPriceText.setText(totalPriceString);
+                totalPriceText.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
             }
         });
     }

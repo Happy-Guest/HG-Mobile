@@ -182,7 +182,7 @@
         android:textSize="17sp"
         android:visibility="visible"
         app:icon="@drawable/close_icon"
-        app:iconPadding="-20dp"
+        app:iconPadding="-30dp"
         app:iconTint="@color/black"
         tools:ignore="TextContrastCheck" />
 </LinearLayout>

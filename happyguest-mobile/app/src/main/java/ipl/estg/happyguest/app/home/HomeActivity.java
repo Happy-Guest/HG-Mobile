@@ -150,6 +150,10 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_clean);
                 } else if (destination.getId() == R.id.nav_objects) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_objects);
+                } else if (destination.getId() == R.id.nav_food) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_food);
+                } else if (destination.getId() == R.id.nav_codes) {
+                    binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve_code);
                 } else {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
                 }
