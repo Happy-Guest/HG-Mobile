@@ -192,7 +192,7 @@
     <string name="read_permission_denied">Permission denied. Unable to access files.</string>
     <string name="write_permission_denied">Permission denied. Unable to save files.</string>
     <string name="stock_limit">The stock limit has been reached!</string>
-    <string name="services_schedule_unavailable">You can\'t schedule this service!</string>
+    <string name="services_schedule_unavailable">There are no available schedules for this room!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>

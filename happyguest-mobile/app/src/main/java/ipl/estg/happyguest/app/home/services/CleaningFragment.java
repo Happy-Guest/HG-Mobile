@@ -226,6 +226,7 @@ public class CleaningFragment extends Fragment {
 
             Calendar codeCalendar = Calendar.getInstance();
             SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            dateFormat2.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
             codeCalendar.setTime(Objects.requireNonNull(dateFormat2.parse(selectedCode.getExitDate())));
             codeCalendar.set(Calendar.HOUR_OF_DAY, 0);
             codeCalendar.set(Calendar.MINUTE, 0);
@@ -242,12 +243,11 @@ public class CleaningFragment extends Fragment {
                 dateCalendar.set(Calendar.MINUTE, 0);
                 dateCalendar.set(Calendar.SECOND, 0);
                 dateCalendar.set(Calendar.MILLISECOND, 0);
-                Toast.makeText(getContext(), dateCalendar.getTime().toString(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), codeCalendar.getTime().toString(), Toast.LENGTH_SHORT).show();
                 if (dateCalendar.after(codeCalendar)) {
                     break;
                 }
-
+                Log.d("DATE: ", dateCalendar.getTime().toString());
+                Log.d("CODE: ", codeCalendar.getTime().toString());
                 // Check if date is in the schedule
                 if (scheduleDates.contains(date) && !availableDates.contains(date)) {
                     if (calendar.get(Calendar.DATE) - 1 == Calendar.getInstance().get(Calendar.DATE) && !tomorrow) {

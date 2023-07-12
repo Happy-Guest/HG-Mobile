@@ -3,34 +3,22 @@ package ipl.estg.happyguest.app.home.order;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.app.home.complaint.ComplaintFilesAdapter;
-import ipl.estg.happyguest.app.home.services.ItemsAdapter;
 import ipl.estg.happyguest.databinding.FragmentOrderBinding;
-import ipl.estg.happyguest.databinding.FragmentOrdersBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.api.responses.OrderResponse;
-import ipl.estg.happyguest.utils.models.Complaint;
-import ipl.estg.happyguest.utils.models.Item;
 import ipl.estg.happyguest.utils.models.Order;
 import ipl.estg.happyguest.utils.models.OrderItem;
 import ipl.estg.happyguest.utils.storage.Token;
@@ -42,7 +30,6 @@ public class OrderFragment extends Fragment {
     Long orderId;
     private FragmentOrderBinding binding;
     private APIRoutes api;
-    private ItemsAdapter itemsAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -78,7 +65,7 @@ public class OrderFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Order and populate fields
                     Order order = response.body().getOrder();
-                    if (order.getService().type == 'C') {
+                    if (Objects.requireNonNull(order).getService().type == 'C') {
                         binding.txtDate.setVisibility(View.VISIBLE);
                     }
                     String date = getString(R.string.date) + ": " + Objects.requireNonNull(order).getCreatedAt();
@@ -117,7 +104,7 @@ public class OrderFragment extends Fragment {
                         binding.txtItems.setVisibility(View.VISIBLE);
                         binding.txtItemsOrder.setVisibility(View.VISIBLE);
                         if (order.getService().type == 'B')
-                           binding.txtItems.setText(getString(R.string.order_objects));
+                            binding.txtItems.setText(getString(R.string.order_objects));
                         else
                             binding.txtItems.setText(getString(R.string.order_foods));
 
@@ -127,7 +114,7 @@ public class OrderFragment extends Fragment {
                         sb.append(getString(R.string.total_price)).append(" ").append(order.getPrice()).append("€");
                     }
                     binding.txtItemsOrder.setText(sb.toString());
-                    String comment = order.getComment() != null  ? order.getComment() : getString(R.string.no_comment);
+                    String comment = order.getComment() != null ? order.getComment() : getString(R.string.no_comment);
                     binding.txtCommentOrder.setText(comment);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
