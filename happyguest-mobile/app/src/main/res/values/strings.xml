@@ -109,6 +109,8 @@
     <string name="menu_complaint">Complaint Nº</string>
     <string name="menu_orders">Orders</string>
     <string name="menu_order">Order</string>
+    <string name="menu_reserves">Reserves</string>
+    <string name="menu_reserve">Reserve</string>
     <string name="menu_requested_orders">Placed Orders</string>
 
     <!-- Services -->
@@ -130,6 +132,7 @@
     <string name="items_required">Please select at least one item!</string>
     <string name="order">Order</string>
     <string name="no_orders_request">You don\'t have any orders.</string>
+    <string name="no_reserves_request">You don\'t have any reserves.</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>

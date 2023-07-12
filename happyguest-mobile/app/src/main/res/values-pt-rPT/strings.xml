@@ -109,6 +109,8 @@
     <string name="menu_complaint">Reclamação Nº</string>
     <string name="menu_orders">Pedidos</string>
     <string name="menu_order">Pedido </string>
+    <string name="menu_reserves">Reservas</string>
+    <string name="menu_reserve">Reserva</string>
     <string name="menu_requested_orders">Pedidos Efetuados</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
@@ -137,6 +139,7 @@
     <string name="items_required">Selecione pelo menos um item!</string>
     <string name="order">Pedido</string>
     <string name="no_orders_request">Não tem pedidos registados.</string>
+    <string name="no_reserves_request">Não tem reservas registadas.</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
