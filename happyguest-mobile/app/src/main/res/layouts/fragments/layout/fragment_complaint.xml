@@ -225,7 +225,6 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="17sp"
-        android:visibility="visible"
         app:icon="@drawable/close_icon"
         app:iconPadding="-30dp"
         app:iconTint="@color/black"
