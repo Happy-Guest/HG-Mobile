@@ -21,6 +21,10 @@
             android:icon="@drawable/order_icon"
             android:title="@string/menu_orders" />
         <item
+            android:id="@+id/nav_reserves"
+            android:icon="@drawable/reserve_icon"
+            android:title="@string/menu_reserves" />
+        <item
             android:id="@+id/nav_codes"
             android:icon="@drawable/key_icon"
             android:title="@string/menu_code" />

@@ -64,6 +64,7 @@
     <string name="rejected">Rejected</string>
     <string name="working">Preparing</string>
     <string name="delivered">Delivered</string>
+    <string name="accepted">Accepted</string>
     <string name="createdDate">Created in</string>
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
@@ -111,7 +112,10 @@
     <string name="menu_complaint">Complaint Nº</string>
     <string name="menu_orders">Orders</string>
     <string name="menu_order">Order</string>
+    <string name="menu_reserves">Reserves</string>
+    <string name="menu_reserve">Reserve</string>
     <string name="menu_requested_orders">Placed Orders</string>
+    <string name="menu_requested_reserves">Placed Reserves</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>
@@ -132,6 +136,7 @@
     <string name="items_required">Please select at least one item!</string>
     <string name="order">Order</string>
     <string name="no_orders_request">You don\'t have any orders.</string>
+    <string name="no_reserves_request">You don\'t have any reserves.</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>
@@ -150,6 +155,7 @@
     <string name="reviews_error">Error loading reviews!</string>
     <string name="complaints_error">Error loading complaints!</string>
     <string name="orders_error">Error loading orders!</string>
+    <string name="reserves_error">Error loading reserves!</string>
     <string name="error_file">Error loading file!</string>
     <string name="error_file_app">Error opening file!</string>
     <string name="error_cancel">Error canceling order!</string>
@@ -240,6 +246,11 @@
         <item>Dinner</item>
         <item>Snack</item>
         <item>Dessert</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="reserve_type" translatable="true">
+        <item>All</item>
+        <item>Table Reservation</item>
         <item>Other</item>
     </string-array>
 </resources>
