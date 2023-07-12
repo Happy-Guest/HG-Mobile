@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,20 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         Order order = ordersList.get(position);
 
         // Set Texts
+        switch (order.getService().type){
+            case 'C':
+                holder.iconService.setImageResource(R.drawable.cleaning_icon);
+                break;
+            case 'B':
+                holder.iconService.setImageResource(R.drawable.object_icon);
+                break;
+            case 'F':
+                holder.iconService.setImageResource(R.drawable.food_icon);
+                break;
+            case 'O':
+                holder.iconService.setImageResource(R.drawable.order_icon);
+                break;
+        }
         String nameService = Locale.getDefault().getLanguage().equals("pt") ? order.getService().name : order.getService().nameEN;
         holder.nameService.setText(nameService);
         String room = context.getString(R.string.services_room) + " " + order.getRoom();
@@ -95,6 +110,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         private final TextView date;
         private final TextView status;
         private final Button orderOpen;
+        private final ImageView iconService;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +119,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             date = itemView.findViewById(R.id.txtDateOrder);
             status = itemView.findViewById(R.id.txtStatusOrder);
             orderOpen = itemView.findViewById(R.id.btnOrderOpen);
+            iconService = itemView.findViewById(R.id.imageOrder);
         }
     }
 }
