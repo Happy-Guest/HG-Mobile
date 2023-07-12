@@ -29,7 +29,7 @@ public class Order {
 
     @Nullable
     @SerializedName("price")
-    private final Long price;
+    private final Float price;
 
     @Nullable
     @SerializedName("comment")
@@ -38,7 +38,7 @@ public class Order {
     @SerializedName("created_at")
     private final String createdAt;
 
-    public Order(Long id, Service service, Long room, String time, String status, @Nullable ArrayList<OrderItem> items, @Nullable Long price, @Nullable String comment, String createdAt) {
+    public Order(Long id, Service service, Long room, String time, String status, @Nullable ArrayList<OrderItem> items, @Nullable Float price, @Nullable String comment, String createdAt) {
         this.id = id;
         this.service = service;
         this.room = room;
@@ -56,7 +56,7 @@ public class Order {
     }
 
     @Nullable
-    public Long getPrice() {
+    public Float getPrice() {
         return price;
     }
 

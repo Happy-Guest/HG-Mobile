@@ -207,13 +207,13 @@ public class OrderFragment extends Fragment {
                         for (OrderItem item : order.getItems()) {
                             sb.append(item.getQuantity()).append("x ").append(item.getName()).append("\n");
                         }
-                        sb.append(getString(R.string.total_price)).append(" ").append(order.getPrice()).append("€");
+                        sb.append("\n").append(getString(R.string.total_price)).append(" ").append(order.getPrice()).append("€");
                     }
                     binding.txtItemsOrder.setText(sb.toString());
                     String comment = order.getComment() != null ? order.getComment() : getString(R.string.no_comment);
                     binding.txtCommentOrder.setText(comment);
                 } else {
-                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(binding.getRoot().getContext(),getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetOrder Error: ", response.message());
                 }
             }
