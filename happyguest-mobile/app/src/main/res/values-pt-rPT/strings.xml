@@ -136,7 +136,7 @@
     <string name="room_required">Selecione um número de quarto!</string>
     <string name="items_required">Selecione pelo menos um item!</string>
     <string name="order">Pedido</string>
-    <string name="no_orders_request">Sem pedidos efetudados!</string>
+    <string name="no_orders_request">Não tem pedidos registados.</string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>

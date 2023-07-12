@@ -128,7 +128,7 @@
     <string name="room_required">Please select a room number!</string>
     <string name="items_required">Please select at least one item!</string>
     <string name="order">Order</string>
-    <string name="no_orders_request">No order requested!</string>
+    <string name="no_orders_request">You don\'t have any orders.</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>
