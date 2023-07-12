@@ -64,6 +64,7 @@
     <string name="rejected">Rejeitada</string>
     <string name="working">A preparar</string>
     <string name="delivered">Entregue</string>
+    <string name="accepted">Aceite</string>
     <string name="createdDate">Criada em</string>
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
@@ -114,6 +115,7 @@
     <string name="menu_reserves">Reservas</string>
     <string name="menu_reserve">Reserva</string>
     <string name="menu_requested_orders">Pedidos Efetuados</string>
+    <string name="menu_requested_reserves">Reservas Efetuadas</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>
@@ -153,6 +155,7 @@
     <string name="reviews_error">Erro ao carregar avaliações!</string>
     <string name="complaints_error">Erro ao carregar reclamações!</string>
     <string name="orders_error">Erro ao carregar pedidos!</string>
+    <string name="reserves_error">Erro ao carregar reservas!</string>
     <string name="error_file">Erro ao carregar ficheiro!</string>
     <string name="error_file_app">Erro ao abrir ficheiro!</string>
     <string name="error_cancel">Erro ao cancelar pedido!</string>
@@ -244,5 +247,10 @@
         <item>Lanche</item>
         <item>Sobremesa</item>
         <item>Outro</item>
+    </string-array>
+    <string-array name="reserve_type" translatable="true">
+        <item>Todos</item>
+        <item>Reserva de Mesa</item>
+        <item>Outros</item>
     </string-array>
 </resources>

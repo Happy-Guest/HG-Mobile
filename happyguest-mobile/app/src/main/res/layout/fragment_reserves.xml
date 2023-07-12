@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:dropDownWidth="match_parent"
-            android:entries="@array/order_type"
+            android:entries="@array/reserve_type"
             android:padding="12dp"
             android:spinnerMode="dropdown"
             android:text="@string/switch_order"

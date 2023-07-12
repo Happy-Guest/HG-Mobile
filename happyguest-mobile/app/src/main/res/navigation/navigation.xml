@@ -174,5 +174,14 @@
         app:destination="@id/nav_gym"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_reserves"
+        android:name="ipl.estg.happyguest.app.home.reserve.ReservesFragment"
+        android:label="@string/menu_requested_reserves" />
+    <action
+        android:id="@+id/action_global_nav_reserves"
+        app:destination="@id/nav_reserves"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>
