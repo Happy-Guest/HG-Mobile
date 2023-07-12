@@ -154,5 +154,25 @@
         app:destination="@id/nav_orders"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_gym"
+        android:name="ipl.estg.happyguest.app.home.services.GymFragment"
+        android:label="@string/menu_gym"
+        tools:layout="@layout/fragment_gym" />
+    <fragment
+        android:id="@+id/nav_spa"
+        android:name="ipl.estg.happyguest.app.home.services.SpaFragment"
+        android:label="@string/menu_spa"
+        tools:layout="@layout/fragment_spa" />
+    <action
+        android:id="@+id/action_nav_spa"
+        app:destination="@id/nav_spa"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <action
+        android:id="@+id/action_nav_gym"
+        app:destination="@id/nav_gym"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

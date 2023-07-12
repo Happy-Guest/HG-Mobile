@@ -152,6 +152,10 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_objects);
                 } else if (destination.getId() == R.id.nav_food) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_food);
+                } else if (destination.getId() == R.id.nav_spa) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_spa);
+                } else if (destination.getId() == R.id.nav_gym) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_gym);
                 } else if (destination.getId() == R.id.nav_codes) {
                     binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve_code);
                 } else {
@@ -320,7 +324,7 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
                 R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
-                R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order)
+                R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order, R.id.nav_gym, R.id.nav_spa)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

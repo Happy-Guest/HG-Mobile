@@ -102,6 +102,8 @@
     <string name="menu_cleaning">Room Cleaning</string>
     <string name="menu_objects">Objects Order</string>
     <string name="menu_food">Food Order</string>
+    <string name="menu_spa">Spa</string>
+    <string name="menu_gym">Gym</string>
     <string name="menu_register_review">Register Review</string>
     <string name="menu_complaints">Complaints</string>
     <string name="menu_register_complaint">Register Complaint</string>
