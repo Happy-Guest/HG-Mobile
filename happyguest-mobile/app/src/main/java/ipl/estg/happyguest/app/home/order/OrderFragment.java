@@ -164,6 +164,7 @@ public class OrderFragment extends Fragment {
                             break;
                         case "R":
                             orderStatus = getString(R.string.rejected);
+                            binding.btnCancel.setEnabled(false);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#932218")));
                             break;
                         case "W":

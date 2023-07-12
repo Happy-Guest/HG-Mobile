@@ -215,6 +215,7 @@
     <string name="title_Review">Do you want to submit your review?</string>
     <string name="title_Complaint">Do you want to submit your complaint?</string>
     <string name="title_CancelOrder">Do you want to cancel this order?</string>
+    <string name="title_CancelReserve">Do you want to cancel this reserve?</string>
     <string name="authorization_review">I authorize the sharing of my review.</string>
     <string name="service_clean_confirm">Do you want to request room cleaning?</string>
     <string name="service_objects_confirm">Do you want to request objects?</string>

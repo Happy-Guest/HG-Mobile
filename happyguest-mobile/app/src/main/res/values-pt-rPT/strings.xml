@@ -215,6 +215,7 @@
     <string name="title_Review">Pretende submeter a avaliação?</string>
     <string name="title_Complaint">Pretende submeter a reclamação?</string>
     <string name="title_CancelOrder">Pertende cancelar o pedido?</string>
+    <string name="title_CancelReserve">Pertende cancelar a reserva?</string>
     <string name="authorization_review">Autorizo a partilha da minha avaliação!</string>
     <string name="service_clean_confirm">Pretende pedir limpeza de quarto?</string>
     <string name="service_objects_confirm">Pretende pedir os objetos?</string>

@@ -134,5 +134,9 @@ public interface APIRoutes {
     @GET("reserves/{id}")
     Call<ReserveResponse> getReserve(@Path("id") Long id);
 
+    @PATCH("reserves/{id}")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> cancelReserve(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
+
 
 }
