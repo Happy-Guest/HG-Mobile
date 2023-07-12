@@ -107,6 +107,22 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Spa button
+        binding.imgSpa.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_spa);
+            }
+        });
+
+        // Gym button
+        binding.imgGym.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_gym);
+            }
+        });
+
         return binding.getRoot();
     }
 
