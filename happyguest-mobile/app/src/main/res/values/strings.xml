@@ -44,7 +44,7 @@
     <string name="switch_order">Most Recent</string>
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
-    <string name="date">Date</string>
+    <string name="date">Date:</string>
     <string name="title">Title</string>
     <string name="local">Local</string>
     <string name="review_anonymous">Anonymous Review</string>
@@ -93,7 +93,8 @@
     <string name="profile_icon">Profile</string>
     <string name="barTitle">Leiria Hotel</string>
     <string name="menu_home">Home Page</string>
-    <string name="menu_code">Reserve Codes</string>
+    <string name="menu_code">Codes</string>
+    <string name="menu_reserve_code">Reserve Codes</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_password">Password</string>
     <string name="menu_logout">Logout</string>
@@ -128,7 +129,7 @@
     <string name="room_required">Please select a room number!</string>
     <string name="items_required">Please select at least one item!</string>
     <string name="order">Order</string>
-    <string name="no_orders_request">No order requested!</string>
+    <string name="no_orders_request">You don\'t have any orders.</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>
@@ -149,6 +150,7 @@
     <string name="orders_error">Error loading orders!</string>
     <string name="error_file">Error loading file!</string>
     <string name="error_file_app">Error opening file!</string>
+    <string name="error_cancel">Error canceling order!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
@@ -191,18 +193,21 @@
     <string name="file_downloaded">File was downloaded successfully!</string>
     <string name="read_permission_denied">Permission denied. Unable to access files.</string>
     <string name="write_permission_denied">Permission denied. Unable to save files.</string>
+    <string name="stock_limit">The stock limit has been reached!</string>
+    <string name="services_schedule_unavailable">There are no available schedules for this room!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
     <string name="title_ChangePassword">Do you want to change your password?</string>
     <string name="title_disassociateCode">Do you want to disassociate your code?</string>
     <string name="title_RemoveProfile">Do you want to remove your profile?</string>
-    <string name="title_Review">Confirm review submission?</string>
-    <string name="title_Complaint">Confirm complaint submission?</string>
+    <string name="title_Review">Do you want to submit your review?</string>
+    <string name="title_Complaint">Do you want to submit your complaint?</string>
+    <string name="title_CancelOrder">Do you want to cancel this order?</string>
     <string name="authorization_review">I authorize the sharing of my review.</string>
-    <string name="service_clean_confirm">Confirm cleaning request?</string>
-    <string name="service_objects_confirm">Confirm object request?</string>
-    <string name="service_food_confirm">Confirm food request?</string>
+    <string name="service_clean_confirm">Do you want to request room cleaning?</string>
+    <string name="service_objects_confirm">Do you want to request objects?</string>
+    <string name="service_food_confirm">Do you want to request food?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
@@ -227,7 +232,7 @@
     </string-array>
     <string-array name="food_categories" translatable="true">
         <item>All</item>
-        <item>Drinks</item>
+        <item>Drink</item>
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>

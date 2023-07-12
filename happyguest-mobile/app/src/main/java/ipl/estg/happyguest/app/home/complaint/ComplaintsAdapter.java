@@ -46,7 +46,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Vi
         long id = position + 1;
         String title = context.getString(R.string.menu_complaint) + " " + id;
         holder.id.setText(title);
-        String local = context.getString(R.string.complaint_local) + " " + (Objects.requireNonNull(complaint.getLocal()).length() > 10 ? complaint.getLocal().substring(0, 10) + "..." : complaint.getLocal());
+        String local = context.getString(R.string.complaint_local) + " " + (Objects.requireNonNull(complaint.getLocal()).length() > 20 ? complaint.getLocal().substring(0, 20) + "..." : complaint.getLocal());
         holder.local.setText(local);
         holder.date.setText(complaint.getCreatedAt());
 
@@ -76,7 +76,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Vi
         holder.complaintOpen.setOnClickListener(view -> {
             if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentBundle(R.id.action_nav_complaint, complaint.getId(), id);
+                homeActivity.changeFragmentService(R.id.action_nav_complaint, complaint.getId(), id);
             }
         });
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -50,6 +51,40 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     }
 
     public void setFilter(String filter) {
+        switch (filter) {
+            case "Quarto":
+                filter = "Room";
+                break;
+            case "Casa de Banho":
+                filter = "Bathroom";
+                break;
+            case "Outro":
+                filter = "Other";
+                break;
+            case "Bebida":
+                filter = "Drink";
+                break;
+            case "Pequeno Almoço":
+                filter = "Breakfast";
+                break;
+            case "Almoço":
+                filter = "Lunch";
+                break;
+            case "Jantar":
+                filter = "Dinner";
+                break;
+            case "Lanche":
+                filter = "Snack";
+                break;
+            case "Sobremesa":
+                filter = "Dessert";
+                break;
+            case "Todos":
+                filter = "All";
+                break;
+            default:
+                break;
+        }
         if (Objects.equals(filter, "All")) {
             if (!itemsList.equals(backUpItemsList)) {
                 itemsList.clear();
@@ -102,6 +137,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         // Add Qnt Button
         holder.addQnt.setOnClickListener(v -> {
             int qnt = Integer.parseInt(holder.quantity.getText().toString());
+            if (item.getStock() != null && qnt + 1 > item.getStock()) {
+                Toast.makeText(context, context.getString(R.string.stock_limit), Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (qnt < 9) {
                 if (qnt > 0) {
                     // Update Old Item
@@ -124,8 +163,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                 holder.addQnt.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
                 String qntString = String.valueOf(qnt + 1);
                 holder.quantity.setText(qntString);
+                totalPrice = Math.round(totalPrice * 100.0) / 100.0;
                 String totalPriceString = (totalPrice == 0 ? "0" : totalPrice) + "€";
                 totalPriceText.setText(totalPriceString);
+                totalPriceText.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
             }
         });
 
@@ -164,8 +205,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                 holder.removeQnt.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
                 String qntString = String.valueOf(qnt - 1);
                 holder.quantity.setText(qntString);
+                totalPrice = Math.round(totalPrice * 100.0) / 100.0;
                 String totalPriceString = (totalPrice == 0 ? "0" : totalPrice) + "€";
                 totalPriceText.setText(totalPriceString);
+                totalPriceText.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
             }
         });
     }

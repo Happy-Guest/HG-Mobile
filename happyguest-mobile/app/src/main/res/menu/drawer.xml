@@ -13,13 +13,13 @@
             android:icon="@drawable/complaint_icon"
             android:title="@string/menu_complaints" />
         <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/order_icon"
-            android:title="@string/menu_orders" />
-        <item
             android:id="@+id/nav_reviews"
             android:icon="@drawable/star_icon"
             android:title="@string/menu_reviews" />
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/order_icon"
+            android:title="@string/menu_orders" />
         <item
             android:id="@+id/nav_codes"
             android:icon="@drawable/key_icon"

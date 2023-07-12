@@ -49,8 +49,6 @@ class App {
 		//Run app (true -> uninstalling the application automatically after run)
 		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
 
-		//TODO
-
 		//on wifi
 		Mobile.toggleWifi('true')
 
@@ -62,8 +60,6 @@ class App {
 	void a_aplicação_está_pronta_sem_internet() {
 		//Run app
 		Mobile.startApplication('C:\\GIT\\Happy_Guest\\HG-Mobile\\happyguest-mobile\\app\\build\\outputs\\apk\\debug\\app-debug.apk',  false)
-
-		//TODO
 
 		//off wifi
 		Mobile.toggleWifi('false')

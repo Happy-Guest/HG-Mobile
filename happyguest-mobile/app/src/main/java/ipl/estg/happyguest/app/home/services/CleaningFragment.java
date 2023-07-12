@@ -99,6 +99,14 @@ public class CleaningFragment extends Fragment {
             }
         });
 
+        // History button listener
+        binding.btnHistoryCleaning.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragmentFilter(R.id.action_nav_orders, "OC");
+            }
+        });
+
         // Spinner room listener
         binding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -218,6 +226,7 @@ public class CleaningFragment extends Fragment {
 
             Calendar codeCalendar = Calendar.getInstance();
             SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            dateFormat2.setTimeZone(TimeZone.getTimeZone("Europe/Lisbon"));
             codeCalendar.setTime(Objects.requireNonNull(dateFormat2.parse(selectedCode.getExitDate())));
             codeCalendar.set(Calendar.HOUR_OF_DAY, 0);
             codeCalendar.set(Calendar.MINUTE, 0);
@@ -237,7 +246,6 @@ public class CleaningFragment extends Fragment {
                 if (dateCalendar.after(codeCalendar)) {
                     break;
                 }
-
                 // Check if date is in the schedule
                 if (scheduleDates.contains(date) && !availableDates.contains(date)) {
                     if (calendar.get(Calendar.DATE) - 1 == Calendar.getInstance().get(Calendar.DATE) && !tomorrow) {
@@ -260,6 +268,15 @@ public class CleaningFragment extends Fragment {
             Log.i("populateScheduleSpinner: ", e.getMessage());
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
             selectedSchedule = null;
+        }
+
+        if (availableDates.isEmpty()) {
+            binding.spinnerSchedule.setEnabled(false);
+            binding.btnOrderCleaning.setEnabled(false);
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.services_schedule_unavailable), Toast.LENGTH_SHORT).show();
+        } else {
+            binding.spinnerSchedule.setEnabled(true);
+            binding.btnOrderCleaning.setEnabled(true);
         }
     }
 
@@ -403,11 +420,12 @@ public class CleaningFragment extends Fragment {
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
 
         // Set popup texts
+        popupView.findViewById(R.id.txtPopUpRoom).setVisibility(View.VISIBLE);
         popupView.findViewById(R.id.txtOrder).setVisibility(View.VISIBLE);
-        popupView.findViewById(R.id.dividerOrder).setVisibility(View.VISIBLE);
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.service_clean_confirm));
-        String sb = getString(R.string.services_room) + " " + selectedRoom + "\n" +
-                getString(R.string.services_schedule) + " " + selectedSchedule;
+        String sb = getString(R.string.services_room) + " " + selectedRoom;
+        ((TextView) popupView.findViewById(R.id.txtPopUpRoom)).setText(sb);
+        sb = getString(R.string.services_schedule) + " " + selectedSchedule;
         ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb);
 
         // Show the popup window
@@ -455,7 +473,7 @@ public class CleaningFragment extends Fragment {
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
-                        homeActivity.changeFragment(R.id.nav_home); // TODO: Change to history fragment
+                        homeActivity.changeFragment(R.id.action_nav_orders);
                     }
                 } else {
                     try {

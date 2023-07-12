@@ -81,19 +81,19 @@ class Buttons {
 	}
 
 	@When("utilizador clica no ícone de Editar")
-	public void utilizador_clica_no_ícone_de_Editar() {
-		Mobile.tap(findTestObject('Object Repository/AtualizarPerfil/android.widget.ImageButton'), 0);
-	}
+    void utilizador_clica_no_ícone_de_Editar() {
+		Mobile.tap(findTestObject('Object Repository/AtualizarPerfil/android.widget.ImageButton'), 0)
+    }
 
 	@When("utilizador clica no botão “Atualizar Perfil“")
-	public void utilizador_clica_no_botão_Atualizar_Perfil() {
-		Mobile.tap(findTestObject('Object Repository/AtualizarPerfil/android.widget.Button - Atualizar Perfil'), 0);
-	}
+    void utilizador_clica_no_botão_Atualizar_Perfil() {
+		Mobile.tap(findTestObject('Object Repository/AtualizarPerfil/android.widget.Button - Atualizar Perfil'), 0)
+    }
 	
 	
 	@When("utilizador clica no botão “Associar“")
-	public void utilizador_clica_no_botão_Associar(String string) {
-		Mobile.tap(findTestObject('Object Repository/Inserir_Código/android.widget.Button - Associar'), 0);
-	}
+    void utilizador_clica_no_botão_Associar(String string) {
+		Mobile.tap(findTestObject('Object Repository/Inserir_Código/android.widget.Button - Associar'), 0)
+    }
 	
 }

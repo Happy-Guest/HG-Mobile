@@ -74,6 +74,7 @@ public class ComplaintFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentComplaintBinding.inflate(inflater, container, false);
 
+        // Get complaint id
         if (getArguments() != null) {
             Bundle args = getArguments();
             complaintId = args.getLong("id");
@@ -104,7 +105,7 @@ public class ComplaintFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Complaint and populate fields
                     Complaint complaint = response.body().getComplaint();
-                    String date = getString(R.string.date) + ": " + Objects.requireNonNull(complaint).getDate();
+                    String date = getString(R.string.date) + " " + Objects.requireNonNull(complaint).getDate();
                     binding.txtDate.setText(date);
                     String complaintStatus = "";
                     switch (complaint.getStatus()) {

@@ -34,7 +34,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -150,6 +150,10 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_clean);
                 } else if (destination.getId() == R.id.nav_objects) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_objects);
+                } else if (destination.getId() == R.id.nav_food) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_food);
+                } else if (destination.getId() == R.id.nav_codes) {
+                    binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve_code);
                 } else {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
                 }
@@ -247,7 +251,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void homeWithCodes(boolean hasCode) {
         NavigationView navigationView = findViewById(R.id.nav_view);
-        List<Integer> menuItemIds = Arrays.asList(); // TODO: Add menu items ids
+        List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add check-out menu item
         // Show or hide multiple menu items
         for (int menuItemId : menuItemIds) {
             MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);
@@ -261,7 +265,7 @@ public class HomeActivity extends AppCompatActivity {
         navController.navigate(id);
     }
 
-    public void changeFragmentBundle(int id, Long idObject, Long position) {
+    public void changeFragmentService(int id, Long idObject, Long position) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", idObject);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -273,15 +277,34 @@ public class HomeActivity extends AppCompatActivity {
         }, 100);
     }
 
-    public void changeFragmentBundle(int id, Long idObject, String service) {
+    public void changeFragmentFilter(int id, String filter) {
+        Bundle bundle = new Bundle();
+        bundle.putString("filter", filter);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        navController.popBackStack();
+        navController.navigate(id, bundle);
+    }
+
+    public void changeFragmentService(int id, Long idObject, char type) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", idObject);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.popBackStack();
         navController.navigate(id, bundle);
-        new Handler().postDelayed(() -> {
-            binding.appBarHome.txtBarTitle.setText(service);
-        }, 100);
+        switch (type) {
+            case 'C':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_cleaning);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_clean);
+                break;
+            case 'B':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_objects);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_objects);
+                break;
+            case 'F':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_food);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_food);
+                break;
+        }
     }
 
     public byte[] getPhoto() {
@@ -297,7 +320,7 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
                 R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
-                R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders)
+                R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

@@ -1,12 +1,6 @@
 package ipl.estg.happyguest.app.home.order;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,16 +10,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.home.complaint.ComplaintsAdapter;
 import ipl.estg.happyguest.databinding.FragmentOrdersBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.ComplaintsResponse;
 import ipl.estg.happyguest.utils.api.responses.OrdersResponse;
-import ipl.estg.happyguest.utils.models.Complaint;
 import ipl.estg.happyguest.utils.models.Meta;
 import ipl.estg.happyguest.utils.models.Order;
 import ipl.estg.happyguest.utils.storage.Token;
@@ -33,7 +29,6 @@ import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class OrdersFragment extends Fragment {
 
@@ -49,6 +44,23 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOrdersBinding.inflate(inflater, container, false);
+
+        // Get the selected type if any
+        if (getArguments() != null) {
+            Bundle args = getArguments();
+            selectedType = args.getString("filter") == null ? "ALL" : args.getString("filter");
+            switch (selectedType) {
+                case "OC":
+                    binding.spinnerSelectType.setSelection(1);
+                    break;
+                case "OB":
+                    binding.spinnerSelectType.setSelection(2);
+                    break;
+                case "OF":
+                    binding.spinnerSelectType.setSelection(3);
+                    break;
+            }
+        }
 
         // User, API, Token and HasCodes
         user = new User(binding.getRoot().getContext());
@@ -66,7 +78,7 @@ public class OrdersFragment extends Fragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.1));
 
         // Get complaints on scroll
         binding.ordersRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -85,8 +97,7 @@ public class OrdersFragment extends Fragment {
         // Swipe to refresh complaints
         binding.swipeRefresh.setOnRefreshListener(this::getOrders);
 
-       //Filters
-        // Switch status
+        // Filters
         binding.spinnerSelectType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -124,11 +135,10 @@ public class OrdersFragment extends Fragment {
             }
         });
 
-
         return binding.getRoot();
     }
 
-    private void getOrders(){
+    private void getOrders() {
         binding.spinnerSelectType.setEnabled(false);
         int previousItemCount = ordersList.size();
         ordersList.clear();
@@ -186,5 +196,4 @@ public class OrdersFragment extends Fragment {
             }
         });
     }
-
 }

@@ -8,37 +8,29 @@ import java.util.ArrayList;
 
 public class Order {
 
-    @SerializedName("id")
-    private final Long id;
-
-    @SerializedName("service")
-    private final Service service;
-
-    @SerializedName("room")
-    private final Long room;
-
-    @SerializedName("time")
-    private final String time;
-
-    @SerializedName("status")
-    private final String status;
-
     @Nullable
     @SerializedName("items")
     public final ArrayList<OrderItem> items;
-
+    @SerializedName("id")
+    private final Long id;
+    @SerializedName("service")
+    private final Service service;
+    @SerializedName("room")
+    private final Long room;
+    @SerializedName("time")
+    private final String time;
+    @SerializedName("status")
+    private final String status;
     @Nullable
     @SerializedName("price")
-    private final Long price;
-
+    private final Float price;
     @Nullable
     @SerializedName("comment")
     private final String comment;
-
     @SerializedName("created_at")
     private final String createdAt;
 
-    public Order(Long id, Service service, Long room, String time, String status, @Nullable ArrayList<OrderItem> items, @Nullable Long price, @Nullable String comment, String createdAt) {
+    public Order(Long id, Service service, Long room, String time, String status, @Nullable ArrayList<OrderItem> items, @Nullable Float price, @Nullable String comment, String createdAt) {
         this.id = id;
         this.service = service;
         this.room = room;
@@ -56,7 +48,7 @@ public class Order {
     }
 
     @Nullable
-    public Long getPrice() {
+    public Float getPrice() {
         return price;
     }
 

@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -113,6 +114,8 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+        btnRemove.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
 
         // Close popup
         ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);

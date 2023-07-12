@@ -96,6 +96,14 @@ public class FoodFragment extends Fragment {
             }
         });
 
+        // History button listener
+        binding.btnHistoryFood.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragmentFilter(R.id.action_nav_orders, "OF");
+            }
+        });
+
         // Spinner room listener
         binding.spinnerRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -154,16 +162,24 @@ public class FoodFragment extends Fragment {
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
 
         // Set popup texts
+        popupView.findViewById(R.id.txtPopUpRoom).setVisibility(View.VISIBLE);
         popupView.findViewById(R.id.txtOrder).setVisibility(View.VISIBLE);
         popupView.findViewById(R.id.dividerOrder).setVisibility(View.VISIBLE);
+        popupView.findViewById(R.id.txtPopUpTotal).setVisibility(View.VISIBLE);
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.service_food_confirm));
-        StringBuilder sb = new StringBuilder(getString(R.string.services_room) + " " + selectedRoom + "\n");
+        StringBuilder sb = new StringBuilder(getString(R.string.services_room) + " " + selectedRoom);
+        ((TextView) popupView.findViewById(R.id.txtPopUpRoom)).setText(sb.toString());
+        sb = new StringBuilder();
         for (OrderItem item : itemsAdapter.getOrderItems()) {
-            sb.append(item.getQuantity()).append("x ").append(item.getName()).append("\n");
+            sb.append(item.getQuantity()).append("x ").append(item.getName());
+            if (itemsAdapter.getOrderItems().indexOf(item) != itemsAdapter.getOrderItems().size() - 1) {
+                sb.append("\n");
+            }
         }
+        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb.toString());
+        sb = new StringBuilder();
         sb.append(getString(R.string.total_price)).append(" ").append(itemsAdapter.getTotalPrice()).append("€");
-        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb.toString());
-        ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb.toString());
+        ((TextView) popupView.findViewById(R.id.txtPopUpTotal)).setText(sb.toString());
 
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
