@@ -179,8 +179,18 @@
         android:name="ipl.estg.happyguest.app.home.reserve.ReservesFragment"
         android:label="@string/menu_requested_reserves" />
     <action
-        android:id="@+id/action_global_nav_reserves"
+        android:id="@+id/action_nav_reserves"
         app:destination="@id/nav_reserves"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_reserve"
+        android:name="ipl.estg.happyguest.app.home.reserve.ReserveFragment"
+        android:label="@string/menu_reserve"
+        tools:layout="@layout/fragment_reserve" />
+    <action
+        android:id="@+id/action_nav_reserve"
+        app:destination="@id/nav_reserve"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
 

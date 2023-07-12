@@ -72,6 +72,8 @@
     <string name="order_comment">Comment: </string>
     <string name="order_objects">Objects: </string>
     <string name="order_foods">Food: </string>
+    <string name="reserve_nr_people">Nº People: </string>
+    <string name="service_name">Service: </string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -116,6 +118,7 @@
     <string name="menu_reserve">Reserve</string>
     <string name="menu_requested_orders">Placed Orders</string>
     <string name="menu_requested_reserves">Placed Reserves</string>
+    <string name="menu_table_reservation">Table Reservation</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>

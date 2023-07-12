@@ -81,7 +81,7 @@
     <string name="home_btn_clean">Limpeza</string>
     <string name="home_btn_objects">Objetos</string>
     <string name="home_btn_food">Alimentação</string>
-    <string name="home_btn_restaurant">Marcar Mesa</string>
+    <string name="home_btn_restaurant">Reservar Mesa</string>
     <string name="home_btn_spa">Spa</string>
     <string name="home_btn_gym">Ginásio</string>
     <string name="home_btn_complaints">Reclamações</string>
@@ -116,6 +116,7 @@
     <string name="menu_reserve">Reserva</string>
     <string name="menu_requested_orders">Pedidos Efetuados</string>
     <string name="menu_requested_reserves">Reservas Efetuadas</string>
+    <string name="menu_table_reservation">Reserva de Mesa</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>
@@ -123,6 +124,8 @@
     <string name="quantity_remove">Remover Quantidade</string>
     <string name="item_name">Nome do Item</string>
     <string name="items_category">Categoria:</string>
+    <string name="reserve_nr_people">Nº Pessoas: </string>
+    <string name="service_name">Serviço: </string>
 
     <!-- Services -->
     <string name="services_schedule">Horário: </string>

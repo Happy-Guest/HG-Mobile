@@ -81,10 +81,10 @@ public class ReservesAdapter extends RecyclerView.Adapter<ReservesAdapter.ViewHo
 
         // View Button
         holder.reserveOpen.setOnClickListener(view -> {
-            /*if (context instanceof HomeActivity) {
+            if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentService(R.id.action_nav_order, order.getId(), order.getService().type);
-            }*/
+                homeActivity.changeFragmentService(R.id.action_nav_reserve, reserve.getId(), reserve.getService().type);
+            }
         });
     }
 
