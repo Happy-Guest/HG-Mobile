@@ -103,7 +103,7 @@ public class CleaningFragment extends Fragment {
         binding.btnHistoryCleaning.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.changeFragment(R.id.action_nav_orders);
+                homeActivity.changeFragmentFilter(R.id.action_nav_orders, "OC");
             }
         });
 
@@ -246,8 +246,6 @@ public class CleaningFragment extends Fragment {
                 if (dateCalendar.after(codeCalendar)) {
                     break;
                 }
-                Log.d("DATE: ", dateCalendar.getTime().toString());
-                Log.d("CODE: ", codeCalendar.getTime().toString());
                 // Check if date is in the schedule
                 if (scheduleDates.contains(date) && !availableDates.contains(date)) {
                     if (calendar.get(Calendar.DATE) - 1 == Calendar.getInstance().get(Calendar.DATE) && !tomorrow) {

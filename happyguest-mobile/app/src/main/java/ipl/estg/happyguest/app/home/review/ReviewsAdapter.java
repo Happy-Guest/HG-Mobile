@@ -58,7 +58,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         holder.reviewOpen.setOnClickListener(view -> {
             if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentBundle(R.id.action_nav_review, review.getId(), id);
+                homeActivity.changeFragmentService(R.id.action_nav_review, review.getId(), id);
             }
         });
     }

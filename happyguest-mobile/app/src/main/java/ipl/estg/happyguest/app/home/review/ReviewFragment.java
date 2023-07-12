@@ -34,6 +34,7 @@ public class ReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentReviewBinding.inflate(inflater, container, false);
 
+        // Get the review id
         if (getArguments() != null) {
             Bundle args = getArguments();
             reviewId = args.getLong("id");

@@ -265,7 +265,7 @@ public class HomeActivity extends AppCompatActivity {
         navController.navigate(id);
     }
 
-    public void changeFragmentBundle(int id, Long idObject, Long position) {
+    public void changeFragmentService(int id, Long idObject, Long position) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", idObject);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -277,13 +277,34 @@ public class HomeActivity extends AppCompatActivity {
         }, 100);
     }
 
-    public void changeFragmentBundle(int id, Long idObject, String service) {
+    public void changeFragmentFilter(int id, String filter) {
+        Bundle bundle = new Bundle();
+        bundle.putString("filter", filter);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+        navController.popBackStack();
+        navController.navigate(id, bundle);
+    }
+
+    public void changeFragmentService(int id, Long idObject, char type) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", idObject);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         navController.popBackStack();
         navController.navigate(id, bundle);
-        new Handler().postDelayed(() -> binding.appBarHome.txtBarTitle.setText(service), 100);
+        switch (type) {
+            case 'C':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_cleaning);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_clean);
+                break;
+            case 'B':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_objects);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_objects);
+                break;
+            case 'F':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_food);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_food);
+                break;
+        }
     }
 
     public byte[] getPhoto() {

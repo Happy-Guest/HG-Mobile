@@ -47,11 +47,10 @@ public class OrderFragment extends Fragment {
     private APIRoutes api;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOrderBinding.inflate(inflater, container, false);
 
+        // Get the order id
         if (getArguments() != null) {
             Bundle args = getArguments();
             orderId = args.getLong("id");

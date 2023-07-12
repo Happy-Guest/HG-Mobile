@@ -94,7 +94,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         holder.orderOpen.setOnClickListener(view -> {
             if (context instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) context;
-                homeActivity.changeFragmentBundle(R.id.action_nav_order, order.getId(), nameService);
+                homeActivity.changeFragmentService(R.id.action_nav_order, order.getId(), order.getService().type);
             }
         });
     }

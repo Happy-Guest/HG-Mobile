@@ -46,6 +46,23 @@ public class OrdersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOrdersBinding.inflate(inflater, container, false);
 
+        // Get the selected type if any
+        if (getArguments() != null) {
+            Bundle args = getArguments();
+            selectedType = args.getString("filter") == null ? "ALL" : args.getString("filter");
+            switch (selectedType) {
+                case "OC":
+                    binding.spinnerSelectType.setSelection(1);
+                    break;
+                case "OB":
+                    binding.spinnerSelectType.setSelection(2);
+                    break;
+                case "OF":
+                    binding.spinnerSelectType.setSelection(3);
+                    break;
+            }
+        }
+
         // User, API, Token and HasCodes
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
@@ -62,7 +79,7 @@ public class OrdersFragment extends Fragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
-        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.3));
+        binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.1));
 
         // Get complaints on scroll
         binding.ordersRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -81,8 +98,7 @@ public class OrdersFragment extends Fragment {
         // Swipe to refresh complaints
         binding.swipeRefresh.setOnRefreshListener(this::getOrders);
 
-        //Filters
-        // Switch status
+        // Filters
         binding.spinnerSelectType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -119,7 +135,6 @@ public class OrdersFragment extends Fragment {
                 selectedType = "ALL";
             }
         });
-
 
         return binding.getRoot();
     }

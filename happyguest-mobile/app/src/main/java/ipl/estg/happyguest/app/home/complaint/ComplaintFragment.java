@@ -74,6 +74,7 @@ public class ComplaintFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentComplaintBinding.inflate(inflater, container, false);
 
+        // Get complaint id
         if (getArguments() != null) {
             Bundle args = getArguments();
             complaintId = args.getLong("id");

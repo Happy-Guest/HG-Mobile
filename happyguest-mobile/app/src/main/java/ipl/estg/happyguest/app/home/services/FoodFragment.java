@@ -100,7 +100,7 @@ public class FoodFragment extends Fragment {
         binding.btnHistoryFood.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();
-                homeActivity.changeFragment(R.id.action_nav_orders);
+                homeActivity.changeFragmentFilter(R.id.action_nav_orders, "OF");
             }
         });
 
