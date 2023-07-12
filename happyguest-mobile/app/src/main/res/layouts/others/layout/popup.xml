@@ -68,11 +68,23 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/txtPopUpRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="end"
+            android:text="@string/services_room"
+            android:textColor="@color/background_gray"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/txtOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginBottom="5dp"
             android:gravity="end"
             android:text="@string/order"
@@ -88,6 +100,19 @@
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="5dp"
             android:background="?android:attr/listDivider"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtPopUpTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="end"
+            android:text="@string/total_price"
+            android:textColor="@color/background_gray"
+            android:textStyle="bold"
             android:visibility="gone" />
 
         <LinearLayout

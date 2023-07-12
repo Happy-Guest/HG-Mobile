@@ -422,11 +422,12 @@ public class CleaningFragment extends Fragment {
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
 
         // Set popup texts
+        popupView.findViewById(R.id.txtPopUpRoom).setVisibility(View.VISIBLE);
         popupView.findViewById(R.id.txtOrder).setVisibility(View.VISIBLE);
-        popupView.findViewById(R.id.dividerOrder).setVisibility(View.VISIBLE);
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.service_clean_confirm));
-        String sb = getString(R.string.services_room) + " " + selectedRoom + "\n" +
-                getString(R.string.services_schedule) + " " + selectedSchedule;
+        String sb = getString(R.string.services_room) + " " + selectedRoom;
+        ((TextView) popupView.findViewById(R.id.txtPopUpRoom)).setText(sb);
+        sb = getString(R.string.services_schedule) + " " + selectedSchedule;
         ((TextView) popupView.findViewById(R.id.txtOrder)).setText(sb);
 
         // Show the popup window

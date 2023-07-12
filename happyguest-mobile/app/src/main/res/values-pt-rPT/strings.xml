@@ -201,13 +201,13 @@
     <string name="title_ChangePassword">Pretende alterar a palavra-passe?</string>
     <string name="title_disassociateCode">Pretende desassociar o código?</string>
     <string name="title_RemoveProfile">Pretende eliminar o perfil?</string>
-    <string name="title_Review">Confirmar submissão da avaliação?</string>
-    <string name="title_Complaint">Confirmar submissão da reclamação?</string>
+    <string name="title_Review">Pretende submeter a avaliação?</string>
+    <string name="title_Complaint">Pretende submeter a reclamação?</string>
     <string name="title_CancelOrder">Pertende cancelar o pedido?</string>
     <string name="authorization_review">Autorizo a partilha da minha avaliação!</string>
-    <string name="service_clean_confirm">Confirmar pedido de limpeza?</string>
-    <string name="service_objects_confirm">Confirmar pedido de objetos?</string>
-    <string name="service_food_confirm">Confirmar pedido de comida?</string>
+    <string name="service_clean_confirm">Pretende pedir limpeza de quarto?</string>
+    <string name="service_objects_confirm">Pretende pedir os objetos?</string>
+    <string name="service_food_confirm">Pretende pedir os alimentos?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

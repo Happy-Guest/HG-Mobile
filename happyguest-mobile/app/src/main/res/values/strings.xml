@@ -200,13 +200,13 @@
     <string name="title_ChangePassword">Do you want to change your password?</string>
     <string name="title_disassociateCode">Do you want to disassociate your code?</string>
     <string name="title_RemoveProfile">Do you want to remove your profile?</string>
-    <string name="title_Review">Confirm review submission?</string>
-    <string name="title_Complaint">Confirm complaint submission?</string>
+    <string name="title_Review">Do you want to submit your review?</string>
+    <string name="title_Complaint">Do you want to submit your complaint?</string>
     <string name="title_CancelOrder">Do you want to cancel this order?</string>
     <string name="authorization_review">I authorize the sharing of my review.</string>
-    <string name="service_clean_confirm">Confirm cleaning request?</string>
-    <string name="service_objects_confirm">Confirm object request?</string>
-    <string name="service_food_confirm">Confirm food request?</string>
+    <string name="service_clean_confirm">Do you want to request room cleaning?</string>
+    <string name="service_objects_confirm">Do you want to request objects?</string>
+    <string name="service_food_confirm">Do you want to request food?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
