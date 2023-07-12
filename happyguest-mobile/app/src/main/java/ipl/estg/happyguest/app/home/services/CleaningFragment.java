@@ -242,6 +242,8 @@ public class CleaningFragment extends Fragment {
                 dateCalendar.set(Calendar.MINUTE, 0);
                 dateCalendar.set(Calendar.SECOND, 0);
                 dateCalendar.set(Calendar.MILLISECOND, 0);
+                Toast.makeText(getContext(), dateCalendar.getTime().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), codeCalendar.getTime().toString(), Toast.LENGTH_SHORT).show();
                 if (dateCalendar.after(codeCalendar)) {
                     break;
                 }
@@ -268,6 +270,15 @@ public class CleaningFragment extends Fragment {
             Log.i("populateScheduleSpinner: ", e.getMessage());
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
             selectedSchedule = null;
+        }
+
+        if (availableDates.isEmpty()) {
+            binding.spinnerSchedule.setEnabled(false);
+            binding.btnOrderCleaning.setEnabled(false);
+            Toast.makeText(binding.getRoot().getContext(), getString(R.string.services_schedule_unavailable), Toast.LENGTH_SHORT).show();
+        } else {
+            binding.spinnerSchedule.setEnabled(true);
+            binding.btnOrderCleaning.setEnabled(true);
         }
     }
 

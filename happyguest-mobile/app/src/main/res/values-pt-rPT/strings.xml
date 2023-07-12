@@ -189,6 +189,7 @@
     <string name="read_permission_denied">Permissão negada. Não é possível aceder aos ficheiros.</string>
     <string name="write_permission_denied">Permissão negada. Não é possível guardar ficheiros.</string>
     <string name="stock_limit">O limite de stock foi atingido!</string>
+    <string name="services_schedule_unavailable">There are no available schedules for this room!</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
