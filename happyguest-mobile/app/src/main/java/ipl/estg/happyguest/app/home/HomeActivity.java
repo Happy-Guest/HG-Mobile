@@ -308,6 +308,13 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.txtBarTitle.setText(R.string.menu_food);
                 binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_food);
                 break;
+            case 'R':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_table_reservation);
+                binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_restaurant);
+                break;
+            case 'O':
+                binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve);
+                break;
         }
     }
 
