@@ -44,7 +44,7 @@
     <string name="switch_order">Most Recent</string>
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
-    <string name="date">Date</string>
+    <string name="date">Date:</string>
     <string name="title">Title</string>
     <string name="local">Local</string>
     <string name="review_anonymous">Anonymous Review</string>

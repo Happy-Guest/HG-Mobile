@@ -66,7 +66,7 @@ public class ReviewFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Review and populate fields
                     Review review = response.body().getReview();
-                    String date = getString(R.string.date) + ": " + Objects.requireNonNull(review).getCreatedAt();
+                    String date = getString(R.string.date) + " " + Objects.requireNonNull(review).getCreatedAt();
                     binding.txtDate.setText(date);
                     fillStars(review.getStars());
                     binding.txtComment.setText(review.getComment() != null ? review.getComment() : getString(R.string.no_comment));

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -150,10 +151,10 @@ public class OrderFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Order and populate fields
                     Order order = response.body().getOrder();
-                    if (Objects.requireNonNull(order).getService().type == 'C') {
-                        binding.txtDate.setVisibility(View.VISIBLE);
+                    if (Objects.requireNonNull(order).getService().type != 'C') {
+                        binding.txtSchedule.setVisibility(View.VISIBLE);
                     }
-                    String date = getString(R.string.date) + ": " + Objects.requireNonNull(order).getCreatedAt();
+                    String date = getString(R.string.date) + " " + Objects.requireNonNull(order).getCreatedAt();
                     binding.txtDate.setText(date);
                     String orderStatus = "";
                     switch (order.getStatus()) {
@@ -181,27 +182,35 @@ public class OrderFragment extends Fragment {
                     }
                     binding.txtStatusType.setText(orderStatus);
                     String room = order.getRoom().toString();
-                    binding.txtRoomOrder.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#808080")));
                     binding.txtRoomOrder.setText(room);
-                    String schedule = getString(R.string.services_schedule) + " " + order.getTime();
-                    binding.txtSchedule.setText(schedule);
+                    String schedule = order.getTime();
+                    binding.txtScheduleOrder.setText(schedule);
                     StringBuilder sb = new StringBuilder();
+                    // Get language code and set description
+                    String languageCode = Locale.getDefault().getLanguage();
                     if (order.getItems() != null && !order.getItems().isEmpty()) {
                         binding.txtItems.setVisibility(View.VISIBLE);
                         binding.txtItemsOrder.setVisibility(View.VISIBLE);
-                        if (order.getService().type == 'B')
+                        binding.dividerOrderItems.setVisibility(View.VISIBLE);
+                        binding.txtItemsTotal.setVisibility(View.VISIBLE);
+                        if (order.getService().type == 'B') {
                             binding.txtItems.setText(getString(R.string.order_objects));
-                        else
+                        } else {
                             binding.txtItems.setText(getString(R.string.order_foods));
-
-                        for (OrderItem item : order.getItems()) {
-                            sb.append(item.getQuantity()).append("x ").append(item.getName()).append("\n");
                         }
-                        sb.append("\n").append(getString(R.string.total_price)).append(" ").append(order.getPrice()).append("€");
+                        for (OrderItem item : order.getItems()) {
+                            sb.append(item.getQuantity()).append("x ").append(languageCode.equals("pt") ? item.getName() : item.getNameEN());
+                            if (order.getItems().indexOf(item) != order.getItems().size() - 1) {
+                                sb.append("\n");
+                            }
+                        }
+                        binding.txtItemsOrder.setText(sb.toString());
+                        sb = new StringBuilder();
+                        sb.append(getString(R.string.total_price)).append(" ").append(order.getPrice()).append("€");
+                        binding.txtItemsTotal.setText(sb.toString());
                     }
-                    binding.txtItemsOrder.setText(sb.toString());
                     String comment = order.getComment() != null ? order.getComment() : getString(R.string.no_comment);
-                    binding.txtCommentOrder.setText(comment);
+                    binding.txtComment.setText(comment);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetOrder Error: ", response.message());
