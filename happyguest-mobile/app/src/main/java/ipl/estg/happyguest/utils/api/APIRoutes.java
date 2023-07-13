@@ -12,6 +12,7 @@ import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.ComplaintResponse;
 import ipl.estg.happyguest.utils.api.responses.ComplaintsResponse;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
+import ipl.estg.happyguest.utils.api.responses.HotelResponse;
 import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.OrderResponse;
@@ -137,6 +138,10 @@ public interface APIRoutes {
     @PATCH("reserves/{id}")
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelReserve(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
+
+    //Hotel
+    @GET("hotels/{id}")
+    Call<HotelResponse> getHotel(@Path("id") Long id);
 
 
 }
