@@ -72,6 +72,17 @@
     <string name="order_comment">Comentário: </string>
     <string name="order_objects">Objetos: </string>
     <string name="order_foods">Alimentos: </string>
+    <string name="hotel_website">Website: </string>
+    <string name="hotel_phone">Telefone: </string>
+    <string name="hotel_email">Email: </string>
+    <string name="hotel_address">Morada: </string>
+    <string name="hotel_description">Descrição: </string>
+    <string name="hotel_capacity">Capacidade: </string>
+    <string name="hotel_info">Informação Hotel</string>
+    <string name="hotel_commodities">Comodidades</string>
+    <string name="hotel_policies">Políticas</string>
+    <string name="hotel_accesses">Acessos</string>
+
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>
@@ -117,6 +128,7 @@
     <string name="menu_requested_orders">Pedidos Efetuados</string>
     <string name="menu_requested_reserves">Reservas Efetuadas</string>
     <string name="menu_table_reservation">Reserva de Mesa</string>
+    <string name="menu_hotel">Informações Hotel</string>
     <string name="quantity">0</string>
     <string name="price">0€</string>
     <string name="total_price">Total: </string>

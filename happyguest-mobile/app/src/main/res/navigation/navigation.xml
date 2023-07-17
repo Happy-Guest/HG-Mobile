@@ -193,5 +193,15 @@
         app:destination="@id/nav_reserve"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_hotel"
+        android:name="ipl.estg.happyguest.app.home.hotel.HotelFragment"
+        android:label="@string/menu_hotel"
+        tools:layout="@layout/fragment_hotel" />
+    <action
+        android:id="@+id/action_nav_hotel"
+        app:destination="@id/nav_hotel"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

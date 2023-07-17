@@ -74,6 +74,16 @@
     <string name="order_foods">Food: </string>
     <string name="reserve_nr_people">Nº People: </string>
     <string name="service_name">Service: </string>
+    <string name="hotel_website">Website: </string>
+    <string name="hotel_phone">Phone: </string>
+    <string name="hotel_email">Email: </string>
+    <string name="hotel_address">Address: </string>
+    <string name="hotel_description">Description: </string>
+    <string name="hotel_capacity">Capacity: </string>
+    <string name="hotel_info">Hotel Information</string>
+    <string name="hotel_commodities">Commodities</string>
+    <string name="hotel_policies">Policies</string>
+    <string name="hotel_accesses">Accesses</string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -119,6 +129,7 @@
     <string name="menu_requested_orders">Placed Orders</string>
     <string name="menu_requested_reserves">Placed Reserves</string>
     <string name="menu_table_reservation">Table Reservation</string>
+    <string name="menu_hotel">Hotel information</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>

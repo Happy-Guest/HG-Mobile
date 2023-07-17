@@ -123,6 +123,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Hotel button
+        binding.imgHotel.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_hotel);
+            }
+        });
+
         return binding.getRoot();
     }
 
