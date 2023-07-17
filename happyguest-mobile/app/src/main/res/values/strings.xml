@@ -84,6 +84,12 @@
     <string name="hotel_commodities">Commodities</string>
     <string name="hotel_policies">Policies</string>
     <string name="hotel_accesses">Accesses</string>
+    <string name="region_info">Region Information</string>
+    <string name="region_proximities">Proximities</string>
+    <string name="region_activities">Activities</string>
+    <string name="more_info">More Information</string>
+    <string name="region_description">Description: </string>
+    <string name="region_link">Link: </string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -130,6 +136,7 @@
     <string name="menu_requested_reserves">Placed Reserves</string>
     <string name="menu_table_reservation">Table Reservation</string>
     <string name="menu_hotel">Hotel information</string>
+    <string name="menu_region">Region information</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>

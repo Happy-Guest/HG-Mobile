@@ -17,6 +17,7 @@ import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.OrderResponse;
 import ipl.estg.happyguest.utils.api.responses.OrdersResponse;
+import ipl.estg.happyguest.utils.api.responses.RegionResponse;
 import ipl.estg.happyguest.utils.api.responses.ReserveResponse;
 import ipl.estg.happyguest.utils.api.responses.ReservesResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
@@ -143,5 +144,8 @@ public interface APIRoutes {
     @GET("hotels/{id}")
     Call<HotelResponse> getHotel(@Path("id") Long id);
 
+    //Region
+    @GET("regions/{id}")
+    Call<RegionResponse> getRegion(@Path("id") Long id);
 
 }

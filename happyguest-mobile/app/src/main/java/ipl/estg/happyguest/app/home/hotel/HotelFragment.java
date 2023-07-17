@@ -64,7 +64,7 @@ public class HotelFragment extends Fragment {
                 if (!isAdded()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Hotel and populate fields
-                    Hotel hotel = new Hotel(response.body().getHotel().getDescription(), response.body().getHotel().getDescriptionEN(),response.body().getHotel().getPhone(), response.body().getHotel().getEmail(),response.body().getHotel().getAddress(),response.body().getHotel().getWebsite(),response.body().getHotel().getCapacity(),response.body().getHotel().getPolicies(),response.body().getHotel().getAccesses(), response.body().getHotel().getCommodities());
+                    Hotel hotel = response.body().getHotel();
                     binding.txtHotelEmail.setText(hotel.getEmail());
                     String phone = hotel.getPhone().toString();
                     binding.txtHotelPhone.setText(phone);

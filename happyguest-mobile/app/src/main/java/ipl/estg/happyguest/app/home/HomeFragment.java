@@ -131,6 +131,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Region button
+        binding.imgRegion.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_region);
+            }
+        });
+
         return binding.getRoot();
     }
 

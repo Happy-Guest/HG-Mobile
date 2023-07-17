@@ -115,6 +115,43 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+
+        <TextView
+            android:id="@+id/txtRegionDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="start"
+            android:text="@string/region_description"
+            android:textColor="@color/background_gray"
+            android:textStyle="italic"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/dividerRegion"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="5dp"
+            android:background="?android:attr/listDivider"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtPopUpRegionLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="end"
+            android:text="@string/region_link"
+            android:textColor="@color/background_gray"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
