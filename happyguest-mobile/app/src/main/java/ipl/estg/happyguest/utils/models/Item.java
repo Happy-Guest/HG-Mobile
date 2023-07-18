@@ -8,17 +8,23 @@ public class Item {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("name")
     private final String name;
+
     @SerializedName("nameEN")
     private final String nameEN;
+
     @SerializedName("type")
     private final String type;
+
     @SerializedName("category")
     private final String category;
+
     @Nullable
     @SerializedName("stock")
     private final Integer stock;
+
     @Nullable
     @SerializedName("price")
     private final Float price;
@@ -62,6 +68,4 @@ public class Item {
     public Float getPrice() {
         return price;
     }
-
-
 }

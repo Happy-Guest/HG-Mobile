@@ -18,22 +18,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.home.hotel.HotelAdapter;
 import ipl.estg.happyguest.databinding.FragmentRegionBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.HotelResponse;
 import ipl.estg.happyguest.utils.api.responses.RegionResponse;
-import ipl.estg.happyguest.utils.models.Hotel;
-import ipl.estg.happyguest.utils.models.HotelInfo;
 import ipl.estg.happyguest.utils.models.Region;
 import ipl.estg.happyguest.utils.models.RegionInfo;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
-
 
 public class RegionFragment extends Fragment {
 
@@ -42,8 +38,7 @@ public class RegionFragment extends Fragment {
     private RegionAdapter regionAdapter;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRegionBinding.inflate(inflater, container, false);
 
         //API and Token
@@ -68,23 +63,23 @@ public class RegionFragment extends Fragment {
                     // Get language code and set description
                     String languageCode = Locale.getDefault().getLanguage();
                     if (languageCode.equals("pt")) {
-                        binding.txtDescription.setText(region.getDescription());
+                        binding.txtDescription.setText(Objects.requireNonNull(region).getDescription());
                     } else {
-                        binding.txtDescription.setText(region.getDescriptionEN());
+                        binding.txtDescription.setText(Objects.requireNonNull(region).getDescriptionEN());
                     }
 
-                    ArrayList<RegionInfo> proximities = toArrayRegionInfo(region.getProximities());
+                    ArrayList<RegionInfo> proximity = toArrayRegionInfo(region.getProximity());
                     ArrayList<RegionInfo> activities = toArrayRegionInfo(region.getActivities());
 
-                    RecyclerView proximitiesRV = binding.proximitiesRV;
-                    if (region.getProximities()!=null) {
+                    RecyclerView proximityRV = binding.proximitiesRV;
+                    if (region.getProximity() != null) {
                         binding.regionProximities.setVisibility(View.VISIBLE);
-                        regionAdapter = new RegionAdapter(proximities, binding.getRoot().getContext());
-                        proximitiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-                        proximitiesRV.setAdapter(regionAdapter);
+                        regionAdapter = new RegionAdapter(proximity, binding.getRoot().getContext());
+                        proximityRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+                        proximityRV.setAdapter(regionAdapter);
                     }
                     RecyclerView activitiesRV = binding.activitiesRV;
-                    if (region.getActivities()!=null) {
+                    if (region.getActivities() != null) {
                         binding.regionActivities.setVisibility(View.VISIBLE);
                         regionAdapter = new RegionAdapter(activities, binding.getRoot().getContext());
                         activitiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
@@ -107,23 +102,20 @@ public class RegionFragment extends Fragment {
         });
     }
 
-    private ArrayList<RegionInfo> toArrayRegionInfo(String infos) {
+    private ArrayList<RegionInfo> toArrayRegionInfo(String inform) {
         ArrayList<RegionInfo> info = null;
         try {
-            JSONArray jsonArray = new JSONArray(infos);
+            JSONArray jsonArray = new JSONArray(inform);
             info = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
-                String description= jsonObject.getString("description");
+                String description = jsonObject.getString("description");
                 String descriptionEN = jsonObject.getString("descriptionEN");
                 String distance = jsonObject.getString("distance");
                 String link = jsonObject.getString("link");
 
-                // Cria um objeto RegionInfo com os valores extraídos
                 RegionInfo regionInfo = new RegionInfo(name, description, descriptionEN, distance, link);
-
-                // Adiciona o objeto RegionInfo ao ArrayList
                 info.add(regionInfo);
             }
         } catch (Exception e) {
@@ -131,7 +123,6 @@ public class RegionFragment extends Fragment {
         }
         return info;
     }
-
 
     @Override
     public void onDestroyView() {

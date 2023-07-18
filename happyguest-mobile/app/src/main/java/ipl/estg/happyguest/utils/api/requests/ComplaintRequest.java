@@ -10,19 +10,26 @@ public class ComplaintRequest {
     @Nullable
     @SerializedName("user_id")
     private final Long user_id;
+
     @SerializedName("title")
     private final String title;
+
     @SerializedName("local")
     private final String local;
+
     @SerializedName("status")
     private final String status;
+
     @SerializedName("comment")
     private final String comment;
+
     @SerializedName("date")
     private final String date;
+
     @Nullable
     @SerializedName("filesBase64")
     private final List<String> filesBase64;
+
     @Nullable
     @SerializedName("fileNames")
     private final List<String> fileNames;

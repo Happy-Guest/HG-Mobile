@@ -72,8 +72,6 @@
     <string name="order_comment">Comment: </string>
     <string name="order_objects">Objects: </string>
     <string name="order_foods">Food: </string>
-    <string name="reserve_nr_people">Nº People: </string>
-    <string name="service_name">Service: </string>
     <string name="hotel_website">Website: </string>
     <string name="hotel_phone">Phone: </string>
     <string name="hotel_email">Email: </string>
@@ -85,7 +83,7 @@
     <string name="hotel_policies">Policies</string>
     <string name="hotel_accesses">Accesses</string>
     <string name="region_info">Region Information</string>
-    <string name="region_proximities">Proximities</string>
+    <string name="region_proximity">Proximity</string>
     <string name="region_activities">Activities</string>
     <string name="more_info">More Information</string>
     <string name="region_description">Description: </string>
@@ -166,6 +164,8 @@
     <string name="quantity_remove">Remove Quantity</string>
     <string name="item_name">Item Name</string>
     <string name="items_category">Category:</string>
+    <string name="reserve_nr_people">Nº People: </string>
+    <string name="service_name">Service: </string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>

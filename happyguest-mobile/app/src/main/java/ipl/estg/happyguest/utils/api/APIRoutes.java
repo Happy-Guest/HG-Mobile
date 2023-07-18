@@ -126,7 +126,7 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelOrder(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
 
-    @POST("orders/")
+    @POST("orders")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
 
@@ -142,11 +142,13 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelReserve(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
 
+    @POST("reserves")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReserve(@Body ReserveRequest reserveRequest);
 
     // Hotel
 
+    @GET("hotels/{id}")
     Call<HotelResponse> getHotel(@Path("id") Long id);
 
     // Region

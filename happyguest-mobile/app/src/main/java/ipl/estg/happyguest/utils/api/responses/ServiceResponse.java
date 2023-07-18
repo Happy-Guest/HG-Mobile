@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import ipl.estg.happyguest.utils.models.Service;
 
-
 public class ServiceResponse extends MessageResponse {
 
     @SerializedName("data")

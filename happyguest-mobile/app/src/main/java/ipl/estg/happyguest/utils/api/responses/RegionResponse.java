@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class RegionResponse extends MessageResponse {
 
     @SerializedName("data")

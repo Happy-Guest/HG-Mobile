@@ -22,5 +22,4 @@ public class HotelInfo {
     public String getNameEN() {
         return nameEN;
     }
-    
 }

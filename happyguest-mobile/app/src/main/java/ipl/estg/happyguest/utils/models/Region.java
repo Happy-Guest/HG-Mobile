@@ -13,8 +13,8 @@ public class Region {
     private final String descriptionEN;
 
     @Nullable
-    @SerializedName("proximities")
-    private final String proximities;
+    @SerializedName("proximity")
+    private final String proximity;
 
     @Nullable
     @SerializedName("activities")
@@ -24,10 +24,10 @@ public class Region {
     @SerializedName("websites")
     private final String websites;
 
-    public Region(String description, String descriptionEN, @Nullable String proximities, @Nullable String activities, @Nullable String websites) {
+    public Region(String description, String descriptionEN, @Nullable String proximity, @Nullable String activities, @Nullable String websites) {
         this.description = description;
         this.descriptionEN = descriptionEN;
-        this.proximities = proximities;
+        this.proximity = proximity;
         this.activities = activities;
         this.websites = websites;
     }
@@ -41,8 +41,8 @@ public class Region {
     }
 
     @Nullable
-    public String getProximities() {
-        return proximities;
+    public String getProximity() {
+        return proximity;
     }
 
     @Nullable

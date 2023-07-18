@@ -9,11 +9,14 @@ public class ReviewRequest {
     @Nullable
     @SerializedName("user_id")
     private final Long user_id;
+
     @SerializedName("stars")
     private final int stars;
+
     @Nullable
     @SerializedName("comment")
     private final String comment;
+
     @SerializedName("authorize")
     private final String authorize;
 

@@ -16,7 +16,7 @@ import java.util.Locale;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.models.HotelInfo;
 
-public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>  {
+public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
 
     private final ArrayList<HotelInfo> hotelInfoList;
     private final Context context;
@@ -48,7 +48,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
     public int getItemCount() {
         return hotelInfoList.size();
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView info;

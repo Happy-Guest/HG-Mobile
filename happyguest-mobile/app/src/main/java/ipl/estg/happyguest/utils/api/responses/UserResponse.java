@@ -8,25 +8,33 @@ public class UserResponse extends MessageResponse {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("name")
     private final String name;
+
     @SerializedName("email")
     private final String email;
+
     @Nullable
     @SerializedName("phone")
     private final Long phone;
+
     @Nullable
     @SerializedName("address")
     private final String address;
+
     @Nullable
     @SerializedName("birth_date")
     private final String birthDate;
+
     @Nullable
     @SerializedName("photo_url")
     private final String photoUrl;
+
     @Nullable
     @SerializedName("last_review")
     private final String lastReview;
+
     @SerializedName("user")
     private final UserResponse user;
 

@@ -8,15 +8,20 @@ public class Review {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("stars")
     private final int stars;
+
     @Nullable
     @SerializedName("comment")
     private final String comment;
+
     @SerializedName("authorize")
     private final int authorize;
+
     @SerializedName("shared")
     private final int shared;
+
     @SerializedName("created_at")
     private final String createdAt;
 

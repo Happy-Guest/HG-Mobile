@@ -10,36 +10,49 @@ public class Service {
 
     @SerializedName("id")
     public final Long id;
+
     @SerializedName("name")
     public final String name;
+
     @SerializedName("nameEN")
     public final String nameEN;
+
     @Nullable
     @SerializedName("email")
     public final String email;
+
     @Nullable
     @SerializedName("phone")
     public final Long phone;
+
     @SerializedName("type")
     public final char type;
+
     @SerializedName("schedule")
     public final String schedule;
+
     @Nullable
     @SerializedName("occupation")
     public final Long occupation;
+
     @Nullable
     @SerializedName("location")
     public final String location;
+
     @SerializedName("description")
     public final String description;
+
     @SerializedName("descriptionEN")
     public final String descriptionEN;
+
     @Nullable
     @SerializedName("items")
     public final ArrayList<Item> items;
+
     @Nullable
     @SerializedName("menu_url")
     public final String menu_url;
+
     @SerializedName("active")
     public final int active;
 

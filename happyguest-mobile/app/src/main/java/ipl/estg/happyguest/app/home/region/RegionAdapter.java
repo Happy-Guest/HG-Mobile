@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.utils.models.HotelInfo;
 import ipl.estg.happyguest.utils.models.RegionInfo;
 
-public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder>  {
+public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder> {
 
     private final ArrayList<RegionInfo> regionInfoList;
     private final Context context;
@@ -48,10 +47,7 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
         RegionInfo regionInfo = regionInfoList.get(position);
         holder.name.setText(regionInfo.getName());
 
-        holder.moreInfo.setOnClickListener(v -> {
-         showPopup(regionInfo);
-        });
-
+        holder.moreInfo.setOnClickListener(v -> showPopup(regionInfo));
     }
 
     private void showPopup(RegionInfo regionInfo) {
@@ -70,7 +66,7 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
         // Set popup texts
         String name = regionInfo.getName() + " - " + regionInfo.getDistance();
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(regionInfo.getName());
-         popupView.findViewById(R.id.txtRegionDescription).setVisibility(View.VISIBLE);
+        popupView.findViewById(R.id.txtRegionDescription).setVisibility(View.VISIBLE);
         String languageCode = Locale.getDefault().getLanguage();
         if (languageCode.equals("pt")) {
             ((TextView) popupView.findViewById(R.id.txtRegionDescription)).setText(regionInfo.getDescription());
@@ -97,7 +93,6 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
     public int getItemCount() {
         return regionInfoList.size();
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
