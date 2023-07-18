@@ -5,6 +5,7 @@ import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.requests.RegisterRequest;
+import ipl.estg.happyguest.utils.api.requests.ReserveRequest;
 import ipl.estg.happyguest.utils.api.requests.ReviewRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateStatusRequest;
 import ipl.estg.happyguest.utils.api.requests.UpdateUserRequest;
@@ -81,7 +82,7 @@ public interface APIRoutes {
     @DELETE("users/{user_id}/codes/{code}/disassociate")
     Call<MessageResponse> disassociateCode(@Path("user_id") Long user_id, @Path("code") String code);
 
-    //Reviews
+    // Reviews
 
     @GET("users/{id}/reviews")
     Call<ReviewsResponse> getUserReviews(@Path("id") Long id, @Query("page") int page, @Query("order") String order);
@@ -93,7 +94,7 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReview(@Body ReviewRequest reviewRequest);
 
-    //Complaints
+    // Complaints
 
     @GET("users/{id}/complaints?order=DESC")
     Call<ComplaintsResponse> getUserComplaints(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
@@ -108,16 +109,12 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> registerComplaint(@Body ComplaintRequest complaintRequest);
 
-    //Services
+    // Services
 
     @GET("services/{id}")
     Call<ServiceResponse> getService(@Path("id") Long id);
 
-    //Orders
-
-    @POST("orders/")
-    @Headers("Accept: application/json")
-    Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
+    // Orders
 
     @GET("users/{id}/orders?order=DESC")
     Call<OrdersResponse> getUserOrders(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
@@ -129,7 +126,12 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelOrder(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
 
-    //Reserves
+    @POST("orders/")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
+
+    // Reserves
+
     @GET("users/{id}/reserves?order=DESC")
     Call<ReservesResponse> getUserReserves(@Path("id") Long id, @Query("page") int page, @Query("filter") String filter);
 
@@ -140,8 +142,11 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelReserve(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
 
-    //Hotel
-    @GET("hotels/{id}")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> registerReserve(@Body ReserveRequest reserveRequest);
+
+    // Hotel
+
     Call<HotelResponse> getHotel(@Path("id") Long id);
 
     //Region

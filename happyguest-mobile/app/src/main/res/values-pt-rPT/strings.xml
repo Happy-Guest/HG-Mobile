@@ -163,9 +163,19 @@
     <string name="schedule_required">Selecione um horário disponível!</string>
     <string name="room_required">Selecione um número de quarto!</string>
     <string name="items_required">Selecione pelo menos um item!</string>
+    <string name="people_required">Indique o número de pessoas!</string>
     <string name="order">Pedido</string>
     <string name="no_orders_request">Não tem pedidos registados.</string>
     <string name="no_reserves_request">Não tem reservas registadas.</string>
+    <string name="quantity">0</string>
+    <string name="price">0€</string>
+    <string name="total_price">Total: </string>
+    <string name="quantity_add">Adicionar Quantidade</string>
+    <string name="quantity_remove">Remover Quantidade</string>
+    <string name="item_name">Nome do Item</string>
+    <string name="items_category">Categoria:</string>
+    <string name="reserve_nr_people">Nº Pessoas: </string>
+    <string name="service_name">Serviço: </string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">Sem ligação à internet!</string>
@@ -225,6 +235,7 @@
     <string name="write_permission_denied">Permissão negada. Não é possível guardar ficheiros.</string>
     <string name="stock_limit">O limite de stock foi atingido!</string>
     <string name="services_schedule_unavailable">Não existem horários disponíveis para esse quarto!</string>
+    <string name="number_people_exceeded">Para reservas de mais de 25 pessoas, por favor contacte a receção.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
@@ -239,6 +250,7 @@
     <string name="service_clean_confirm">Pretende pedir limpeza de quarto?</string>
     <string name="service_objects_confirm">Pretende pedir os objetos?</string>
     <string name="service_food_confirm">Pretende pedir os alimentos?</string>
+    <string name="service_restaurant_confirm">Pretende reservar a mesa?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

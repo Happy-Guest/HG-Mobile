@@ -155,6 +155,7 @@
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
     <string name="items_required">Please select at least one item!</string>
+    <string name="people_required">Please insert the number of people!</string>
     <string name="order">Order</string>
     <string name="no_orders_request">You don\'t have any orders.</string>
     <string name="no_reserves_request">You don\'t have any reserves.</string>
@@ -224,6 +225,7 @@
     <string name="write_permission_denied">Permission denied. Unable to save files.</string>
     <string name="stock_limit">The stock limit has been reached!</string>
     <string name="services_schedule_unavailable">There are no available schedules for this room!</string>
+    <string name="number_people_exceeded">For bookings of more than 25 people, please contact reception.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
@@ -238,6 +240,7 @@
     <string name="service_clean_confirm">Do you want to request room cleaning?</string>
     <string name="service_objects_confirm">Do you want to request objects?</string>
     <string name="service_food_confirm">Do you want to request food?</string>
+    <string name="service_restaurant_confirm">Do you want to reserve a table?</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
