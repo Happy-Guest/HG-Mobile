@@ -143,8 +143,8 @@ public interface APIRoutes {
 
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReserve(@Body ReserveRequest reserveRequest);
-    //Hotel
+
+    // Hotel
+
     Call<HotelResponse> getHotel(@Path("id") Long id);
-
-
 }
