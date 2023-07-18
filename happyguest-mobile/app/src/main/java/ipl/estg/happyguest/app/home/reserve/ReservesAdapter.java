@@ -19,7 +19,6 @@ import java.util.Locale;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
-import ipl.estg.happyguest.utils.models.Order;
 import ipl.estg.happyguest.utils.models.Reserve;
 
 public class ReservesAdapter extends RecyclerView.Adapter<ReservesAdapter.ViewHolder> {
@@ -107,8 +106,6 @@ public class ReservesAdapter extends RecyclerView.Adapter<ReservesAdapter.ViewHo
             status = itemView.findViewById(R.id.txtStatusReserve);
             reserveOpen = itemView.findViewById(R.id.btnReserveOpen);
             iconService = itemView.findViewById(R.id.imageService);
-
-
         }
     }
 }

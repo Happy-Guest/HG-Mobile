@@ -19,22 +19,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ipl.estg.happyguest.R;
-import ipl.estg.happyguest.app.home.order.OrdersAdapter;
-import ipl.estg.happyguest.databinding.FragmentOrdersBinding;
 import ipl.estg.happyguest.databinding.FragmentReservesBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
-import ipl.estg.happyguest.utils.api.responses.OrdersResponse;
 import ipl.estg.happyguest.utils.api.responses.ReservesResponse;
 import ipl.estg.happyguest.utils.models.Meta;
-import ipl.estg.happyguest.utils.models.Order;
 import ipl.estg.happyguest.utils.models.Reserve;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class ReservesFragment extends Fragment {
 
@@ -46,9 +41,9 @@ public class ReservesFragment extends Fragment {
     private Meta meta;
     private int screenHeight;
     private String selectedType = "ALL";
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentReservesBinding.inflate(inflater, container, false);
 
         if (getArguments() != null) {
@@ -63,6 +58,7 @@ public class ReservesFragment extends Fragment {
                     break;
             }
         }
+
         // User, API, Token and HasCodes
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
