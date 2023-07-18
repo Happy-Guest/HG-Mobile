@@ -149,8 +149,7 @@ public interface APIRoutes {
 
     Call<HotelResponse> getHotel(@Path("id") Long id);
 
-    //Region
+    // Region
     @GET("regions/{id}")
     Call<RegionResponse> getRegion(@Path("id") Long id);
-
 }
