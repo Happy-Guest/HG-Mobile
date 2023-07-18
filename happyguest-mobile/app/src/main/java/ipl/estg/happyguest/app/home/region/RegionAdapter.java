@@ -65,7 +65,7 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
 
         // Set popup texts
         String name = regionInfo.getName() + " - " + regionInfo.getDistance();
-        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(regionInfo.getName());
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(name);
         popupView.findViewById(R.id.txtRegionDescription).setVisibility(View.VISIBLE);
         String languageCode = Locale.getDefault().getLanguage();
         if (languageCode.equals("pt")) {
