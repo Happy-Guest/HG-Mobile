@@ -111,7 +111,7 @@ public class RegionFragment extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
                 String description = jsonObject.getString("description");
-                String descriptionEN = jsonObject.getString("descriptionEN");
+                String descriptionEN = jsonObject.getString("description_en");
                 String distance = jsonObject.getString("distance");
                 String link = jsonObject.getString("link");
 
