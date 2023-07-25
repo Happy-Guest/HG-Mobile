@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -67,6 +68,8 @@ public class RegionFragment extends Fragment {
                     } else {
                         binding.txtDescription.setText(Objects.requireNonNull(region).getDescriptionEN());
                     }
+                    binding.txtDescription.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
+                    binding.txtDescription.setVisibility(View.VISIBLE);
 
                     ArrayList<RegionInfo> proximity = toArrayRegionInfo(region.getProximity());
                     ArrayList<RegionInfo> activities = toArrayRegionInfo(region.getActivities());

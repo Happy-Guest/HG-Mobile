@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -96,7 +95,7 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
-        private final Button moreInfo;
+        private final ImageButton moreInfo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

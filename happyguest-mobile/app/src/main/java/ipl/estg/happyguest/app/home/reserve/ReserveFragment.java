@@ -49,7 +49,7 @@ public class ReserveFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentReserveBinding.inflate(inflater, container, false);
 
-        // Get the order id
+        // Get the reserve id
         if (getArguments() != null) {
             Bundle args = getArguments();
             reserveId = args.getLong("id");

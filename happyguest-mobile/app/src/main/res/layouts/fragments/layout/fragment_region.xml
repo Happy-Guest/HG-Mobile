@@ -12,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:justificationMode="inter_word"
         android:text="@string/hotel_description"
         android:textColor="@color/background_gray"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/regionProximities"
@@ -33,14 +34,15 @@
             android:id="@+id/dividerProximities"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
             android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/txtProximities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:drawablePadding="10dp"
             android:text="@string/region_proximity"
             android:textColor="@color/black"
@@ -53,9 +55,9 @@
             android:id="@+id/proximitiesRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/btn_primary"
             android:backgroundTint="#E4E4E4"
             android:minHeight="60dp"
@@ -72,6 +74,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -79,29 +82,30 @@
             android:id="@+id/dividerActivities"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
             android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/txtActivities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:drawablePadding="10dp"
             android:text="@string/region_activities"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:drawableLeftCompat="@drawable/activities_icon"
+            app:drawableLeftCompat="@drawable/accesses_icon"
             app:drawableTint="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activitiesRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/btn_primary"
             android:backgroundTint="#E4E4E4"
             android:minHeight="60dp"

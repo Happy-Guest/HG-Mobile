@@ -11,58 +11,52 @@
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:elevation="10dp"
-                android:gravity="center_vertical"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:text="@string/region_info"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:ignore="RelativeOverlap" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal"
-            tools:ignore="RelativeOverlap">
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnMoreInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@drawable/btn_primary"
-                android:gravity="center_horizontal|center_vertical"
-                android:minHeight="30dip"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:text="@string/more_info"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:textStyle="normal"
-                tools:ignore="RelativeOverlap,TextContrastCheck,TouchTargetSizeCheck" />
+                android:contentDescription="@string/more_info"
+                app:srcCompat="@drawable/plus_icon"
+                app:tint="@color/ic_bg"
+                tools:ignore="TouchTargetSizeCheck" />
+
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
