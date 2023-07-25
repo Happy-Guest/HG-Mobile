@@ -213,5 +213,15 @@
         app:destination="@id/nav_region"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out" />
+    <fragment
+        android:id="@+id/nav_restaurant"
+        android:name="ipl.estg.happyguest.app.home.services.RestaurantFragment"
+        android:label="@string/menu_restaurant"
+        tools:layout="@layout/fragment_restaurant" />
+    <action
+        android:id="@+id/action_nav_restaurant"
+        app:destination="@id/nav_restaurant"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out" />
 
 </navigation>

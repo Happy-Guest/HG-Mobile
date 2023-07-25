@@ -133,6 +133,7 @@
     <string name="menu_requested_orders">Pedidos Efetuados</string>
     <string name="menu_requested_reserves">Reservas Efetuadas</string>
     <string name="menu_table_reservation">Reserva de Mesa</string>
+    <string name="menu_restaurant">Reservar Mesa</string>
     <string name="menu_hotel">Informações Hotel</string>
     <string name="menu_region">Informações Região</string>
 

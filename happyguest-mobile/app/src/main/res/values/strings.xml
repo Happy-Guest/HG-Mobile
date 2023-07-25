@@ -133,6 +133,7 @@
     <string name="menu_requested_orders">Placed Orders</string>
     <string name="menu_requested_reserves">Placed Reserves</string>
     <string name="menu_table_reservation">Table Reservation</string>
+    <string name="menu_restaurant">Table Reservation</string>
     <string name="menu_hotel">Hotel information</string>
     <string name="menu_region">Region information</string>
 
