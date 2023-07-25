@@ -45,6 +45,7 @@
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
     <string name="date">Date:</string>
+    <string name="date2">Date</string>
     <string name="title">Title</string>
     <string name="local">Local</string>
     <string name="review_anonymous">Anonymous Review</string>
@@ -69,11 +70,8 @@
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
     <string name="order_type">Type: </string>
-    <string name="order_comment">Comment: </string>
     <string name="order_objects">Objects: </string>
     <string name="order_foods">Food: </string>
-    <string name="reserve_nr_people">Nº People: </string>
-    <string name="service_name">Service: </string>
     <string name="hotel_website">Website: </string>
     <string name="hotel_phone">Phone: </string>
     <string name="hotel_email">Email: </string>
@@ -84,6 +82,13 @@
     <string name="hotel_commodities">Commodities</string>
     <string name="hotel_policies">Policies</string>
     <string name="hotel_accesses">Accesses</string>
+    <string name="region_info">Region Information</string>
+    <string name="region_proximity">Proximity</string>
+    <string name="region_activities">Activities</string>
+    <string name="more_info">+</string>
+    <string name="region_description">Description: </string>
+    <string name="region_link">Link: </string>
+    <string name="open_more">Open</string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -129,7 +134,9 @@
     <string name="menu_requested_orders">Placed Orders</string>
     <string name="menu_requested_reserves">Placed Reserves</string>
     <string name="menu_table_reservation">Table Reservation</string>
+    <string name="menu_restaurant">Table Reservation</string>
     <string name="menu_hotel">Hotel information</string>
+    <string name="menu_region">Region information</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>
@@ -143,7 +150,6 @@
     <string name="services_description">Description</string>
     <string name="services_menu">Open Menu</string>
     <string name="services_order">Order</string>
-    <string name="services_reserve">Reserve</string>
     <string name="services_room">Room: </string>
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>
@@ -159,6 +165,8 @@
     <string name="quantity_remove">Remove Quantity</string>
     <string name="item_name">Item Name</string>
     <string name="items_category">Category:</string>
+    <string name="reserve_nr_people">Nº People: </string>
+    <string name="service_name">Service: </string>
 
     <!-- App Errors -->
     <string name="no_internet_connection">No internet connection!</string>

@@ -1,5 +1,6 @@
 package ipl.estg.happyguest.app.home.hotel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import java.util.Locale;
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.models.HotelInfo;
 
-public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder>  {
+public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
 
     private final ArrayList<HotelInfo> hotelInfoList;
     private final Context context;
@@ -33,14 +34,15 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HotelInfo hotelInfo = hotelInfoList.get(position);
         String languageCode = Locale.getDefault().getLanguage();
         if (languageCode.equals("pt")) {
-            holder.info.setText(hotelInfo.getName());
+            holder.info.setText(position + 1 + ". " + hotelInfo.getName());
         } else {
-            holder.info.setText(hotelInfo.getNameEN());
+            holder.info.setText(position + 1 + ". " + hotelInfo.getNameEN());
         }
     }
 
@@ -48,7 +50,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
     public int getItemCount() {
         return hotelInfoList.size();
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView info;

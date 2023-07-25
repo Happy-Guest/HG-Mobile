@@ -6,10 +6,13 @@ public class LoginRequest {
 
     @SerializedName("remember")
     public final boolean remember;
+
     @SerializedName("device")
     public final String device;
+
     @SerializedName("email")
     private final String email;
+
     @SerializedName("password")
     private final String password;
 

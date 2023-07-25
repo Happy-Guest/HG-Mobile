@@ -18,6 +18,7 @@ import ipl.estg.happyguest.utils.api.responses.LoginResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.OrderResponse;
 import ipl.estg.happyguest.utils.api.responses.OrdersResponse;
+import ipl.estg.happyguest.utils.api.responses.RegionResponse;
 import ipl.estg.happyguest.utils.api.responses.ReserveResponse;
 import ipl.estg.happyguest.utils.api.responses.ReservesResponse;
 import ipl.estg.happyguest.utils.api.responses.ReviewResponse;
@@ -125,7 +126,7 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelOrder(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
 
-    @POST("orders/")
+    @POST("orders")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerOrder(@Body OrderRequest orderRequest);
 
@@ -141,10 +142,16 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> cancelReserve(@Body UpdateStatusRequest updateStatusRequest, @Path("id") Long id);
 
+    @POST("reserves")
     @Headers("Accept: application/json")
     Call<MessageResponse> registerReserve(@Body ReserveRequest reserveRequest);
 
     // Hotel
 
+    @GET("hotels/{id}")
     Call<HotelResponse> getHotel(@Path("id") Long id);
+
+    // Region
+    @GET("regions/{id}")
+    Call<RegionResponse> getRegion(@Path("id") Long id);
 }

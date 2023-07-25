@@ -8,12 +8,16 @@ public class Code {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("code")
     private final String code;
+
     @SerializedName("entry_date")
     private final String entryDate;
+
     @SerializedName("exit_date")
     private final String exitDate;
+
     @SerializedName("rooms")
     private final List<String> rooms;
 

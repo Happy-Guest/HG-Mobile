@@ -10,6 +10,7 @@ public class PaginationResponse<T> {
 
     @SerializedName("data")
     private final ArrayList<T> data;
+
     @SerializedName("meta")
     private final Meta meta;
 

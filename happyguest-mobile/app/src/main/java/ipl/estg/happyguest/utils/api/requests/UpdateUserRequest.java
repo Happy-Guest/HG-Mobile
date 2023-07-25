@@ -8,17 +8,22 @@ public class UpdateUserRequest {
 
     @SerializedName("name")
     private final String name;
+
     @SerializedName("email")
     private final String email;
+
     @Nullable
     @SerializedName("phone")
     private final Long phone;
+
     @Nullable
     @SerializedName("address")
     private final String address;
+
     @Nullable
     @SerializedName("birth_date")
     private final String birthDate;
+
     @Nullable
     @SerializedName("photoBase64")
     private final String photoBase64;

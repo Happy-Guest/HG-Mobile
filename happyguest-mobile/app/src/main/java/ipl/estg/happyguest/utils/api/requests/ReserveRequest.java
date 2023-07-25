@@ -8,12 +8,16 @@ public class ReserveRequest {
 
     @SerializedName("user_id")
     private final Long user_id;
+
     @SerializedName("time")
     private final String time;
+
     @SerializedName("service_id")
     private final Long service_id;
+
     @SerializedName("nr_people")
     private final int nr_people;
+
     @Nullable
     @SerializedName("comment")
     private final String comment;

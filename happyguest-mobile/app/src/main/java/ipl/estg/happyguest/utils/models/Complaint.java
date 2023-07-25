@@ -10,25 +10,34 @@ public class Complaint {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("title")
     private final String title;
+
     @Nullable
     @SerializedName("local")
     private final String local;
+
     @SerializedName("status")
     private final char status;
+
     @SerializedName("comment")
     private final String comment;
+
     @Nullable
     @SerializedName("response")
     private final String response;
+
     @SerializedName("date")
     private final String date;
+
     @Nullable
     @SerializedName("files")
     private final ArrayList<ComplaintFile> files;
+
     @SerializedName("created_at")
     private final String createdAt;
+
     @SerializedName("updated_at")
     private final String updatedAt;
 

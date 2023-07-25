@@ -123,11 +123,27 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Restaurant button
+        binding.imgRestaurant.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_restaurant);
+            }
+        });
+
         // Hotel button
         binding.imgHotel.setOnClickListener(v -> {
             if (getActivity() instanceof HomeActivity) {
                 HomeActivity homeActivity = (HomeActivity) getActivity();
                 homeActivity.changeFragment(R.id.action_nav_hotel);
+            }
+        });
+
+        //Region button
+        binding.imgRegion.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.changeFragment(R.id.action_nav_region);
             }
         });
 

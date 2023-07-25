@@ -6,6 +6,7 @@ public class ComplaintFile {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("filename")
     private final String filename;
 

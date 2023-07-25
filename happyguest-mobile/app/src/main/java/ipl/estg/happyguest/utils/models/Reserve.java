@@ -4,23 +4,27 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 public class Reserve {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("service")
     private final Service service;
+
     @SerializedName("nr_people")
     private final Long nr_people;
+
     @SerializedName("time")
     private final String time;
+
     @SerializedName("status")
     private final String status;
+
     @Nullable
     @SerializedName("comment")
     private final String comment;
+
     @SerializedName("created_at")
     private final String createdAt;
 

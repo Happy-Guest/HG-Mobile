@@ -1,18 +1,16 @@
 package ipl.estg.happyguest.app.home.hotel;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,14 +24,11 @@ import ipl.estg.happyguest.databinding.FragmentHotelBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.HotelResponse;
-import ipl.estg.happyguest.utils.api.responses.ServiceResponse;
 import ipl.estg.happyguest.utils.models.Hotel;
 import ipl.estg.happyguest.utils.models.HotelInfo;
-import ipl.estg.happyguest.utils.models.Service;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
-
 
 public class HotelFragment extends Fragment {
 
@@ -42,8 +37,7 @@ public class HotelFragment extends Fragment {
     private HotelAdapter hotelAdapter;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHotelBinding.inflate(inflater, container, false);
 
         //API and Token
@@ -64,8 +58,8 @@ public class HotelFragment extends Fragment {
                 if (!isAdded()) return;
                 if (response.isSuccessful() && response.body() != null) {
                     // Get Hotel and populate fields
-                    Hotel hotel = new Hotel(response.body().getHotel().getDescription(), response.body().getHotel().getDescriptionEN(),response.body().getHotel().getPhone(), response.body().getHotel().getEmail(),response.body().getHotel().getAddress(),response.body().getHotel().getWebsite(),response.body().getHotel().getCapacity(),response.body().getHotel().getPolicies(),response.body().getHotel().getAccesses(), response.body().getHotel().getCommodities());
-                    binding.txtHotelEmail.setText(hotel.getEmail());
+                    Hotel hotel = response.body().getHotel();
+                    binding.txtHotelEmail.setText(Objects.requireNonNull(hotel).getEmail());
                     String phone = hotel.getPhone().toString();
                     binding.txtHotelPhone.setText(phone);
                     binding.txtHotelAddress.setText(hotel.getAddress());
@@ -92,28 +86,26 @@ public class HotelFragment extends Fragment {
                     ArrayList<HotelInfo> accesses = toArrayHotelInfo(hotel.getAccesses());
 
                     RecyclerView commoditiesRV = binding.commoditiesRV;
-                    if (hotel.getCommodities()!=null) {
+                    if (hotel.getCommodities() != null && hotel.getCommodities().length() > 0) {
                         binding.hotelCommodities.setVisibility(View.VISIBLE);
                         hotelAdapter = new HotelAdapter(commodities, binding.getRoot().getContext());
                         commoditiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         commoditiesRV.setAdapter(hotelAdapter);
                     }
-                    if (hotel.getPolicies()!=null) {
+                    if (hotel.getPolicies() != null && hotel.getPolicies().length() > 0) {
                         binding.hotelPolicies.setVisibility(View.VISIBLE);
                         RecyclerView policiesRV = binding.policiesRV;
                         hotelAdapter = new HotelAdapter(policies, binding.getRoot().getContext());
                         policiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         policiesRV.setAdapter(hotelAdapter);
                     }
-                    if (hotel.getAccesses()!=null) {
+                    if (hotel.getAccesses() != null && hotel.getAccesses().length() > 0) {
                         binding.hotelAccesses.setVisibility(View.VISIBLE);
                         RecyclerView accessesRV = binding.accessesRV;
                         hotelAdapter = new HotelAdapter(accesses, binding.getRoot().getContext());
                         accessesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         accessesRV.setAdapter(hotelAdapter);
                     }
-
-
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetHotel Error: ", response.message());
@@ -130,20 +122,17 @@ public class HotelFragment extends Fragment {
         });
     }
 
-    public ArrayList<HotelInfo> toArrayHotelInfo(String infos){
+    public ArrayList<HotelInfo> toArrayHotelInfo(String inform) {
         ArrayList<HotelInfo> info = null;
         try {
-            JSONArray jsonArray = new JSONArray(infos);
+            JSONArray jsonArray = new JSONArray(inform);
             info = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("name");
-                String nameEN= jsonObject.getString("nameEN");
+                String nameEN = jsonObject.getString("nameEN");
 
-                // Cria um objeto HotelInfo com os valores extraídos
                 HotelInfo hotelInfo = new HotelInfo(name, nameEN);
-
-                // Adiciona o objeto HotelInfo ao ArrayList
                 info.add(hotelInfo);
             }
         } catch (Exception e) {

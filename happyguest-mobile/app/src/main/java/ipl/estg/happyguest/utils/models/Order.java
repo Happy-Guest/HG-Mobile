@@ -11,22 +11,30 @@ public class Order {
     @Nullable
     @SerializedName("items")
     public final ArrayList<OrderItem> items;
+
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("service")
     private final Service service;
+
     @SerializedName("room")
     private final Long room;
+
     @SerializedName("time")
     private final String time;
+
     @SerializedName("status")
     private final String status;
+
     @Nullable
     @SerializedName("price")
     private final Float price;
+
     @Nullable
     @SerializedName("comment")
     private final String comment;
+
     @SerializedName("created_at")
     private final String createdAt;
 

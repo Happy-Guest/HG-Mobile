@@ -7,10 +7,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,40 +19,37 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentReserveBinding;
-import ipl.estg.happyguest.databinding.FragmentReservesBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.UpdateStatusRequest;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
-import ipl.estg.happyguest.utils.api.responses.OrderResponse;
 import ipl.estg.happyguest.utils.api.responses.ReserveResponse;
-import ipl.estg.happyguest.utils.models.Order;
-import ipl.estg.happyguest.utils.models.OrderItem;
 import ipl.estg.happyguest.utils.models.Reserve;
 import ipl.estg.happyguest.utils.storage.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class ReserveFragment extends Fragment {
 
-    Long reserveId;
+    private Long reserveId;
     private FragmentReserveBinding binding;
     private APIRoutes api;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentReserveBinding.inflate(inflater, container, false);
 
-        // Get the order id
+        // Get the reserve id
         if (getArguments() != null) {
             Bundle args = getArguments();
             reserveId = args.getLong("id");

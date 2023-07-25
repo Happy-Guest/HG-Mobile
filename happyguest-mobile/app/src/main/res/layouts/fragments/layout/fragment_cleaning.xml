@@ -23,13 +23,15 @@
 
         <TextView
             android:id="@+id/txtRoom"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawablePadding="5dp"
             android:text="@string/services_room"
             android:textColor="@color/black"
             android:textSize="19sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/local_icon" />
 
         <Spinner
             android:id="@+id/spinnerRoom"
@@ -60,13 +62,15 @@
 
         <TextView
             android:id="@+id/txtSchedule"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:drawablePadding="10dp"
             android:text="@string/services_schedule"
             android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/calendar_icon"
             tools:ignore="TextSizeCheck" />
 
         <Spinner
@@ -78,8 +82,8 @@
             android:dropDownWidth="match_parent"
             android:gravity="center"
             android:padding="12dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:spinnerMode="dropdown"
             android:text="@string/services_schedule"
             android:textColor="@color/black"

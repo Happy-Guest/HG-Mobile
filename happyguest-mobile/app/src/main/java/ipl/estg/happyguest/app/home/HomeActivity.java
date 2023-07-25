@@ -156,12 +156,15 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_spa);
                 } else if (destination.getId() == R.id.nav_gym) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_gym);
+                } else if (destination.getId() == R.id.nav_hotel) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_hotel);
+                } else if (destination.getId() == R.id.nav_region) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_region);
+                } else if (destination.getId() == R.id.nav_restaurant) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_restaurant);
                 } else if (destination.getId() == R.id.nav_codes) {
                     binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve_code);
-                } else if (destination.getId() == R.id.nav_hotel){
-                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_hotel);
-                }
-                else {
+                } else {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_leiria2);
                 }
             }
@@ -256,6 +259,11 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void openWebsite(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+    }
+
     public void homeWithCodes(boolean hasCode) {
         NavigationView navigationView = findViewById(R.id.nav_view);
         List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add check-out menu item
@@ -334,7 +342,8 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
                 R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
-                R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order, R.id.nav_gym, R.id.nav_spa, R.id.nav_reserves, R.id.nav_reserve ,R.id.nav_hotel)
+                R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order, R.id.nav_gym, R.id.nav_spa, R.id.nav_restaurant,
+                R.id.nav_reserves, R.id.nav_reserve, R.id.nav_hotel, R.id.nav_region)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

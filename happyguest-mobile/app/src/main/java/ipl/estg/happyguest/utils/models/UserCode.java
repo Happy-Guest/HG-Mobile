@@ -6,6 +6,7 @@ public class UserCode {
 
     @SerializedName("id")
     private final Long id;
+
     @SerializedName("code")
     private final Code code;
 

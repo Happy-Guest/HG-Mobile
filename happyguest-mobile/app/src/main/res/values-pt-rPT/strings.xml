@@ -45,6 +45,7 @@
     <string name="comment">Comentário</string>
     <string name="submit">Submeter</string>
     <string name="date">Data:</string>
+    <string name="date2">Data</string>
     <string name="title">Título</string>
     <string name="local">Local</string>
     <string name="review_anonymous">Avaliação Anónima</string>
@@ -69,7 +70,6 @@
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
     <string name="order_type">Tipo: </string>
-    <string name="order_comment">Comentário: </string>
     <string name="order_objects">Objetos: </string>
     <string name="order_foods">Alimentos: </string>
     <string name="hotel_website">Website: </string>
@@ -82,7 +82,13 @@
     <string name="hotel_commodities">Comodidades</string>
     <string name="hotel_policies">Políticas</string>
     <string name="hotel_accesses">Acessos</string>
-
+    <string name="region_info">Informação Região</string>
+    <string name="region_proximity">Proximidades</string>
+    <string name="region_activities">Atividades</string>
+    <string name="more_info">+</string>
+    <string name="region_description">Descrição: </string>
+    <string name="region_link">Link: </string>
+    <string name="open_more">Abrir</string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>
@@ -128,7 +134,9 @@
     <string name="menu_requested_orders">Pedidos Efetuados</string>
     <string name="menu_requested_reserves">Reservas Efetuadas</string>
     <string name="menu_table_reservation">Reserva de Mesa</string>
+    <string name="menu_restaurant">Reservar Mesa</string>
     <string name="menu_hotel">Informações Hotel</string>
+    <string name="menu_region">Informações Região</string>
 
     <!-- Services -->
     <string name="services_schedule">Horário: </string>
@@ -142,7 +150,6 @@
     <string name="services_description">Descrição</string>
     <string name="services_menu">Abrir Menu</string>
     <string name="services_order">Pedir</string>
-    <string name="services_reserve">Reservar</string>
     <string name="services_room">Quarto: </string>
     <string name="schedule_required">Selecione um horário disponível!</string>
     <string name="room_required">Selecione um número de quarto!</string>
