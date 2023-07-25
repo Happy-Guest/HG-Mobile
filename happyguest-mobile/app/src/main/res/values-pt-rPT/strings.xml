@@ -66,6 +66,7 @@
     <string name="working">A preparar</string>
     <string name="delivered">Entregue</string>
     <string name="accepted">Aceite</string>
+    <string name="finished">Finalizada</string>
     <string name="createdDate">Criada em</string>
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>

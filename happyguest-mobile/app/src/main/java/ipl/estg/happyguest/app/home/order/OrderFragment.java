@@ -160,11 +160,11 @@ public class OrderFragment extends Fragment {
                     switch (order.getStatus()) {
                         case "P":
                             orderStatus = getString(R.string.pending);
+                            binding.btnCancel.setEnabled(true);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#009688")));
                             break;
                         case "R":
                             orderStatus = getString(R.string.rejected);
-                            binding.btnCancel.setEnabled(false);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#932218")));
                             break;
                         case "W":
@@ -176,7 +176,6 @@ public class OrderFragment extends Fragment {
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF189329")));
                             break;
                         case "C":
-                            binding.btnCancel.setEnabled(false);
                             orderStatus = getString(R.string.canceled);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#b45f06")));
                             break;

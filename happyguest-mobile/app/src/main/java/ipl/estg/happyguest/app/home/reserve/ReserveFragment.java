@@ -162,20 +162,24 @@ public class ReserveFragment extends Fragment {
                     switch (reserve.getStatus()) {
                         case "P":
                             reserveStatus = getString(R.string.pending);
+                            binding.btnCancel.setEnabled(true);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#009688")));
                             break;
                         case "R":
                             reserveStatus = getString(R.string.rejected);
-                            binding.btnCancel.setEnabled(false);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#932218")));
                             break;
                         case "A":
                             reserveStatus = getString(R.string.accepted);
+                            binding.btnCancel.setEnabled(true);
+                            binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BA810F")));
+                            break;
+                        case "F":
+                            reserveStatus = getString(R.string.finished);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF189329")));
                             break;
                         case "C":
                             reserveStatus = getString(R.string.canceled);
-                            binding.btnCancel.setEnabled(false);
                             binding.txtStatusType.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#b45f06")));
                             break;
                     }

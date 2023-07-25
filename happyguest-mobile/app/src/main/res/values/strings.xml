@@ -66,6 +66,7 @@
     <string name="working">Preparing</string>
     <string name="delivered">Delivered</string>
     <string name="accepted">Accepted</string>
+    <string name="finished">Finished</string>
     <string name="createdDate">Created in</string>
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>

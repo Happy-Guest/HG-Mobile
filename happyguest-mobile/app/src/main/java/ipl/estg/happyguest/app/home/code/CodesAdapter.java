@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.models.Code;
@@ -148,6 +149,10 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
                         hasCodes.setHasCode(false, "");
                         ((Activity) context).findViewById(R.id.txtCodeText).setVisibility(View.VISIBLE);
                         ((Activity) context).findViewById(R.id.txtNoCodes).setVisibility(View.VISIBLE);
+                        if (context instanceof HomeActivity) {
+                            HomeActivity homeActivity = (HomeActivity) context;
+                            homeActivity.homeWithCodes(false);
+                        }
                     }
                 } else {
                     try {

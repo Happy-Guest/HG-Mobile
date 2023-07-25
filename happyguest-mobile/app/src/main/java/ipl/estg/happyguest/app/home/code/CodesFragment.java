@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentCodesBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -175,6 +176,10 @@ public class CodesFragment extends Fragment {
                     binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (filter.equals("V")) getCodes();
+                    if (getActivity() instanceof HomeActivity) {
+                        HomeActivity homeActivity = (HomeActivity) getActivity();
+                        homeActivity.homeWithCodes(true);
+                    }
                 } else {
                     if (response.code() == 404) {
                         inputCode.setError(binding.getRoot().getContext().getString(R.string.invalid_code));
