@@ -30,18 +30,22 @@
             android:id="@+id/txtSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="5dp"
+            android:drawablePadding="10dp"
             android:text="@string/services_schedule"
             android:textColor="#000000"
             android:textSize="19sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/calendar_icon" />
 
         <TextView
             android:id="@+id/txtScheduleOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:textColor="@color/background_gray"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -59,10 +63,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:drawablePadding="10dp"
             android:text="@string/complaint_status"
             android:textColor="#000000"
             android:textSize="19sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/order_icon" />
 
         <TextView
             android:id="@+id/txtStatusType"
@@ -103,10 +109,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:drawablePadding="9dp"
             android:text="@string/services_room"
             android:textColor="#000000"
             android:textSize="19sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/local_icon" />
 
         <TextView
             android:id="@+id/txtRoomOrder"

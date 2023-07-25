@@ -160,6 +160,8 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_hotel);
                 } else if (destination.getId() == R.id.nav_region) {
                     binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_region);
+                } else if (destination.getId() == R.id.nav_restaurant) {
+                    binding.appBarHome.toolbarLayout.setBackgroundResource(R.drawable.bg_restaurant);
                 } else if (destination.getId() == R.id.nav_codes) {
                     binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve_code);
                 } else {
@@ -255,6 +257,11 @@ public class HomeActivity extends AppCompatActivity {
         if (drawer.isOpen()) {
             drawer.close();
         }
+    }
+
+    public void openWebsite(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
     }
 
     public void homeWithCodes(boolean hasCode) {

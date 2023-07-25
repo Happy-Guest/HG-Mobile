@@ -45,6 +45,7 @@
     <string name="comment">Comment</string>
     <string name="submit">Submit</string>
     <string name="date">Date:</string>
+    <string name="date2">Date</string>
     <string name="title">Title</string>
     <string name="local">Local</string>
     <string name="review_anonymous">Anonymous Review</string>
@@ -87,6 +88,7 @@
     <string name="more_info">+</string>
     <string name="region_description">Description: </string>
     <string name="region_link">Link: </string>
+    <string name="open_more">Open</string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>

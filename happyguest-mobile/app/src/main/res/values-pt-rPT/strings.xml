@@ -45,6 +45,7 @@
     <string name="comment">Comentário</string>
     <string name="submit">Submeter</string>
     <string name="date">Data:</string>
+    <string name="date2">Data</string>
     <string name="title">Título</string>
     <string name="local">Local</string>
     <string name="review_anonymous">Avaliação Anónima</string>
@@ -87,6 +88,7 @@
     <string name="more_info">+</string>
     <string name="region_description">Descrição: </string>
     <string name="region_link">Link: </string>
+    <string name="open_more">Abrir</string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>

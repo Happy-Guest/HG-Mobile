@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.models.RegionInfo;
 
 public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder> {
@@ -73,9 +75,6 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
         } else {
             ((TextView) popupView.findViewById(R.id.txtRegionDescription)).setText(regionInfo.getDescriptionEN());
         }
-        popupView.findViewById(R.id.dividerRegion).setVisibility(View.VISIBLE);
-        popupView.findViewById(R.id.txtPopUpRegionLink).setVisibility(View.VISIBLE);
-        ((TextView) popupView.findViewById(R.id.txtPopUpRegionLink)).setText(regionInfo.getLink());
 
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
@@ -86,7 +85,13 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
         btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
 
         // Confirm popup
-        popupView.findViewById(R.id.btnConfirm).setVisibility(View.GONE);
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setText(R.string.open_more);
+        btnPopConfirm.setOnClickListener(view1 -> {
+            // Open website in browser
+            popupWindow.dismiss();
+            ((HomeActivity) context).openWebsite(regionInfo.getLink());
+        });
     }
 
     @Override
