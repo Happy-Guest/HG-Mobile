@@ -28,5 +28,10 @@
             android:id="@+id/nav_codes"
             android:icon="@drawable/key_icon"
             android:title="@string/menu_code" />
+        <item
+            android:id="@+id/nav_checkout"
+            android:icon="@drawable/checkout_icon"
+            android:title="@string/menu_checkout"
+            android:visible="false" />
     </group>
 </menu>

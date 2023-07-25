@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -34,8 +33,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -259,19 +256,16 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void homeWithCodes(boolean hasCode) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            navigationView.getMenu().findItem(R.id.nav_checkout).setVisible(hasCode);
+        }
+    }
+
     public void openWebsite(String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(browserIntent);
-    }
-
-    public void homeWithCodes(boolean hasCode) {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add check-out menu item
-        // Show or hide multiple menu items
-        for (int menuItemId : menuItemIds) {
-            MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);
-            menuItem.setVisible(hasCode);
-        }
     }
 
     public void changeFragment(int id) {
@@ -343,7 +337,7 @@ public class HomeActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
                 R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
                 R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order, R.id.nav_gym, R.id.nav_spa, R.id.nav_restaurant,
-                R.id.nav_reserves, R.id.nav_reserve, R.id.nav_hotel, R.id.nav_region)
+                R.id.nav_reserves, R.id.nav_reserve, R.id.nav_hotel, R.id.nav_region, R.id.nav_checkout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);

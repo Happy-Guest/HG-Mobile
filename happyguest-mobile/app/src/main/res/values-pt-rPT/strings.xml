@@ -137,6 +137,7 @@
     <string name="menu_restaurant">Reservar Mesa</string>
     <string name="menu_hotel">Informações Hotel</string>
     <string name="menu_region">Informações Região</string>
+    <string name="menu_checkout">Check-Out</string>
 
     <!-- Services -->
     <string name="services_schedule">Horário: </string>
