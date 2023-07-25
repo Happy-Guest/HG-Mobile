@@ -73,20 +73,28 @@ public class RegionFragment extends Fragment {
 
                     ArrayList<RegionInfo> proximity = toArrayRegionInfo(region.getProximity());
                     ArrayList<RegionInfo> activities = toArrayRegionInfo(region.getActivities());
+                    ArrayList<RegionInfo> websites = toArrayRegionWebsite(region.getWebsites());
 
                     RecyclerView proximityRV = binding.proximitiesRV;
                     if (region.getProximity() != null && region.getProximity().length() > 0) {
                         binding.regionProximities.setVisibility(View.VISIBLE);
-                        regionAdapter = new RegionAdapter(proximity, binding.getRoot().getContext());
+                        regionAdapter = new RegionAdapter(proximity, binding.getRoot().getContext(), false);
                         proximityRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         proximityRV.setAdapter(regionAdapter);
                     }
                     RecyclerView activitiesRV = binding.activitiesRV;
                     if (region.getActivities() != null && region.getActivities().length() > 0) {
                         binding.regionActivities.setVisibility(View.VISIBLE);
-                        regionAdapter = new RegionAdapter(activities, binding.getRoot().getContext());
+                        regionAdapter = new RegionAdapter(activities, binding.getRoot().getContext(), false);
                         activitiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         activitiesRV.setAdapter(regionAdapter);
+                    }
+                    RecyclerView websitesRV = binding.websitesRV;
+                    if (region.getWebsites() != null && region.getWebsites().length() > 0) {
+                        binding.regionWebsites.setVisibility(View.VISIBLE);
+                        regionAdapter = new RegionAdapter(websites, binding.getRoot().getContext(), true);
+                        websitesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+                        websitesRV.setAdapter(regionAdapter);
                     }
 
                 } else {
@@ -119,6 +127,25 @@ public class RegionFragment extends Fragment {
                 String link = jsonObject.getString("link");
 
                 RegionInfo regionInfo = new RegionInfo(name, description, descriptionEN, distance, link);
+                info.add(regionInfo);
+            }
+        } catch (Exception e) {
+            Log.e("RegionFragment", "Error parsing info", e);
+        }
+        return info;
+    }
+
+    private ArrayList<RegionInfo> toArrayRegionWebsite(String inform) {
+        ArrayList<RegionInfo> info = null;
+        try {
+            JSONArray jsonArray = new JSONArray(inform);
+            info = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String name = jsonObject.getString("name");
+                String link = jsonObject.getString("link");
+
+                RegionInfo regionInfo = new RegionInfo(name, null, null, null, link);
                 info.add(regionInfo);
             }
         } catch (Exception e) {

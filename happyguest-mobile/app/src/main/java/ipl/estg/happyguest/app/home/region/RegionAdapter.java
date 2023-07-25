@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -30,10 +31,12 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
 
     private final ArrayList<RegionInfo> regionInfoList;
     private final Context context;
+    private final boolean isWebsite;
 
-    public RegionAdapter(ArrayList<RegionInfo> regionInfoList, Context context) {
+    public RegionAdapter(ArrayList<RegionInfo> regionInfoList, Context context, boolean isWebsite) {
         this.regionInfoList = regionInfoList;
         this.context = context;
+        this.isWebsite = isWebsite;
     }
 
     @NonNull
@@ -49,7 +52,14 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
         RegionInfo regionInfo = regionInfoList.get(position);
         holder.name.setText(position + 1 + ". " + regionInfo.getName());
 
-        holder.moreInfo.setOnClickListener(v -> showPopup(regionInfo));
+        holder.moreInfo.setOnClickListener(v -> {
+            if (isWebsite) {
+                ((HomeActivity) context).openWebsite(regionInfo.getLink());
+            } else {
+                holder.moreInfo.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_fast));
+                showPopup(regionInfo);
+            }
+        });
     }
 
     private void showPopup(RegionInfo regionInfo) {
