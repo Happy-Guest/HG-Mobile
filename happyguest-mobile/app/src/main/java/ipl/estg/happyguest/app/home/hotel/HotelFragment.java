@@ -86,20 +86,20 @@ public class HotelFragment extends Fragment {
                     ArrayList<HotelInfo> accesses = toArrayHotelInfo(hotel.getAccesses());
 
                     RecyclerView commoditiesRV = binding.commoditiesRV;
-                    if (hotel.getCommodities() != null) {
+                    if (hotel.getCommodities() != null && hotel.getCommodities().length() > 0) {
                         binding.hotelCommodities.setVisibility(View.VISIBLE);
                         hotelAdapter = new HotelAdapter(commodities, binding.getRoot().getContext());
                         commoditiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         commoditiesRV.setAdapter(hotelAdapter);
                     }
-                    if (hotel.getPolicies() != null) {
+                    if (hotel.getPolicies() != null && hotel.getPolicies().length() > 0) {
                         binding.hotelPolicies.setVisibility(View.VISIBLE);
                         RecyclerView policiesRV = binding.policiesRV;
                         hotelAdapter = new HotelAdapter(policies, binding.getRoot().getContext());
                         policiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         policiesRV.setAdapter(hotelAdapter);
                     }
-                    if (hotel.getAccesses() != null) {
+                    if (hotel.getAccesses() != null && hotel.getAccesses().length() > 0) {
                         binding.hotelAccesses.setVisibility(View.VISIBLE);
                         RecyclerView accessesRV = binding.accessesRV;
                         hotelAdapter = new HotelAdapter(accesses, binding.getRoot().getContext());

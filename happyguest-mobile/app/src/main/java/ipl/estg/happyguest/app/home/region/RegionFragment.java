@@ -75,14 +75,14 @@ public class RegionFragment extends Fragment {
                     ArrayList<RegionInfo> activities = toArrayRegionInfo(region.getActivities());
 
                     RecyclerView proximityRV = binding.proximitiesRV;
-                    if (region.getProximity() != null) {
+                    if (region.getProximity() != null && region.getProximity().length() > 0) {
                         binding.regionProximities.setVisibility(View.VISIBLE);
                         regionAdapter = new RegionAdapter(proximity, binding.getRoot().getContext());
                         proximityRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         proximityRV.setAdapter(regionAdapter);
                     }
                     RecyclerView activitiesRV = binding.activitiesRV;
-                    if (region.getActivities() != null) {
+                    if (region.getActivities() != null && region.getActivities().length() > 0) {
                         binding.regionActivities.setVisibility(View.VISIBLE);
                         regionAdapter = new RegionAdapter(activities, binding.getRoot().getContext());
                         activitiesRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));

@@ -177,7 +177,8 @@
     <fragment
         android:id="@+id/nav_reserves"
         android:name="ipl.estg.happyguest.app.home.reserve.ReservesFragment"
-        android:label="@string/menu_requested_reserves" />
+        android:label="@string/menu_requested_reserves"
+        tools:layout="@layout/fragment_reserves" />
     <action
         android:id="@+id/action_nav_reserves"
         app:destination="@id/nav_reserves"
