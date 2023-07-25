@@ -69,7 +69,6 @@
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
     <string name="order_type">Type: </string>
-    <string name="order_comment">Comment: </string>
     <string name="order_objects">Objects: </string>
     <string name="order_foods">Food: </string>
     <string name="hotel_website">Website: </string>
@@ -149,7 +148,6 @@
     <string name="services_description">Description</string>
     <string name="services_menu">Open Menu</string>
     <string name="services_order">Order</string>
-    <string name="services_reserve">Reserve</string>
     <string name="services_room">Room: </string>
     <string name="schedule_required">Please select a available schedule!</string>
     <string name="room_required">Please select a room number!</string>

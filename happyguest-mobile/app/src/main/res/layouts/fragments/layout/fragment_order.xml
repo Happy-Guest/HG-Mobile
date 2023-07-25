@@ -41,8 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/background_gray"
-            android:textSize="19sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -131,7 +130,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"
             tools:ignore="TextContrastCheck" />
     </LinearLayout>
 

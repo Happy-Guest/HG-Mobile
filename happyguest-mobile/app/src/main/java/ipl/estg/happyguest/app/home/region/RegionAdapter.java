@@ -41,10 +41,11 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RegionInfo regionInfo = regionInfoList.get(position);
-        holder.name.setText(regionInfo.getName());
+        holder.name.setText(position + 1 + ". " + regionInfo.getName());
 
         holder.moreInfo.setOnClickListener(v -> showPopup(regionInfo));
     }
