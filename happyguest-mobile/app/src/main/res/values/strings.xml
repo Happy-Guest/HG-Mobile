@@ -227,7 +227,7 @@
     <string name="write_permission_denied">Permission denied. Unable to save files.</string>
     <string name="stock_limit">The stock limit has been reached!</string>
     <string name="services_schedule_unavailable">There are no available schedules for this room!</string>
-    <string name="number_people_exceeded">For bookings of more than 25 people, please contact reception.</string>
+    <string name="number_people_exceeded">For bookings with more people, please contact reception.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
