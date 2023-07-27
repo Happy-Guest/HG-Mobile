@@ -268,7 +268,7 @@
     <string-array name="food_categories" translatable="true">
         <item>Todos</item>
         <item>Bebida</item>
-        <item>Pequeno Almoço</item>
+        <item>Pequeno-Almoço</item>
         <item>Almoço</item>
         <item>Jantar</item>
         <item>Lanche</item>
