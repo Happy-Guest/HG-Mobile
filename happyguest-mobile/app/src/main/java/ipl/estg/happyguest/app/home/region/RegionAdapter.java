@@ -43,6 +43,12 @@ public class RegionAdapter extends RecyclerView.Adapter<RegionAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.region_item, parent, false);
+
+        if (isWebsite) {
+            ImageButton btnMoreInfo = view.findViewById(R.id.btnMoreInfo);
+            btnMoreInfo.setImageResource(R.drawable.clip_icon);
+        }
+
         return new ViewHolder(view);
     }
 
