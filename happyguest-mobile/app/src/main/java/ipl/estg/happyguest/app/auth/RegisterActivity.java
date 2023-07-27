@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -192,13 +191,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerAttempt() {
         // Get locale
-        String languageCode = Locale.getDefault().getLanguage();
         Call<MessageResponse> call = api.register(new RegisterRequest(
                 txtName.getText().toString(),
                 txtEmail.getText().toString(),
                 txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
                 txtPassword.getText().toString(),
-                txtPasswordConfirm.getText().toString(), photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)), languageCode);
+                txtPasswordConfirm.getText().toString(), photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {

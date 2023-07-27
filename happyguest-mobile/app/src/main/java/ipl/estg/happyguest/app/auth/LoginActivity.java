@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -112,8 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginAttempt() {
         // Get locale
-        String languageCode = Locale.getDefault().getLanguage();
-        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()), languageCode);
+        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()));
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {

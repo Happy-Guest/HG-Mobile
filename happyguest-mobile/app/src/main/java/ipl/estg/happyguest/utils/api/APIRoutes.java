@@ -43,11 +43,11 @@ public interface APIRoutes {
 
     @POST("register")
     @Headers({"Accept: application/json"})
-    Call<MessageResponse> register(@Body RegisterRequest registerRequest, @Header("Accept-Language") String language);
+    Call<MessageResponse> register(@Body RegisterRequest registerRequest);
 
     @POST("login")
     @Headers("Accept: application/json")
-    Call<LoginResponse> login(@Body LoginRequest loginRequest, @Header("Accept-Language") String language);
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @POST("logout")
     Call<MessageResponse> logout();
