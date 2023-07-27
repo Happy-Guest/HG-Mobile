@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -183,7 +184,7 @@ public class ReviewsFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.reviews_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetReviews Error: ", t.getMessage());
+                Log.i("GetReviews Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.switchOrderReviews.setEnabled(true);
             }
         });

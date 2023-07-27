@@ -59,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
     private APIRoutes api;
     private Token token;
     private Button btnLogout;
-    private int titleMaxWidth;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -69,13 +68,16 @@ public class HomeActivity extends AppCompatActivity {
                     if (result.getData() != null) {
                         Uri selectedImage = result.getData().getData();
                         try {
+                            if (selectedImage == null) {
+                                return;
+                            }
                             InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                             // Create a temporary file to save the image
                             File tempFile = File.createTempFile("temp_image", null, getCacheDir());
                             FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
                             byte[] buffer = new byte[4096];
                             int bytesRead;
-                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            while ((bytesRead = Objects.requireNonNull(inputStream).read(buffer)) != -1) {
                                 fileOutputStream.write(buffer, 0, bytesRead);
                             }
                             // Close the streams
@@ -117,9 +119,6 @@ public class HomeActivity extends AppCompatActivity {
             updateTitleAndLogoScale(percentage);
             updateProfileImageVisibility(percentage);
         });
-
-        // Title max width
-        titleMaxWidth = binding.appBarHome.txtBarTitle.getMaxWidth();
 
         // Open drawer
         binding.appBarHome.btnBarOpen.setOnClickListener(v -> binding.drawerLayout.open());
@@ -166,11 +165,15 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
 
-            // Check title size
+            // Set toolbar title lines
             if (binding.appBarHome.txtBarTitle.getText().toString().contains(" ")) {
-                binding.appBarHome.txtBarTitle.setMaxWidth(titleMaxWidth);
+                binding.appBarHome.txtBarTitle.setMinLines(2);
+                binding.appBarHome.txtBarTitle.setMaxLines(2);
+                binding.appBarHome.txtBarTitle.setMaxWidth(binding.appBarHome.txtBarTitle.getMinWidth());
             } else {
-                binding.appBarHome.txtBarTitle.setMaxWidth(0);
+                binding.appBarHome.txtBarTitle.setMinLines(1);
+                binding.appBarHome.txtBarTitle.setMaxLines(1);
+                binding.appBarHome.txtBarTitle.setMaxWidth(100000);
             }
 
             // Set profile image
@@ -321,6 +324,17 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve);
                 break;
         }
+
+        // Set toolbar title lines
+        if (binding.appBarHome.txtBarTitle.getText().toString().contains(" ")) {
+            binding.appBarHome.txtBarTitle.setMinLines(2);
+            binding.appBarHome.txtBarTitle.setMaxLines(2);
+            binding.appBarHome.txtBarTitle.setMaxWidth(binding.appBarHome.txtBarTitle.getMinWidth());
+        } else {
+            binding.appBarHome.txtBarTitle.setMinLines(1);
+            binding.appBarHome.txtBarTitle.setMaxLines(1);
+            binding.appBarHome.txtBarTitle.setMaxWidth(100000);
+        }
     }
 
     public byte[] getPhoto() {
@@ -413,7 +427,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetMe Error: ", t.getMessage());
+                Log.i("GetMe Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -445,7 +459,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_SHORT).show();
-                Log.i("Logout Error: ", t.getMessage());
+                Log.i("Logout Error: ", Objects.requireNonNull(t.getMessage()));
                 btnLogout.setEnabled(true);
             }
         });

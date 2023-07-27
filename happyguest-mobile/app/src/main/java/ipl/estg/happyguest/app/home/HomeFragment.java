@@ -218,7 +218,7 @@ public class HomeFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("AssociateCode Error: ", e.getMessage());
+                        Log.i("AssociateCode Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.e("AssociateCode Error: ", t.getMessage());
+                Log.e("AssociateCode Error: ", Objects.requireNonNull(t.getMessage()));
                 btnInsertCode.setEnabled(true);
             }
         });

@@ -362,7 +362,7 @@ public class ProfileFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("UpdateUser Error: ", e.getMessage());
+                        Log.i("UpdateUser Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -372,7 +372,7 @@ public class ProfileFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("UpdateUser Error: ", t.getMessage());
+                Log.i("UpdateUser Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnSave.setEnabled(true);
                 binding.btnCancel.setEnabled(true);
             }
@@ -415,7 +415,7 @@ public class ProfileFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("DeleteUser Error: ", e.getMessage());
+                        Log.i("DeleteUser Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -425,7 +425,7 @@ public class ProfileFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("DeleteUser Error: ", t.getMessage());
+                Log.i("DeleteUser Error: ", Objects.requireNonNull(t.getMessage()));
                 btnPopClose.setEnabled(true);
                 btnPopConfirm.setEnabled(true);
             }

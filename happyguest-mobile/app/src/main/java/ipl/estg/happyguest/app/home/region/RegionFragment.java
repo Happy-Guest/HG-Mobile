@@ -75,9 +75,9 @@ public class RegionFragment extends Fragment {
                     ArrayList<RegionInfo> activities = toArrayRegionInfo(region.getActivities());
                     ArrayList<RegionInfo> websites = toArrayRegionWebsite(region.getWebsites());
 
-                    RecyclerView proximityRV = binding.proximitiesRV;
+                    RecyclerView proximityRV = binding.proximityRV;
                     if (region.getProximity() != null && region.getProximity().length() > 0) {
-                        binding.regionProximities.setVisibility(View.VISIBLE);
+                        binding.regionProximity.setVisibility(View.VISIBLE);
                         regionAdapter = new RegionAdapter(proximity, binding.getRoot().getContext(), false);
                         proximityRV.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
                         proximityRV.setAdapter(regionAdapter);
@@ -108,7 +108,7 @@ public class RegionFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetRegion Error: ", t.getMessage());
+                Log.i("GetRegion Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

@@ -80,7 +80,7 @@
                     android:layout_marginTop="16dp"
                     app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                     app:errorTextColor="#B84141"
-                    app:layout_constraintBottom_toTopOf="@+id/rememberCkeck"
+                    app:layout_constraintBottom_toTopOf="@+id/rememberCheck"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/inputEmail"
@@ -100,7 +100,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox
-                    android:id="@+id/rememberCkeck"
+                    android:id="@+id/rememberCheck"
                     android:layout_width="295dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"

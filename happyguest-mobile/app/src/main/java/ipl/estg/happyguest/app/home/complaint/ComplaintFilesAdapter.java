@@ -129,7 +129,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Toast.makeText(context, context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetComplaintFile Error: ", t.getMessage());
+                Log.i("GetComplaintFile Error: ", Objects.requireNonNull(t.getMessage()));
                 fileOpen.setEnabled(true);
             }
         });
@@ -138,7 +138,7 @@ public class ComplaintFilesAdapter extends RecyclerView.Adapter<ComplaintFilesAd
     private void downloadFile(byte[] fileData, String fileName) {
         try {
             File downloadsDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            if (!downloadsDir.exists()) {
+            if (!Objects.requireNonNull(downloadsDir).exists()) {
                 boolean isDirCreated = downloadsDir.mkdirs();
                 if (!isDirCreated) {
                     Toast.makeText(context, context.getString(R.string.error_file_app), Toast.LENGTH_SHORT).show();

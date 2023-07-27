@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -179,7 +180,7 @@ public class RegisterReviewFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("RegisterReview Error: ", e.getMessage());
+                        Log.i("RegisterReview Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -189,7 +190,7 @@ public class RegisterReviewFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("RegisterReview Error: ", t.getMessage());
+                Log.i("RegisterReview Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnRegisterReview.setEnabled(true);
                 binding.btnClose.setEnabled(true);
             }

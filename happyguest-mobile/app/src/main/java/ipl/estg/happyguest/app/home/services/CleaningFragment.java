@@ -170,7 +170,7 @@ public class CleaningFragment extends Fragment {
             }
             return scheduleString.toString();
         } catch (Exception e) {
-            Log.e("populateFormatSchedule: ", e.getMessage());
+            Log.e("populateFormatSchedule: ", Objects.requireNonNull(e.getMessage()));
             return schedule;
         }
     }
@@ -265,7 +265,7 @@ public class CleaningFragment extends Fragment {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             binding.spinnerSchedule.setAdapter(adapter);
         } catch (Exception e) {
-            Log.i("populateScheduleSpinner: ", e.getMessage());
+            Log.i("populateScheduleSpinner: ", Objects.requireNonNull(e.getMessage()));
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
             selectedSchedule = null;
         }
@@ -356,7 +356,7 @@ public class CleaningFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetService Error: ", t.getMessage());
+                Log.i("GetService Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -401,7 +401,7 @@ public class CleaningFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetCodes Error: ", t.getMessage());
+                Log.i("GetCodes Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -494,7 +494,7 @@ public class CleaningFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("RegisterOrder Error: ", e.getMessage());
+                        Log.i("RegisterOrder Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -504,7 +504,7 @@ public class CleaningFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("RegisterOrder Error: ", t.getMessage());
+                Log.i("RegisterOrder Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnOrderCleaning.setEnabled(true);
                 binding.btnHistoryCleaning.setEnabled(true);
             }

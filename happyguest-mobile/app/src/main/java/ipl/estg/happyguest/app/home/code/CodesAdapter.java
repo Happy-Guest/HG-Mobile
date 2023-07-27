@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -164,7 +165,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("DisassociateCode Error: ", e.getMessage());
+                        Log.i("DisassociateCode Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -172,7 +173,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.e("DisassociateCode Error: ", t.getMessage());
+                Log.e("DisassociateCode Error: ", Objects.requireNonNull(t.getMessage()));
                 btnRemove.setEnabled(true);
             }
         });

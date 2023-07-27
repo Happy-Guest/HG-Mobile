@@ -134,7 +134,7 @@ public class OrderFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("CancelOrder Error: ", t.getMessage());
+                Log.i("CancelOrder Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnCancel.setEnabled(true);
                 binding.btnClose.setEnabled(true);
             }
@@ -222,7 +222,7 @@ public class OrderFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetOrder Error: ", t.getMessage());
+                Log.i("GetOrder Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

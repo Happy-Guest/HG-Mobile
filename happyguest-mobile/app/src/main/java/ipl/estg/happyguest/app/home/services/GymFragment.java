@@ -82,7 +82,7 @@ public class GymFragment extends Fragment {
             }
             return scheduleString.toString();
         } catch (Exception e) {
-            Log.e("populateFormatSchedule: ", e.getMessage());
+            Log.e("populateFormatSchedule: ", Objects.requireNonNull(e.getMessage()));
             return schedule;
         }
     }
@@ -155,7 +155,7 @@ public class GymFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetService Error: ", t.getMessage());
+                Log.i("GetService Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

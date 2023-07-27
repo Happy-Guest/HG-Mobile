@@ -50,6 +50,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -87,7 +88,7 @@ public class RegisterComplaintFragment extends Fragment {
                                         FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
                                         byte[] buffer = new byte[4096];
                                         int bytesRead;
-                                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                        while ((bytesRead = Objects.requireNonNull(inputStream).read(buffer)) != -1) {
                                             fileOutputStream.write(buffer, 0, bytesRead);
                                         }
                                         inputStream.close();
@@ -119,7 +120,7 @@ public class RegisterComplaintFragment extends Fragment {
                                     FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
                                     byte[] buffer = new byte[4096];
                                     int bytesRead;
-                                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                    while ((bytesRead = Objects.requireNonNull(inputStream).read(buffer)) != -1) {
                                         fileOutputStream.write(buffer, 0, bytesRead);
                                     }
                                     inputStream.close();
@@ -302,7 +303,7 @@ public class RegisterComplaintFragment extends Fragment {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
             int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
+            while ((bytesRead = Objects.requireNonNull(inputStream).read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
             return outputStream.toByteArray();
@@ -396,7 +397,7 @@ public class RegisterComplaintFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("RegisterComplaint Error: ", e.getMessage());
+                        Log.i("RegisterComplaint Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -406,7 +407,7 @@ public class RegisterComplaintFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("RegisterComplaint Error: ", t.getMessage());
+                Log.i("RegisterComplaint Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnRegisterComplaint.setEnabled(true);
                 binding.btnClose.setEnabled(true);
             }

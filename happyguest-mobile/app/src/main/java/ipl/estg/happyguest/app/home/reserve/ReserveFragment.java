@@ -133,7 +133,7 @@ public class ReserveFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("CancelReserve Error: ", t.getMessage());
+                Log.i("CancelReserve Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnCancel.setEnabled(true);
                 binding.btnClose.setEnabled(true);
             }
@@ -201,7 +201,7 @@ public class ReserveFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetReserve Error: ", t.getMessage());
+                Log.i("GetReserve Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

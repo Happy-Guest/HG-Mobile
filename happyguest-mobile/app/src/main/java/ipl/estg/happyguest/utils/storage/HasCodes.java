@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.HasCodesResponse;
@@ -62,7 +63,7 @@ public class HasCodes {
 
             @Override
             public void onFailure(@NonNull Call<HasCodesResponse> call, @NonNull Throwable t) {
-                Log.i("HasCodes Error: ", t.getMessage());
+                Log.i("HasCodes Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
         return hasCodes[0];

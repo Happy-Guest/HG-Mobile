@@ -68,7 +68,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/regionProximities"
+        android:id="@+id/regionProximity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -78,7 +78,7 @@
         android:visibility="gone">
 
         <View
-            android:id="@+id/dividerProximities"
+            android:id="@+id/dividerProximity"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
@@ -86,7 +86,7 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/txtProximities"
+            android:id="@+id/txtProximity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -99,7 +99,7 @@
             app:drawableTint="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/proximitiesRV"
+            android:id="@+id/proximityRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
