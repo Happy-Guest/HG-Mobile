@@ -89,6 +89,7 @@
     <string name="more_info">+</string>
     <string name="region_description">Descrição: </string>
     <string name="open_more">Abrir</string>
+    <string name="qr_code">Código QR</string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>

@@ -33,25 +33,47 @@
         android:textSize="13sp"
         tools:ignore="VisualLintLocaleText" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputCode"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
-        app:errorTextColor="#B84141"
-        app:startIconDrawable="@drawable/key_full_icon"
-        app:startIconTint="@color/gold">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textCode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:hint="@string/code"
-            android:textColorHint="#757575"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputCode"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
+            app:errorTextColor="#B84141"
+            app:startIconDrawable="@drawable/key_full_icon"
+            app:startIconTint="@color/gold">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textCode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:hint="@string/code"
+                android:textColorHint="#757575"
+                android:textSize="18sp"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/btnQrCode"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/btn_primary"
+            android:contentDescription="@string/qr_code"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/qrcode_icon"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnAssociate"
