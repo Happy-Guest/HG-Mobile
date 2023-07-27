@@ -1,5 +1,7 @@
 package ipl.estg.happyguest.app.home.code;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -11,12 +13,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +56,22 @@ public class CodesFragment extends Fragment {
     private FragmentCodesBinding binding;
     private Button btnInsertCode;
     private TextInputLayout inputCode;
+    // Read QR Code
+    private final ActivityResultLauncher<Intent> qrCodeLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    IntentResult scanResult = IntentIntegrator.parseActivityResult(
+                            result.getResultCode(),
+                            result.getData()
+                    );
+                    String scannedString = scanResult.getContents();
+                    if (scannedString != null && !scannedString.isEmpty()) {
+                        Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
+                    }
+                }
+            }
+    );
     private User user;
     private APIRoutes api;
     private CodesAdapter codesAdapter;
@@ -125,7 +147,20 @@ public class CodesFragment extends Fragment {
             binding.txtNoCodes.setVisibility(View.VISIBLE);
         }
 
+        // QR Code button
+        binding.addCode.btnQrCode.setOnClickListener(v -> scanQRCode());
+
         return binding.getRoot();
+    }
+
+    private void scanQRCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(requireActivity());
+        intentIntegrator.setPrompt(getString(R.string.scan_qr_code));
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.setBeepEnabled(false);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        intentIntegrator.setBarcodeImageEnabled(false);
+        qrCodeLauncher.launch(intentIntegrator.createScanIntent());
     }
 
     private void getCodes() {

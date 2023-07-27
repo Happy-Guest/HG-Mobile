@@ -90,6 +90,7 @@
     <string name="region_description">Descrição: </string>
     <string name="open_more">Abrir</string>
     <string name="qr_code">Código QR</string>
+    <string name="scan_qr_code">Ler Código QR</string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>
