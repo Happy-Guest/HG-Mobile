@@ -76,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
     private APIRoutes api;
     private Token token;
+    private Button btnCheckOut;
     private Button btnLogout;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
@@ -233,6 +234,12 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
+        // Button Check-Out
+        btnCheckOut = findViewById(R.id.btnCheckout);
+        btnCheckOut.setOnClickListener(v -> {
+            // TODO: SHOW POPUP
+        });
+
         // Button logout
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
@@ -278,7 +285,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void homeWithCodes(boolean hasCode) {
-        // TODO: Show Check-Out button
+        if (hasCode) {
+            binding.btnCheckout.setVisibility(View.VISIBLE);
+        } else {
+            binding.btnCheckout.setVisibility(View.GONE);
+        }
     }
 
     public void openWebsite(String url) {
@@ -366,7 +377,7 @@ public class HomeActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_password, R.id.nav_reviews,
                 R.id.nav_register_review, R.id.nav_complaints, R.id.nav_codes, R.id.nav_complaint, R.id.nav_review, R.id.nav_register_complaint,
                 R.id.nav_cleaning, R.id.nav_objects, R.id.nav_food, R.id.nav_orders, R.id.nav_order, R.id.nav_gym, R.id.nav_spa, R.id.nav_restaurant,
-                R.id.nav_reserves, R.id.nav_reserve, R.id.nav_hotel, R.id.nav_region, R.id.nav_checkout)
+                R.id.nav_reserves, R.id.nav_reserve, R.id.nav_hotel, R.id.nav_region)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
