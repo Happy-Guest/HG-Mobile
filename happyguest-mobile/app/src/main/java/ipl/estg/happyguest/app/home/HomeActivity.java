@@ -2,6 +2,7 @@ package ipl.estg.happyguest.app.home;
 
 import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -53,6 +57,20 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
+    // Read QR Code
+    public final ActivityResultLauncher<Intent> qrCodeLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    IntentResult scanResult = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
+                    String scannedString = scanResult.getContents();
+                    if (scannedString != null && !scannedString.isEmpty()) {
+                        TextInputLayout inputCode = findViewById(R.id.inputCode);
+                        Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
+                    }
+                }
+            }
+    );
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     private User user;
