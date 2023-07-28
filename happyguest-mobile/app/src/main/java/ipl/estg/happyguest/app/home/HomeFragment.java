@@ -49,22 +49,7 @@ public class HomeFragment extends Fragment {
     private TextInputLayout inputCode;
     private User user;
     private APIRoutes api;
-    // Read QR Code
-    private final ActivityResultLauncher<Intent> qrCodeLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    IntentResult scanResult = IntentIntegrator.parseActivityResult(
-                            result.getResultCode(),
-                            result.getData()
-                    );
-                    String scannedString = scanResult.getContents();
-                    if (scannedString != null && !scannedString.isEmpty()) {
-                        Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
-                    }
-                }
-            }
-    );
+    private ActivityResultLauncher<Intent> qrCodeLauncher2;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -169,6 +154,20 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Read QR Code
+        qrCodeLauncher2 = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        IntentResult scanResult = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
+                        String scannedString = scanResult.getContents();
+                        if (scannedString != null && !scannedString.isEmpty()) {
+                            Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
+                        }
+                    }
+                }
+        );
+
         // QR Code button
         binding.addCode.btnQrCode.setOnClickListener(v -> scanQRCode());
 
@@ -182,7 +181,7 @@ public class HomeFragment extends Fragment {
         intentIntegrator.setBeepEnabled(false);
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
         intentIntegrator.setBarcodeImageEnabled(false);
-        qrCodeLauncher.launch(intentIntegrator.createScanIntent());
+        qrCodeLauncher2.launch(intentIntegrator.createScanIntent());
     }
 
     private void homeWithCodes(boolean hasCode) {
@@ -272,6 +271,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (qrCodeLauncher2 != null) {
+            qrCodeLauncher2.unregister();
+        }
         binding = null;
     }
 }

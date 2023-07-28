@@ -260,10 +260,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void homeWithCodes(boolean hasCode) {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            navigationView.getMenu().findItem(R.id.nav_checkout).setVisible(hasCode);
-        }
+        // TODO: Show Check-Out button
     }
 
     public void openWebsite(String url) {

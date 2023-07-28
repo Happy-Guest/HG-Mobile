@@ -56,22 +56,7 @@ public class CodesFragment extends Fragment {
     private FragmentCodesBinding binding;
     private Button btnInsertCode;
     private TextInputLayout inputCode;
-    // Read QR Code
-    private final ActivityResultLauncher<Intent> qrCodeLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    IntentResult scanResult = IntentIntegrator.parseActivityResult(
-                            result.getResultCode(),
-                            result.getData()
-                    );
-                    String scannedString = scanResult.getContents();
-                    if (scannedString != null && !scannedString.isEmpty()) {
-                        Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
-                    }
-                }
-            }
-    );
+    private ActivityResultLauncher<Intent> qrCodeLauncher;
     private User user;
     private APIRoutes api;
     private CodesAdapter codesAdapter;
@@ -146,6 +131,20 @@ public class CodesFragment extends Fragment {
             binding.addCode.txtCodeText.setVisibility(View.VISIBLE);
             binding.txtNoCodes.setVisibility(View.VISIBLE);
         }
+
+        // Read QR Code
+        qrCodeLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        IntentResult scanResult = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
+                        String scannedString = scanResult.getContents();
+                        if (scannedString != null && !scannedString.isEmpty()) {
+                            Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
+                        }
+                    }
+                }
+        );
 
         // QR Code button
         binding.addCode.btnQrCode.setOnClickListener(v -> scanQRCode());
@@ -293,6 +292,9 @@ public class CodesFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (qrCodeLauncher != null) {
+            qrCodeLauncher.unregister();
+        }
         binding = null;
     }
 }
