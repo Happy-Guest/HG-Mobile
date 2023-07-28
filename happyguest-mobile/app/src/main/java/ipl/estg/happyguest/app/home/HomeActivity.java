@@ -2,16 +2,26 @@ package ipl.estg.happyguest.app.home;
 
 import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -237,7 +247,7 @@ public class HomeActivity extends AppCompatActivity {
         // Button Check-Out
         btnCheckOut = findViewById(R.id.btnCheckout);
         btnCheckOut.setOnClickListener(v -> {
-            // TODO: SHOW POPUP
+            showPopupNoReview();
         });
 
         // Button logout
@@ -270,6 +280,82 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    private void showPopupNoReview() {
+        LayoutInflater inflater = (LayoutInflater) binding.getRoot().getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_no_review));
+        // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        LinearLayout layout = popupView.findViewById(R.id.buttonsPopUp);
+        layout.setVisibility(View.GONE);
+
+        LinearLayout layout2 = popupView.findViewById(R.id.buttonsReview);
+        layout2.setVisibility(View.VISIBLE);
+
+        // No popup
+        Button btnNo = popupView.findViewById(R.id.btnNo);
+        btnNo.setOnClickListener(view1 -> {
+            showPopupCheckout();
+        });
+
+        // Yes popup
+        Button btnYes = popupView.findViewById(R.id.btnYes);
+        btnYes.setOnClickListener(view1 -> {
+            popupWindow.dismiss();
+            binding.drawerLayout.close();
+            changeFragment(R.id.action_nav_register_review);
+        });
+    }
+
+    private void showPopupCheckout() {
+        LayoutInflater inflater = (LayoutInflater) binding.getRoot().getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_checkOut));
+        ((TextView) popupView.findViewById(R.id.txtRegionDescription)).setText(getString(R.string.description_checkOut));
+        // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        // Close popup
+        ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
+        btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
+
+        // Confirm popup
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setOnClickListener(view1 -> {
+            checkOutAttempt();
+            popupWindow.dismiss();
+        });
+    }
+
+    private void checkOutAttempt() {
+
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -285,11 +371,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void homeWithCodes(boolean hasCode) {
-        if (hasCode) {
-            binding.btnCheckout.setVisibility(View.VISIBLE);
-        } else {
-            binding.btnCheckout.setVisibility(View.GONE);
-        }
+//        if (hasCode) {
+//            binding.btnCheckout.setVisibility(View.VISIBLE);
+//        } else {
+//            binding.btnCheckout.setVisibility(View.GONE);
+//        }
     }
 
     public void openWebsite(String url) {

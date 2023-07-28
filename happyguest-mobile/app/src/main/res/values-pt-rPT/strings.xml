@@ -245,6 +245,11 @@
     <string name="service_objects_confirm">Pretende pedir os objetos?</string>
     <string name="service_food_confirm">Pretende pedir os alimentos?</string>
     <string name="service_restaurant_confirm">Pretende reservar a mesa?</string>
+    <string name="title_no_review">Não realizou nenhuma avaliação, pertende realizar alguma?</string>
+    <string name="title_checkOut">Pretende realizar check-out?</string>
+    <string name="description_checkOut">Esperamos que todas as suas necessidades tenham sido atendidas e que tenha desfrutado da nossa hospitalidade e comodidade. Obrigado pela sua preferência.</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

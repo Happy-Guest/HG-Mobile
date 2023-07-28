@@ -453,7 +453,6 @@ public class RestaurantFragment extends Fragment {
                 binding.btnHistoryCleaning.setEnabled(true);
             }
         });
-
     }
 
     @Override

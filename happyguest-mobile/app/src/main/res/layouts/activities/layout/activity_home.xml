@@ -42,7 +42,7 @@
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textColor="#000000"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:icon="@drawable/checkout_icon"
                 app:iconPadding="12dp"
                 app:iconTint="#9E8C44"
