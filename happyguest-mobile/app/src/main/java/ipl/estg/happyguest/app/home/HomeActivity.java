@@ -16,11 +16,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +46,19 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -55,12 +67,19 @@ import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.requests.CheckOutRequest;
+import ipl.estg.happyguest.utils.api.requests.OrderRequest;
+import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import ipl.estg.happyguest.utils.models.Code;
+import ipl.estg.happyguest.utils.models.UserCode;
 import ipl.estg.happyguest.utils.others.CircleImage;
 import ipl.estg.happyguest.utils.others.CloseService;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
+import okio.Timeout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -88,6 +107,7 @@ public class HomeActivity extends AppCompatActivity {
     private Token token;
     private Button btnCheckOut;
     private Button btnLogout;
+    private ArrayList<Code> codes;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -247,7 +267,23 @@ public class HomeActivity extends AppCompatActivity {
         // Button Check-Out
         btnCheckOut = findViewById(R.id.btnCheckout);
         btnCheckOut.setOnClickListener(v -> {
-            showPopupNoReview();
+            //TODO
+            //verificar se o utiliazdor ja fez uma review nos ultimos 7 dias
+            //popUp sem avaliação (showPopupNoReview)
+            if (user.getLastReview() != null) {
+                try {
+                    DateFormat dateFormat = DateFormat.getDateInstance();
+                    Date lastReview = dateFormat.parse(user.getLastReview());
+                    if (lastReview != null && System.currentTimeMillis() - lastReview.getTime() < 7 * 24 * 60 * 60 * 1000) {
+                        showPopupCheckout();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showPopupCheckout();
+            }
+
         });
 
         // Button logout
@@ -308,6 +344,7 @@ public class HomeActivity extends AppCompatActivity {
         // No popup
         Button btnNo = popupView.findViewById(R.id.btnNo);
         btnNo.setOnClickListener(view1 -> {
+            popupWindow.dismiss();
             showPopupCheckout();
         });
 
@@ -335,25 +372,114 @@ public class HomeActivity extends AppCompatActivity {
 
         // Set popup texts
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_checkOut));
-        ((TextView) popupView.findViewById(R.id.txtRegionDescription)).setText(getString(R.string.description_checkOut));
+        TextView description = popupView.findViewById(R.id.txtRegionDescription);
+        description.setVisibility(View.VISIBLE);
+        description.setText(getString(R.string.description_checkOut));
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        getCodesAttempt(0);
+        Spinner spinner = popupView.findViewById(R.id.spinnerCode);
+        spinner.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(() -> {
+            ArrayList<String> codesSpinner = new ArrayList<>();
+            codesSpinner.add(getString(R.string.select_code));
+            for (Code code: codes) {
+                codesSpinner.add(code.getCode());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item,codesSpinner);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+        }, 1000);
 
         // Close popup
         ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
         btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
 
+        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+
         // Confirm popup
         Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
         btnPopConfirm.setOnClickListener(view1 -> {
-            checkOutAttempt();
+            if (spinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.select_code), Toast.LENGTH_SHORT).show();
+                return;
+            }else {
+                checkOutAttempt(codes.get(spinner.getSelectedItemPosition()-1).getId());
+            }
+            binding.drawerLayout.close();
             popupWindow.dismiss();
+            //verificar se tem codigos válidos
+            //TODO
         });
     }
 
-    private void checkOutAttempt() {
+    private void checkOutAttempt(Long code) {
+        String date = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(new Date());
+        Call<MessageResponse> call = api.checkOut(new CheckOutRequest(user.getId(), code, date ));
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Display success message and change fragment
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        if (response.errorBody() != null) {
+                            // Get response errors
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
 
+                            } else {
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                        Log.i("CheckOut Error: ", Objects.requireNonNull(e.getMessage()));
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.i("CheckOut Error: ", Objects.requireNonNull(t.getMessage()));
+
+            }
+        });
+
+    }
+
+
+    private void getCodesAttempt(int page) {
+        Call<CodesResponse> call = api.getUserCodes(user.getId(), page, "ALL");
+        call.enqueue(new Callback<CodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    codes = new ArrayList<>();
+                    ArrayList<UserCode> userCodes = response.body().getData();
+                    for (UserCode userCode : userCodes) {
+                        codes.add(userCode.getCode());
+                    }
+                } else {
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                    Log.i("GetCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CodesResponse> call, @NonNull Throwable t) {
+                // Check if this fragment is still attached to the activity
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                Log.i("GetCodes Error: ", Objects.requireNonNull(t.getMessage()));
+            }
+        });
     }
 
     @Override

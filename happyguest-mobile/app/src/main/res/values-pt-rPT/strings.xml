@@ -250,6 +250,7 @@
     <string name="description_checkOut">Esperamos que todas as suas necessidades tenham sido atendidas e que tenha desfrutado da nossa hospitalidade e comodidade. Obrigado pela sua preferência.</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="select_code">Selecione um código</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

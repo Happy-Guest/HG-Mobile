@@ -1,6 +1,7 @@
 package ipl.estg.happyguest.utils.api;
 
 import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
+import ipl.estg.happyguest.utils.api.requests.CheckOutRequest;
 import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.OrderRequest;
@@ -154,4 +155,9 @@ public interface APIRoutes {
     // Region
     @GET("regions/{id}")
     Call<RegionResponse> getRegion(@Path("id") Long id);
+
+    //CheckOut
+    @POST("checkouts")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> checkOut(@Body CheckOutRequest checkOutRequest);
 }
