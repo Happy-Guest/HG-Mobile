@@ -379,7 +379,7 @@ public class HomeActivity extends AppCompatActivity {
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
 
-        getCodesAttempt(0);
+        getCodesAttempt();
         Spinner spinner = popupView.findViewById(R.id.spinnerCode);
         spinner.setVisibility(View.VISIBLE);
 
@@ -392,13 +392,11 @@ public class HomeActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item,codesSpinner);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
-        }, 1000);
+        }, 500);
 
         // Close popup
         ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
         btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
-
-        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
 
         // Confirm popup
         Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
@@ -411,7 +409,8 @@ public class HomeActivity extends AppCompatActivity {
             }
             binding.drawerLayout.close();
             popupWindow.dismiss();
-            //verificar se tem codigos válidos
+            changeFragment(R.id.action_nav_home);
+            //verificar se tem codigos válidos e mudar home fragment se não tiver
             //TODO
         });
     }
@@ -432,7 +431,7 @@ public class HomeActivity extends AppCompatActivity {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
                             if (jObjError.has("errors")) {
                                 JSONObject errors = jObjError.getJSONObject("errors");
-
+                                Toast.makeText(binding.getRoot().getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                             }
@@ -456,8 +455,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void getCodesAttempt(int page) {
-        Call<CodesResponse> call = api.getUserCodes(user.getId(), page, "ALL");
+    private void getCodesAttempt() {
+        Call<CodesResponse> call = api.getUserCodes(user.getId(), 1, "V");
         call.enqueue(new Callback<CodesResponse>() {
             @Override
             public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
