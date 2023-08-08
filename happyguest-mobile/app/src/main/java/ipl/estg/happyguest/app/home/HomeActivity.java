@@ -4,7 +4,6 @@ import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,7 +15,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -58,7 +56,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -68,7 +65,6 @@ import ipl.estg.happyguest.databinding.ActivityHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.requests.CheckOutRequest;
-import ipl.estg.happyguest.utils.api.requests.OrderRequest;
 import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
@@ -79,7 +75,6 @@ import ipl.estg.happyguest.utils.others.CloseService;
 import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
-import okio.Timeout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -267,9 +262,7 @@ public class HomeActivity extends AppCompatActivity {
         // Button Check-Out
         btnCheckOut = findViewById(R.id.btnCheckout);
         btnCheckOut.setOnClickListener(v -> {
-            //TODO
-            //verificar se o utiliazdor ja fez uma review nos ultimos 7 dias
-            //popUp sem avaliação (showPopupNoReview)
+            // Check if user has already reviewed the app in the last 7 days
             if (user.getLastReview() != null) {
                 try {
                     DateFormat dateFormat = DateFormat.getDateInstance();
@@ -281,9 +274,8 @@ public class HomeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else {
-                showPopupCheckout();
+                showPopupNoReview();
             }
-
         });
 
         // Button logout
@@ -386,10 +378,10 @@ public class HomeActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             ArrayList<String> codesSpinner = new ArrayList<>();
             codesSpinner.add(getString(R.string.select_code));
-            for (Code code: codes) {
+            for (Code code : codes) {
                 codesSpinner.add(code.getCode());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item,codesSpinner);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, codesSpinner);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
         }, 500);
@@ -404,20 +396,17 @@ public class HomeActivity extends AppCompatActivity {
             if (spinner.getSelectedItemPosition() == 0) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.select_code), Toast.LENGTH_SHORT).show();
                 return;
-            }else {
-                checkOutAttempt(codes.get(spinner.getSelectedItemPosition()-1).getId());
+            } else {
+                checkOutAttempt(codes.get(spinner.getSelectedItemPosition() - 1).getId());
             }
             binding.drawerLayout.close();
             popupWindow.dismiss();
-            changeFragment(R.id.action_nav_home);
-            //verificar se tem codigos válidos e mudar home fragment se não tiver
-            //TODO
         });
     }
 
     private void checkOutAttempt(Long code) {
         String date = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(new Date());
-        Call<MessageResponse> call = api.checkOut(new CheckOutRequest(user.getId(), code, date ));
+        Call<MessageResponse> call = api.checkOut(new CheckOutRequest(user.getId(), code, date));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -434,6 +423,13 @@ public class HomeActivity extends AppCompatActivity {
                                 Toast.makeText(binding.getRoot().getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                                // If no more codes available, update fragment
+                                if (codes.size() == 1) {
+                                    changeFragment(R.id.action_nav_home);
+                                    HasCodes hasCodes = new HasCodes(getApplicationContext());
+                                    hasCodes.setHasCode(false, "");
+                                    homeWithCodes(false);
+                                }
                             }
                         }
                     } catch (JSONException | IOException e) {
@@ -442,18 +438,14 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
-                // Check if this fragment is still attached to the activity
-
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
                 Log.i("CheckOut Error: ", Objects.requireNonNull(t.getMessage()));
-
             }
         });
-
     }
-
 
     private void getCodesAttempt() {
         Call<CodesResponse> call = api.getUserCodes(user.getId(), 1, "V");
@@ -474,7 +466,6 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<CodesResponse> call, @NonNull Throwable t) {
-                // Check if this fragment is still attached to the activity
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                 Log.i("GetCodes Error: ", Objects.requireNonNull(t.getMessage()));
             }
@@ -496,11 +487,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void homeWithCodes(boolean hasCode) {
-//        if (hasCode) {
-//            binding.btnCheckout.setVisibility(View.VISIBLE);
-//        } else {
-//            binding.btnCheckout.setVisibility(View.GONE);
-//        }
+        if (btnCheckOut != null) {
+            if (hasCode) {
+                btnCheckOut.setVisibility(View.VISIBLE);
+            } else {
+                btnCheckOut.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void openWebsite(String url) {
@@ -701,5 +694,4 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
 }

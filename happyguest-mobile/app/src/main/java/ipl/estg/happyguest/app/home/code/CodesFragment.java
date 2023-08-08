@@ -250,6 +250,14 @@ public class CodesFragment extends Fragment {
                         binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
                         binding.txtNoCodes.setVisibility(View.VISIBLE);
                         binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
+                        if (filter.equals("V")) {
+                            HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+                            hasCodes.setHasCode(false, "");
+                            if (getActivity() instanceof HomeActivity) {
+                                HomeActivity homeActivity = (HomeActivity) getActivity();
+                                homeActivity.homeWithCodes(false);
+                            }
+                        }
                     } else {
                         binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
                         binding.txtNoCodes.setVisibility(View.GONE);
