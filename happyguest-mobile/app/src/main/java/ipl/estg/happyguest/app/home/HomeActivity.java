@@ -323,6 +323,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Set popup texts
         ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_no_review));
+
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
@@ -371,20 +372,9 @@ public class HomeActivity extends AppCompatActivity {
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
 
-        getCodesAttempt();
         Spinner spinner = popupView.findViewById(R.id.spinnerCode);
         spinner.setVisibility(View.VISIBLE);
-
-        new Handler().postDelayed(() -> {
-            ArrayList<String> codesSpinner = new ArrayList<>();
-            codesSpinner.add(getString(R.string.select_code));
-            for (Code code : codes) {
-                codesSpinner.add(code.getCode());
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, codesSpinner);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-        }, 500);
+        getCodesAttempt(spinner);
 
         // Close popup
         ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
@@ -447,7 +437,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void getCodesAttempt() {
+    private void getCodesAttempt(Spinner spinner) {
         Call<CodesResponse> call = api.getUserCodes(user.getId(), 1, "V");
         call.enqueue(new Callback<CodesResponse>() {
             @Override
@@ -458,6 +448,9 @@ public class HomeActivity extends AppCompatActivity {
                     for (UserCode userCode : userCodes) {
                         codes.add(userCode.getCode());
                     }
+                    ArrayAdapter<Code> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, codes);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetCodes Error: ", response.message());

@@ -52,16 +52,6 @@ public class HomeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
-
-        // Check if user has codes
-        if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            homeWithCodes(true);
-        } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            homeWithCodes(hasCodes.hasCodesAttempt(api));
-        } else {
-            homeWithCodes(false);
-        }
 
         // Associate code button
         inputCode = binding.addCode.inputCode;
@@ -152,6 +142,21 @@ public class HomeFragment extends Fragment {
         binding.addCode.btnQrCode.setOnClickListener(v -> scanQRCode());
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        HasCodes hasCodes = new HasCodes(binding.codeLayout.getContext());
+
+        // Check if user has codes
+        if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+            homeWithCodes(true);
+        } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+            homeWithCodes(hasCodes.hasCodesAttempt(api));
+        } else {
+            homeWithCodes(false);
+        }
     }
 
     private void scanQRCode() {
