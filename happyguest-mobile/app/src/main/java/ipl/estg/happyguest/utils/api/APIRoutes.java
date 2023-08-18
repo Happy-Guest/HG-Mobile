@@ -157,6 +157,7 @@ public interface APIRoutes {
     Call<RegionResponse> getRegion(@Path("id") Long id);
 
     //CheckOut
+
     @POST("checkouts")
     @Headers("Accept: application/json")
     Call<MessageResponse> checkOut(@Body CheckOutRequest checkOutRequest);
