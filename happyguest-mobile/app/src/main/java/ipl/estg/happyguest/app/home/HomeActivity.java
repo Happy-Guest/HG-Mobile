@@ -368,12 +368,13 @@ public class HomeActivity extends AppCompatActivity {
         TextView description = popupView.findViewById(R.id.txtRegionDescription);
         description.setVisibility(View.VISIBLE);
         description.setText(getString(R.string.description_checkOut));
+
         // Show the popup window
         popupWindow.setAnimationStyle(R.style.PopupAnimation);
         popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
 
+        // Spinner Codes
         Spinner spinner = popupView.findViewById(R.id.spinnerCode);
-        spinner.setVisibility(View.VISIBLE);
         getCodesAttempt(spinner);
 
         // Close popup
@@ -383,7 +384,7 @@ public class HomeActivity extends AppCompatActivity {
         // Confirm popup
         Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
         btnPopConfirm.setOnClickListener(view1 -> {
-            if (spinner.getSelectedItemPosition() == 0) {
+            if (spinner.getSelectedItemPosition() == 0 || codes.isEmpty()) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.select_code), Toast.LENGTH_SHORT).show();
                 return;
             } else {
@@ -403,6 +404,13 @@ public class HomeActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    // If no more codes available, update fragment
+                    if (codes.size() == 1) {
+                        changeFragment(R.id.action_nav_home);
+                        HasCodes hasCodes = new HasCodes(getApplicationContext());
+                        hasCodes.setHasCode(false, "");
+                        homeWithCodes(false);
+                    }
                 } else {
                     try {
                         if (response.errorBody() != null) {
@@ -413,13 +421,6 @@ public class HomeActivity extends AppCompatActivity {
                                 Toast.makeText(binding.getRoot().getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
-                                // If no more codes available, update fragment
-                                if (codes.size() == 1) {
-                                    changeFragment(R.id.action_nav_home);
-                                    HasCodes hasCodes = new HasCodes(getApplicationContext());
-                                    hasCodes.setHasCode(false, "");
-                                    homeWithCodes(false);
-                                }
                             }
                         }
                     } catch (JSONException | IOException e) {
@@ -444,13 +445,17 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     codes = new ArrayList<>();
+                    ArrayList<String> codesCode = new ArrayList<>();
+                    codesCode.add(getString(R.string.select_code));
                     ArrayList<UserCode> userCodes = response.body().getData();
                     for (UserCode userCode : userCodes) {
                         codes.add(userCode.getCode());
+                        codesCode.add(userCode.getCode().getCode());
                     }
-                    ArrayAdapter<Code> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, codes);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, codesCode);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
+                    spinner.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
                     Log.i("GetCodes Error: ", response.message());

@@ -124,6 +124,7 @@
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="5dp"
             android:gravity="start"
+            android:justificationMode="inter_word"
             android:text="@string/region_description"
             android:textColor="@color/background_gray"
             android:textStyle="italic"
@@ -132,21 +133,20 @@
         <Spinner
             android:id="@+id/spinnerCode"
             style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="5dp"
             android:dropDownWidth="match_parent"
             android:gravity="center"
             android:padding="12dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
             android:spinnerMode="dropdown"
             android:text="@string/code"
             android:textColor="@color/black"
-            android:textSize="24sp"
-            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
-            android:visibility="gone"/>
+            android:textSize="22sp"
+            android:visibility="gone"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
         <LinearLayout
             android:id="@+id/buttonsPopUp"
