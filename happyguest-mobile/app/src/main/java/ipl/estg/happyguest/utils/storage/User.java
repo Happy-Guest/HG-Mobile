@@ -57,6 +57,11 @@ public class User {
         editor.commit();
     }
 
+    public void setLastReview(String lastReview) {
+        editor.putString("last_review", lastReview);
+        editor.commit();
+    }
+
     public void clearUser() {
         editor.clear();
         editor.commit();

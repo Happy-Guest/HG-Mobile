@@ -30,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
@@ -160,6 +162,9 @@ public class RegisterReviewFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    // Set user last review
+                    DateFormat dateFormat = DateFormat.getDateInstance();
+                    user.setLastReview(dateFormat.format(new Date()));
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
                         homeActivity.changeFragment(R.id.nav_reviews);
