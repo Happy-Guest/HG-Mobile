@@ -134,7 +134,8 @@
             android:nestedScrollingEnabled="false"
             android:singleLine="false"
             android:textColorHint="#757575"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox

@@ -70,7 +70,8 @@
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:textColorHint="#757575"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -96,7 +97,8 @@
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:textColorHint="#757575"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox

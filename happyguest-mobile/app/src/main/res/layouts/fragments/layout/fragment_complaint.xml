@@ -210,7 +210,7 @@
         android:textColor="@color/dark_gray"
         android:textSize="14sp"
         android:textStyle="normal"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck,VisualLintBounds,VisualLintLocaleText" />
 
     <Button
         android:id="@+id/btnClose"
@@ -228,7 +228,7 @@
         app:icon="@drawable/close_icon"
         app:iconPadding="-30dp"
         app:iconTint="@color/black"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck,VisualLintBounds" />
 
 
 </LinearLayout>
