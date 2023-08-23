@@ -37,6 +37,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -155,6 +157,7 @@ public class HomeActivity extends AppCompatActivity {
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         setupNavigation();
+        setupFCMToken();
 
         // Resize title, logo and set profile image invisible
         binding.appBarHome.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
@@ -304,6 +307,36 @@ public class HomeActivity extends AppCompatActivity {
                     binding.appBarHome.imageUpload.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_fast));
                     binding.appBarHome.imageUpload.setVisibility(View.GONE);
                 }, 1000);
+            }
+        });
+    }
+
+    private void setupFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        sendTokenAttempt(task.getResult());
+                    } else {
+                        Toast.makeText(this, getString(R.string.notifications_error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void sendTokenAttempt(String tkn) {
+        Call<MessageResponse> call = api.sendFCMToken(tkn);
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.notifications_error), Toast.LENGTH_SHORT).show();
+                    Log.e("SendFCMToken Error: ", Objects.requireNonNull(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.e("SendFCMToken Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

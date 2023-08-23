@@ -57,6 +57,12 @@ public interface APIRoutes {
     @Headers("Accept: application/json")
     Call<MessageResponse> changePassword(@Body ChangePasswordRequest changePasswordRequest);
 
+    // Firebase Token
+
+    @POST("users/token")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> sendFCMToken(@Body String token);
+
     // User
 
     @GET("me")

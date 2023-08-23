@@ -185,6 +185,7 @@
     <string name="error_file">Erro ao carregar ficheiro!</string>
     <string name="error_file_app">Erro ao abrir ficheiro!</string>
     <string name="error_cancel">Erro ao cancelar pedido!</string>
+    <string name="notifications_error">Erro ao ativar as notificações!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
