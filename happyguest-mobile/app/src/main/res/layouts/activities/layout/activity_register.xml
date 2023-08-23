@@ -107,7 +107,8 @@
                                 android:inputType="text"
                                 android:maxLength="255"
                                 android:textColorHint="#757575"
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="TextContrastCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -129,7 +130,8 @@
                                 android:inputType="textEmailAddress"
                                 android:maxLength="255"
                                 android:textColorHint="#757575"
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="TextContrastCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -153,7 +155,8 @@
                                 android:inputType="phone"
                                 android:maxLength="12"
                                 android:textColorHint="#757575"
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="TextContrastCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout

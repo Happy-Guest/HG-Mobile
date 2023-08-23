@@ -36,6 +36,10 @@ public class Service {
     public final Long occupation;
 
     @Nullable
+    @SerializedName("limit")
+    public final Long limit;
+
+    @Nullable
     @SerializedName("location")
     public final String location;
 
@@ -56,7 +60,7 @@ public class Service {
     @SerializedName("active")
     public final int active;
 
-    public Service(Long id, String name, String nameEN, @Nullable String email, @Nullable Long phone, char type, String schedule, @Nullable Long occupation, @Nullable String location, String description, String descriptionEN, @Nullable ArrayList<Item> items, @Nullable String menu_url, int active) {
+    public Service(Long id, String name, String nameEN, @Nullable String email, @Nullable Long phone, char type, String schedule, @Nullable Long occupation, @Nullable String location, String description, String descriptionEN, @Nullable ArrayList<Item> items, @Nullable String menu_url, int active, @Nullable Long limit) {
         this.id = id;
         this.name = name;
         this.nameEN = nameEN;
@@ -71,6 +75,7 @@ public class Service {
         this.items = items;
         this.menu_url = menu_url;
         this.active = active;
+        this.limit = limit;
     }
 
     @Nullable
@@ -94,6 +99,11 @@ public class Service {
     @Nullable
     public Long getOccupation() {
         return occupation;
+    }
+
+    @Nullable
+    public Long getLimit() {
+        return limit;
     }
 
     @Nullable

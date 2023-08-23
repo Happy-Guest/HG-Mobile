@@ -2,6 +2,8 @@ package ipl.estg.happyguest.utils.api;
 
 import com.google.gson.GsonBuilder;
 
+import java.util.Locale;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -16,6 +18,7 @@ public class APIClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(chain -> {
             Request request = chain.request().newBuilder()
                     .addHeader("Authorization", "Bearer " + token)
+                    .addHeader("Accept-Language", Locale.getDefault().getLanguage())
                     .build();
             return chain.proceed(request);
         }).build();

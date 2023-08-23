@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +30,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.databinding.FragmentCodesBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
@@ -124,7 +126,23 @@ public class CodesFragment extends Fragment {
             binding.txtNoCodes.setVisibility(View.VISIBLE);
         }
 
+        // QR Code button
+        binding.addCode.btnQrCode.setOnClickListener(v -> scanQRCode());
+
         return binding.getRoot();
+    }
+
+    private void scanQRCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(requireActivity());
+        intentIntegrator.setPrompt(getString(R.string.scan_qr_code));
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.setBeepEnabled(false);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        intentIntegrator.setBarcodeImageEnabled(false);
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.qrCodeLauncher.launch(intentIntegrator.createScanIntent());
+        }
     }
 
     private void getCodes() {
@@ -175,6 +193,10 @@ public class CodesFragment extends Fragment {
                     binding.addCode.txtCodeText.setVisibility(View.GONE);
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (filter.equals("V")) getCodes();
+                    if (getActivity() instanceof HomeActivity) {
+                        HomeActivity homeActivity = (HomeActivity) getActivity();
+                        homeActivity.homeWithCodes(true);
+                    }
                 } else {
                     if (response.code() == 404) {
                         inputCode.setError(binding.getRoot().getContext().getString(R.string.invalid_code));
@@ -191,7 +213,7 @@ public class CodesFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("AssociateCode Error: ", e.getMessage());
+                        Log.i("AssociateCode Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -201,7 +223,7 @@ public class CodesFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.e("AssociateCode Error: ", t.getMessage());
+                Log.e("AssociateCode Error: ", Objects.requireNonNull(t.getMessage()));
                 btnInsertCode.setEnabled(true);
             }
         });
@@ -228,6 +250,14 @@ public class CodesFragment extends Fragment {
                         binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in));
                         binding.txtNoCodes.setVisibility(View.VISIBLE);
                         binding.swipeRefresh.setMinimumHeight((int) (screenHeight / 1.7));
+                        if (filter.equals("V")) {
+                            HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
+                            hasCodes.setHasCode(false, "");
+                            if (getActivity() instanceof HomeActivity) {
+                                HomeActivity homeActivity = (HomeActivity) getActivity();
+                                homeActivity.homeWithCodes(false);
+                            }
+                        }
                     } else {
                         binding.txtNoCodes.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_out));
                         binding.txtNoCodes.setVisibility(View.GONE);
@@ -244,7 +274,7 @@ public class CodesFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetCodes Error: ", t.getMessage());
+                Log.i("GetCodes Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.switchValidCodes.setEnabled(true);
             }
         });

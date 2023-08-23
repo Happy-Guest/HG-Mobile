@@ -30,6 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -159,6 +162,9 @@ public class RegisterReviewFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Display success message and change fragment
                     Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    // Set user last review
+                    DateFormat dateFormat = DateFormat.getDateInstance();
+                    user.setLastReview(dateFormat.format(new Date()));
                     if (getActivity() instanceof HomeActivity) {
                         HomeActivity homeActivity = (HomeActivity) getActivity();
                         homeActivity.changeFragment(R.id.nav_reviews);
@@ -179,7 +185,7 @@ public class RegisterReviewFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("RegisterReview Error: ", e.getMessage());
+                        Log.i("RegisterReview Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -189,7 +195,7 @@ public class RegisterReviewFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("RegisterReview Error: ", t.getMessage());
+                Log.i("RegisterReview Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnRegisterReview.setEnabled(true);
                 binding.btnClose.setEnabled(true);
             }

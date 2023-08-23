@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Locale;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         btnGoToRegister = findViewById(R.id.btnGoToRegister);
 
         // Remember checkbox
-        remember = findViewById(R.id.rememberCkeck);
+        remember = findViewById(R.id.rememberCheck);
 
         // TextInputLayouts and EditTexts
         inputEmail = findViewById(R.id.inputEmail);
@@ -111,8 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginAttempt() {
         // Get locale
-        String languageCode = Locale.getDefault().getLanguage();
-        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()), languageCode);
+        Call<LoginResponse> call = api.login(new LoginRequest(txtEmail.getText().toString(), txtPassword.getText().toString(), remember.isChecked()));
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
@@ -157,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("Login Error: ", e.getMessage());
+                        Log.i("Login Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -167,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Check if activity is finishing
                 if (isFinishing()) return;
                 Toast.makeText(LoginActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("Login Error: ", t.getMessage());
+                Log.i("Login Error: ", Objects.requireNonNull(t.getMessage()));
                 btnLogin.setEnabled(true);
                 btnGoToRegister.setEnabled(true);
             }

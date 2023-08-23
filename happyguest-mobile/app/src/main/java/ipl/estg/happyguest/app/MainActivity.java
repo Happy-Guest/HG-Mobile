@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.auth.LoginActivity;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(MainActivity.this, getString(R.string.restore_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetMe Error: ", t.getMessage());
+                Log.i("GetMe Error: ", Objects.requireNonNull(t.getMessage()));
                 redirectToLogin();
             }
         });

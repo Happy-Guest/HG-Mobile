@@ -51,7 +51,10 @@
                 android:layout_height="28dp"
                 android:background="@drawable/btn_primary"
                 android:contentDescription="@string/more_info"
-                app:srcCompat="@drawable/plus_icon"
+                android:cropToPadding="true"
+                android:padding="6dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:drawable/ic_dialog_info"
                 app:tint="@color/ic_bg"
                 tools:ignore="TouchTargetSizeCheck" />
 

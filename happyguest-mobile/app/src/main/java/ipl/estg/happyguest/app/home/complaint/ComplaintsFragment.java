@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -188,7 +189,7 @@ public class ComplaintsFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.complaints_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetComplaints Error: ", t.getMessage());
+                Log.i("GetComplaints Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.spinnerSelectStatus.setEnabled(true);
             }
         });

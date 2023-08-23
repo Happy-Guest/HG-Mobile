@@ -1,6 +1,7 @@
 package ipl.estg.happyguest.utils.api;
 
 import ipl.estg.happyguest.utils.api.requests.ChangePasswordRequest;
+import ipl.estg.happyguest.utils.api.requests.CheckOutRequest;
 import ipl.estg.happyguest.utils.api.requests.ComplaintRequest;
 import ipl.estg.happyguest.utils.api.requests.LoginRequest;
 import ipl.estg.happyguest.utils.api.requests.OrderRequest;
@@ -43,11 +44,11 @@ public interface APIRoutes {
 
     @POST("register")
     @Headers({"Accept: application/json"})
-    Call<MessageResponse> register(@Body RegisterRequest registerRequest, @Header("Accept-Language") String language);
+    Call<MessageResponse> register(@Body RegisterRequest registerRequest);
 
     @POST("login")
     @Headers("Accept: application/json")
-    Call<LoginResponse> login(@Body LoginRequest loginRequest, @Header("Accept-Language") String language);
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @POST("logout")
     Call<MessageResponse> logout();
@@ -55,6 +56,12 @@ public interface APIRoutes {
     @POST("change-password")
     @Headers("Accept: application/json")
     Call<MessageResponse> changePassword(@Body ChangePasswordRequest changePasswordRequest);
+
+    // Firebase Token
+
+    @POST("users/token")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> sendFCMToken(@Query("token") String token);
 
     // User
 
@@ -154,4 +161,10 @@ public interface APIRoutes {
     // Region
     @GET("regions/{id}")
     Call<RegionResponse> getRegion(@Path("id") Long id);
+
+    //CheckOut
+
+    @POST("checkouts")
+    @Headers("Accept: application/json")
+    Call<MessageResponse> checkOut(@Body CheckOutRequest checkOutRequest);
 }

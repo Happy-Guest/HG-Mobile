@@ -66,6 +66,7 @@
     <string name="working">Preparing</string>
     <string name="delivered">Delivered</string>
     <string name="accepted">Accepted</string>
+    <string name="finished">Finished</string>
     <string name="createdDate">Created in</string>
     <string name="complaint_file">File Nº</string>
     <string name="complaint_files">Files: </string>
@@ -87,8 +88,10 @@
     <string name="region_activities">Activities</string>
     <string name="more_info">+</string>
     <string name="region_description">Description: </string>
-    <string name="region_link">Link: </string>
     <string name="open_more">Open</string>
+    <string name="qr_code">QR Code</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="optional">Optional</string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -137,6 +140,7 @@
     <string name="menu_restaurant">Table Reservation</string>
     <string name="menu_hotel">Hotel information</string>
     <string name="menu_region">Region information</string>
+    <string name="menu_checkout">Check-Out</string>
 
     <!-- Services -->
     <string name="services_schedule">Schedule: </string>
@@ -182,6 +186,7 @@
     <string name="error_file">Error loading file!</string>
     <string name="error_file_app">Error opening file!</string>
     <string name="error_cancel">Error canceling order!</string>
+    <string name="notifications_error">Error enabling notifications!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>
@@ -226,7 +231,7 @@
     <string name="write_permission_denied">Permission denied. Unable to save files.</string>
     <string name="stock_limit">The stock limit has been reached!</string>
     <string name="services_schedule_unavailable">There are no available schedules for this room!</string>
-    <string name="number_people_exceeded">For bookings of more than 25 people, please contact reception.</string>
+    <string name="number_people_exceeded">For bookings with more people, please contact reception.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Close</string>
@@ -242,6 +247,12 @@
     <string name="service_objects_confirm">Do you want to request objects?</string>
     <string name="service_food_confirm">Do you want to request food?</string>
     <string name="service_restaurant_confirm">Do you want to reserve a table?</string>
+    <string name="title_no_review">Did not carry out any assessment, do you want to carry out one?</string>
+    <string name="title_checkOut">Do you want to check out?</string>
+    <string name="description_checkOut">We hope that all your needs were met and that you enjoyed our hospitality and convenience. Thank you for your preference.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="select_code">Select a code</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>

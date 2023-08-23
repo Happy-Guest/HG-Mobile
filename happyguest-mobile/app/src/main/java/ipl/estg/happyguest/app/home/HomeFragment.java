@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,16 +52,6 @@ public class HomeFragment extends Fragment {
         user = new User(binding.getRoot().getContext());
         Token token = new Token(binding.getRoot().getContext());
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
-        HasCodes hasCodes = new HasCodes(binding.getRoot().getContext());
-
-        // Check if user has codes
-        if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            homeWithCodes(true);
-        } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
-            homeWithCodes(hasCodes.hasCodesAttempt(api));
-        } else {
-            homeWithCodes(false);
-        }
 
         // Associate code button
         inputCode = binding.addCode.inputCode;
@@ -147,7 +138,38 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // QR Code button
+        binding.addCode.btnQrCode.setOnClickListener(v -> scanQRCode());
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        HasCodes hasCodes = new HasCodes(binding.codeLayout.getContext());
+
+        // Check if user has codes
+        if (hasCodes.getHasCode() && Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+            homeWithCodes(true);
+        } else if (hasCodes.getHasCode() && !Objects.equals(hasCodes.getDate(), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()))) {
+            homeWithCodes(hasCodes.hasCodesAttempt(api));
+        } else {
+            homeWithCodes(false);
+        }
+    }
+
+    private void scanQRCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(requireActivity());
+        intentIntegrator.setPrompt(getString(R.string.scan_qr_code));
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.setBeepEnabled(false);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        intentIntegrator.setBarcodeImageEnabled(false);
+        if (getActivity() instanceof HomeActivity) {
+            HomeActivity homeActivity = (HomeActivity) getActivity();
+            homeActivity.qrCodeLauncher.launch(intentIntegrator.createScanIntent());
+        }
     }
 
     private void homeWithCodes(boolean hasCode) {
@@ -218,7 +240,7 @@ public class HomeFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("AssociateCode Error: ", e.getMessage());
+                        Log.i("AssociateCode Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -228,7 +250,7 @@ public class HomeFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.e("AssociateCode Error: ", t.getMessage());
+                Log.e("AssociateCode Error: ", Objects.requireNonNull(t.getMessage()));
                 btnInsertCode.setEnabled(true);
             }
         });

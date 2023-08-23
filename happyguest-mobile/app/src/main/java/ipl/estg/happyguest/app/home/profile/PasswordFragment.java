@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.app.home.HomeActivity;
@@ -186,7 +187,7 @@ public class PasswordFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("UpdateUser Error: ", e.getMessage());
+                        Log.i("UpdateUser Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -196,7 +197,7 @@ public class PasswordFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("UpdateUser Error: ", t.getMessage());
+                Log.i("UpdateUser Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnChange.setEnabled(true);
                 binding.btnCancel.setEnabled(true);
             }

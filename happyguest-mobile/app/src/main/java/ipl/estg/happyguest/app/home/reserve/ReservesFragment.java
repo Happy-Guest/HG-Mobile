@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentReservesBinding;
@@ -50,7 +51,7 @@ public class ReservesFragment extends Fragment {
         if (getArguments() != null) {
             Bundle args = getArguments();
             selectedType = args.getString("filter") == null ? "ALL" : args.getString("filter");
-            switch (selectedType) {
+            switch (Objects.requireNonNull(selectedType)) {
                 case "OR":
                     binding.spinnerSelectType.setSelection(1);
                     break;
@@ -181,7 +182,7 @@ public class ReservesFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.reserves_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetReserves Error: ", t.getMessage());
+                Log.i("GetReserves Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.spinnerSelectType.setEnabled(true);
             }
         });

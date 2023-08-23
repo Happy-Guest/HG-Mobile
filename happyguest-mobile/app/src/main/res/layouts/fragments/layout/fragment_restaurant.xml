@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.home.services.RestaurantFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".app.home.services.RestaurantFragment">
 
     <include
         android:id="@+id/restaurant_service"
@@ -132,6 +132,7 @@
         app:errorEnabled="true"
         app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:errorTextColor="#B84141"
+        app:helperText="@string/optional"
         app:startIconDrawable="@drawable/comment_icon"
         app:startIconTint="@color/gold">
 
@@ -149,7 +150,8 @@
             android:nestedScrollingEnabled="false"
             android:singleLine="false"
             android:textColorHint="#757575"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

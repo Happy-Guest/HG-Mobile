@@ -66,6 +66,7 @@
     <string name="working">A preparar</string>
     <string name="delivered">Entregue</string>
     <string name="accepted">Aceite</string>
+    <string name="finished">Finalizada</string>
     <string name="createdDate">Criada em</string>
     <string name="complaint_file">Ficheiro Nº</string>
     <string name="complaint_files">Ficheiros: </string>
@@ -87,8 +88,10 @@
     <string name="region_activities">Atividades</string>
     <string name="more_info">+</string>
     <string name="region_description">Descrição: </string>
-    <string name="region_link">Link: </string>
     <string name="open_more">Abrir</string>
+    <string name="qr_code">Código QR</string>
+    <string name="scan_qr_code">Ler Código QR</string>
+    <string name="optional">Opcional</string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>
@@ -137,6 +140,7 @@
     <string name="menu_restaurant">Reservar Mesa</string>
     <string name="menu_hotel">Informações Hotel</string>
     <string name="menu_region">Informações Região</string>
+    <string name="menu_checkout">Check-Out</string>
 
     <!-- Services -->
     <string name="services_schedule">Horário: </string>
@@ -182,6 +186,7 @@
     <string name="error_file">Erro ao carregar ficheiro!</string>
     <string name="error_file_app">Erro ao abrir ficheiro!</string>
     <string name="error_cancel">Erro ao cancelar pedido!</string>
+    <string name="notifications_error">Erro ao ativar as notificações!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Introduza o seu email.</string>
@@ -226,7 +231,7 @@
     <string name="write_permission_denied">Permissão negada. Não é possível guardar ficheiros.</string>
     <string name="stock_limit">O limite de stock foi atingido!</string>
     <string name="services_schedule_unavailable">Não existem horários disponíveis para esse quarto!</string>
-    <string name="number_people_exceeded">Para reservas de mais de 25 pessoas, por favor contacte a receção.</string>
+    <string name="number_people_exceeded">Para reservas com mais pessoas, por favor contacte a receção.</string>
 
     <!-- Pop-up -->
     <string name="btnClose">Fechar</string>
@@ -242,6 +247,12 @@
     <string name="service_objects_confirm">Pretende pedir os objetos?</string>
     <string name="service_food_confirm">Pretende pedir os alimentos?</string>
     <string name="service_restaurant_confirm">Pretende reservar a mesa?</string>
+    <string name="title_no_review">Não realizou nenhuma avaliação, pertende realizar alguma?</string>
+    <string name="title_checkOut">Pretende realizar check-out?</string>
+    <string name="description_checkOut">Esperamos que todas as suas necessidades tenham sido atendidas e que tenha desfrutado da nossa hospitalidade e comodidade. Obrigado pela sua preferência.</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="select_code">Selecione um código</string>
 
     <!-- Others -->
     <string name="slash_placeholder">%1$s/</string>
@@ -267,7 +278,7 @@
     <string-array name="food_categories" translatable="true">
         <item>Todos</item>
         <item>Bebida</item>
-        <item>Pequeno Almoço</item>
+        <item>Pequeno-Almoço</item>
         <item>Almoço</item>
         <item>Jantar</item>
         <item>Lanche</item>

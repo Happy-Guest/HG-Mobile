@@ -84,7 +84,7 @@ public class ReviewFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetReview Error: ", t.getMessage());
+                Log.i("GetReview Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

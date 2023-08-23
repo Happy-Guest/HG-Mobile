@@ -33,7 +33,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Locale;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.utils.api.APIClient;
@@ -67,13 +67,13 @@ public class RegisterActivity extends AppCompatActivity {
                     if (result.getData() != null) {
                         Uri selectedImage = result.getData().getData();
                         try {
-                            InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+                            InputStream inputStream = getContentResolver().openInputStream(Objects.requireNonNull(selectedImage));
                             // Create a temporary file to save the image
                             File tempFile = File.createTempFile("temp_image", null, getCacheDir());
                             FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
                             byte[] buffer = new byte[4096];
                             int bytesRead;
-                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            while ((bytesRead = Objects.requireNonNull(inputStream).read(buffer)) != -1) {
                                 fileOutputStream.write(buffer, 0, bytesRead);
                             }
                             // Close the streams
@@ -191,13 +191,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerAttempt() {
         // Get locale
-        String languageCode = Locale.getDefault().getLanguage();
         Call<MessageResponse> call = api.register(new RegisterRequest(
                 txtName.getText().toString(),
                 txtEmail.getText().toString(),
                 txtPhone.getText().toString().isEmpty() ? null : Long.parseLong(txtPhone.getText().toString()),
                 txtPassword.getText().toString(),
-                txtPasswordConfirm.getText().toString(), photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)), languageCode);
+                txtPasswordConfirm.getText().toString(), photo == null ? null : Base64.encodeToString(photo, Base64.DEFAULT)));
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
@@ -242,7 +241,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("Register Error: ", e.getMessage());
+                        Log.i("Register Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -252,7 +251,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // Check if activity is finishing
                 if (isFinishing()) return;
                 Toast.makeText(RegisterActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.e("Register Error: ", t.getMessage());
+                Log.e("Register Error: ", Objects.requireNonNull(t.getMessage()));
                 btnRegister.setEnabled(true);
             }
         });
@@ -267,8 +266,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Check if device has internet connection
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
         return activeNetworkInfo != null;
     }

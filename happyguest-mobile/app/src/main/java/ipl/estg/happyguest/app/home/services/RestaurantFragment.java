@@ -59,6 +59,7 @@ public class RestaurantFragment extends Fragment {
     private APIRoutes api;
     private int numPeople = -1;
     private String selectedSchedule;
+    private Long limitPeople;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -124,8 +125,8 @@ public class RestaurantFragment extends Fragment {
         // Add People Qnt Button
         binding.btnPeopleAdd.setOnClickListener(v -> {
             int qnt = Integer.parseInt(binding.txtNumPeople.getText().toString());
-            if (qnt < 25) {
-                binding.txtNumPeople.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
+            if (qnt < limitPeople) {
+                binding.btnPeopleAdd.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
                 String qntString = String.valueOf(qnt + 1);
                 numPeople = qnt + 1;
                 binding.txtNumPeople.setText(qntString);
@@ -138,7 +139,7 @@ public class RestaurantFragment extends Fragment {
         binding.btnPeopleRemove.setOnClickListener(v -> {
             int qnt = Integer.parseInt(binding.txtNumPeople.getText().toString());
             if (qnt > 0) {
-                binding.txtNumPeople.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
+                binding.btnPeopleRemove.setAnimation(AnimationUtils.loadAnimation(binding.getRoot().getContext(), R.anim.fade_in_fast));
                 String qntString = String.valueOf(qnt - 1);
                 numPeople = qnt - 1;
                 binding.txtNumPeople.setText(qntString);
@@ -173,7 +174,7 @@ public class RestaurantFragment extends Fragment {
             }
             return scheduleString.toString();
         } catch (Exception e) {
-            Log.e("populateFormatSchedule: ", e.getMessage());
+            Log.e("populateFormatSchedule: ", Objects.requireNonNull(e.getMessage()));
             return schedule;
         }
     }
@@ -250,7 +251,7 @@ public class RestaurantFragment extends Fragment {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             binding.spinnerSchedule.setAdapter(adapter);
         } catch (Exception e) {
-            Log.i("populateScheduleSpinner: ", e.getMessage());
+            Log.i("populateScheduleSpinner: ", Objects.requireNonNull(e.getMessage()));
             Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
             selectedSchedule = null;
         }
@@ -266,7 +267,7 @@ public class RestaurantFragment extends Fragment {
     }
 
     private void getServiceAttempt() {
-        Call<ServiceResponse> call = api.getService(1L);
+        Call<ServiceResponse> call = api.getService(4L);
         call.enqueue(new Callback<ServiceResponse>() {
             @Override
             public void onResponse(@NonNull Call<ServiceResponse> call, @NonNull retrofit2.Response<ServiceResponse> response) {
@@ -330,6 +331,8 @@ public class RestaurantFragment extends Fragment {
                     } else {
                         binding.restaurantService.txtDescription.setText(service.getDescriptionEN());
                     }
+                    // Get limit of people
+                    limitPeople = service.getLimit() != null ? service.getLimit() : 25;
                     populateScheduleSpinner(service.getSchedule());
                 } else {
                     Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
@@ -342,7 +345,7 @@ public class RestaurantFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetService Error: ", t.getMessage());
+                Log.i("GetService Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -435,7 +438,7 @@ public class RestaurantFragment extends Fragment {
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("RegisterReserve Error: ", e.getMessage());
+                        Log.i("RegisterReserve Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -445,12 +448,11 @@ public class RestaurantFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("RegisterReserve Error: ", t.getMessage());
+                Log.i("RegisterReserve Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.btnReserveCleaning.setEnabled(true);
                 binding.btnHistoryCleaning.setEnabled(true);
             }
         });
-
     }
 
     @Override

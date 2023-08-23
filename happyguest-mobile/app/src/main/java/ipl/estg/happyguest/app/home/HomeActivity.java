@@ -2,16 +2,27 @@ package ipl.estg.happyguest.app.home;
 
 import static ipl.estg.happyguest.utils.others.Images.getStreamByteFromImage;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,16 +37,27 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -44,10 +66,15 @@ import ipl.estg.happyguest.app.auth.LoginActivity;
 import ipl.estg.happyguest.databinding.ActivityHomeBinding;
 import ipl.estg.happyguest.utils.api.APIClient;
 import ipl.estg.happyguest.utils.api.APIRoutes;
+import ipl.estg.happyguest.utils.api.requests.CheckOutRequest;
+import ipl.estg.happyguest.utils.api.responses.CodesResponse;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.api.responses.UserResponse;
+import ipl.estg.happyguest.utils.models.Code;
+import ipl.estg.happyguest.utils.models.UserCode;
 import ipl.estg.happyguest.utils.others.CircleImage;
 import ipl.estg.happyguest.utils.others.CloseService;
+import ipl.estg.happyguest.utils.storage.HasCodes;
 import ipl.estg.happyguest.utils.storage.Token;
 import ipl.estg.happyguest.utils.storage.User;
 import retrofit2.Call;
@@ -56,13 +83,28 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
+    // Read QR Code
+    public final ActivityResultLauncher<Intent> qrCodeLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    IntentResult scanResult = IntentIntegrator.parseActivityResult(result.getResultCode(), result.getData());
+                    String scannedString = scanResult.getContents();
+                    if (scannedString != null && !scannedString.isEmpty()) {
+                        TextInputLayout inputCode = findViewById(R.id.inputCode);
+                        Objects.requireNonNull(inputCode.getEditText()).setText(scannedString);
+                    }
+                }
+            }
+    );
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     private User user;
     private APIRoutes api;
     private Token token;
+    private Button btnCheckOut;
     private Button btnLogout;
-    private int titleMaxWidth;
+    private ArrayList<Code> codes;
     private byte[] photo;
     // Select Image from Gallery and convert to byte array
     private final ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -72,13 +114,16 @@ public class HomeActivity extends AppCompatActivity {
                     if (result.getData() != null) {
                         Uri selectedImage = result.getData().getData();
                         try {
+                            if (selectedImage == null) {
+                                return;
+                            }
                             InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                             // Create a temporary file to save the image
                             File tempFile = File.createTempFile("temp_image", null, getCacheDir());
                             FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
                             byte[] buffer = new byte[4096];
                             int bytesRead;
-                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            while ((bytesRead = Objects.requireNonNull(inputStream).read(buffer)) != -1) {
                                 fileOutputStream.write(buffer, 0, bytesRead);
                             }
                             // Close the streams
@@ -112,6 +157,7 @@ public class HomeActivity extends AppCompatActivity {
         api = APIClient.getClient(token.getToken()).create(APIRoutes.class);
 
         setupNavigation();
+        setupFCMToken();
 
         // Resize title, logo and set profile image invisible
         binding.appBarHome.appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
@@ -120,9 +166,6 @@ public class HomeActivity extends AppCompatActivity {
             updateTitleAndLogoScale(percentage);
             updateProfileImageVisibility(percentage);
         });
-
-        // Title max width
-        titleMaxWidth = binding.appBarHome.txtBarTitle.getMaxWidth();
 
         // Open drawer
         binding.appBarHome.btnBarOpen.setOnClickListener(v -> binding.drawerLayout.open());
@@ -169,11 +212,15 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
 
-            // Check title size
+            // Set toolbar title lines
             if (binding.appBarHome.txtBarTitle.getText().toString().contains(" ")) {
-                binding.appBarHome.txtBarTitle.setMaxWidth(titleMaxWidth);
+                binding.appBarHome.txtBarTitle.setMinLines(2);
+                binding.appBarHome.txtBarTitle.setMaxLines(2);
+                binding.appBarHome.txtBarTitle.setMaxWidth(binding.appBarHome.txtBarTitle.getMinWidth());
             } else {
-                binding.appBarHome.txtBarTitle.setMaxWidth(0);
+                binding.appBarHome.txtBarTitle.setMinLines(1);
+                binding.appBarHome.txtBarTitle.setMaxLines(1);
+                binding.appBarHome.txtBarTitle.setMaxWidth(100000);
             }
 
             // Set profile image
@@ -215,6 +262,25 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
+        // Button Check-Out
+        btnCheckOut = findViewById(R.id.btnCheckout);
+        btnCheckOut.setOnClickListener(v -> {
+            // Check if user has already reviewed the app in the last 7 days
+            if (user.getLastReview() != null) {
+                try {
+                    DateFormat dateFormat = DateFormat.getDateInstance();
+                    Date lastReview = dateFormat.parse(user.getLastReview());
+                    if (lastReview != null && System.currentTimeMillis() - lastReview.getTime() < 7 * 24 * 60 * 60 * 1000) {
+                        showPopupCheckout();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showPopupNoReview();
+            }
+        });
+
         // Button logout
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
@@ -245,6 +311,198 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    private void setupFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        sendTokenAttempt(task.getResult());
+                    } else {
+                        Toast.makeText(this, getString(R.string.notifications_error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void sendTokenAttempt(String tkn) {
+        Call<MessageResponse> call = api.sendFCMToken(tkn);
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.notifications_error), Toast.LENGTH_SHORT).show();
+                    Log.e("SendFCMToken Error: ", Objects.requireNonNull(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.e("SendFCMToken Error: ", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    private void showPopupNoReview() {
+        LayoutInflater inflater = (LayoutInflater) binding.getRoot().getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_no_review));
+
+        // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        LinearLayout layout = popupView.findViewById(R.id.buttonsPopUp);
+        layout.setVisibility(View.GONE);
+
+        LinearLayout layout2 = popupView.findViewById(R.id.buttonsReview);
+        layout2.setVisibility(View.VISIBLE);
+
+        // No popup
+        Button btnNo = popupView.findViewById(R.id.btnNo);
+        btnNo.setOnClickListener(view1 -> {
+            popupWindow.dismiss();
+            showPopupCheckout();
+        });
+
+        // Yes popup
+        Button btnYes = popupView.findViewById(R.id.btnYes);
+        btnYes.setOnClickListener(view1 -> {
+            popupWindow.dismiss();
+            binding.drawerLayout.close();
+            changeFragment(R.id.action_nav_register_review);
+        });
+    }
+
+    private void showPopupCheckout() {
+        LayoutInflater inflater = (LayoutInflater) binding.getRoot().getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup, null);
+
+        // Create the popup window
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Set background color
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));
+
+        // Set popup texts
+        ((TextView) popupView.findViewById(R.id.textViewPopUp)).setText(getString(R.string.title_checkOut));
+        TextView description = popupView.findViewById(R.id.txtRegionDescription);
+        description.setVisibility(View.VISIBLE);
+        description.setText(getString(R.string.description_checkOut));
+
+        // Show the popup window
+        popupWindow.setAnimationStyle(R.style.PopupAnimation);
+        popupWindow.showAtLocation(binding.getRoot(), Gravity.CENTER, 0, 0);
+
+        // Spinner Codes
+        Spinner spinner = popupView.findViewById(R.id.spinnerCode);
+        getCodesAttempt(spinner);
+
+        // Close popup
+        ImageButton btnPopClose = popupView.findViewById(R.id.btnClose);
+        btnPopClose.setOnClickListener(view1 -> popupWindow.dismiss());
+
+        // Confirm popup
+        Button btnPopConfirm = popupView.findViewById(R.id.btnConfirm);
+        btnPopConfirm.setOnClickListener(view1 -> {
+            if (spinner.getSelectedItemPosition() == 0 || codes.isEmpty()) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.select_code), Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                checkOutAttempt(codes.get(spinner.getSelectedItemPosition() - 1).getId());
+            }
+            binding.drawerLayout.close();
+            popupWindow.dismiss();
+        });
+    }
+
+    private void checkOutAttempt(Long code) {
+        String date = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(new Date());
+        Call<MessageResponse> call = api.checkOut(new CheckOutRequest(user.getId(), code, date));
+        call.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MessageResponse> call, @NonNull Response<MessageResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Display success message and change fragment
+                    Toast.makeText(binding.getRoot().getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    // If no more codes available, update fragment
+                    if (codes.size() == 1) {
+                        changeFragment(R.id.action_nav_home);
+                        HasCodes hasCodes = new HasCodes(getApplicationContext());
+                        hasCodes.setHasCode(false, "");
+                        homeWithCodes(false);
+                    }
+                } else {
+                    try {
+                        if (response.errorBody() != null) {
+                            // Get response errors
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            if (jObjError.has("errors")) {
+                                JSONObject errors = jObjError.getJSONObject("errors");
+                                Toast.makeText(binding.getRoot().getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(binding.getRoot().getContext(), jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException | IOException e) {
+                        Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                        Log.i("CheckOut Error: ", Objects.requireNonNull(e.getMessage()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+                Log.i("CheckOut Error: ", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    private void getCodesAttempt(Spinner spinner) {
+        Call<CodesResponse> call = api.getUserCodes(user.getId(), 1, "V");
+        call.enqueue(new Callback<CodesResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CodesResponse> call, @NonNull Response<CodesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    codes = new ArrayList<>();
+                    ArrayList<String> codesCode = new ArrayList<>();
+                    codesCode.add(getString(R.string.select_code));
+                    ArrayList<UserCode> userCodes = response.body().getData();
+                    for (UserCode userCode : userCodes) {
+                        codes.add(userCode.getCode());
+                        codesCode.add(userCode.getCode().getCode());
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_spinner_item, codesCode);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    spinner.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                    Log.i("GetCodes Error: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CodesResponse> call, @NonNull Throwable t) {
+                Toast.makeText(binding.getRoot().getContext(), getString(R.string.codes_error), Toast.LENGTH_SHORT).show();
+                Log.i("GetCodes Error: ", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
@@ -259,19 +517,19 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void homeWithCodes(boolean hasCode) {
+        if (btnCheckOut != null) {
+            if (hasCode) {
+                btnCheckOut.setVisibility(View.VISIBLE);
+            } else {
+                btnCheckOut.setVisibility(View.GONE);
+            }
+        }
+    }
+
     public void openWebsite(String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(browserIntent);
-    }
-
-    public void homeWithCodes(boolean hasCode) {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        List<Integer> menuItemIds = Collections.emptyList(); // TODO: Add check-out menu item
-        // Show or hide multiple menu items
-        for (int menuItemId : menuItemIds) {
-            MenuItem menuItem = navigationView.getMenu().findItem(menuItemId);
-            menuItem.setVisible(hasCode);
-        }
     }
 
     public void changeFragment(int id) {
@@ -326,6 +584,17 @@ public class HomeActivity extends AppCompatActivity {
             case 'O':
                 binding.appBarHome.txtBarTitle.setText(R.string.menu_reserve);
                 break;
+        }
+
+        // Set toolbar title lines
+        if (binding.appBarHome.txtBarTitle.getText().toString().contains(" ")) {
+            binding.appBarHome.txtBarTitle.setMinLines(2);
+            binding.appBarHome.txtBarTitle.setMaxLines(2);
+            binding.appBarHome.txtBarTitle.setMaxWidth(binding.appBarHome.txtBarTitle.getMinWidth());
+        } else {
+            binding.appBarHome.txtBarTitle.setMinLines(1);
+            binding.appBarHome.txtBarTitle.setMaxLines(1);
+            binding.appBarHome.txtBarTitle.setMaxWidth(100000);
         }
     }
 
@@ -419,7 +688,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.data_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetMe Error: ", t.getMessage());
+                Log.i("GetMe Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -451,10 +720,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(HomeActivity.this, getString(R.string.logout_error), Toast.LENGTH_SHORT).show();
-                Log.i("Logout Error: ", t.getMessage());
+                Log.i("Logout Error: ", Objects.requireNonNull(t.getMessage()));
                 btnLogout.setEnabled(true);
             }
         });
     }
-
 }

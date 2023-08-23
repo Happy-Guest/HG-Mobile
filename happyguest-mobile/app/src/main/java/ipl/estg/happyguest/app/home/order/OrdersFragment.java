@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
 import ipl.estg.happyguest.databinding.FragmentOrdersBinding;
@@ -49,7 +50,7 @@ public class OrdersFragment extends Fragment {
         if (getArguments() != null) {
             Bundle args = getArguments();
             selectedType = args.getString("filter") == null ? "ALL" : args.getString("filter");
-            switch (selectedType) {
+            switch (Objects.requireNonNull(selectedType)) {
                 case "OC":
                     binding.spinnerSelectType.setSelection(1);
                     break;
@@ -191,7 +192,7 @@ public class OrdersFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.orders_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetOrders Error: ", t.getMessage());
+                Log.i("GetOrders Error: ", Objects.requireNonNull(t.getMessage()));
                 binding.spinnerSelectType.setEnabled(true);
             }
         });

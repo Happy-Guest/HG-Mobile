@@ -117,7 +117,7 @@ public class HotelFragment extends Fragment {
                 // Check if this fragment is still attached to the activity
                 if (!isAdded()) return;
                 Toast.makeText(binding.getRoot().getContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.i("GetHotel Error: ", t.getMessage());
+                Log.i("GetHotel Error: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

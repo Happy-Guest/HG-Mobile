@@ -160,8 +160,10 @@
         app:errorEnabled="true"
         app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:errorTextColor="#B84141"
+        app:helperText="@string/optional"
         app:startIconDrawable="@drawable/comment_icon"
-        app:startIconTint="@color/gold">
+        app:startIconTint="@color/gold"
+        tools:ignore="VisualLintBounds">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtComment"
@@ -198,7 +200,7 @@
         app:icon="@drawable/complaint_add_icon"
         app:iconPadding="-25dp"
         app:iconTint="@color/black"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck,VisualLintBounds" />
 
     <Button
         android:id="@+id/btnHistoryObjects"
@@ -214,6 +216,7 @@
         android:textSize="17sp"
         app:icon="@drawable/history_icon"
         app:iconPadding="-25dp"
-        app:iconTint="@color/black" />
+        app:iconTint="@color/black"
+        tools:ignore="VisualLintBounds" />
 
 </LinearLayout>

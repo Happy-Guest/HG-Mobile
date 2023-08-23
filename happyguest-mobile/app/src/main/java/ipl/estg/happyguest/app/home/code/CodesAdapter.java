@@ -30,8 +30,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ipl.estg.happyguest.R;
+import ipl.estg.happyguest.app.home.HomeActivity;
 import ipl.estg.happyguest.utils.api.APIRoutes;
 import ipl.estg.happyguest.utils.api.responses.MessageResponse;
 import ipl.estg.happyguest.utils.models.Code;
@@ -148,6 +150,10 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
                         hasCodes.setHasCode(false, "");
                         ((Activity) context).findViewById(R.id.txtCodeText).setVisibility(View.VISIBLE);
                         ((Activity) context).findViewById(R.id.txtNoCodes).setVisibility(View.VISIBLE);
+                        if (context instanceof HomeActivity) {
+                            HomeActivity homeActivity = (HomeActivity) context;
+                            homeActivity.homeWithCodes(false);
+                        }
                     }
                 } else {
                     try {
@@ -159,7 +165,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
                         }
                     } catch (JSONException | IOException e) {
                         Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                        Log.i("DisassociateCode Error: ", e.getMessage());
+                        Log.i("DisassociateCode Error: ", Objects.requireNonNull(e.getMessage()));
                     }
                 }
             }
@@ -167,7 +173,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder> 
             @Override
             public void onFailure(@NonNull Call<MessageResponse> call, @NonNull Throwable t) {
                 Toast.makeText(context.getApplicationContext(), context.getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-                Log.e("DisassociateCode Error: ", t.getMessage());
+                Log.e("DisassociateCode Error: ", Objects.requireNonNull(t.getMessage()));
                 btnRemove.setEnabled(true);
             }
         });

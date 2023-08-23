@@ -330,7 +330,8 @@
                     android:elevation="10dp"
                     android:text="@string/home_btn_complaints"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
 
                 <TextView
                     android:id="@+id/txtReviews"
@@ -368,7 +369,8 @@
                 android:id="@+id/subInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="VisualLintBounds">
 
                 <ImageButton
                     android:id="@+id/imgHotel"
@@ -408,7 +410,7 @@
                 android:layout_marginBottom="-22dp"
                 android:orientation="horizontal"
                 android:translationY="-45dp"
-                tools:ignore="TextSizeCheck">
+                tools:ignore="TextSizeCheck,VisualLintBounds">
 
                 <TextView
                     android:id="@+id/txtHotel"

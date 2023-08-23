@@ -69,6 +69,10 @@ public class ReservesAdapter extends RecyclerView.Adapter<ReservesAdapter.ViewHo
                 break;
             case "A":
                 reserveStatus = context.getString(R.string.accepted);
+                holder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#BA810F")));
+                break;
+            case "F":
+                reserveStatus = context.getString(R.string.finished);
                 holder.status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF189329")));
                 break;
             case "C":
