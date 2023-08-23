@@ -61,7 +61,7 @@ public interface APIRoutes {
 
     @POST("users/token")
     @Headers("Accept: application/json")
-    Call<MessageResponse> sendFCMToken(@Body String token);
+    Call<MessageResponse> sendFCMToken(@Query("token") String token);
 
     // User
 
