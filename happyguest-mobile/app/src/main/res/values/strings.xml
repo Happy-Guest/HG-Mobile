@@ -91,6 +91,7 @@
     <string name="open_more">Open</string>
     <string name="qr_code">QR Code</string>
     <string name="scan_qr_code">Scan QR Code</string>
+    <string name="optional">Optional</string>
 
     <!-- Home -->
     <string name="home_services">Room Services</string>
@@ -186,7 +187,6 @@
     <string name="error_file_app">Error opening file!</string>
     <string name="error_cancel">Error canceling order!</string>
     <string name="notifications_error">Error enabling notifications!</string>
-    <string name="notifications_disabled">Notifications will not be received!</string>
 
     <!-- Input Errors -->
     <string name="email_required">Enter your email.</string>

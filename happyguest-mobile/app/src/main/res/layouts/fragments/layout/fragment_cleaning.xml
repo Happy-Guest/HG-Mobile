@@ -101,6 +101,7 @@
         app:errorEnabled="true"
         app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:errorTextColor="#B84141"
+        app:helperText="@string/optional"
         app:startIconDrawable="@drawable/comment_icon"
         app:startIconTint="@color/gold">
 

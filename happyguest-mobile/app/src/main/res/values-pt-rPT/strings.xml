@@ -91,6 +91,7 @@
     <string name="open_more">Abrir</string>
     <string name="qr_code">Código QR</string>
     <string name="scan_qr_code">Ler Código QR</string>
+    <string name="optional">Opcional</string>
 
     <!-- Home -->
     <string name="home_services">Serviços de Quarto</string>
