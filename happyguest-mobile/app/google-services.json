@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "825950088067",
+    "project_id": "happyguest-ipl",
+    "storage_bucket": "happyguest-ipl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825950088067:android:10c137480401ad849064b6",
+        "android_client_info": {
+          "package_name": "ipl.estg.happyguest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825950088067-ql7hdtqpisdn4a8totb6kntbn6oe5omh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe2CS0tCb7lGwD9lNsbkvnmWUqK59a840"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825950088067-ql7hdtqpisdn4a8totb6kntbn6oe5omh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
