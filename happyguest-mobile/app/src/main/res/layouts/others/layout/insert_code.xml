@@ -40,7 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputCode"
-            android:layout_width="300dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
