@@ -272,6 +272,8 @@ public class HomeActivity extends AppCompatActivity {
                     Date lastReview = dateFormat.parse(user.getLastReview());
                     if (lastReview != null && System.currentTimeMillis() - lastReview.getTime() < 7 * 24 * 60 * 60 * 1000) {
                         showPopupCheckout();
+                    } else {
+                        showPopupNoReview();
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
