@@ -143,6 +143,7 @@
                             app:errorEnabled="true"
                             app:errorTextAppearance="@style/TextAppearance.AppCompat.Small"
                             app:errorTextColor="#B84141"
+                            app:helperText="@string/optional"
                             app:startIconDrawable="@android:drawable/stat_sys_phone_call"
                             app:startIconTint="@color/gold">
 
