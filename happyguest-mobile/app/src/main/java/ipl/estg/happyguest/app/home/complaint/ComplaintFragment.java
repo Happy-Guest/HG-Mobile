@@ -132,7 +132,7 @@ public class ComplaintFragment extends Fragment {
                     binding.txtComment.setText(complaint.getComment());
                     // Response
                     binding.txtResponse.setText(complaint.getResponse() != null ? complaint.getResponse() : getString(R.string.no_response));
-                    if (complaint.getResponse() != null && !complaint.getResponse().isEmpty() && !Objects.equals(complaint.getResponse(), "Sem resposta")) {
+                    if (complaint.getResponse() != null && !complaint.getResponse().isEmpty() && !Objects.equals(complaint.getResponse(), "Sem resposta") && !Objects.equals(complaint.getResponse(), "No Response")) {
                         binding.txtResponse.setTextColor(ContextCompat.getColor(binding.getRoot().getContext(), R.color.dark_gray));
                         String dateUpdateAt = getString(R.string.response_date) + ": " + complaint.getUpdatedAt();
                         binding.txtResponseDate.setText(dateUpdateAt);
